@@ -148,6 +148,7 @@ if (isset($submit) && $submit) {
 	}
 	$poster_ip = $REMOTE_ADDR;
 	$is_html_disabled = false;
+	$message = htmlspecialchars($message);
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
 		$is_html_disabled = true;
 		if (isset($quote) && $quote) {
@@ -156,9 +157,6 @@ if (isset($submit) && $submit) {
 			// escaped HTML code in them. We want to fix this up right here:
 			$message = preg_replace("#&lt;font\ size\=-1&gt;\[\ $edit_by(.*?)\ \]&lt;/font&gt;#si", '[ ' . $edit_by . '\1 ]', $message);
 		}
-	}
-	else{
-		$message = htmlspecialchars($message);
 	}
 	if ( (isset($allow_bbcode) && $allow_bbcode == 1) && !isset($bbcode)) {
 		$message = bbencode($message, $is_html_disabled);
