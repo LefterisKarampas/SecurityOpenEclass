@@ -147,9 +147,9 @@ if (isset($submit) && $submit) {
 		}
 	}
 	$poster_ip = $REMOTE_ADDR;
-	$is_html_disabled = false;
+	$is_html_disabled = true;
+	$message = htmlspecialchars($message);
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
-		$message = htmlspecialchars($message);
 		$is_html_disabled = true;
 		if (isset($quote) && $quote) {
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
