@@ -74,6 +74,9 @@ hContent;
 include_once("./config.php");
 include("functions.php");
 
+$forum = intval($forum);
+$topic = intval($topic);
+$post_id = intval($post_id);
 if (isset($post_id) && $post_id) {
 	// We have a post id, so include that in the checks..
 	$sql  = "SELECT f.forum_type, f.forum_name, f.forum_access, t.topic_title ";
