@@ -249,7 +249,7 @@ do {
 	} else {
 		$postTitle = "";
 	}
-
+	$message = undo_htmlspecialchars($message);
 	$tool_content .= "<td class=\"$row_color\">
 	<div class='post_massage'>
 	<img src='$posticon' alt='' />
