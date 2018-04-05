@@ -148,7 +148,7 @@ if (isset($submit) && $submit) {
 	}
 	$poster_ip = $REMOTE_ADDR;
 	$is_html_disabled = false;
-	if ( (isset($allow_html) && $allow_html != 0)){ 
+	if ( (isset($allow_html) && $allow_html == 0)){ 
 		$message = htmlspecialchars($message);
 	}
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
