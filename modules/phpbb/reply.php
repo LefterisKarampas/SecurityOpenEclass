@@ -147,11 +147,10 @@ if (isset($submit) && $submit) {
 		}
 	}
 	$poster_ip = $REMOTE_ADDR;
-	$is_html_disabled = false;
+	$is_html_disabled = true; //its always disabled (WE disable it after)
 	$debugmessage1 = $message;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
 		if (isset($quote) && $quote) {			
-			$is_html_disabled = true; // just leave this here as it was
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
 			// If it's been edited more than once, there might be old "edited by" strings with
 			// escaped HTML code in them. We want to fix this up right here:
