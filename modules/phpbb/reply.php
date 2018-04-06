@@ -150,8 +150,8 @@ if (isset($submit) && $submit) {
 	$is_html_disabled = false;
 	$debugmessage1 = $message;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
+		$is_html_disabled = true;			
 		if (isset($quote) && $quote) {
-			$is_html_disabled = true;			
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
 			// If it's been edited more than once, there might be old "edited by" strings with
 			// escaped HTML code in them. We want to fix this up right here:
