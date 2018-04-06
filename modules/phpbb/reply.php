@@ -150,6 +150,7 @@ if (isset($submit) && $submit) {
 	$is_html_disabled = false;
 	$debugmessage1 = $message;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
+		debug_to_console("In the fucking if");
 		$is_html_disabled = true;			
 		if (isset($quote) && $quote) {
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
