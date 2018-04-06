@@ -225,12 +225,12 @@ if (isset($submit) && $submit) {
 	$forward = 1;
 	$tool_content .= "<div id=\"operations_container\">
 	<ul id=\"opslist\">
-	<script>console.log('debugMessage1: $debugMessage1'</script>
-	<script>console.log('debugMessage2: $debugMessage2'</script>
-	<script>console.log('debugMessage3: $debugMessage3'</script>
-	<script>console.log('debugMessage4: $debugMessage4'</script>
-	<script>console.log('debugMessage5: $debugMessage5'</script>
-	<script>console.log('debugMessage6: $debugMessage6'</script>
+	<script>console.log('debugMessage1: $debugMessage1')</script>
+	<script>console.log('debugMessage2: $debugMessage2')</script>
+	<script>console.log('debugMessage3: $debugMessage3')</script>
+	<script>console.log('debugMessage4: $debugMessage4')</script>
+	<script>console.log('debugMessage5: $debugMessage5')</script>
+	<script>console.log('debugMessage6: $debugMessage6')</script>
 	<li><a href=\"viewtopic.php?topic=$topic&forum=$forum&$total_topic\">$langViewMessage</a></li>
 	<li><a href=\"viewforum.php?forum=$forum&$total_forum\">$langReturnTopic</a></li>
 	</ul></div><br />";
