@@ -162,7 +162,8 @@ if (isset($submit) && $submit) {
 		//since it is not disabled htmlspecialchars will be used
 		$message = bbencode($message, $is_html_disabled);
 	}
-	else { //if it isnt used by whatever the fuck they intended to use, use it yourself
+	else if (!$is_html_disabled) {
+		//if it isnt used by WHATEVER THE FUCK they intended to use, use it yourself
 		$message = htmlspecialchars($message);
 	}
 	$message = format_message($message);
