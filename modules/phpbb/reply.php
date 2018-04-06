@@ -188,6 +188,7 @@ if (isset($submit) && $submit) {
 	if ($this_post) {
 		$sql = "INSERT INTO posts_text (post_id, post_text) VALUES ($this_post, " .
                         autoquote($message) . ")";
+		$debugsql = $sql;                   
 		$result = db_query($sql, $currentCourseID); 
 	}
 	$sql = "UPDATE topics SET topic_replies = topic_replies+1, topic_last_post_id = $this_post, topic_time = '$time' 
@@ -231,6 +232,7 @@ if (isset($submit) && $submit) {
 	<li>$debugmessage4</li>
 	<li>$debugmessage5</li>
 	<li>$debugmessage6</li>
+	<li>$debugsql</li>
 	<li><a href=\"viewtopic.php?topic=$topic&forum=$forum&$total_topic\">$langViewMessage</a></li>
 	<li><a href=\"viewforum.php?forum=$forum&$total_forum\">$langReturnTopic</a></li>
 	</ul></div><br />";
