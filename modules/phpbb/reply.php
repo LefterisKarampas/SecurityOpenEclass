@@ -148,9 +148,7 @@ if (isset($submit) && $submit) {
 	}
 	$poster_ip = $REMOTE_ADDR;
 	$is_html_disabled = false;
-	$debugmessage1 = $message;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
-		debug_to_console("In the fucking if");
 		$is_html_disabled = true;			
 		if (isset($quote) && $quote) {
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
@@ -159,31 +157,25 @@ if (isset($submit) && $submit) {
 			$message = preg_replace("#&lt;font\ size\=-1&gt;\[\ $edit_by(.*?)\ \]&lt;/font&gt;#si", '[ ' . $edit_by . '\1 ]', $message);
 		}
 	}
-	$debugmessage2 = $message;
 	if ( (isset($allow_bbcode) && $allow_bbcode == 1) && !isset($bbcode)) {
 		$message = bbencode($message, $is_html_disabled);
 	}
-	$debugmessage3 = $message;
 
 	$message = format_message($message);
 	$time = date("Y-m-d H:i");
 	$nom = addslashes($nom);
 	$prenom = addslashes($prenom);
 
-	$debugmessage4 = $message;
-	//----------------------------------------------
-	//HTMLSPECIALCHARS BEFORE INSERT IF ITS NOT HTML
-	if (!$is_html_disabled) {
-		$message = htmlspecialchars($message);
-	}
-	//----------------------------------------------
-	$debugmessage5 = $message;
+	//-------------------------------------
+	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
+	$message = undo_htmlspecialchars($message);
+	$message = htmlspecialchars($message);
+	//-------------------------------------
 
 	//to prevent [addsig] from getting in the way, let's put the sig insert down here.
 	if (isset($sig) && $sig) {
 		$message .= "\n[addsig]";
 	}
-	$debugmessage6 = $message;
 	$sql = "INSERT INTO posts (topic_id, forum_id, poster_id, post_time, poster_ip, nom, prenom)
 			VALUES ('$topic', '$forum', '$uid','$time', '$poster_ip', '$nom', '$prenom')";
 	$result = db_query($sql, $currentCourseID);
@@ -191,7 +183,6 @@ if (isset($submit) && $submit) {
 	if ($this_post) {
 		$sql = "INSERT INTO posts_text (post_id, post_text) VALUES ($this_post, " .
                         autoquote($message) . ")";
-		$debugsql = $sql;                   
 		$result = db_query($sql, $currentCourseID); 
 	}
 	$sql = "UPDATE topics SET topic_replies = topic_replies+1, topic_last_post_id = $this_post, topic_time = '$time' 
@@ -229,13 +220,6 @@ if (isset($submit) && $submit) {
 	$forward = 1;
 	$tool_content .= "<div id=\"operations_container\">
 	<ul id=\"opslist\">
-	<li>$debugmessage1</li>
-	<li>$debugmessage2</li>
-	<li>$debugmessage3</li>
-	<li>$debugmessage4</li>
-	<li>$debugmessage5</li>
-	<li>$debugmessage6</li>
-	<li>$debugsql</li>
 	<li><a href=\"viewtopic.php?topic=$topic&forum=$forum&$total_topic\">$langViewMessage</a></li>
 	<li><a href=\"viewforum.php?forum=$forum&$total_forum\">$langReturnTopic</a></li>
 	</ul></div><br />";
