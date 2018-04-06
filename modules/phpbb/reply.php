@@ -148,6 +148,7 @@ if (isset($submit) && $submit) {
 	}
 	$poster_ip = $REMOTE_ADDR;
 	$is_html_disabled = false;
+	$debugMessage1 = $message;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
 		if (isset($quote) && $quote) {			
 			$is_html_disabled = true; // just leave this here as it was
@@ -157,24 +158,29 @@ if (isset($submit) && $submit) {
 			$message = preg_replace("#&lt;font\ size\=-1&gt;\[\ $edit_by(.*?)\ \]&lt;/font&gt;#si", '[ ' . $edit_by . '\1 ]', $message);
 		}
 	}
+	$debugMessage2 = $message;
 	if ( (isset($allow_bbcode) && $allow_bbcode == 1) && !isset($bbcode)) {
 		$message = bbencode($message, $is_html_disabled);
 	}
+	$debugMessage3 = $message;
 
 	$message = format_message($message);
 	$time = date("Y-m-d H:i");
 	$nom = addslashes($nom);
 	$prenom = addslashes($prenom);
 
+	$debugMessage4 = $message;
 	//-----------------------------------------
 	//ALWAYS USE HTMLSPECIALCHARS BEFORE INSERT
 	$message = htmlspecialchars($message);
 	//-----------------------------------------
+	$debugMessage5 = $message;
 
 	//to prevent [addsig] from getting in the way, let's put the sig insert down here.
 	if (isset($sig) && $sig) {
 		$message .= "\n[addsig]";
 	}
+	$debugMessage6 = $message;
 	$sql = "INSERT INTO posts (topic_id, forum_id, poster_id, post_time, poster_ip, nom, prenom)
 			VALUES ('$topic', '$forum', '$uid','$time', '$poster_ip', '$nom', '$prenom')";
 	$result = db_query($sql, $currentCourseID);
@@ -219,6 +225,12 @@ if (isset($submit) && $submit) {
 	$forward = 1;
 	$tool_content .= "<div id=\"operations_container\">
 	<ul id=\"opslist\">
+	<script>console.log('debugMessage1: $debugMessage1'</script>
+	<script>console.log('debugMessage2: $debugMessage2'</script>
+	<script>console.log('debugMessage3: $debugMessage3'</script>
+	<script>console.log('debugMessage4: $debugMessage4'</script>
+	<script>console.log('debugMessage5: $debugMessage5'</script>
+	<script>console.log('debugMessage6: $debugMessage6'</script>
 	<li><a href=\"viewtopic.php?topic=$topic&forum=$forum&$total_topic\">$langViewMessage</a></li>
 	<li><a href=\"viewforum.php?forum=$forum&$total_forum\">$langReturnTopic</a></li>
 	</ul></div><br />";
