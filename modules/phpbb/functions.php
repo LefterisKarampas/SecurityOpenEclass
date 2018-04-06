@@ -1018,3 +1018,11 @@ function format_message($message)
                         array('<s><font color="red">', '</font></s>', '<font color="#0000FF">', '</font>'),
                         $message);
 }
+
+function debug_to_console( $data ) {
+    $output = $data;
+    if ( is_array( $output ) )
+        $output = implode( ',', $output);
+
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+}
