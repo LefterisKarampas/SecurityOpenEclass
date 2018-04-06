@@ -521,15 +521,17 @@ function bbencode_code($message, $is_html_disabled)
 			{
 				$before_replace = escape_slashes(preg_quote($matches[1][$j]));
 				$after_replace = $matches[1][$j];
-				
-				if (($i < 2) && !$is_html_disabled)
-				{
-					// don't escape special chars when we're nested, 'cause it was already done
-					// at the lower level..
-					// also, don't escape them if HTML is disabled in this post. it'll already be done
-					// by the posting routines.
-					$after_replace = htmlspecialchars($after_replace);	
-				}
+
+        // Never use htmlspecialchars for encode (WE should do that ourselves everytime!!)
+
+				// if (($i < 2) && !$is_html_disabled)
+				// {
+				// 	// don't escape special chars when we're nested, 'cause it was already done
+				// 	// at the lower level..
+				// 	// also, don't escape them if HTML is disabled in this post. it'll already be done
+				// 	// by the posting routines.
+				// 	$after_replace = htmlspecialchars($after_replace);	
+				// }
 				
 				$str_to_match = $start_tag . $before_replace . $end_tag;
 				

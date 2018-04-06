@@ -149,9 +149,8 @@ if (isset($submit) && $submit) {
 	$poster_ip = $REMOTE_ADDR;
 	$is_html_disabled = false;
 	if ( (isset($allow_html) && $allow_html == 0) || isset($html)) {
-		if (isset($quote) && $quote) {
-			$message = htmlspecialchars($message);
-			$is_html_disabled = true;
+		if (isset($quote) && $quote) {			
+			$is_html_disabled = true; // just leave this here as it was
 			$edit_by = get_syslang_string($sys_lang, "l_editedby");
 			// If it's been edited more than once, there might be old "edited by" strings with
 			// escaped HTML code in them. We want to fix this up right here:
@@ -159,17 +158,18 @@ if (isset($submit) && $submit) {
 		}
 	}
 	if ( (isset($allow_bbcode) && $allow_bbcode == 1) && !isset($bbcode)) {
-		//since it is not disabled htmlspecialchars will be used
 		$message = bbencode($message, $is_html_disabled);
 	}
-	else if (!$is_html_disabled) {
-		//if it isnt used by WHATEVER THE FUCK they intended to use, use it yourself
-		$message = htmlspecialchars($message);
-	}
+
 	$message = format_message($message);
 	$time = date("Y-m-d H:i");
 	$nom = addslashes($nom);
 	$prenom = addslashes($prenom);
+
+	//-----------------------------------------
+	//ALWAYS USE HTMLSPECIALCHARS BEFORE INSERT
+	$message = htmlspecialchars($message);
+	//-----------------------------------------
 
 	//to prevent [addsig] from getting in the way, let's put the sig insert down here.
 	if (isset($sig) && $sig) {
