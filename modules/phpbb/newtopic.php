@@ -128,18 +128,27 @@ if (isset($submit) && $submit) {
 	}
 	$is_html_disabled = false;
 	if ((isset($allow_html) && $allow_html == 0) || isset($html)) {
-		$message = htmlspecialchars($message);
 		$is_html_disabled = true;
 	}
 	if ((isset($allow_bbcode) && $allow_bbcode == 1) && !($_POST['bbcode'])) {
 		$message = bbencode($message, $is_html_disabled);
 	}
 	$message = format_message($message);
-	$subject = strip_tags($subject);
+
+	// makotora
+	//use htmlspecialchars as well for subject 
+	//in case strip_tags doesnt do the trick
+	$subject = undo_redo_hsc(strip_tags($subject));
+	
 	$poster_ip = $REMOTE_ADDR;
 	$time = date("Y-m-d H:i");
 	$nom = addslashes($nom);
 	$prenom = addslashes($prenom);
+
+	//-------------------------------------
+	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
+	$message = undo_redo_hsc($message);
+	//-------------------------------------
 
 	if (isset($sig) && $sig) {
 		$message .= "\n[addsig]";

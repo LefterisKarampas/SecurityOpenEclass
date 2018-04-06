@@ -110,7 +110,6 @@ if ($is_adminOfCourse) { // course admin
 		// IF we made it this far we are allowed to edit this message, yay!
 		$is_html_disabled = false;
 		if ( (isset($allow_html) && $allow_html == 0) || isset($html) ) {
-			$message = htmlspecialchars($message);
 			$is_html_disabled = true;
 		}
 		if ( isset($allow_bbcode) && $allow_bbcode == 1 && !isset($bbcode)) {
@@ -119,6 +118,12 @@ if ($is_adminOfCourse) { // course admin
 		if (isset($message)) {
 			$message = format_message($message);
 		}
+
+		//-------------------------------------
+		//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
+		$message = undo_redo_hsc($message);
+		//-------------------------------------
+
 		if (!isset($delete) || !$delete) {
 			$forward = 1;
 			$topic = $topic_id;
@@ -305,7 +310,12 @@ if ($is_adminOfCourse) { // course admin
 		$message = stripslashes($message);
 		$message = bbdecode($message);
 		$message = undo_make_clickable($message);
-		$message = undo_htmlspecialchars($message);
+
+		//This used to only undo html special chars
+		//Which could cause XSS upon editing a message
+		$message = undo_redo_hsc($message);
+		
+
 		// Special handling for </textarea> tags in the message, which can break the editing form..
 		$message = preg_replace('#</textarea>#si', '&lt;/TEXTAREA&gt;', $message);
 		list($day, $time) = split(" ", $myrow["post_time"]);
@@ -335,7 +345,7 @@ if ($is_adminOfCourse) { // course admin
 		<table class='xinha_editor'>
 		<tr>
 		<td>
-		<textarea id='xinha' name='message' rows='10' cols='50' class='FormData_InputText'>" . q($message) . "</textarea>
+		<textarea id='xinha' name='message' rows='10' cols='50' class='FormData_InputText'>" . $message . "</textarea>
 		</td></tr></table>
 		</td>
 		</tr>

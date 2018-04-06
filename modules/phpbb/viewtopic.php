@@ -244,6 +244,11 @@ do {
 	// support for math symbols
 	$message = mathfilter($message, 12, "../../courses/mathimg/");
 
+	//-------------------------------------
+	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
+	$message = undo_redo_hsc($message);
+	//-------------------------------------
+
 	if ($count == 0) {
 		$postTitle = "$langPostTitle: <b>$topic_subject</b>";
 	} else {

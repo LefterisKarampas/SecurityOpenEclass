@@ -1026,3 +1026,7 @@ function debug_to_console( $data ) {
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
 }
+
+function undo_redo_hsc($data) {
+  return htmlspecialchars(undo_htmlspecialchars($data));
+}

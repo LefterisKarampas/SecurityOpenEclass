@@ -168,8 +168,7 @@ if (isset($submit) && $submit) {
 
 	//-------------------------------------
 	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
-	$message = undo_htmlspecialchars($message);
-	$message = htmlspecialchars($message);
+	$message = undo_redo_hsc($message); //I made this function as a shortcut
 	//-------------------------------------
 
 	//to prevent [addsig] from getting in the way, let's put the sig insert down here.
