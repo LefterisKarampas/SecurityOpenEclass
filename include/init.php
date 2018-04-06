@@ -112,7 +112,7 @@ if (!$db) {
 if (mysql_version()) {
   mysql_query("SET NAMES utf8");
   mysql_query("SET CHARACTER SET utf8");
-  mysqli_set_charset($db, "utf8");
+  mysql_set_charset("utf8", $db);
 }
 mysql_select_db($mysqlMainDb, $db);
 
