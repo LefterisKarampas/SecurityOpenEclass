@@ -109,7 +109,10 @@ if (isset($_SESSION['langswitch'])) {
 if (!$db) {
 	include 'not_installed.php';
 }
-if (mysql_version()) mysql_query("SET NAMES utf8");
+if (mysql_version()) {
+  mysql_query("SET NAMES utf8");
+  mysql_query("SET CHARACTER SET utf8");
+}
 mysql_select_db($mysqlMainDb, $db);
 
 // include_messages
