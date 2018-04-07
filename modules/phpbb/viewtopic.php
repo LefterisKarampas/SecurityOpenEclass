@@ -84,6 +84,9 @@ if (isset($_GET['all'])) {
         $paging = true;
 }
 
+$forum=intval($forum);
+$topic=intval($topic);
+
 $sql = "SELECT f.forum_type, f.forum_name
 	FROM forums f, topics t 
 	WHERE (f.forum_id = '$forum') AND (t.topic_id = $topic) AND (t.forum_id = f.forum_id)";

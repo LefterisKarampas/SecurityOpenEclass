@@ -84,6 +84,12 @@ if ($is_adminOfCourse || $is_admin) {
 	</ul></div><br />";
 }
 
+$cours_id = intval($cours_id);
+$forum_id = intval($forum_id);
+$forumcatnotify = intval($forumcatnotify);
+$cat_id = intval($cat_id);
+$forumnotify = intval($forumnotify);
+
 if(isset($forumcatnotify)) { // modify forum category notification
 		$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify 
 			WHERE user_id = $uid AND cat_id = $cat_id AND course_id = $cours_id", $mysqlMainDb));
@@ -160,7 +166,7 @@ if ($total_categories) {
 			}
 		}
 		$title = stripslashes($categories[$i]["cat_title"]);
-		$catNum = $categories[$i]["cat_id"];
+		$catNum = intval($categories[$i]["cat_id"]);
 		list($action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify 
 				WHERE user_id = $uid AND cat_id = $catNum AND course_id = $cours_id", $mysqlMainDb));
 		if (!isset($action_notify)) {

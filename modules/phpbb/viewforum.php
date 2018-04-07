@@ -142,6 +142,10 @@ if ($total_topics > $topics_per_page) { // navigation
 	$tool_content .= "</td></tr></table>";
 }
 
+$topic_id = intval($topic_id);
+$cours_id = intval($cours_id);
+$topicnotify = intval($topicnotify);
+
 if(isset($topicnotify)) { // modify topic notification
 	$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify 
 		WHERE user_id = $uid AND topic_id = $topic_id AND course_id = $cours_id", $mysqlMainDb));
