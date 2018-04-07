@@ -130,6 +130,8 @@ hContent;
 // main program
 //-------------------------------------------
 
+$id = intval($id);
+
 if ($is_adminOfCourse) {
 	if (isset($grade_comments)) {
 		$nameTools = $m['WorkView'];
