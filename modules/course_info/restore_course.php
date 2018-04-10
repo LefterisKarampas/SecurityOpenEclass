@@ -226,7 +226,8 @@ function course_units($title, $comments, $visibility, $order, $resource_units) {
 	global $action, $new_course_id, $mysqlMainDb;
 	
 	if (!$action) return;
-	
+	$title = htmlspecialchars($title);
+	$comments = htmlspecialchars($comments);
 	db_query("INSERT into `$mysqlMainDb`.course_units
 		(title, comments, visibility, `order`, course_id)
 		VALUES (".

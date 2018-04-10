@@ -588,7 +588,7 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 				$order = $maxorder + 1;
 
 				// add unit
-				db_query("INSERT INTO course_units SET title = '" . $unit[KEY_TITLE] ."', 
+				db_query("INSERT INTO course_units SET title = '" . htmlspecialchars($unit[KEY_TITLE]) ."', 
 						comments = '" . $unit[KEY_DESCRIPTION] ."', `order` = '" . $order ."', course_id = '" . $cid ."'");
 				$unitId = mysql_insert_id();
 				list($unitResOrder) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$unitId"));
