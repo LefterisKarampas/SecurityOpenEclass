@@ -241,16 +241,16 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
 {
 	global $tool_content, $workPath;
 
-  //XSS FIX
-  $title = htmlspecialchars($title);
-  $comments = htmlspecialchars($comments);
-  $desc = htmlspecialchars($desc);
-
   //MYTODO FIX INJECTION WITH PREPARED STATEMENT
   //FOR NOW REMOVE QUOTES TO AVOID SQL ERRORS CAUSED BY XSS ATTEMPT
   $title = removeQuotes($title);
   $comments = removeQuotes($comments);
   $desc = removeQuotes($desc);
+
+  //XSS FIX
+  $title = htmlspecialchars($title);
+  $comments = htmlspecialchars($comments);
+  $desc = htmlspecialchars($desc);
 
 	$secret = uniqid("");
 	db_query("INSERT INTO assignments
@@ -273,7 +273,7 @@ function submit_work($id) {
 
   //XSS FIX
   //NEEDS PREPARED UNDO QUOTES FOR NOW
-  $stud_comments = removeQuotes(htmlspecialchars($stud_comments));
+  $stud_comments = htmlspecialchars(removeQuotes($stud_comments));
 
 	//DUKE Work submission bug fix.
 	//Do not allow work submission if:
@@ -560,9 +560,9 @@ function edit_assignment($id)
 
   //MYTODO needs prepared statement to fix sql injection
   //XSS FIX (FOR NOW REMOVE QUOTES, USE PREPARED AFTER)
-  $fixed_title = removeQuotes(htmlspecialchars($_POST['title']));
-  $fixed_desc = removeQuotes(htmlspecialchars($_POST['desc']));
-  $fixed_comments = removeQuotes(htmlspecialchars($_POST['comments']));
+  $fixed_title = htmlspecialchars(removeQuotes($_POST['title']));
+  $fixed_desc = htmlspecialchars(removeQuotes($_POST['desc']));
+  $fixed_comments = htmlspecialchars(removeQuotes($_POST['comments']));
 
 	if (db_query("UPDATE assignments SET title=".autoquote($fixed_title).",
 		description=".autoquote($fixed_desc).", group_submissions=".autoquote($_POST['group_submissions']).",
@@ -1229,7 +1229,7 @@ function submit_grade_comments($id, $sid, $grade, $comment)
 
   //XSS FIX
   //NEEDS PREPARED STATEMENT UNDO QUOTES FOR NOW
-  $comment = removeQuotes(htmlspecialchars($comment));
+  $comment = htmlspecialchars(removeQuotes($comment));
 
 	global $tool_content, $REMOTE_ADDR, $langGrades, $langWorkWrongInput;
 
