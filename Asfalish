@@ -19,10 +19,10 @@
 	- adminannouncements.php (XSS) Still Admin xss when modifies announcement
 
 5. Create course (modules/create_course/create_course.php)
-	-Nothing yet (XSS)
+	-Nothing yet (XSS maybe not sure)
 
 6. Display Course (modules/course_home/course_home.php)
-	-Nothing yet (XSS)
+	-Nothing yet (XSS Thematikes enothtes)
 
 7. Agenda (modules/agenda)
 	- Nothing yet (SQL Injection)
