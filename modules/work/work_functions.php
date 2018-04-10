@@ -75,6 +75,8 @@ function table_row($title, $content)
 // use the assignment's id instead. Also insures that secret subdir exists
 function work_secret($id)
 {
+	$id = intval($id); //SQL INJECTION FIX
+
 	global $currentCourseID, $workPath, $tool_content, $coursePath;
 	
 	$res = db_query("SELECT secret_directory FROM assignments WHERE id = '$id'", $currentCourseID);
@@ -103,6 +105,8 @@ function work_secret($id)
 // Is this a group assignment?
 function is_group_assignment($id)
 {
+	$id = intval($id); //SQL INJECTION FIX
+
 	global $tool_content;
 	$res = db_query("SELECT group_submissions FROM assignments WHERE id = '$id'");
 	if ($res) {
@@ -122,6 +126,11 @@ function is_group_assignment($id)
 // Doesn't delete files if they are the same with $new_filename
 function delete_submissions_by_uid($uid, $gid, $id, $new_filename = '')
 {
+	//SQL INJECTION FIX
+	$uid = intval($uid);
+	$gid = intval($gid);
+	$id = intval($id);
+
 	global $m, $tool_content;
 	$return="";
 	$res = db_query("SELECT * FROM assignment_submit WHERE
@@ -168,7 +177,10 @@ function greek_to_latin($string)
 
 // Returns an array of a group's members' uids
 function group_members($gid)
-{	
+{
+	//SQL INJECTION FIX
+	$gid = intval($gid);
+
 	global $currentCourseID, $tool_content;
 
 	$members = array();
@@ -185,6 +197,9 @@ function group_members($gid)
 // a group's members
 function group_member_names($gid)
 {
+	//SQL INJECTION FIX
+	$gid = intval($gid);
+
 	global $tool_content;
 	$start = TRUE;
 	$names= '';
@@ -206,6 +221,10 @@ function group_member_names($gid)
 // Find submission by a user (or the user's group)
 function find_submission($uid, $id)
 {
+	//SQL INJECTION FIX
+	$uid = intval($uid);
+	$id = intval($id);
+
 	global $tool_content;
 	if (is_group_assignment($id)) {
 		$gid = user_group($uid);
@@ -231,6 +250,9 @@ function find_submission($uid, $id)
 // grade or professor comment is set
 function submission_grade($subid)
 {
+	//SQL INJECTION FIX
+	$subid = intval($subid);
+
 	global $m, $tool_content;
 
 	$res = mysql_fetch_row(db_query("SELECT grade, grade_comments
@@ -256,6 +278,10 @@ function submission_grade($subid)
 // assignments were found.
 function was_graded($uid, $id, $ret_val = FALSE)
 {
+	//SQL INJECTION FIX
+	$uid = intval($uid);
+	$id = intval($id);
+
 	global $tool_content;
 	$gid = user_group($uid);
 	$res = db_query("SELECT * FROM assignment_submit
@@ -280,6 +306,9 @@ function was_graded($uid, $id, $ret_val = FALSE)
 // Show details of a submission
 function show_submission_details($id)
 {
+	//SQL INJECTION FIX
+	$id = intval($id);
+
 	global $uid, $m, $currentCourseID, $langSubmittedAndGraded, $tool_content;
 
 	$sub = mysql_fetch_array(
@@ -332,6 +361,11 @@ function show_submission_details($id)
 // for assignment id. Returns 'user' if by user, 'group' if by group
 function was_submitted($uid, $gid, $id)
 {
+	//SQL INJECTION FIX
+	$uid = intval($uid);
+	$gid = intval($gid);
+	$id = intval($id);
+	
 	global $tool_content;
 	if (mysql_num_rows(db_query(
 		"SELECT id FROM assignment_submit WHERE assignment_id = '$id'

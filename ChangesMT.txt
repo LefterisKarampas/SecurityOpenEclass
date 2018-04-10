@@ -1,0 +1,7 @@
+-- modules/work/work_functions.php
+
+  Sql injection fix
+    Use intval function for ids (I checked that they are all ints) in functions:
+    work_secret, is_group_assignment, delete_submissions_by_uid, group_members
+    group_member_names, find_submission, submission_grade, was_graded
+    show_submission_details, was_submitted
