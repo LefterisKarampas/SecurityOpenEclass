@@ -215,8 +215,8 @@ if (get_magic_quotes_gpc()) {
 }
 
 function removeQuotes($str) {
-	str_replace('"', "", $str);
-	str_replace("'", "", $str);
+	$str = str_replace('"', "", $str);
+	$str = str_replace("'", "", $str);
 	return $str;
 }
 

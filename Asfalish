@@ -26,6 +26,10 @@
 	(admin side) SQL injection in insert and update!!
 	FIXED XSS REMOVING QUOTES FOR NOW
 
+	<!>New sql injection
+	NOT DONE NEEDS PREPARED STATEMENT
+	student add assignment possible sql injection from insert quer
+
 4. Admin Announcements (modules/admin) 
 	- adminannouncements.php (XSS) Still Admin xss when modifies announcement
 
