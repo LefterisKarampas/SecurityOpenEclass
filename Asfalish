@@ -1,0 +1,27 @@
+1. Thlesynergasia (modules/conference)
+	-MessageList.php (XSS line 127)
+
+2. Perioxes Syzhthsewn (modules/phpbb) 
+	- viewforum.php (SQL Injection)
+	- viewtopic.php (SQL Injection)
+	- newtopic.php (SQL Injection not for title)
+	- reply.php (SQL Injection)
+	- index.php (SQL Injection for alarm)
+
+3. Ergasies (modules/work) 
+	-Nothing yet (XSS and SQL Injection)
+
+4. Admin Announcements (modules/admin/adminannouncements.php)
+	-Nothing yet (XSS)
+
+5. Create course (modules/create_course/create_course.php)
+	-Nothing yet (XSS)
+
+6. Display Course (modules/course_home/course_home.php)
+	-Nothing yet (XSS)
+
+7. Agenda (modules/agenda)
+	- Nothing yet (SQL Injection)
+
+8. Search User (modules/admin/search_user.php)
+	- Nothing yet (SQL Injection)
