@@ -104,6 +104,8 @@ list($maxorder) = mysql_fetch_row($result);
 
 // other actions in course unit
 if ($is_adminOfCourse) {
+        $title = htmlspecialchars($title);
+        $descr = htmlspecialchars($descr);
         if (isset($_REQUEST['edit_submit'])) {
                 $title = autoquote($_REQUEST['unittitle']);
                 $descr = autoquote($_REQUEST['unitdescr']);
