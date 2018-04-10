@@ -77,6 +77,10 @@ include("functions.php"); // application logic for phpBB
 /******************************************************************************
  * Actual code starts here
  *****************************************************************************/
+
+$post_id = intval($post_id);
+$topic = intval($topic);
+$forum = intval($forum);
 if ($is_adminOfCourse) { // course admin 
 	if (isset($submit) && $submit) {
 		$sql = "SELECT * FROM posts WHERE post_id = '$post_id'";
