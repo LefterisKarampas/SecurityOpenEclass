@@ -1,18 +1,22 @@
-1. Thlesynergasia (modules/conference)
+1. Thlesynergasia (modules/conference) DONE
 	-MessageList.php (XSS line 127)
-
-2. Perioxes Syzhthsewn (modules/phpbb) 
+ 
+2. Perioxes Syzhthsewn (modules/phpbb) DONE
 	- viewforum.php (SQL Injection)
 	- viewtopic.php (SQL Injection)
-	- newtopic.php (SQL Injection not for title)
-	- reply.php (SQL Injection)
+	- newtopic.php (SQL Injection)
+	- reply.php (SQL Injection and XSS)
 	- index.php (SQL Injection for alarm)
+	- editpost.php (SQL Injection and XSS)
 
 3. Ergasies (modules/work) 
-	-Nothing yet (XSS and SQL Injection)
+	- Nothing yet (XSS and SQL Injection)
+	- modules/work/grade_edit.php 
+	- Load file with xss
+	- XSS sxolia askhshs
 
-4. Admin Announcements (modules/admin/adminannouncements.php)
-	-Nothing yet (XSS)
+4. Admin Announcements (modules/admin) 
+	- adminannouncements.php (XSS) Still Admin xss when modifies announcement
 
 5. Create course (modules/create_course/create_course.php)
 	-Nothing yet (XSS)
@@ -22,6 +26,29 @@
 
 7. Agenda (modules/agenda)
 	- Nothing yet (SQL Injection)
+	- We can take cookie from here
 
-8. Search User (modules/admin/search_user.php)
+8. Thematikes Enothtes Mathimata (modules/units)
+	- Try but nothing yet (units/info.php, course_info/restore.php, betacms_bridge/include/bcms.inc.php ) (XSS)
+
+9. modules/admin/search_user.php
+	- Nothing yet (SQL Injection Prepared Statement)
+
+10. modules/admin/montlyReport.php
+	- Nothing yet (SQL Injection from Inspect Code on Month)
+
+11. modules/admin/listreq.php   DONE
 	- Nothing yet (SQL Injection)
+
+12. modules/admin/newuseradmin.php
+	- Nothing yet (SQL Injection Prepared Statement)
+
+13. modules/admin/addusertocours.php   DONE
+	- Nothing yet (SQL Injection)
+
+14. modules/course_info/infocours.php
+	- Nothing yet (SQL Injection Prepared Statement)
+
+15. modules/course_info/archive_course.php
+	- Nothing yet (SQL Injection Prepared Statement)
+

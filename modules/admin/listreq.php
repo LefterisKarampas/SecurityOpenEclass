@@ -95,6 +95,9 @@ switch ($show) {
 // -----------------------------------
 // display closed requests 
 // ----------------------------------
+
+$id = intval($id);
+
 if (!empty($show) && ($show=="closed")) {
 	if (!empty($id) && ($id>0)) {
 		// restore request
