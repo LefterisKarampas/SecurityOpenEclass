@@ -306,10 +306,11 @@ function was_graded($uid, $id, $ret_val = FALSE)
 // Show details of a submission
 function show_submission_details($id)
 {
+	global $uid, $m, $currentCourseID, $langSubmittedAndGraded, $tool_content;
+
 	//SQL INJECTION FIX
 	$id = intval($id);
-
-	global $uid, $m, $currentCourseID, $langSubmittedAndGraded, $tool_content;
+	$uid = intval($uid);
 
 	$sub = mysql_fetch_array(
 		db_query("SELECT * FROM assignment_submit

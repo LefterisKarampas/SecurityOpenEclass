@@ -212,6 +212,8 @@ draw($tool_content, 2, 'work', $head_content.$local_head);
 // Show details of a student's submission to professor
 function show_submission($sid)
 {
+  $sid = intval($sid); //SQL INJECTION FIX
+
 	global $tool_content, $langWorks, $langSubmissionDescr, $langNotice3;
 
 	$nameTools = $langWorks;
@@ -239,6 +241,12 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
 {
 	global $tool_content, $workPath;
 
+  //XSS FIX
+  $title = htmlspecialchars($title);
+  $comments = htmlspecialchars($comments);
+  $desc = htmlspecialchars($desc);
+
+  //MYTODO FIX INJECTION WITH PREPARED STATEMENT
 	$secret = uniqid("");
 	db_query("INSERT INTO assignments
 		(title, description, comments, deadline, submission_date, secret_directory,
@@ -251,9 +259,15 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
 
 
 function submit_work($id) {
-
 	global $tool_content, $workPath, $uid, $stud_comments, $group_sub, $REMOTE_ADDR, $langUploadSuccess,
 	$langBack, $langWorks, $langUploadError, $currentCourseID, $langExerciseNotPermit, $langUnwantedFiletype;
+
+  //SQL INJECTION FIX
+  $id = intval($id);
+  $uid = intval($uid);
+
+  //XSS FIX
+  $stud_comments = htmlspecialchars($stud_comments);
 
 	//DUKE Work submission bug fix.
 	//Do not allow work submission if:
@@ -289,7 +303,7 @@ function submit_work($id) {
 		}
 	} //checks for submission validity end here
 
-  	$res = db_query("SELECT title FROM assignments WHERE id = '$id'");
+  $res = db_query("SELECT title FROM assignments WHERE id = '$id'");
 	$row = mysql_fetch_array($res);
 
 	$nav[] = array("url"=>"work.php", "name"=> $langWorks);
@@ -313,6 +327,10 @@ function submit_work($id) {
 	$secret = work_secret($id);
         $ext = get_file_extension($_FILES['userfile']['name']);
 	$filename = "$secret/$local_name" . (empty($ext)? '': '.' . $ext);
+
+  //it says filename but it is actually the path..
+  $filename = htmlspecialchars($filename); //XSS FIX
+
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], "$workPath/$filename")) {
 		$msg2 = "$langUploadSuccess";//to message
 		$group_id = user_group($uid, FALSE);
@@ -321,14 +339,14 @@ function submit_work($id) {
 			db_query("INSERT INTO assignment_submit
 				(uid, assignment_id, submission_date, submission_ip, file_path,
 				file_name, comments, group_id) VALUES ('$uid','$id', NOW(),
-				'$REMOTE_ADDR', '$filename','".$_FILES['userfile']['name'].
-				"', '$stud_comments', '$group_id')", $currentCourseID);
+				'$REMOTE_ADDR', '$filename','".htmlspecialchars($_FILES['userfile']['name']).
+				"', '$stud_comments', '$group_id')", $currentCourseID);//XSS FIX
 		} else {
 			db_query("INSERT INTO assignment_submit
 				(uid, assignment_id, submission_date, submission_ip, file_path,
 				file_name, comments) VALUES ('$uid','$id', NOW(), '$REMOTE_ADDR',
-				'$filename','".$_FILES['userfile']['name'].
-				"', '$stud_comments')", $currentCourseID);
+				'$filename','".htmlspecialchars($_FILES['userfile']['name']).
+				"', '$stud_comments')", $currentCourseID);//XSS FIX
 		}
 
 		$tool_content .="<p class='success_small'>$msg2<br />$msg1<br /><a href='work.php'>$langBack</a></p><br />";
@@ -438,6 +456,8 @@ function date_form($day, $month, $year)
 //form for editing
 function show_edit_assignment($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	global $tool_content, $m, $langEdit, $langWorks, $langBack;
 	global $urlAppend;
 	global $end_cal_Work_db;
@@ -525,14 +545,18 @@ cData;
 // edit assignment
 function edit_assignment($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	global $tool_content, $langBackAssignment, $langEditSuccess, $langEditError, $langWorks, $langEdit;
 
 	$nav[] = array("url"=>"work.php", "name"=> $langWorks);
 	$nav[] = array("url"=>"work.php?id=$id", "name"=> $_POST['title']);
 
-	if (db_query("UPDATE assignments SET title=".autoquote($_POST['title']).",
-		description=".autoquote($_POST['desc']).", group_submissions=".autoquote($_POST['group_submissions']).",
-		comments=".autoquote($_POST['comments']).", deadline=".autoquote($_POST['WorkEnd'])." WHERE id='$id'")) {
+  //MYTODO needs prepared statement to fix sql injection
+  //XSS FIX
+	if (db_query("UPDATE assignments SET title=".autoquote(htmlspecialchars($_POST['title'])).",
+		description=".autoquote(htmlspecialchars($_POST['desc'])).", group_submissions=".autoquote($_POST['group_submissions']).",
+		comments=".autoquote(htmlspecialchars($_POST['comments'])).", deadline=".autoquote($_POST['WorkEnd'])." WHERE id='$id'")) {
 
         $title = autounquote($_POST['title']);
 	$tool_content .="<p class='success_small'>$langEditSuccess<br /><a href='work.php?id=$id'>$langBackAssignment '$title'</a></p><br />";
@@ -544,6 +568,7 @@ function edit_assignment($id)
 
 //delete assignment
 function delete_assignment($id) {
+  $id = intval($id);//SQL INJECTION FIX
 
 	global $tool_content, $workPath, $currentCourseID, $webDir, $langBack, $langDeleted;
 
@@ -565,6 +590,10 @@ function show_student_assignment($id)
 {
 	global $tool_content, $m, $uid, $langSubmitted, $langSubmittedAndGraded, $langNotice3,
 	$langWorks, $langUserOnly, $langBack, $langWorkGrade, $langGradeComments;
+
+  //SQL INJECTION FIX
+  $id = intval($id);
+  $uid = intval($uid);
 
 	$res = db_query("SELECT *, (TO_DAYS(deadline) - TO_DAYS(NOW())) AS days
 		FROM assignments WHERE id = '$id'");
@@ -608,6 +637,10 @@ function show_student_assignment($id)
 function show_submission_form($id)
 {
 	global $tool_content, $m, $langWorkFile, $langSendFile, $langSubmit, $uid, $langNotice3;
+
+  //SQL INJECTION FIX
+  $id = intval($id);
+  $uid = intval($uid);
 
 	if (is_group_assignment($id) and ($gid = user_group($uid))) {
 		$tool_content .= "<p>$m[this_is_group_assignment] ".
@@ -654,6 +687,7 @@ function assignment_details($id, $row, $message = null)
 	global $tool_content, $m, $langDaysLeft, $langDays, $langWEndDeadline, $langNEndDeadLine, $langNEndDeadline, $langEndDeadline;
 	global $langDelAssign, $is_adminOfCourse, $langZipDownload, $langSaved ;
 
+  $id = intval($id);//SQL INJECTION FIX
 
 	if ($is_adminOfCourse) {
 	$tool_content .= "
@@ -766,6 +800,9 @@ function sort_link($title, $opt, $attrib = '')
 // the optional message appears insted of assignment details
 function show_assignment($id, $message = FALSE)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+
 	global $tool_content, $m, $langBack, $langNoSubmissions, $langSubmissions, $mysqlMainDb, $langWorks;
 	global $langEndDeadline, $langWEndDeadline, $langNEndDeadline, $langDays, $langDaysLeft, $langGradeOk;
 	global $currentCourseID, $webDir, $urlServer, $nameTools, $langGraphResults, $m;
@@ -972,7 +1009,9 @@ cData;
 			}
 
 			$chart_path = 'courses/'.$currentCourseID.'/temp/chart_'.md5(serialize($chart)).'.png';
-			$chart->render($webDir.$chart_path);
+			// This lib is not installed properly (not our fault)
+      // Comment rendering out for now
+      //$chart->render($webDir.$chart_path);
 
 			$tool_content .= "
     <table width='99%' class='FormData'>
@@ -1011,6 +1050,8 @@ function show_student_assignments()
 
 	global $tool_content, $m, $uid;
 	global $langDaysLeft, $langDays, $langNoAssign, $urlServer;
+
+  $uid = intval($uid); //SQL INJECTION FIX
 
 	$result = db_query("SELECT *, (TO_DAYS(deadline) - TO_DAYS(NOW())) AS days FROM assignments
 			WHERE active = '1' ORDER BY submission_date");
@@ -1172,6 +1213,13 @@ cData;
 // submit grade and comment for a student submission
 function submit_grade_comments($id, $sid, $grade, $comment)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+  $sid = intval($sid);
+
+  //XSS FIX
+  $comment = htmlspecialchars($comment);
+
 	global $tool_content, $REMOTE_ADDR, $langGrades, $langWorkWrongInput;
 
 	$stupid_user = 0;
@@ -1195,11 +1243,15 @@ function submit_grade_comments($id, $sid, $grade, $comment)
 // submit grades to students
 function submit_grades($grades_id, $grades)
 {
+  //SQL INJECTION FIX
+  $grades_id = intval($grades_id);
+
 	global $tool_content, $REMOTE_ADDR, $langGrades, $langWorkWrongInput;
 
 	$stupid_user = 0;
 
 	foreach ($grades as $sid => $grade) {
+    $sid = intval($sid); //SQL INJECTION FIX
 		$val = mysql_fetch_row(db_query("SELECT grade from assignment_submit WHERE id = '$sid'"));
 		if ($val[0] != $grade) {
 			/*  If check expression is changed by nikos, in order to give to teacher
@@ -1212,6 +1264,7 @@ function submit_grades($grades_id, $grades)
 
 	if (!$stupid_user) {
 		foreach ($grades as $sid => $grade) {
+      $sid = intval($sid); //SQL INJECTION FIX
 			$val = mysql_fetch_row(db_query("SELECT grade from assignment_submit WHERE id = '$sid'"));
 			if ($val[0] != $grade) {
 				db_query("UPDATE assignment_submit SET grade='$grade',
@@ -1228,6 +1281,9 @@ function submit_grades($grades_id, $grades)
 // functions for downloading
 function send_file($id)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+
 	global $tool_content, $currentCourseID;
 	mysql_select_db($currentCourseID);
 	$info = mysql_fetch_array(mysql_query("SELECT * FROM assignment_submit WHERE id = '$id'"));
@@ -1242,6 +1298,9 @@ function send_file($id)
 // Zip submissions to assignment $id and send it to user
 function download_assignments($id)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+
 	global $tool_content, $workPath;
 
 	$secret = work_secret($id);
@@ -1263,9 +1322,12 @@ function download_assignments($id)
 // index.html works for the zip file
 function create_zip_index($path, $id, $online = FALSE)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+
 	global $tool_content, $charset, $m;
 
-	$fp = fopen($path, "w");
+	$fp = fopen($path, "w"); //SOS, MAYBE DO SOMETHING?
 	if (!$fp) {
 		die("Unable to create assignment index file - aborting");
 	}
@@ -1326,6 +1388,9 @@ function create_zip_index($path, $id, $online = FALSE)
 // Show a simple html page with grades and submissions
 function show_plain_view($id)
 {
+  //SQL INJECTION FIX
+  $id = intval($id);
+
 	global $tool_content, $workPath, $charset;
 	$secret = work_secret($id);
 	create_zip_index("$secret/index.html", $id, TRUE);

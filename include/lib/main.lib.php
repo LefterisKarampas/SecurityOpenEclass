@@ -221,6 +221,8 @@ if (get_magic_quotes_gpc()) {
 // Translate uid to username
 function uid_to_username($uid)
 {
+	$uid = intval($uid); //SQL INJECTION FIX
+
 	global $mysqlMainDb;
 
 	if ($r = mysql_fetch_row(db_query(
@@ -235,6 +237,8 @@ function uid_to_username($uid)
 // Translate uid to real name / surname
 function uid_to_name($uid)
 {
+	$uid = intval($uid); //SQL INJECTION FIX
+
 	global $mysqlMainDb;
 
 	if ($r = mysql_fetch_row(db_query("SELECT CONCAT(nom, ' ', prenom)
@@ -247,6 +251,8 @@ function uid_to_name($uid)
 // Translate uid to real firstname
 function uid_to_firstname($uid)
 {
+				$uid = intval($uid); //SQL INJECTION FIX
+
         global $mysqlMainDb;
 
         if ($r = mysql_fetch_row(db_query("SELECT prenom
@@ -261,6 +267,8 @@ function uid_to_firstname($uid)
 // Translate uid to real surname
 function uid_to_surname($uid)
 {
+				$uid = intval($uid); //SQL INJECTION FIX
+
         global $mysqlMainDb;
 
         if ($r = mysql_fetch_row(db_query("SELECT nom
@@ -274,6 +282,8 @@ function uid_to_surname($uid)
 // Translate uid to user email
 function uid_to_email($uid)
 {
+				$uid = intval($uid); //SQL INJECTION FIX
+
         global $mysqlMainDb;
 
         if ($r = mysql_fetch_row(db_query("SELECT email
@@ -288,6 +298,8 @@ function uid_to_email($uid)
 // Translate uid to AM (student number)
 function uid_to_am($uid)
 {
+	$uid = intval($uid); //SQL INJECTION FIX
+
 	global $mysqlMainDb;
 
 	if ($r = mysql_fetch_array(db_query("SELECT am from user
@@ -304,6 +316,8 @@ function uid_to_am($uid)
 // else returns FALSE;
 function user_group($uid, $required = TRUE)
 {
+	$uid = intval($uid); // SQL INJECTION FIX
+
 	global $currentCourseID;
 
 	$res = db_query("SELECT team FROM user_group WHERE user = '$uid'",
@@ -323,6 +337,8 @@ function user_group($uid, $required = TRUE)
 // find a group name
 function gid_to_name($gid)
 {
+	$gid = intval($gid); // SQL INJECTION FIX
+
 	global $currentCourseID;
 	if ($r = mysql_fetch_row(db_query("SELECT name FROM student_group
 		WHERE id = '".mysql_real_escape_string($gid)."'", $currentCourseID))) {
@@ -336,6 +352,8 @@ function gid_to_name($gid)
 // Find secret subdir of group gid
 function group_secret($gid)
 {
+	$gid = intval($gid); // SQL INJECTION FIX
+
 	global $currentCourseID;
 
 	$res = db_query("SELECT secretDirectory FROM student_group WHERE id = '$gid'",
@@ -408,6 +426,9 @@ function selection3($entries, $name, $default = '') {
 function check_admin() {
 
 	global $uid;
+
+	$uid = intval($uid); //SQL INJECTION FIX
+
 	// just make sure that the $uid variable isn't faked
 	if (isset($_SESSION['uid'])) $uid = $_SESSION['uid'];
 	else unset($uid);
@@ -427,6 +448,9 @@ function check_admin() {
 
 function check_guest() {
 	global $mysqlMainDb, $uid;
+	
+	$uid = intval($uid); //SQL INJECTION FIX
+	
 	if (isset($uid)) {
 		$res = db_query("SELECT statut FROM user WHERE user_id = '$uid'", $mysqlMainDb);
 		$g = mysql_fetch_row($res);
@@ -449,10 +473,12 @@ function check_guest() {
 function check_prof()
 {
 	global $mysqlMainDb, $uid, $require_current_course, $is_adminOfCourse;
+
 	if (isset($uid)) {
                 if (isset($require_current_course) and $is_adminOfCourse) {
                         return true;
                 }
+		$uid = intval($uid); //SQL INJECTION FIX
 		$res = db_query("SELECT statut FROM user WHERE user_id='$uid'", $mysqlMainDb);
 		$s = mysql_fetch_array($res);
 		if ($s['statut'] == 1)
@@ -473,7 +499,7 @@ function check_uid() {
 	global $urlServer, $require_valid_uid, $uid;
 
 	if (isset($_SESSION['uid']))
-	$uid = $_SESSION['uid'];
+	$uid = intval($_SESSION['uid']); //SQL INJECTION FIX
 	else
 	unset($uid);
 
@@ -590,6 +616,8 @@ function find_faculty_by_name($name) {
 
 // Returns the name of a faculty given its code or its name
 function find_faculty_by_id($id) {
+	$id = intval($id); // SQL INJECTION FIX
+
 	$req = mysql_query("SELECT name FROM faculte WHERE id = $id");
 	if ($req and mysql_num_rows($req)) {
 		$fac = mysql_fetch_row($req);
@@ -606,6 +634,7 @@ function find_faculty_by_id($id) {
 
 // Returns next available code for a new course in faculty with id $fac
 function new_code($fac) {
+	$fac = intval($fac); //SQL INJECTION FIX
 	global $mysqlMainDb;
 
 	mysql_select_db($mysqlMainDb);
@@ -669,6 +698,8 @@ function create_pass() {
 // Returns user's previous login date, or today's date if no previous login
 function last_login($uid)
 {
+				$uid = intval($uid); //SQL INJECTION FIX
+
         global $mysqlMainDb;
 
         $q = mysql_query("SELECT DATE_FORMAT(MAX(`when`), '%Y-%m-%d') FROM loginout
@@ -684,6 +715,7 @@ function last_login($uid)
 // check for new announcements
 function check_new_announce() {
         global $uid;
+        $uid = intval($uid); //SQL INJECTION FIX
 
         $lastlogin = last_login($uid);
         $q = mysql_query("SELECT * FROM annonces, cours_user
@@ -794,7 +826,7 @@ function format_bytesize ($kbytes, $dec_places = 2)
 function make_clickable_path($dbTable, $path)
 {
 	global $langRoot, $userGroupId;
-
+				//MYTODO ? not sure if I should mess with this
         if (isset($userGroupId)) {
                 $base = $_SERVER['PHP_SELF'] . '?userGroupId=' . $userGroupId . '&amp;';
         } else {
@@ -1130,6 +1162,8 @@ function video_url($table, $url, $path)
 // Use $condition as extra SQL to limit the operation
 function move_order($table, $id_field, $id, $order_field, $direction, $condition = '')
 {
+				$id = intval($id); //SQL INJECTION FIX
+
         if ($condition) {
                 $condition = ' AND ' . $condition;
         }
@@ -1222,6 +1256,8 @@ function course_code_to_title($code)
 // Find the course id of a course from its code
 function course_code_to_id($code)
 {
+				$code = intval($code); //SQL INJECTION FIX
+
         global $mysqlMainDb;
         $r = db_query("SELECT cours_id FROM cours WHERE code='$code'", $mysqlMainDb);
         if ($r and mysql_num_rows($r) > 0) {

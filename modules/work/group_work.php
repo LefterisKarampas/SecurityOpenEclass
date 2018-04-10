@@ -95,6 +95,9 @@ function show_assignments()
 {
 	global $m, $uid, $langSubmit, $langDays, $langNoAssign, $tool_content, $langWorks;
 
+  //SQL INJECTION FIX
+  $uid = intval($uid);
+
 	$res = db_query("SELECT *, (TO_DAYS(deadline) - TO_DAYS(NOW())) AS days
 		FROM assignments");
 
@@ -202,17 +205,21 @@ $tool_content .= "
 
 // Insert a group work submitted by user uid to assignment id
 function submit_work($uid, $id, $file) {
+  //SQL INJECTION FIX
+  $id = intval($id);
+  $uid = intval($uid);
+
 	global $groupPath, $langUploadError, $langUploadSuccess,
 		$langBack, $m, $currentCourseID, $tool_content, $workPath;
 
 	$group = user_group($uid);
 
-        $ext = get_file_extension($file);
+  $ext = get_file_extension($file);
 	$local_name = greek_to_latin('Group '. $group . (empty($ext)? '': '.' . $ext));
 
-        $r = mysql_fetch_row(db_query('SELECT filename FROM group_documents WHERE path = ' .
+  $r = mysql_fetch_row(db_query('SELECT filename FROM group_documents WHERE path = ' .
                                       autoquote($file)));
-        $original_filename = $r[0];
+  $original_filename = $r[0];
 
 	$source = $groupPath.$file;
 	$destination = work_secret($id)."/$local_name";

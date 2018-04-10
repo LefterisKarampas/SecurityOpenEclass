@@ -11,9 +11,17 @@
 
 3. Ergasies (modules/work) 
 	- Nothing yet (XSS and SQL Injection)
-	- modules/work/grade_edit.php 
+	CHECKED SEEMS DONE - modules/work/grade_edit.php 
 	- Load file with xss
-	- XSS sxolia askhshs
+	DONE - XSS sxolia askhshs
+	DONE - XSS grade comments (admin/instructor side)
+	DONE - SQL injections from ids (used intval)
+	DONE - Filename xss
+	
+	(NOT DONE NEEDS PREPARED STATEMENT):
+	<!>add_assignment() AND edit_assignment()
+	(admin side) SQL injection in insert and update!!
+	FIXED XSS
 
 4. Admin Announcements (modules/admin) 
 	- adminannouncements.php (XSS) Still Admin xss when modifies announcement
@@ -51,4 +59,7 @@
 
 15. modules/course_info/archive_course.php
 	- Nothing yet (SQL Injection Prepared Statement)
+
+16. main.lib.php (SQL INJECTIONS) DONE
+		Using intval for all ids
 

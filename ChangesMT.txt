@@ -1,7 +1,31 @@
+<!> move_order + video_url functions 
+TRYPIA SQL injection! (main.lib.php)
+NA DUME TI KANI AFTO KAPOIA STIGMI STIS DIKES MAS DOKIMES
+
 -- modules/work/work_functions.php
 
   Sql injection fix
-    Use intval function for ids (I checked that they are all ints) in functions:
-    work_secret, is_group_assignment, delete_submissions_by_uid, group_members
-    group_member_names, find_submission, submission_grade, was_graded
-    show_submission_details, was_submitted
+    Use intval function for ids (I checked that they are all ints) in functions (search for '//SQL INJECTION FIX')
+    {
+      work_secret, is_group_assignment, delete_submissions_by_uid, group_members
+      group_member_names, find_submission, submission_grade, was_graded
+      show_submission_details, was_submitted
+    }
+
+  -- modules/work/work.php
+    <!>comment PIECHART render because lib is not correctly installed and causes errors
+
+    <!> found fopen (search for '//SOS')
+
+    more intvals for sql injections (search for '//SQLINJECTION FIX')
+    functions:
+
+
+    XSS fix for grade_comments in function
+    submit_grade_comments
+
+    XSS fixes: student comments, filename/filepath, (admin)assignment add/edit
+
+
+--main.lib.php
+some intvals here as well (search for..)
