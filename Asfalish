@@ -13,15 +13,18 @@
 	- Nothing yet (XSS and SQL Injection)
 	CHECKED SEEMS DONE - modules/work/grade_edit.php 
 	- Load file with xss
-	DONE - XSS sxolia askhshs
-	DONE - XSS grade comments (admin/instructor side)
+	ALMOST DONE NEEDS PREPARED, removing quotes for now
+	{
+		XSS sxolia askhshs
+	 	XSS grade comments (admin/instructor side)
+	}
 	DONE - SQL injections from ids (used intval)
-	DONE - Filename xss
+	(TEST FILE OPEN) DONE - Filename/filepath xss
 	
 	(NOT DONE NEEDS PREPARED STATEMENT):
 	<!>add_assignment() AND edit_assignment()
 	(admin side) SQL injection in insert and update!!
-	FIXED XSS
+	FIXED XSS REMOVING QUOTES FOR NOW
 
 4. Admin Announcements (modules/admin) 
 	- adminannouncements.php (XSS) Still Admin xss when modifies announcement

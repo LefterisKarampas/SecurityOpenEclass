@@ -247,6 +247,11 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
   $desc = htmlspecialchars($desc);
 
   //MYTODO FIX INJECTION WITH PREPARED STATEMENT
+  //FOR NOW REMOVE QUOTES TO AVOID SQL ERRORS CAUSED BY XSS ATTEMPT
+  $title = removeQuotes($title);
+  $comments = removeQuotes($comments);
+  $desc = removeQuotes($desc);
+
 	$secret = uniqid("");
 	db_query("INSERT INTO assignments
 		(title, description, comments, deadline, submission_date, secret_directory,
@@ -267,7 +272,8 @@ function submit_work($id) {
   $uid = intval($uid);
 
   //XSS FIX
-  $stud_comments = htmlspecialchars($stud_comments);
+  //NEEDS PREPARED UNDO QUOTES FOR NOW
+  $stud_comments = removeQuotes(htmlspecialchars($stud_comments));
 
 	//DUKE Work submission bug fix.
 	//Do not allow work submission if:
@@ -553,10 +559,14 @@ function edit_assignment($id)
 	$nav[] = array("url"=>"work.php?id=$id", "name"=> $_POST['title']);
 
   //MYTODO needs prepared statement to fix sql injection
-  //XSS FIX
-	if (db_query("UPDATE assignments SET title=".autoquote(htmlspecialchars($_POST['title'])).",
-		description=".autoquote(htmlspecialchars($_POST['desc'])).", group_submissions=".autoquote($_POST['group_submissions']).",
-		comments=".autoquote(htmlspecialchars($_POST['comments'])).", deadline=".autoquote($_POST['WorkEnd'])." WHERE id='$id'")) {
+  //XSS FIX (FOR NOW REMOVE QUOTES, USE PREPARED AFTER)
+  $fixed_title = removeQuotes(htmlspecialchars($_POST['title']));
+  $fixed_desc = removeQuotes(htmlspecialchars($_POST['desc']));
+  $fixed_comments = removeQuotes(htmlspecialchars($_POST['comments']));
+
+	if (db_query("UPDATE assignments SET title=".autoquote($fixed_title).",
+		description=".autoquote($fixed_desc).", group_submissions=".autoquote($_POST['group_submissions']).",
+		comments=".autoquote($fixed_comments).", deadline=".autoquote($_POST['WorkEnd'])." WHERE id='$id'")) {
 
         $title = autounquote($_POST['title']);
 	$tool_content .="<p class='success_small'>$langEditSuccess<br /><a href='work.php?id=$id'>$langBackAssignment '$title'</a></p><br />";
@@ -1218,7 +1228,8 @@ function submit_grade_comments($id, $sid, $grade, $comment)
   $sid = intval($sid);
 
   //XSS FIX
-  $comment = htmlspecialchars($comment);
+  //NEEDS PREPARED STATEMENT UNDO QUOTES FOR NOW
+  $comment = removeQuotes(htmlspecialchars($comment));
 
 	global $tool_content, $REMOTE_ADDR, $langGrades, $langWorkWrongInput;
 
