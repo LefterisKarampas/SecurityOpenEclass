@@ -46,8 +46,10 @@ include 'admin.inc.php';
 include '../auth/auth.inc.php';
 include '../../include/jscalendar/calendar.php';
 
-if (isset($_GET['u']) or isset($_POST['u']))
+if (isset($_GET['u']) or isset($_POST['u'])){
+$u = intval($u);
 $_SESSION['u_tmp']=$u;
+}
 if(!isset($_GET['u']) or !isset($_POST['u']))
 $u=$_SESSION['u_tmp'];
 

