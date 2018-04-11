@@ -580,6 +580,9 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 			$result = db_query("SELECT cours_id FROM cours WHERE cours.code='" . $repertoire ."'");
 			$theCourse = mysql_fetch_array($result);
 			$cid = $theCourse["cours_id"];
+
+			//SQL INJECTION FIX
+			$cid = intval($cid);
 			
 			foreach ($_SESSION[IMPORT_UNITS] as $key => $unit) {
 				// find order
@@ -588,16 +591,24 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 				$order = $maxorder + 1;
 
 				// add unit
-				db_query("INSERT INTO course_units SET title = '" . htmlspecialchars($unit[KEY_TITLE]) ."', 
-						comments = '" . $unit[KEY_DESCRIPTION] ."', `order` = '" . $order ."', course_id = '" . $cid ."'");
+
+				//XSS + SQL INJECTION FIX
+				$unitTitle = xss_sql_filter($unit[KEY_TITLE]);
+				$unitComments = xss_sql_filter($unit[KEY_DESCRIPTION]);
+
+				db_query("INSERT INTO course_units SET title = '" . $unitTitle ."', 
+						comments = '" . $unitComments ."', `order` = '" . $order ."', course_id = '" . $cid ."'");
 				$unitId = mysql_insert_id();
 				list($unitResOrder) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$unitId"));
 				
 				// add unit texts
 				foreach ($unit[KEY_TEXTS] as $key => $text) {
 					$unitResOrder++;
+					//XSS + SQL INJECTION FIX
+					$textEscaped = xss_sql_filter($text);
+
 					db_query("INSERT INTO unit_resources SET unit_id=$unitId, type='text', title='', 
-						comments=" . autoquote($text) . ", visibility='v', `order`=$unitResOrder, `date`=NOW(), res_id=0");
+						comments=" . autoquote($textEscaped) . ", visibility='v', `order`=$unitResOrder, `date`=NOW(), res_id=0");
 				}
 				
 				// add unit scorms
@@ -612,9 +623,15 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 						} else {
 							$visibility = 'v';
 						}
+
+						//XSS + SQL INJECTION FIX
+						$nameEscaped = xss_sql_filter($lp['name']);
+						$commentEscaped = xss_sql_filter($lp['comment']);
+						$idEscaped = intval($lp[learnPath_id]);
+
 						db_query("INSERT INTO unit_resources SET unit_id=$unitId, type='lp', title=" .
-							quote($lp['name']) . ", comments=" . quote($lp['comment']) .
-							", visibility='$visibility', `order`=$unitResOrder, `date`=NOW(), res_id=$lp[learnPath_id]",
+							quote($nameEscaped) . ", comments=" . quote($commentEscaped) .
+							", visibility='$visibility', `order`=$unitResOrder, `date`=NOW(), res_id=$idEscaped",
 							$mysqlMainDb);
 					}
 				}
@@ -627,8 +644,13 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 						$file = mysql_fetch_array(db_query("SELECT * FROM document
 							WHERE id =" . intval($file_id), $repertoire), MYSQL_ASSOC);
 						$title = (empty($file['title']))? $file['filename']: $file['title'];
+
+						//XSS + SQL INJECTION FIX
+						$titleEscaped = xss_sql_filter($title);
+						$commentEscaped = xss_sql_filter($file['comment']);
+
 						db_query("INSERT INTO unit_resources SET unit_id=$unitId, type='doc', title=" .
-							 autoquote($title) . ", comments=" . autoquote($file['comment']) .
+							 autoquote($titleEscaped) . ", comments=" . autoquote($commentEscaped) .
 							 ", visibility='$file[visibility]', `order`=$unitResOrder, `date`=NOW(), res_id=$file[id]",
 							 $mysqlMainDb);
 					}

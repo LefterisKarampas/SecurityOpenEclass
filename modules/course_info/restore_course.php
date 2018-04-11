@@ -207,6 +207,11 @@ function course_details($code, $lang, $title, $desc, $fac, $vis, $prof, $type) {
 
 // inserting announcements into the main database
 function announcement($text, $date, $order, $title = '') {
+	//XSS + SQL INJECTION FIX
+	$text  = xss_sql_filter($text);
+	$date  = xss_sql_filter($date);
+	$order  = xss_sql_filter($order);
+
 	global $action, $new_course_id, $mysqlMainDb;
 	if (!$action) return;
 	db_query("INSERT into `$mysqlMainDb`.annonces
@@ -223,11 +228,13 @@ function announcement($text, $date, $order, $title = '') {
 
 // insert course units into the main database
 function course_units($title, $comments, $visibility, $order, $resource_units) {
+	//XSS + SQL INJECTION FIX
+	$title  = xss_sql_filter($title);
+	$comments  = xss_sql_filter($comments);
+
 	global $action, $new_course_id, $mysqlMainDb;
 	
 	if (!$action) return;
-	$title = htmlspecialchars($title);
-	$comments = htmlspecialchars($comments);
 	db_query("INSERT into `$mysqlMainDb`.course_units
 		(title, comments, visibility, `order`, course_id)
 		VALUES (".

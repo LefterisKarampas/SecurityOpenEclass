@@ -59,12 +59,19 @@ function confirmation ()
 ';
 
 //For statistics: record login
+
+//SQL INJECTION FIX
+$uid = intval($uid);
+$currentCourse = mysql_real_escape_string($currentCourse);
+$cours_id = intval($cours_id);
+$unit_id = intval($unit_id);
+
 $sql_log = "INSERT INTO logins SET user_id='$uid', ip='$REMOTE_ADDR', date_time=NOW()";
 db_query($sql_log, $currentCourse);
 include '../../include/action.php';
 $action = new action();
 $action->record('MODULE_ID_UNITS');
-
+ 
 $sql = 'SELECT `description`,`course_keywords`, `course_addon`,`faculte`,`lastEdit`,`type`, `visible`, `titulaires`, `fake_code` FROM `cours` WHERE `code` = "'.$currentCourse.'"';
 $res = db_query($sql, $mysqlMainDb);
 while($result = mysql_fetch_row($res)) {
@@ -104,11 +111,19 @@ list($maxorder) = mysql_fetch_row($result);
 
 // other actions in course unit
 if ($is_adminOfCourse) {
-        $title = htmlspecialchars($title);
-        $descr = htmlspecialchars($descr);
         if (isset($_REQUEST['edit_submit'])) {
-                $title = autoquote($_REQUEST['unittitle']);
-                $descr = autoquote($_REQUEST['unitdescr']);
+                //INIT
+                $title = $_REQUEST['unittitle'];
+                $descr = $_REQUEST['unitdescr'];
+
+                //XSS + SQL INJECTION FIX
+                $title = xss_sql_filter($title);
+                $descr = xss_sql_filter($descr);
+
+                //AUTOQUOTE
+                $title = autoquote($title);
+                $descr = autoquote($descr);
+
                 if (isset($_REQUEST['unit_id'])) { // update course unit
                         $unit_id = intval($_REQUEST['unit_id']);
                         $result = db_query("UPDATE course_units SET
@@ -117,6 +132,16 @@ if ($is_adminOfCourse) {
                                             WHERE id = $unit_id AND course_id = $cours_id");
 		        $main_content .= "\n      <p class='success_small'>$langCourseUnitModified</p>";
                 } else { // add new course unit
+                //INIT NOT NEEDED FOR INSERT
+
+                //XSS + SQL INJECTION FIX
+                $title = xss_sql_filter($title);
+                $descr = xss_sql_filter($descr);
+
+                //AUTOQUOTE
+                $title = autoquote($title);
+                $descr = autoquote($descr);
+
                         $order = $maxorder + 1;
                         db_query("INSERT INTO course_units SET
                                          title = $title, comments =  $descr,

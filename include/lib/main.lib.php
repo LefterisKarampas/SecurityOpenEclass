@@ -220,6 +220,15 @@ function removeQuotes($str) {
 	return $str;
 }
 
+
+//makotora shortcut for both xss and sql injection safety
+function xss_sql_filter($str) {
+	$str = htmlspecialchars($str);
+	$str = mysql_real_escape_string($str);
+
+	return $str;
+}
+
 // ------------------------------------------------------
 // Other useful functions. We use it in various scripts.
 // -----------------------------------------------------
