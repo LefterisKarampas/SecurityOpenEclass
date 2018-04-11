@@ -411,9 +411,13 @@ if (isset($_POST['create_course'])) {
                         faculteid = '".intval($facid)."',
                         first_create = NOW()");
         $new_cours_id = mysql_insert_id();
+
+        $new_cours_id = intval($new_cours_id);
+        $uid = intval($uid);
+        
         mysql_query("INSERT INTO cours_user SET
-                        cours_id =" intval($new_cours_id).",
-                        user_id = '".intval($uid)."',
+                        cours_id = '$new_cours_id',
+                        user_id = '$uid',
                         statut = '1',
                         tutor='1',
                         reg_date = CURDATE()");
