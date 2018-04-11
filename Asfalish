@@ -30,8 +30,8 @@
 	NOT DONE NEEDS PREPARED STATEMENT
 	student add assignment possible sql injection from insert quer
 
-4. Admin Announcements (modules/admin) 
-	- adminannouncements.php (XSS) Still Admin xss when modifies announcement
+4. Admin Announcements (modules/admin) DONE 
+	- adminannouncements.php (XSS)
 
 5. Create course (modules/create_course/create_course.php)
 	-Nothing yet (XSS maybe not sure)
@@ -49,17 +49,18 @@
 9. modules/admin/search_user.php
 	- Nothing yet (SQL Injection Prepared Statement)
 
-10. modules/admin/montlyReport.php
-	- Nothing yet (SQL Injection from Inspect Code on Month)
+10. modules/admin/montlyReport.php DONE
+	- SQL Injection
+	- XSS
 
 11. modules/admin/listreq.php   DONE
-	- Nothing yet (SQL Injection)
+	- SQL Injection
 
 12. modules/admin/newuseradmin.php
 	- Nothing yet (SQL Injection Prepared Statement)
 
 13. modules/admin/addusertocours.php   DONE
-	- Nothing yet (SQL Injection)
+	- SQL Injection
 
 14. modules/course_info/infocours.php
 	- Nothing yet (SQL Injection Prepared Statement)
