@@ -134,7 +134,7 @@ function insert_docs($id)
     $commentEscaped = xss_sql_filter($file['comment']);
 
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='doc', title=" .
-			 justjustQuote($titleEscaped) . ", comments=" . justjustQuote($commentEscaped) .
+			 justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
 			 ", visibility='$file[visibility]', `order`=$order, `date`=NOW(), res_id=$file[id]",
 			 $GLOBALS['mysqlMainDb']); 
 	}
@@ -156,7 +156,7 @@ function insert_text($id)
   $commentEscaped = xss_sql_filter($comments);
 
 	db_query("INSERT INTO unit_resources SET unit_id=$id, type='text', title='', 
-		comments=" . justjustQuote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
+		comments=" . justQuote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
 		$GLOBALS['mysqlMainDb']);
 			
 	header('Location: index.php?id=' . $id);
