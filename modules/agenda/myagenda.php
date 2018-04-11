@@ -88,6 +88,8 @@ function get_agendaitems($query, $month, $year) {
 	// get agenda-items for every course
 	while ($mycours = mysql_fetch_array($query))
 	{
+	$year=intval(&year);
+	$month=intval(&month);
 	$result = db_query("SELECT * FROM agenda WHERE month(day)='$month' AND year(day)='$year'","$mycours[k]");
 
 	    while ($item = mysql_fetch_array($result))
