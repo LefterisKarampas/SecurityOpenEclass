@@ -1229,7 +1229,9 @@ function move_order($table, $id_field, $id, $order_field, $direction, $condition
 // and is assumed that you're exiting the current unit unless $_GET['unit'] is set
 function add_units_navigation($entry_page = FALSE)
 {
-        global $navigation, $cours_id, $is_adminOfCourse, $mysqlMainDb;
+  global $navigation, $cours_id, $is_adminOfCourse, $mysqlMainDb;
+  $cours_id = intval($cours_id);//SQL INJECTION FIX
+
         if ($entry_page and !isset($_GET['unit'])) {
 		unset($_SESSION['unit']);
 		return FALSE;
@@ -1249,7 +1251,7 @@ function add_units_navigation($entry_page = FALSE)
                        $visibility_check, $mysqlMainDb);
                 if ($q and mysql_num_rows($q) > 0) {
                         list($unit_name) = mysql_fetch_row($q);
-                        $navigation[] = array("url"=>"../units/index.php?id=$unit_id", "name"=> htmlspecialchars($unit_name));
+                        $navigation[] = array("url"=>"../units/index.php?id=$unit_id", "name"=> $unit_name);
                 }
 		return TRUE;
 	} else {
