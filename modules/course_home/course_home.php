@@ -133,6 +133,9 @@ if ($is_adminOfCourse) {
 		        $main_content .= "\n      <p class='success_small'>$langCourseUnitModified</p>";
                 } else { // add new course unit
                 //INIT NOT NEEDED FOR INSERT
+                //TEMPFIX IDK WHERE THE FUCK IT GETS QUOTES FROM
+                $title = removeQuotes($title);
+                $descr = removeQuotes($descr);
 
                 //XSS + SQL INJECTION FIX
                 $title = xss_sql_filter($title);
