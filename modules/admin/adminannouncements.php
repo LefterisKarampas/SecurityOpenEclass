@@ -23,6 +23,19 @@
 *  			Panepistimiopolis Ilissia, 15784, Athens, Greece
 *  			eMail: info@openeclass.org
 * =========================================================================*/
+function undo_htmlspecialchars($input) {
+    $input = preg_replace("/&gt;/i", ">", $input);
+    $input = preg_replace("/&lt;/i", "<", $input);
+    $input = preg_replace("/&quot;/i", "\"", $input);
+    $input = preg_replace("/&amp;/i", "&", $input);
+    
+    return $input;
+}
+
+function undo_redo_hsc($data) {
+  return htmlspecialchars(undo_htmlspecialchars($data));
+}
+
 
 $require_admin = TRUE;
 include '../../include/baseTheme.php';
@@ -94,12 +107,12 @@ if (isset($_GET['delete'])) {
                 $displayAnnouncementList = true;
         }
 } elseif (isset($_POST['submitAnnouncement'])) {
-        $title = htmlspecialchars($title);
-        $newContent = htmlspecialchars($newContent);
-        $comment = htmlspecialchars($comment);
-        $title_en = htmlspecialchars($title_en);
-        $newContent_en = htmlspecialchars($newContent_en);
-        $comment_en= htmlspecialchars($comment_en);
+        $title = undo_redo_hsc($title);
+        $newContent = undo_redo_hsc($newContent);
+        $comment = undo_redo_hsc($comment);
+        $title_en = undo_redo_hsc($title_en);
+        $newContent_en = undo_redo_hsc($newContent_en);
+        $comment_en= undo_redo_hsc($comment_en);
 	// submit announcement command
         if (isset($_POST['id'])) {
                 // modify announcement
