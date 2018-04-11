@@ -84,6 +84,8 @@ $tool_content .= '
 if (isset($_POST["selectedMonth"])) {
 
     $month = $_POST["selectedMonth"];
+    $m = intval($m);
+    $y = intval($y);
     list($m, $y) = explode(' ',$month);  //only month
     $sql = "SELECT profesNum, studNum, visitorsNum, coursNum, logins, details FROM monthly_summary ".
         "WHERE `month` = '$month'";
