@@ -129,6 +129,7 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 	<tr>
 	<th class='left'>$langFaculty&nbsp;:</th>
 	<td>";
+	$uid = intval($uid);
 	list($homefac) = mysql_fetch_row(db_query("SELECT department FROM user WHERE user_id=$uid"));
 	$facs = db_query("SELECT id, name FROM faculte order by id");
 	while ($n = mysql_fetch_array($facs)) {
@@ -380,8 +381,23 @@ if (isset($_POST['create_course'])) {
         // ------------- update main Db------------
         mysql_select_db("$mysqlMainDb");
 
+        /* BEGIN */
+
+        $language = mysql_real_escape_string($language);
+        $intitule = mysql_real_escape_string($intitule);
+        $description = mysql_real_escape_string($description);
+        $course_addon = mysql_real_escape_string($course_addon);
+        $course_keywords = mysql_real_escape_string($course_keywords);
+        $facname = mysql_real_escape_string($facname);
+        $formvisible = mysql_real_escape_string($formvisible);
+        $code = mysql_real_escape_string($code);
+        $type = mysql_real_escape_string($type);
+
+        /* END */
+
+
         db_query("INSERT INTO cours SET
-                        code = '$code',
+                        code = ".quote($code).",
                         languageCourse =" . quote($language) . ",
                         intitule = " . quote($intitule) . ",
                         description = " . quote($description) . ",
@@ -392,20 +408,24 @@ if (isset($_POST['create_course'])) {
                         titulaires = " . quote($titulaires) . ",
                         fake_code = " . quote($code) . ",
                         type = " . quote($type) . ",
-                        faculteid = '$facid',
+                        faculteid = '".intval($facid)."',
                         first_create = NOW()");
         $new_cours_id = mysql_insert_id();
+
+        $new_cours_id = intval($new_cours_id);
+        $uid = intval($uid);
+        
         mysql_query("INSERT INTO cours_user SET
-                        cours_id = $new_cours_id,
+                        cours_id = '$new_cours_id',
                         user_id = '$uid',
                         statut = '1',
                         tutor='1',
                         reg_date = CURDATE()");
 
         mysql_query("INSERT INTO cours_faculte SET
-                        faculte = '$faculte',
-                        code = '$repertoire',
-                        facid = '$facid'");
+                        faculte =".quote($faculte)."',
+                        code = ".quote($repertoire)."',
+                        facid = '".intval($facid)."'");
 
         $titou='$dbname';
 

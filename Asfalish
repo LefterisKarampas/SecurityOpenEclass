@@ -34,7 +34,7 @@
 	- adminannouncements.php (XSS)
 
 5. Create course (modules/create_course/create_course.php)
-	-Nothing yet (XSS maybe not sure)
+	-Nothing yet (XSS maybe not sure and SQL Injection)
 
 6. Display Course (modules/course_home/course_home.php)
 	-Nothing yet (XSS Thematikes enothtes)
@@ -70,4 +70,7 @@
 
 16. main.lib.php (SQL INJECTIONS) DONE
 		Using intval for all ids
+
+17. Register and Update User Info
+	- Nothing yet (SQL Injection)
 
