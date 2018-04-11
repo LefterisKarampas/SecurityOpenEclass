@@ -39,9 +39,9 @@
 6. Display Course (modules/course_home/course_home.php)
 	-Nothing yet (XSS Thematikes enothtes)
 
-7. Agenda (modules/agenda)
-	- Nothing yet (SQL Injection)
-	- We can take cookie from here
+7. Agenda (modules/agenda/myagenda.php) DONE
+	- SQL Injection
+	- XSS (We can take cookie from here)
 
 8. Thematikes Enothtes Mathimata (modules/units)
 	- Try but nothing yet (units/info.php, course_info/restore.php, betacms_bridge/include/bcms.inc.php ) (XSS)
