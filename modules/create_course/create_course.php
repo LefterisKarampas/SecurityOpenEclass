@@ -412,7 +412,7 @@ if (isset($_POST['create_course'])) {
                         first_create = NOW()");
         $new_cours_id = mysql_insert_id();
         mysql_query("INSERT INTO cours_user SET
-                        cours_id =" quote($new_cours_id).",
+                        cours_id =" intval($new_cours_id).",
                         user_id = '".intval($uid)."',
                         statut = '1',
                         tutor='1',
