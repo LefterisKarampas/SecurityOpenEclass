@@ -119,6 +119,8 @@ draw($tool_content, 2, 'units', $head_content);
 // insert docs in database
 function insert_docs($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['document'] as $file_id) {
@@ -126,8 +128,13 @@ function insert_docs($id)
 		$file = mysql_fetch_array(db_query("SELECT * FROM document
 			WHERE id =" . intval($file_id), $GLOBALS['currentCourseID']), MYSQL_ASSOC);
 		$title = (empty($file['title']))? $file['filename']: $file['title'];
+
+    //XSS + SQL INJECTION FIX
+    $titleEscaped = xss_sql_filter($title);
+    $commentEscaped = xss_sql_filter($file['comment']);
+
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='doc', title=" .
-			 autoquote($title) . ", comments=" . autoquote($file['comment']) .
+			 autoquote($titleEscaped) . ", comments=" . autoquote($commentEscaped) .
 			 ", visibility='$file[visibility]', `order`=$order, `date`=NOW(), res_id=$file[id]",
 			 $GLOBALS['mysqlMainDb']); 
 	}
@@ -138,12 +145,18 @@ function insert_docs($id)
 // insert text in database
 function insert_text($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	global $title, $comments;
 	
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	$order++;
+
+  //XSS + SQL INJECTION FIX
+  $commentEscaped = xss_sql_filter($comments);
+
 	db_query("INSERT INTO unit_resources SET unit_id=$id, type='text', title='', 
-		comments=" . autoquote($comments) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
+		comments=" . autoquote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
 		$GLOBALS['mysqlMainDb']);
 			
 	header('Location: index.php?id=' . $id);
@@ -154,6 +167,8 @@ function insert_text($id)
 // insert lp in database
 function insert_lp($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['lp'] as $lp_id) {
@@ -165,8 +180,13 @@ function insert_lp($id)
 		} else {
 			$visibility = 'v';
 		}
+
+      //XSS + SQL INJECTION FIX
+      $nameEscaped = xss_sql_filter($lp['name']);
+      $commentEscaped = xss_sql_filter($lp['comment']);
+
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='lp', title=" .
-			quote($lp['name']) . ", comments=" . quote($lp['comment']) .
+			quote($nameEscaped) . ", comments=" . quote($commentEscaped) .
 			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$lp[learnPath_id]",
 			$GLOBALS['mysqlMainDb']);
 	}
@@ -177,6 +197,8 @@ function insert_lp($id)
 // insert video in database
 function insert_video($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['video'] as $video_id) {
@@ -186,7 +208,12 @@ function insert_video($id)
                 $table = ($table == 'video')? 'video': 'videolinks';
 		$row = mysql_fetch_array(db_query("SELECT * FROM $table
 			WHERE id = $res_id", $GLOBALS['currentCourseID']), MYSQL_ASSOC);
-                db_query("INSERT INTO unit_resources SET unit_id=$id, type='$table', title=" . quote($row['titre']) . ", comments=" . quote($row['description']) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=$res_id", $GLOBALS['mysqlMainDb']);
+      
+      //XSS + SQL INJECTION FIX
+      $titleEscaped = xss_sql_filter($row['titre']);
+      $commentEscaped = xss_sql_filter($row['description']);
+
+      db_query("INSERT INTO unit_resources SET unit_id=$id, type='$table', title=" . quote($titleEscaped) . ", comments=" . quote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=$res_id", $GLOBALS['mysqlMainDb']);
 	}
 	header('Location: index.php?id=' . $id);
 	exit;
@@ -195,6 +222,8 @@ function insert_video($id)
 // insert work (assignment) in database
 function insert_work($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['work'] as $work_id) {
@@ -206,11 +235,16 @@ function insert_work($id)
 		} else {
 			$visibility = 'v';
 		}
+
+    //XSS + SQL INJECTION FIX
+    $titleEscaped = xss_sql_filter($work['title']);
+    $commentEscaped = xss_sql_filter($work['description']);
+
 		db_query("INSERT INTO unit_resources SET
                                 unit_id = $id,
                                 type = 'work',
-                                title = " . quote($work['title']) . ",
-                                comments = " . quote($work['description']) . ",
+                                title = " . quote($titleEscaped) . ",
+                                comments = " . quote($commentEscaped) . ",
                                 visibility = '$visibility',
                                 `order` = $order,
                                 `date` = NOW(),
@@ -225,6 +259,8 @@ function insert_work($id)
 // insert exercise in database
 function insert_exercise($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['exercise'] as $exercise_id) {
@@ -236,8 +272,13 @@ function insert_exercise($id)
 		} else {
 			$visibility = 'v';
 		}
+
+    //XSS + SQL INJECTION FIX
+    $titleEscaped = xss_sql_filter($exercise['titre']);
+    $commentEscaped = xss_sql_filter($exercise['description']);
+
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='exercise', title=" .
-			quote($exercise['titre']) . ", comments=" . quote($exercise['description']) .
+			quote($titleEscaped) . ", comments=" . quote($commentEscaped) .
 			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$exercise[id]",
 			$GLOBALS['mysqlMainDb']); 
 	}
@@ -248,6 +289,8 @@ function insert_exercise($id)
 // insert forum in database
 function insert_forum($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	foreach ($_POST['forum'] as $for_id) {
 		$order++;
@@ -256,15 +299,23 @@ function insert_forum($id)
                         list($forum_id, $topic_id) = $ids;
 			$topic = mysql_fetch_array(db_query("SELECT * FROM topics
 				WHERE topic_id =" . intval($topic_id) ." AND forum_id =" . intval($forum_id), $GLOBALS['currentCourseID']), MYSQL_ASSOC);
+
+      //XSS + SQL INJECTION FIX
+      $titleEscaped = xss_sql_filter($topic['topic_title']);
+
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='topic', title=" .
-				quote($topic['topic_title']) .", visibility='v', `order`=$order, `date`=NOW(), res_id=$topic[topic_id]",
+				quote($titleEscaped) .", visibility='v', `order`=$order, `date`=NOW(), res_id=$topic[topic_id]",
 			$GLOBALS['mysqlMainDb']);		
 		} else {
-                        $forum_id = $ids[0];
+      //XSS + SQL INJECTION FIX
+      $titleEscaped = xss_sql_filter($forum['forum_name']);
+      $commentEscaped = xss_sql_filter($forum['forum_desc']);
+
+      $forum_id = $ids[0];
 			$forum = mysql_fetch_array(db_query("SELECT * FROM forums
 				WHERE forum_id =" . intval($forum_id), $GLOBALS['currentCourseID']), MYSQL_ASSOC);
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='forum', title=" .
-				quote($forum['forum_name']) . ", comments=" . quote($forum['forum_desc']) .
+				quote($titleEscaped) . ", comments=" . quote($commentEscaped) .
 				", visibility='v', `order`=$order, `date`=NOW(), res_id=$forum[forum_id]",
 				$GLOBALS['mysqlMainDb']);
 		} 
@@ -277,14 +328,21 @@ function insert_forum($id)
 // insert wiki in database
 function insert_wiki($id)
 {
+  $id = intval($id);//SQL INJECTION FIX
+
 	list($order) = mysql_fetch_array(db_query("SELECT MAX(`order`) FROM unit_resources WHERE unit_id=$id"));
 	
 	foreach ($_POST['wiki'] as $wiki_id) {
 		$order++;
 		$wiki = mysql_fetch_array(db_query("SELECT * FROM wiki_properties
 			WHERE id =" . intval($wiki_id), $GLOBALS['currentCourseID']), MYSQL_ASSOC);
+
+    //XSS + SQL INJECTION FIX
+    $titleEscaped = xss_sql_filter($wiki['title']);
+    $descEscaped = xss_sql_filter($wiki['description']);
+
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='wiki', title=" .
-			quote($wiki['title']) . ", comments=" . quote($wiki['description']) .
+			quote($titleEscaped) . ", comments=" . quote($descEscaped) .
 			", visibility='v', `order`=$order, `date`=NOW(), res_id=$wiki[id]",
 			$GLOBALS['mysqlMainDb']); 
 	}
