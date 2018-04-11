@@ -84,7 +84,7 @@ if (isset($_GET['edit'])) { // display form for editing course unit
         $id = intval($_GET['edit']); 
         $sql = db_query("SELECT id, title, comments FROM course_units WHERE id='$id'");
         $cu = mysql_fetch_array($sql);
-        $unittitle = " value='" . htmlspecialchars($cu['title'], ENT_QUOTES) . "'";
+        $unittitle = " value='" . $cu['title'] . "'";
         $unitdescr = $cu['comments'];
         $unit_id = $cu['id'];
         $button = $langEdit;
