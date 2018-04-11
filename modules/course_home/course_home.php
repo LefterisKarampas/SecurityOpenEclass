@@ -120,9 +120,9 @@ if ($is_adminOfCourse) {
                 $title = xss_sql_filter($title);
                 $descr = xss_sql_filter($descr);
 
-                //AUTOQUOTE
-                $title = autoquote($title);
-                $descr = autoquote($descr);
+                //QUOTE
+                $title = justQuote($title);
+                $descr = justQuote($descr);
 
                 if (isset($_REQUEST['unit_id'])) { // update course unit
                         $unit_id = intval($_REQUEST['unit_id']);
@@ -138,9 +138,9 @@ if ($is_adminOfCourse) {
                 $title = xss_sql_filter($title);
                 $descr = xss_sql_filter($descr);
 
-                //AUTOQUOTE
-                $title = autoquote($title);
-                $descr = autoquote($descr);
+                //QUOTE
+                $title = justQuote($title);
+                $descr = justQuote($descr);
 
                         $order = $maxorder + 1;
                         db_query("INSERT INTO course_units SET

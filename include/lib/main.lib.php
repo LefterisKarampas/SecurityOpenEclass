@@ -243,6 +243,10 @@ function xss_sql_filter($str) {
 	return $str;
 }
 
+function justQuote($str) {
+	return "'$str'";
+}
+
 // ------------------------------------------------------
 // Other useful functions. We use it in various scripts.
 // -----------------------------------------------------

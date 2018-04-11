@@ -608,7 +608,7 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 					$textEscaped = xss_sql_filter($text);
 
 					db_query("INSERT INTO unit_resources SET unit_id=$unitId, type='text', title='', 
-						comments=" . autoquote($textEscaped) . ", visibility='v', `order`=$unitResOrder, `date`=NOW(), res_id=0");
+						comments=" . justQuote($textEscaped) . ", visibility='v', `order`=$unitResOrder, `date`=NOW(), res_id=0");
 				}
 				
 				// add unit scorms
@@ -650,7 +650,7 @@ function doImportFromBetaCMSAfterCourseCreation($repertoire, $mysqlMainDb, $webD
 						$commentEscaped = xss_sql_filter($file['comment']);
 
 						db_query("INSERT INTO unit_resources SET unit_id=$unitId, type='doc', title=" .
-							 autoquote($titleEscaped) . ", comments=" . autoquote($commentEscaped) .
+							 justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
 							 ", visibility='$file[visibility]', `order`=$unitResOrder, `date`=NOW(), res_id=$file[id]",
 							 $mysqlMainDb);
 					}

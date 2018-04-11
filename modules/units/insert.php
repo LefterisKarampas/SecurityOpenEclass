@@ -134,7 +134,7 @@ function insert_docs($id)
     $commentEscaped = xss_sql_filter($file['comment']);
 
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='doc', title=" .
-			 autoquote($titleEscaped) . ", comments=" . autoquote($commentEscaped) .
+			 justjustQuote($titleEscaped) . ", comments=" . justjustQuote($commentEscaped) .
 			 ", visibility='$file[visibility]', `order`=$order, `date`=NOW(), res_id=$file[id]",
 			 $GLOBALS['mysqlMainDb']); 
 	}
@@ -156,7 +156,7 @@ function insert_text($id)
   $commentEscaped = xss_sql_filter($comments);
 
 	db_query("INSERT INTO unit_resources SET unit_id=$id, type='text', title='', 
-		comments=" . autoquote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
+		comments=" . justjustQuote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=0",
 		$GLOBALS['mysqlMainDb']);
 			
 	header('Location: index.php?id=' . $id);
@@ -186,7 +186,7 @@ function insert_lp($id)
       $commentEscaped = xss_sql_filter($lp['comment']);
 
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='lp', title=" .
-			quote($nameEscaped) . ", comments=" . quote($commentEscaped) .
+			justQuote($nameEscaped) . ", comments=" . justQuote($commentEscaped) .
 			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$lp[learnPath_id]",
 			$GLOBALS['mysqlMainDb']);
 	}
@@ -213,7 +213,7 @@ function insert_video($id)
       $titleEscaped = xss_sql_filter($row['titre']);
       $commentEscaped = xss_sql_filter($row['description']);
 
-      db_query("INSERT INTO unit_resources SET unit_id=$id, type='$table', title=" . quote($titleEscaped) . ", comments=" . quote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=$res_id", $GLOBALS['mysqlMainDb']);
+      db_query("INSERT INTO unit_resources SET unit_id=$id, type='$table', title=" . justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=$res_id", $GLOBALS['mysqlMainDb']);
 	}
 	header('Location: index.php?id=' . $id);
 	exit;
@@ -243,8 +243,8 @@ function insert_work($id)
 		db_query("INSERT INTO unit_resources SET
                                 unit_id = $id,
                                 type = 'work',
-                                title = " . quote($titleEscaped) . ",
-                                comments = " . quote($commentEscaped) . ",
+                                title = " . justQuote($titleEscaped) . ",
+                                comments = " . justQuote($commentEscaped) . ",
                                 visibility = '$visibility',
                                 `order` = $order,
                                 `date` = NOW(),
@@ -278,7 +278,7 @@ function insert_exercise($id)
     $commentEscaped = xss_sql_filter($exercise['description']);
 
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='exercise', title=" .
-			quote($titleEscaped) . ", comments=" . quote($commentEscaped) .
+			justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
 			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$exercise[id]",
 			$GLOBALS['mysqlMainDb']); 
 	}
@@ -304,7 +304,7 @@ function insert_forum($id)
       $titleEscaped = xss_sql_filter($topic['topic_title']);
 
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='topic', title=" .
-				quote($titleEscaped) .", visibility='v', `order`=$order, `date`=NOW(), res_id=$topic[topic_id]",
+				justQuote($titleEscaped) .", visibility='v', `order`=$order, `date`=NOW(), res_id=$topic[topic_id]",
 			$GLOBALS['mysqlMainDb']);		
 		} else {
       //XSS + SQL INJECTION FIX
@@ -315,7 +315,7 @@ function insert_forum($id)
 			$forum = mysql_fetch_array(db_query("SELECT * FROM forums
 				WHERE forum_id =" . intval($forum_id), $GLOBALS['currentCourseID']), MYSQL_ASSOC);
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='forum', title=" .
-				quote($titleEscaped) . ", comments=" . quote($commentEscaped) .
+				justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
 				", visibility='v', `order`=$order, `date`=NOW(), res_id=$forum[forum_id]",
 				$GLOBALS['mysqlMainDb']);
 		} 
@@ -342,7 +342,7 @@ function insert_wiki($id)
     $descEscaped = xss_sql_filter($wiki['description']);
 
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='wiki', title=" .
-			quote($titleEscaped) . ", comments=" . quote($descEscaped) .
+			justQuote($titleEscaped) . ", comments=" . justQuote($descEscaped) .
 			", visibility='v', `order`=$order, `date`=NOW(), res_id=$wiki[id]",
 			$GLOBALS['mysqlMainDb']); 
 	}
