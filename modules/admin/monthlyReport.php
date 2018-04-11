@@ -152,7 +152,7 @@ if (isset($_POST["selectedMonth"])) {
 	<tbody>
 	<tr>
 	<th width="220"  class="left">&nbsp;</th>
-	<td>'.$langNoReport.': '.$msg_of_month.' '.$y.'</td>
+	<td>'.$langNoReport.': '.htmlspecialchars($msg_of_month).' '.htmlspecialchars($y).'</td>
 	</tr>
 	</tbody>
 	</table>';
