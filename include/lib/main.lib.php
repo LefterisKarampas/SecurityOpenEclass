@@ -222,8 +222,22 @@ function removeQuotes($str) {
 
 
 //makotora shortcut for both xss and sql injection safety
+function undo_htmlspecialchars($input) {
+    $input = preg_replace("/&gt;/i", ">", $input);
+    $input = preg_replace("/&lt;/i", "<", $input);
+    $input = preg_replace("/&quot;/i", "\"", $input);
+    $input = preg_replace("/&amp;/i", "&", $input);
+    
+    return $input;
+}
+
+function undo_redo_hsc($data) {
+  return htmlspecialchars(undo_htmlspecialchars($data));
+}
+
+
 function xss_sql_filter($str) {
-	$str = htmlspecialchars($str);
+	$str = undo_redo_hsc($str);
 	$str = mysql_real_escape_string($str);
 
 	return $str;
