@@ -748,22 +748,6 @@ function undo_make_clickable($text) {
 	
 }
 
-
-
-/**
- * Nathan Codding - August 24, 2000.
- * Takes a string, and does the reverse of the PHP standard function
- * htmlspecialchars().
- */
-function undo_htmlspecialchars($input) {
-	$input = preg_replace("/&gt;/i", ">", $input);
-	$input = preg_replace("/&lt;/i", "<", $input);
-	$input = preg_replace("/&quot;/i", "\"", $input);
-	$input = preg_replace("/&amp;/i", "&", $input);
-	
-	return $input;
-}
-
 /*
  * Check if this is the first post in a topic. Used in editpost.php
  */
@@ -1025,8 +1009,4 @@ function debug_to_console( $data ) {
         $output = implode( ',', $output);
 
     echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
-}
-
-function undo_redo_hsc($data) {
-  return htmlspecialchars(undo_htmlspecialchars($data));
 }
