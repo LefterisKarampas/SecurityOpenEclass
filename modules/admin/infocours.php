@@ -104,7 +104,7 @@ if (isset($submit))  {
 // Display edit form for course basic information
 else {
 	// Get course information
-	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code=".justQuote($code));
+	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code=".justQuote($code)));
 	// Constract the edit form
 	$tool_content .= "
   <form action=".$_SERVER['PHP_SELF']."?c=".htmlspecialchars($_GET['c'])."".$searchurl." method=\"post\">
