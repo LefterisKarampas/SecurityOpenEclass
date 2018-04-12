@@ -94,27 +94,27 @@ if (isset($_GET['delete'])) {
                 $displayAnnouncementList = true;
         }
 } elseif (isset($_POST['submitAnnouncement'])) {
-        $title = undo_redo_hsc($title);
-        $newContent = undo_redo_hsc($newContent);
-        $comment = undo_redo_hsc($comment);
-        $title_en = undo_redo_hsc($title_en);
-        $newContent_en = undo_redo_hsc($newContent_en);
-        $comment_en= undo_redo_hsc($comment_en);
+        $title = xss_sql_filter($title);
+        $newContent = xss_sql_filter($newContent);
+        $comment = xss_sql_filter($comment);
+        $title_en = xss_sql_filter($title_en);
+        $newContent_en = xss_sql_filter($newContent_en);
+        $comment_en= xss_sql_filter($comment_en);
 	// submit announcement command
         if (isset($_POST['id'])) {
                 // modify announcement
                 $id = intval($_POST['id']);
                 db_query("UPDATE admin_announcements
-                        SET gr_title = $title, gr_body = $newContent, gr_comment = $comment,
-                        en_title = $title_en, en_body = $newContent_en, en_comment = $comment_en,
+                        SET gr_title = ".justQuote($title).", gr_body = ".justQuote($newContent).", gr_comment =". justQuote($comment).",
+                        en_title = ".justQuote($title_en).", en_body =". justQuote($newContent_en).", en_comment = ".justQuote($comment_en).",
                         visible = '$visible', date = NOW()
                         WHERE id = $id", $mysqlMainDb);
                 $message = $langAdminAnnModify;
         } else {
                 // add new announcement
                 db_query("INSERT INTO admin_announcements
-                        SET gr_title = $title, gr_body = $newContent, gr_comment = $comment,
-                        en_title = $title_en, en_body = $newContent_en, en_comment = $comment_en,
+                        SET gr_title = ".justQuote($title).", gr_body =". justQuote($newContent).", gr_comment = ".justQuote($comment).",
+                        en_title = ".justQuote($title_en).", en_body = ".justQuote($newContent_en).", en_comment =". justQuote($comment_en).",
                         visible = '$visible', date = NOW()");
                 $message = $langAdminAnnAdd;
         }
@@ -219,9 +219,9 @@ if ($displayAnnouncementList == true) {
                 $tool_content .= "<tr $stylerow>";
                 // title
                 $tool_content .= "<th class='left'>$langTitle:</th>";
-                $tool_content .= "<td>".q($myrow['gr_title'])."</td>";
+                $tool_content .= "<td>".$myrow['gr_title']."</td>";
                 // english title
-                $tool_content .= "<td>".q($myrow['en_title'])."</td>";
+                $tool_content .= "<td>".$myrow['en_title']."</td>";
                 // announcements content
                 $tool_content .= "</tr>";
                 $tool_content .= "<tr $stylerow><th class='left'>$langAnnouncement:</th><td>$myrow[gr_body]</td>";

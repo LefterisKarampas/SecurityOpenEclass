@@ -140,6 +140,10 @@ if((!empty($auth_submit)) && ($auth_submit==1)) {
 				default:
 					break;
 			}
+			/* BEGIN */
+			$auth_settings = xss_sql_filter($auth_settings);
+			$auth_instructions = xss_sql_filter($auth_instructions);
+			/* END */
 
 			$qry = "UPDATE auth SET auth_settings='".$auth_settings."',
 				auth_instructions='".$auth_instructions."',auth_default=1 

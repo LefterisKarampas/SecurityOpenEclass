@@ -107,8 +107,12 @@ if (isset($c)) {
 		$searchurl = "&search=yes";
 	}
 	// Get information about selected course
+
+  /* BEGIN */
+  $c = xss_sql_filter($c);
+  /* END */
 	$sql = mysql_query(
-		"SELECT * FROM cours WHERE code = '".mysql_real_escape_string($c)."'");
+		"SELECT * FROM cours WHERE code =".justQuote($c));
 	$row = mysql_fetch_array($sql);
 	// Display course information and link to edit
 	$tool_content .= "
@@ -116,7 +120,7 @@ if (isset($c)) {
   <tbody>
   <tr>
     <th width=\"220\">&nbsp;</th>
-    <td>".$langCourseInfo." (<a href=\"infocours.php?c=".htmlspecialchars($c)."".$searchurl."\">".$langModify."</a>)</td>
+    <td>".$langCourseInfo." (<a href=\"infocours.php?c=".$c."".$searchurl."\">".$langModify."</a>)</td>
   </tr>";
 	$tool_content .= "
   <tr>
@@ -147,11 +151,11 @@ if (isset($c)) {
   </tr>
   <tr>
     <th width=\"220\" class=\"left\"><b>$langTheCourse <b>$row[intitule]</b> $langMaxQuota</b></th>
-    <td>".$langQuota." (<a href=\"quotacours.php?c=".htmlspecialchars($c).$searchurl."\">".$langModify."</a>)</td>
+    <td>".$langQuota." (<a href=\"quotacours.php?c=".$c.$searchurl."\">".$langModify."</a>)</td>
   </tr>";
 	// Get information about course quota
 	$q = mysql_fetch_array(mysql_query("SELECT code,intitule,doc_quota,video_quota,group_quota,dropbox_quota
-			FROM cours WHERE code='".mysql_real_escape_string($c)."'"));
+			FROM cours WHERE code='".$c."'"));
 	$dq = format_file_size($q['doc_quota']);
 	$vq = format_file_size($q['video_quota']);
 	$gq = format_file_size($q['group_quota']);
@@ -190,7 +194,7 @@ if (isset($c)) {
   </tr>
   <tr>
     <th width=\"220\">&nbsp;</th>
-    <td>".$langCourseStatus." (<a href=\"statuscours.php?c=".htmlspecialchars($c)."".$searchurl."\">".$langModify."</a>)</td>
+    <td>".$langCourseStatus." (<a href=\"statuscours.php?c=".$c."".$searchurl."\">".$langModify."</a>)</td>
   </tr>";
 	$tool_content .= "
   <tr>
@@ -232,17 +236,17 @@ if (isset($c)) {
   // Register unregister users
 	$tool_content .= "
   <tr>
-    <td><a href=\"addusertocours.php?c=".htmlspecialchars($c)."".$searchurl."\">".$langAdminUsers."</a></td>
+    <td><a href=\"addusertocours.php?c=".$c."".$searchurl."\">".$langAdminUsers."</a></td>
   </tr>";
   // Backup course
 	$tool_content .= "
   <tr>
-    <td><a href=\"../course_info/archive_course.php?c=".htmlspecialchars($c)."".$searchurl."\">".$langTakeBackup."<a/></td>
+    <td><a href=\"../course_info/archive_course.php?c=".$c."".$searchurl."\">".$langTakeBackup."<a/></td>
   </tr>";
   // Delete course
 	$tool_content .= "
   <tr>
-    <td><a href=\"delcours.php?c=".htmlspecialchars($c)."".$searchurl."\">".$langCourseDelFull."</a></td>
+    <td><a href=\"delcours.php?c=".$c."".$searchurl."\">".$langCourseDelFull."</a></td>
   </tr>";
 	$tool_content .= "
   </tbody>
