@@ -168,8 +168,9 @@ function create_user($statut, $uname, $nom, $prenom, $email, $depid, $am, $phone
                 $type_message = '';
                 // $langAsUser;
         }
+        $uname = xss_sql_filter($uname);
 
-        $req = db_query('SELECT * FROM user WHERE username = ' . autoquote($uname));
+        $req = db_query('SELECT * FROM user WHERE username = ' . justQuote($uname));
         if ($req and mysql_num_rows($req) > 0) {
                 $GLOBALS['error'] = "$GLOBALS[l_invalidname] ($uname)";
                 return false;
@@ -180,17 +181,29 @@ function create_user($statut, $uname, $nom, $prenom, $email, $depid, $am, $phone
         $expires_at = time() + $durationAccount;
         $password_encrypted = md5($password);
 
+        /* BEGIN */
+        $nom = xss_sql_filter($nom);
+        $prenom = xss_sql_filter($prenom);
+        $email = xss_sql_filter($email);
+        $am = xss_sql_filter($am);
+        $phone = xss_sql_filter($phone);
+        $lang = justQuote(xss_sql_filter($lang));
+        $statut = intval($statut);
+        $depid = intval($depid);
+        $registered_at = intval($registered_at);
+        $expires_at = intval($expires_at);
+        /* END */
         $req = db_query("INSERT INTO user
                                 (nom, prenom, username, password, email, statut, department, registered_at, expires_at, lang, am, phone)
                         VALUES (" .
-				autoquote($nom) . ', ' .
-				autoquote($prenom) . ', ' .
-				autoquote($uname) . ", '$password_encrypted', " .
-				autoquote($email) .
+				justQuote($nom) . ', ' .
+				justQuote($prenom) . ', ' .
+				justQuote($uname) . ", '$password_encrypted', " .
+				justQuote($email) .
 				", $statut, $depid, " .
                                 "$registered_at, $expires_at, '$lang', " .
-                                autoquote($am) . ', ' .
-                                autoquote($phone) . ')');
+                                justQuote($am) . ', ' .
+                                justQuote($phone) . ')');
         $id = mysql_insert_id();
 
         $emailsubject = "$langYourReg $siteName $type_message";
@@ -217,6 +230,13 @@ $langEmail : $emailhelpdesk
 function create_username($statut, $depid, $nom, $prenom, $prefix)
 {
         $wildcard = str_pad('', SUFFIX_LEN, '_');
+        /* BEGIN */
+        $prefix = xss_sql_filter($prefix);
+        $nom = xss_sql_filter($nom);
+        $prenom = xss_sql_filter($prenom);
+        $statut = intval($statut);
+        $depid = intval($depid);
+        /* END */
         $req = db_query("SELECT username FROM user
                          WHERE username LIKE '$prefix$wildcard'
                          ORDER BY username DESC LIMIT 1");
@@ -235,11 +255,13 @@ function create_username($statut, $depid, $nom, $prenom, $prefix)
 
 
 function register($uid, $course_code)
-{
-        $code = autoquote($course_code);
+{       
+        $code = justQuote(xss_sql_filter($course_code));
         $req = db_query("SELECT code, cours_id FROM cours WHERE code=$code OR fake_code=$code");
         if ($req and mysql_num_rows($req) > 0) {
                 list($code, $cid) = mysql_fetch_row($req);
+                $cid = intval($cid);
+                $uid = intval($uid);
                 db_query("INSERT INTO cours_user SET cours_id = $cid, user_id = $uid, statut = 5,
                                                      team = 0, tutor = 0, reg_date = NOW()");
                 return true;

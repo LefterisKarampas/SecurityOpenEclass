@@ -97,7 +97,7 @@ switch ($show) {
 // ----------------------------------
 
 $id = intval($id);
-
+$list_statut = intval($list_statut);
 if (!empty($show) && ($show=="closed")) {
 	if (!empty($id) && ($id>0)) {
 		// restore request
@@ -253,9 +253,12 @@ if (!empty($show) && ($show=="closed")) {
 		if(!empty($submit)) {
 			// post the comment and do the delete action
 			if (!empty($comment)) {
+				/* BEGIN */
+				$comment = xss_sql_filter($comment);
+				/* END */
 				$sql = "UPDATE prof_request set status = '3',
 						date_closed = NOW(),
-						comment = '".mysql_escape_string($comment)."'
+						comment = '".$comment."'
 						WHERE rid = '$id'";
 				if (db_query($sql)) {
 					if (isset($sendmail) and ($sendmail == 1)) {

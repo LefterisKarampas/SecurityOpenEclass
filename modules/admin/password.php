@@ -81,6 +81,7 @@ if (!isset($changePass)) {
 
 elseif (isset($submit) && isset($changePass) && ($changePass == "do")) {
 	$userid = $_REQUEST['userid'];
+	$userid = intval($userid);
 	if (empty($_REQUEST['password_form']) || empty($_REQUEST['password_form1'])) {
 		$tool_content .= mes($langFields, "", 'caution');
 		draw($tool_content, 3);

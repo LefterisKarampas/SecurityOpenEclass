@@ -56,8 +56,9 @@ $end_cal = $jscalendar->make_input_field(
 
     if (isset($_GET['first'])) {
         $firstletter = $_GET['first'];
+        $firstletter = xss_sql_filter($firstletter);
         $qry = "SELECT user_id, nom, prenom, username, email
-                FROM user WHERE LEFT(nom,1) = '".mysql_real_escape_string($firstletter)."'";
+                FROM user WHERE LEFT(nom,1) = '".$firstletter."'";
     } else {
         $qry = "SELECT user_id, nom, prenom, username, email FROM user";
     }

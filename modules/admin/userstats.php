@@ -141,6 +141,7 @@ if (!extension_loaded('gd')) {
 } else {
 	$totalHits = 0;
 	require_once '../../include/libchart/libchart.php';
+	$u = (int)$u;
 	$sql = "SELECT a.code, a.intitule, b.statut, a.cours_id
 			FROM cours AS a LEFT JOIN cours_user AS b ON a.cours_id = b.cours_id
 			WHERE b.user_id = '$u' ORDER BY b.statut, a.faculte";
@@ -183,7 +184,7 @@ if (!extension_loaded('gd')) {
 
 // End of chart display; chart unlinked at end of script.
 
-
+$u = (int)$u;
 $sql = "SELECT * FROM loginout WHERE id_user = '$u' ORDER by idLog DESC LIMIT 15";
 
 $leResultat = db_query($sql, $mysqlMainDb);

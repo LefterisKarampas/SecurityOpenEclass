@@ -52,11 +52,15 @@ $u = isset($_GET['u'])? intval($_GET['u']): false;
 $c = isset($_GET['c'])? intval($_GET['c']): false;
 $doit = isset($_GET['doit']);
 
+
 $u_account = $u? uid_to_username($u): '';
 $u_realname = $u? uid_to_name($u): '';
 $u_statut = get_uid_statut($u);
 $t = 0;
 
+/* BEGIN */
+$u = intval($u);
+/* END */
 if (!$doit) {
         $tool_content .= "<h4>$langConfirmDelete</h4><p>$langConfirmDeleteQuestion1 <em>$u_realname ($u_account)</em>";
         if($c) {
@@ -211,8 +215,9 @@ if (!$doit) {
                 }
 
         } elseif ($c and $u) {
+                $code = xss_sql_filter($c);
                 $q = db_query("DELETE from cours_user WHERE user_id = $u AND
-                                        cours_id = (SELECT cours_id FROM cours WHERE code = ".quote($c).")");
+                                        cours_id = (SELECT cours_id FROM cours WHERE code = ".justQuote($code).")");
                 if (mysql_affected_rows($q) > 0) {
                         $tool_content .= "<p>$langUserWithId $u $langWasCourseDeleted $c.</p>\n";
                         $m = 1;
@@ -233,7 +238,7 @@ function get_uid_statut($u)
 {
 	global $mysqlMainDb;
 
-	if ($r = mysql_fetch_row(db_query("SELECT statut FROM user WHERE user_id = '".mysql_real_escape_string($u)."'",	$mysqlMainDb)))
+	if ($r = mysql_fetch_row(db_query("SELECT statut FROM user WHERE user_id = '".intval($u)."'",	$mysqlMainDb)))
 	{
 		return $r[0];
 	}
