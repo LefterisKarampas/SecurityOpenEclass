@@ -47,7 +47,6 @@ include '../auth/auth.inc.php';
 include '../../include/jscalendar/calendar.php';
 
 if (isset($_GET['u']) or isset($_POST['u'])){
-$u = intval($u);
 $_SESSION['u_tmp']=$u;
 }
 if(!isset($_GET['u']) or !isset($_POST['u']))
@@ -216,7 +215,7 @@ $tool_content .= "
   </tbody>
   </table>
 </form>";
-
+		
 		$sql = mysql_query("SELECT nom, prenom, username FROM user WHERE user_id = '$u'");
 		$sql = mysql_query("SELECT a.code, a.intitule, b.reg_date, b.statut, a.cours_id
 			FROM cours AS a LEFT JOIN cours_user AS b ON a.cours_id = b.cours_id
