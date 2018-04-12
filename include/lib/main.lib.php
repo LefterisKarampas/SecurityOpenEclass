@@ -247,8 +247,12 @@ function justQuote($str) {
 	return "'$str'";
 }
 
-function xq($str) {
+function xss_quote($str) {
 	return justQuote(xss_sql_filter($str));
+}
+
+function sql_quote($str) {
+	return justQuote(mysql_real_escape_string($str));
 }
 
 // ------------------------------------------------------
