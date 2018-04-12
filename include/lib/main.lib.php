@@ -255,6 +255,13 @@ function sql_quote($str) {
 	return justQuote(mysql_real_escape_string($str));
 }
 
+function sanitize_filename($file) {
+	$file = mb_ereg_replace("([^\w\s\d\-_~,;\[\]\(\).])", '', $file);
+	// Remove any runs of periods (thanks falstro!)
+	$file = mb_ereg_replace("([\.]{2,})", '', $file);
+	return $file;
+}
+
 // ------------------------------------------------------
 // Other useful functions. We use it in various scripts.
 // -----------------------------------------------------

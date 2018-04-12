@@ -136,12 +136,14 @@ if ($is_adminOfCourse) {
 	if (isset($grade_comments)) {
 		$nameTools = $m['WorkView'];
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
+    //SQL + XSS FIX INSIDE THE FUNCTION
 		submit_grade_comments($assignment, $submission, $grade, $comments);
 	} elseif (isset($add)) {
 		$nameTools = $langNewAssign;
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 		new_assignment();
 	} elseif (isset($sid)) {
+    $sid = intval($sid);//SQL INJECTION FIX
 		show_submission($sid);
 	} elseif (isset($_POST['new_assign'])) {
 		add_assignment($title, $comments, $desc, "$WorkEnd", $group_submissions);
@@ -241,23 +243,19 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
 {
 	global $tool_content, $workPath;
 
-  //XSS FIX
-  $title = htmlspecialchars($title);
-  $comments = htmlspecialchars($comments);
-  $desc = htmlspecialchars($desc);
+  //XSS + SQL INJECTION FIX
+  $title = xss_sql_filter($title);
+  $comments = xss_sql_filter($comments);
+  $desc = xss_sql_filter($desc);
+  $deadline = xss_sql_filter($deadline);
+  $group_submissions = xss_sql_filter($group_submissions);
 
-  //MYTODO FIX INJECTION WITH PREPARED STATEMENT
-  //FOR NOW REMOVE QUOTES TO AVOID SQL ERRORS CAUSED BY XSS ATTEMPT
-  $title = removeQuotes($title);
-  $comments = removeQuotes($comments);
-  $desc = removeQuotes($desc);
-
-	$secret = uniqid("");
+	$secret = uniqid(""); //MYTODO maybe change this to something safer?
 	db_query("INSERT INTO assignments
 		(title, description, comments, deadline, submission_date, secret_directory,
 			group_submissions) VALUES
-		(".autoquote($title).", ".autoquote($desc).", ".autoquote($comments).", ".autoquote($deadline).", NOW(), '$secret',
-			".autoquote($group_submissions).")");
+		(".justQuote($title).", ".justQuote($desc).", ".justQuote($comments).", ".justQuote($deadline).", NOW(), '$secret',
+			".justQuote($group_submissions).")");
 	mkdir("$workPath/$secret",0777);
 }
 
@@ -270,10 +268,6 @@ function submit_work($id) {
   //SQL INJECTION FIX
   $id = intval($id);
   $uid = intval($uid);
-
-  //XSS FIX
-  //NEEDS PREPARED UNDO QUOTES FOR NOW
-  $stud_comments = removeQuotes(htmlspecialchars($stud_comments));
 
 	//DUKE Work submission bug fix.
 	//Do not allow work submission if:
@@ -325,17 +319,23 @@ function submit_work($id) {
 		$local_name = "$local_name $am[0]";
 	}
 	$local_name = replace_dangerous_char($local_name);
+
+  //RFI FIX
+  $local_name = sanitize_filename($local_name);
+
+  //XSS + SQL INJECTION FIX
+  $local_name = xss_sql_filter($local_name);
+  $stud_comments = xss_sql_filter($stud_comments);
+
+
 	if (preg_match('/\.(ade|adp|bas|bat|chm|cmd|com|cpl|crt|exe|hlp|hta|' .'inf|ins|isp|jse|lnk|mdb|mde|msc|msi|msp|mst|pcd|pif|reg|scr|sct|shs|' .'shb|url|vbe|vbs|wsc|wsf|wsh)$/', $_FILES['userfile']['name'])) {
 		$tool_content .= "<p class=\"caution_small\">$langUnwantedFiletype: {$_FILES['userfile']['name']}<br />";
 		$tool_content .= "<a href=\"$_SERVER[PHP_SELF]?id=$id\">$langBack</a></p><br />";
 		return;
 	}
 	$secret = work_secret($id);
-        $ext = get_file_extension($_FILES['userfile']['name']);
+  $ext = get_file_extension($_FILES['userfile']['name']);
 	$filename = "$secret/$local_name" . (empty($ext)? '': '.' . $ext);
-
-  //it says filename but it is actually the path..
-  $filename = htmlspecialchars($filename); //XSS FIX
 
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], "$workPath/$filename")) {
 		$msg2 = "$langUploadSuccess";//to message
@@ -345,14 +345,14 @@ function submit_work($id) {
 			db_query("INSERT INTO assignment_submit
 				(uid, assignment_id, submission_date, submission_ip, file_path,
 				file_name, comments, group_id) VALUES ('$uid','$id', NOW(),
-				'$REMOTE_ADDR', '$filename','".htmlspecialchars($_FILES['userfile']['name']).
-				"', '$stud_comments', '$group_id')", $currentCourseID);//XSS FIX
+				'$REMOTE_ADDR', '$filename','".xss_sql_filter($_FILES['userfile']['name']).
+				"', '$stud_comments', '$group_id')", $currentCourseID);//XSS SQL INJECTION FIX
 		} else {
 			db_query("INSERT INTO assignment_submit
 				(uid, assignment_id, submission_date, submission_ip, file_path,
 				file_name, comments) VALUES ('$uid','$id', NOW(), '$REMOTE_ADDR',
-				'$filename','".htmlspecialchars($_FILES['userfile']['name']).
-				"', '$stud_comments')", $currentCourseID);//XSS FIX
+				'$filename','".xss_sql_filter($_FILES['userfile']['name']).
+				"', '$stud_comments')", $currentCourseID);//XSS SQL INJECTION FIX
 		}
 
 		$tool_content .="<p class='success_small'>$msg2<br />$msg1<br /><a href='work.php'>$langBack</a></p><br />";
@@ -558,15 +558,16 @@ function edit_assignment($id)
 	$nav[] = array("url"=>"work.php", "name"=> $langWorks);
 	$nav[] = array("url"=>"work.php?id=$id", "name"=> $_POST['title']);
 
-  //MYTODO needs prepared statement to fix sql injection
-  //XSS FIX (FOR NOW REMOVE QUOTES, USE PREPARED AFTER)
-  $fixed_title = removeQuotes(htmlspecialchars($_POST['title']));
-  $fixed_desc = removeQuotes(htmlspecialchars($_POST['desc']));
-  $fixed_comments = removeQuotes(htmlspecialchars($_POST['comments']));
+  //XSS + SQL INJECTION FIX
+  $fixed_title = xss_sql_filter($_POST['title']);
+  $fixed_desc = xss_sql_filter($_POST['desc']);
+  $fixed_comments = xss_sql_filter($_POST['comments']);
+  $fixed_workend = xss_sql_filter($_POST['WorkEnd']);
+  $fixed_groupsub = xss_sql_filter($_POST['group_submissions']);
 
-	if (db_query("UPDATE assignments SET title=".autoquote($fixed_title).",
-		description=".autoquote($fixed_desc).", group_submissions=".autoquote($_POST['group_submissions']).",
-		comments=".autoquote($fixed_comments).", deadline=".autoquote($_POST['WorkEnd'])." WHERE id='$id'")) {
+	if (db_query("UPDATE assignments SET title=".justQuote($fixed_title).",
+		description=".justQuote($fixed_desc).", group_submissions=".justQuote($fixed_groupsub).",
+		comments=".justQuote($fixed_comments).", deadline=".justQuote($fixed_workend)." WHERE id='$id'")) {
 
         $title = autounquote($_POST['title']);
 	$tool_content .="<p class='success_small'>$langEditSuccess<br /><a href='work.php?id=$id'>$langBackAssignment '$title'</a></p><br />";
@@ -789,7 +790,7 @@ function sort_link($title, $opt, $attrib = '')
 	global $tool_content;
 	$i = '';
 	if (isset($_REQUEST['id'])) {
-		$i = "&id=$_REQUEST[id]";
+		$i = "&id=".mysql_real_escape_string($_REQUEST[id]);//SQL INJECTION FIX?
 	}
 	if (@($_REQUEST['sort'] == $opt)) {
 		if (@($_REQUEST['rev'] == 1)) {
@@ -1168,6 +1169,9 @@ cData;
 		while ($row = mysql_fetch_array($result)) {
 			// Check if assignement contains unevaluatde (incoming) submissions
 			$AssignementId = $row['id'];
+
+      $AssignementId = intval($AssignementId);//SQL INJECTION FIX
+
 			$result_s = db_query("SELECT COUNT(*) FROM assignment_submit WHERE assignment_id='$AssignementId' AND grade=''");
 			$row_s = mysql_fetch_array($result_s);
 			$hasUnevaluatedSubmissions = $row_s[0];
@@ -1227,9 +1231,8 @@ function submit_grade_comments($id, $sid, $grade, $comment)
   $id = intval($id);
   $sid = intval($sid);
 
-  //XSS FIX
-  //NEEDS PREPARED STATEMENT UNDO QUOTES FOR NOW
-  $comment = removeQuotes(htmlspecialchars($comment));
+  //XSS + SQL INJECTION FIX
+  $comment = xss_sql_filter($comment);
 
 	global $tool_content, $REMOTE_ADDR, $langGrades, $langWorkWrongInput;
 

@@ -69,6 +69,10 @@ $tool_content = "";
 mysql_select_db($currentCourseID);
 $gid = user_group($uid);
 
+//SQL INJECTION FIX
+$uid = intval($uid);
+$gid = intval($gid);
+
 $coursePath = $webDir."/courses/".$currentCourseID;
 if (!file_exists($coursePath))
 	mkdir("$coursePath",0777);
@@ -212,26 +216,39 @@ function submit_work($uid, $id, $file) {
 	global $groupPath, $langUploadError, $langUploadSuccess,
 		$langBack, $m, $currentCourseID, $tool_content, $workPath;
 
-	$group = user_group($uid);
+	$group = user_group($uid);//its an integer coming from db (safe)
 
   $ext = get_file_extension($file);
 	$local_name = greek_to_latin('Group '. $group . (empty($ext)? '': '.' . $ext));
 
+  $file = xss_sql_filter($file);//SQL INJECTION FIX
+  //I think there is not RFI here
+
   $r = mysql_fetch_row(db_query('SELECT filename FROM group_documents WHERE path = ' .
-                                      autoquote($file)));
+                                      justQuote($file)));
   $original_filename = $r[0];
 
+  //RFI FIX BETTER LATER
+  $original_filename = sanitize_filename($original_filename);
+
+  //XSS + SQL INJECTION FIX
+  $original_filename = xss_sql_filter($original_filename);
+  $commentsEscaped = xss_sql_filter($_POST['comments']);
+
 	$source = $groupPath.$file;
+
+  //RFI FIX BETTER LATER
+  $local_name = sanitize_filename($local_name);
+
 	$destination = work_secret($id)."/$local_name";
 
-
-        delete_submissions_by_uid($uid, $group, $id, $destination);
+  delete_submissions_by_uid($uid, $group, $id, $destination);
 	if (copy($source, "$workPath/$destination")) {
 		db_query("INSERT INTO assignment_submit (uid, assignment_id, submission_date,
 			             submission_ip, file_path, file_name, comments, group_id)
                           VALUES ('$uid','$id', NOW(), '$_SERVER[REMOTE_ADDR]', '$destination'," .
-				quote($original_filename) . ', ' .
-                                autoquote($_POST['comments']) . ", $group)",
+				justQuote($original_filename) . ', ' .
+                                justQuote($commentsEscaped) . ", $group)",
                         $currentCourseID);
 
 		$tool_content .="<p class=\"success_small\">$langUploadSuccess<br />$m[the_file] \"$original_filename\" $m[was_submitted]<br /><a href='work.php'>$langBack</a></p><br />";
