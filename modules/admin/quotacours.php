@@ -77,6 +77,13 @@ $quota_info = "";
 if (isset($search) && ($search=="yes")) {
 	$searchurl = "&search=yes";
 }
+/*BEGIN*/
+$code = xss_sql_filter($_GET['c']);
+$dq = intval($dq);
+$vq = intval($vq);
+$gq = intval($gq);
+$drq = intval($drq);
+/*END*/
 // Update course quota
 if (isset($submit))  {
 	$dq = $dq * 1000000;
@@ -84,7 +91,8 @@ if (isset($submit))  {
         $gq = $gq * 1000000;
         $drq = $drq * 1000000;
   // Update query
-	$sql = mysql_query("UPDATE cours SET doc_quota='$dq',video_quota='$vq',group_quota='$gq',dropbox_quota='$drq' 			WHERE code='".mysql_real_escape_string($_GET['c'])."'");
+  
+	$sql = mysql_query("UPDATE cours SET doc_quota='$dq',video_quota='$vq',group_quota='$gq',dropbox_quota='$drq' 			WHERE code='".$code."'");
 	// Some changes occured
 	if (mysql_affected_rows() > 0) {
 		$tool_content .= "<p>".$langQuotaSuccess."</p>";
@@ -99,7 +107,7 @@ if (isset($submit))  {
 else {
 	// Get course information
 	$q = mysql_fetch_array(mysql_query("SELECT code,intitule,doc_quota,video_quota,group_quota,dropbox_quota
-			FROM cours WHERE code='".mysql_real_escape_string($_GET['c'])."'"));
+			FROM cours WHERE code='".$code."'"));
 	$quota_info .= "<i>".$langTheCourse." <b>".$q['intitule']."</b> ".$langMaxQuota;
 	$dq = $q['doc_quota'] / 1000000;
 	$vq = $q['video_quota'] / 1000000;

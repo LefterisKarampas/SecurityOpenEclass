@@ -87,7 +87,7 @@ if (isset($_POST["selectedMonth"])) {
     $m = intval($m);
     $y = intval($y);
     list($m, $y) = explode(' ',$month);  //only month
-    $month = mysql_real_escape_string($month);
+    $month = xss_sql_filter($month);
     $sql = "SELECT profesNum, studNum, visitorsNum, coursNum, logins, details FROM monthly_summary ".
         "WHERE `month` = '$month'";
 

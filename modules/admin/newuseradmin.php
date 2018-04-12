@@ -56,10 +56,12 @@ if($submit) {
 	if (!isset($native_language_names[$proflanguage])) {
 		$proflanguage = langname_to_code($language);
 	}
-
+	/* BEGIN */
+	$uname = xss_sql_filter($uname);
+	/* END */
 	// check if user name exists
 	$username_check = mysql_query("SELECT username FROM `$mysqlMainDb`.user 
-			WHERE username=".autoquote($uname));
+			WHERE username=".justQuote($uname));
 	$user_exist = (mysql_num_rows($username_check) > 0);
 
 	// check if there are empty fields
@@ -74,16 +76,27 @@ if($submit) {
 			<br><br><p align='right'><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p>";
 	} else {
                 $registered_at = time();
-		$expires_at = time() + $durationAccount;
+		$expires_at = time() + intval($durationAccount);
 		$password_encrypted = md5($password);
+
+		/* BEGIN */
+		$nom_form = xss_sql_filter($nom_form);
+		$prenom_form = xss_sql_filter($prenom_form);
+		$uname = xss_sql_filter($uname);
+		$email_form = xss_sql_filter($email_form);
+		$comment = xss_sql_filter($comment);
+		$pstatut = intval($pstatut);
+		$depid = intval($depid);
+		/* END */
+
 		$inscr_user = db_query("INSERT INTO `$mysqlMainDb`.user
 				(nom, prenom, username, password, email, statut, department, am, registered_at, expires_at,lang)
 				VALUES (" .
-				autoquote($nom_form) . ', ' .
-				autoquote($prenom_form) . ', ' .
-				autoquote($uname) . ", '$password_encrypted', " .
-				autoquote($email_form) .
-				", $pstatut, $depid, " . autoquote($comment) . ", $registered_at, $expires_at, '$proflanguage')");
+				justQuote($nom_form) . ', ' .
+				justQuote($prenom_form) . ', ' .
+				justQuote($uname) . ", '$password_encrypted', " .
+				justQuote($email_form) .
+				", $pstatut, $depid, " . justQuote($comment) . ", $registered_at, $expires_at, '$proflanguage')");
 
 		// close request
 	  	$rid = intval($_POST['rid']);
@@ -125,6 +138,7 @@ $langEmail : $emailhelpdesk
 } else {
         $lang = false;
 	if (isset($id)) { // if we come from prof request
+		$id = intval($id);
 		$res = mysql_fetch_array(db_query("SELECT profname, profsurname, profuname, profemail, proftmima, comment, lang, statut 
 			FROM prof_request WHERE rid='$id'"));
 		$ps = $res['profsurname'];

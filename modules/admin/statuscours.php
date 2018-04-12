@@ -73,10 +73,13 @@ $searchurl = "";
 if (isset($search) && ($search=="yes")) {
 	$searchurl = "&search=yes";
 }
+/* BEGIN */
+$code = xss_sql_filter($_GET['c']);
+/* END */
 // Update course status
 if (isset($submit))  {
   // Update query
-	$sql = mysql_query("UPDATE cours SET visible='$formvisible' WHERE code='".mysql_real_escape_string($_GET['c'])."'");
+	$sql = mysql_query("UPDATE cours SET visible='$formvisible' WHERE code='".$code."'");
 	// Some changes occured
 	if (mysql_affected_rows() > 0) {
 		$tool_content .= "<p>".$langCourseStatusChangedSuccess."</p>";
@@ -90,7 +93,7 @@ if (isset($submit))  {
 // Display edit form for course status
 else {
 	// Get course information
-	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code='".mysql_real_escape_string($_GET['c'])."'"));
+	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code='".$code."'"));
 	$visible = $row['visible'];
 	$visibleChecked[$visible]="checked";
 	// Constract edit form
