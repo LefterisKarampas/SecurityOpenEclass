@@ -112,7 +112,7 @@ if (isset($c)) {
   $c = xss_sql_filter($c);
   /* END */
 	$sql = mysql_query(
-		"SELECT * FROM cours WHERE code =".justQuote($c);
+		"SELECT * FROM cours WHERE code =".justQuote($c));
 	$row = mysql_fetch_array($sql);
 	// Display course information and link to edit
 	$tool_content .= "

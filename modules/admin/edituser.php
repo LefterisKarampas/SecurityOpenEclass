@@ -311,7 +311,8 @@ $tool_content .= "
 		$expires_at = mktime($hour, $minute, 0, $month, $day, $year);
 		$user_exist= FALSE;
 		// check if username is free
-  		$username_check=mysql_query("SELECT username FROM user WHERE username='".escapeSimple($username)."'");
+		$username = xss_sql_filter($username);
+  		$username_check=mysql_query("SELECT username FROM user WHERE username=".$username);
 		$nums = mysql_num_rows($username_check);
 
 if (mysql_num_rows($username_check) > 1) {
@@ -337,11 +338,19 @@ if (mysql_num_rows($username_check) > 1) {
 			$tool_content .= "<center><br><b>$langExpireBeforeRegister<br><br><a href=\"edituser.php?u=".$u."\">$langAgain</a></b><br />";
 		} else {
 			if ($u=='1') $department = 'NULL';
-			$sql = "UPDATE user SET nom = ".autoquote($lname).", prenom = ".autoquote($fname).",
-				username = ".autoquote($username).", email = ".autoquote($email).", 
-				statut = ".intval($newstatut).", phone=".autoquote($phone).",
-				department = ".intval($department).", expires_at=".$expires_at.",
-                                am = ".autoquote($am)." WHERE user_id = ".intval($u);
+
+			/* BEGIN */
+			$lname = xss_sql_filter($lname);
+			$fname = xss_sql_filter($fname);
+			$email = xss_sql_filter($email);
+			$am = xss_sql_filter($am);
+			/* END */
+
+			$sql = "UPDATE user SET nom = ".justQuote($lname).", prenom = ".justQuote($fname).",
+				username = ".justQuote($username).", email = ".justQuote($email).", 
+				statut = ".intval($newstatut).", phone=".justQuote($phone).",
+				department = ".intval($department).", expires_at=".intval($expires_at).",
+                                am = ".justQuote($am)." WHERE user_id = ".intval($u);
 			$qry = db_query($sql);
                         if (!$qry) {
                                 $tool_content .= "$langNoUpdate:".$u."!";
