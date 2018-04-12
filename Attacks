@@ -83,3 +83,17 @@ index.php in units folder TRYPIO (intvals etc)
 
 for some fucking reason title of topic when editing wont display correctly
 something wrong with the quotes inserted SOMEWHERE IDK WHERE THE HELL
+
+group assignments (we can create one if we get admin access) are different from simple assignments. Maybe there is sql injection there even if there is no injection in simple assignments
+
+
+FILE INCLUSION
+1)Otan kanume ypovoli ergasias an den exun ftiaxi to sql injection me to id (pu to pirazis apo to url) boris na anevasis ergasia opu thes (me ../../ klp)
+
+2)Gia na valume me ../ opu thelume arxio paizoyme h me to id (url) h me to onoma tou arxeiou poy anevazume ('../../file.php')
+
+3)An kataferume na valume arxeio borume na treksume edoles me shell() 
+h na trexume query (px update announcements set ...=(select password from eclass.user where username='drunkadmin') )
+
+SQL INJECTION GIA PASS APO MERIA ADMIN me tin forma
+http://eponymous.csec.gr/modules/admin/infocours.php?c=
