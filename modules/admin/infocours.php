@@ -80,10 +80,19 @@ if (isset($submit))  {
   // $faculte example: 12--Tmima 1
   list($facid, $facname) = explode("--", $faculte);
   // Update query
-	$sql = mysql_query("UPDATE cours SET faculte='$facname', titulaires='$titulaires', intitule='$intitule', faculteid='$facid' WHERE code='".mysql_real_escape_string($_GET['c'])."'");
+
+  /* BEGIN */
+  $code = xss_sql_filter($_GET['c']);
+  $facname = xss_sql_filter($facname);
+  $titulaires = xss_sql_filter($titulaires);
+  $intitule = xss_sql_filter($intitule);
+
+  /* END */
+
+	$sql = mysql_query("UPDATE cours SET faculte=".justQuote($facname).", titulaires=".justQuote($titulaires).", intitule=".justQuote($intitule).", faculteid='".intval($facid)."' WHERE code=".justQuote($code));
 	// Some changes happened
 	if (mysql_affected_rows() > 0) {
-		$sql = mysql_query("UPDATE cours_faculte SET faculte='$facname', facid='$facid' WHERE code='".mysql_real_escape_string($_GET['c'])."'");
+		$sql = mysql_query("UPDATE cours_faculte SET faculte='$facname', facid='$facid' WHERE code=".justQuote($code));
 		$tool_content .= "<p class=\"alert1\">".$langCourseEditSuccess."</p>";
 	}
 	// Nothing updated
@@ -95,7 +104,7 @@ if (isset($submit))  {
 // Display edit form for course basic information
 else {
 	// Get course information
-	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code='".mysql_real_escape_string($_GET['c'])."'"));
+	$row = mysql_fetch_array(mysql_query("SELECT * FROM cours WHERE code=".justQuote($code));
 	// Constract the edit form
 	$tool_content .= "
   <form action=".$_SERVER['PHP_SELF']."?c=".htmlspecialchars($_GET['c'])."".$searchurl." method=\"post\">
