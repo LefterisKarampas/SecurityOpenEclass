@@ -138,6 +138,12 @@ if (!isset($a)) {
 }
 // Add a new faculte
 elseif ($a == 1)  {
+
+	/* BEGIN */
+	$codefaculte = xss_sql_filter($codefaculte);
+	$faculte = xss_sql_filter($faculte);
+	/* END */
+
 	if (isset($add)) {
 		// Check for empty fields
 		if (empty($codefaculte) or empty($faculte)) {
@@ -151,21 +157,25 @@ elseif ($a == 1)  {
 			$tool_content .= "<center><p><a href=\"$_SERVER[PHP_SELF]?a=1\">".$langReturnToAddFaculte."</a></p></center>";
 			}
 		// Check if faculty code already exists
-		elseif (mysql_num_rows(mysql_query("SELECT * from faculte WHERE code=" . autoquote($codefaculte))) > 0) {
+		elseif (mysql_num_rows(mysql_query("SELECT * from faculte WHERE code=" . justQuote($codefaculte))) > 0) {
 			$tool_content .= "<p>".$langFCodeExists."</p><br />";
 			$tool_content .= "<center><p><a href=\"$_SERVER[PHP_SELF]?a=1\">".$langReturnToAddFaculte."</a></p></center>";
 			}
 		// Check if faculty name already exists
-		elseif (mysql_num_rows(mysql_query("SELECT * from faculte WHERE name=" . autoquote($faculte))) > 0) {
+		elseif (mysql_num_rows(mysql_query("SELECT * from faculte WHERE name=" . justQuote($faculte))) > 0) {
 			$tool_content .= "<p>".$langFaculteExists."</p><br />";
 			$tool_content .= "<center><p><a href=\"$_SERVER[PHP_SELF]?a=1\">".$langReturnToAddFaculte."</a></p></center>";
 		} else {
 		// OK Create the new faculty
-			mysql_query("INSERT into faculte(code,name,generator,number) VALUES(" . autoquote($codefaculte) . ',' . autoquote($faculte) . ",'100','1000')")
+			mysql_query("INSERT into faculte(code,name,generator,number) VALUES(" . justQuote($codefaculte) . ',' . justQuote($faculte) . ",'100','1000')")
 				or die ($langNoSuccess);
 			$tool_content .= "<p>".$langAddSuccess."</p><br />";
 			}
 	} else {
+		/* BEGIN */
+		$codefaculte = xss_sql_filter($codefaculte);
+		$faculte = xss_sql_filter($faculte);
+		/* END */
 		// Display form for new faculte information
 		$tool_content .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?a=1\">";
 		$tool_content .= "<table width='99%' class='FormData'>
@@ -192,7 +202,7 @@ elseif ($a == 1)  {
 }
 // Delete faculty
 elseif ($a == 2) {
-        $c = intval($_GET['c']);
+    $c = intval($_GET['c']);
 	$s=mysql_query("SELECT * from cours WHERE faculteid=$c");
 	// Check for existing courses of a faculty
 	if (mysql_num_rows($s) > 0)  {
@@ -208,7 +218,11 @@ elseif ($a == 2) {
 }
 // Edit a faculte
 elseif ($a == 3)  {
-        $c = @intval($_REQUEST['c']);
+	/* BEGIN */
+	$codefaculte = xss_sql_filter($codefaculte);
+	$faculte = xss_sql_filter($faculte);
+	/* END */
+    $c = @intval($_REQUEST['c']);
 	if (isset($_POST['edit'])) {
 		// Check for empty fields
                 $faculte = $_POST['faculte'];
@@ -218,26 +232,26 @@ elseif ($a == 3)  {
 			}
 		// Check if faculte name already exists
 		elseif (mysql_num_rows(mysql_query("SELECT * from faculte WHERE id <> $c AND name=" .
-                                                   autoquote($faculte))) > 0) {
+                                                   justQuote($faculte))) > 0) {
 			$tool_content .= "<p>".$langFaculteExists."</p><br>";
 			$tool_content .= "<p align='right'><a href='$_SERVER[PHP_SELF]?a=3&amp;c=$c'>$langReturnToEditFaculte</a></p>";
 		} else {
 		// OK Update the faculte
 			mysql_query("UPDATE faculte SET name = " .
-                                    autoquote($faculte) . " WHERE id=$c")
+                                    justQuote($faculte) . " WHERE id=$c")
 				or die ($langNoSuccess);
 		// For backwards compatibility update cours and cours_facult also
 			db_query("UPDATE cours SET faculte = " .
-                                    autoquote($faculte) . " WHERE faculteid=$c")
+                                    justQuote($faculte) . " WHERE faculteid=$c")
 				or die ($langNoSuccess);
 			db_query("UPDATE cours_faculte SET faculte = " .
-                                    autoquote($faculte) . " WHERE facid=$c")
+                                    justQuote($faculte) . " WHERE facid=$c")
 				or die ($langNoSuccess);
 			$tool_content .= "<p>$langEditFacSucces</p><br>";
 			}
 	} else {
 		// Get faculte information
-                $c = intval($_GET['c']);
+        $c = intval($_GET['c']);
 		$sql = "SELECT code, name FROM faculte WHERE id=$c";
 		$result = mysql_query($sql);
 		$myrow = mysql_fetch_array($result);

@@ -69,6 +69,7 @@ if (isset($_POST['submit']))  {
                 }
                 $reglist = implode(', ', $users);
                 if ($reglist) {
+                		$statut = intval($statut);
                         db_query("UPDATE cours_user SET statut = $statut WHERE user_id IN ($reglist)");
                 }
         }
