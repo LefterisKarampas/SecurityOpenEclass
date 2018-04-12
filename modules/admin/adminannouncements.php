@@ -23,19 +23,6 @@
 *  			Panepistimiopolis Ilissia, 15784, Athens, Greece
 *  			eMail: info@openeclass.org
 * =========================================================================*/
-function undo_htmlspecialchars($input) {
-    $input = preg_replace("/&gt;/i", ">", $input);
-    $input = preg_replace("/&lt;/i", "<", $input);
-    $input = preg_replace("/&quot;/i", "\"", $input);
-    $input = preg_replace("/&amp;/i", "&", $input);
-    
-    return $input;
-}
-
-function undo_redo_hsc($data) {
-  return htmlspecialchars(undo_htmlspecialchars($data));
-}
-
 
 $require_admin = TRUE;
 include '../../include/baseTheme.php';

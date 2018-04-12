@@ -247,6 +247,10 @@ function justQuote($str) {
 	return "'$str'";
 }
 
+function xq($str) {
+	return justQuote(xss_sql_filter($str));
+}
+
 // ------------------------------------------------------
 // Other useful functions. We use it in various scripts.
 // -----------------------------------------------------
