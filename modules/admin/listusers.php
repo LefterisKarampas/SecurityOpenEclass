@@ -115,6 +115,7 @@ $criteria = 0;
 // surname search
 if(!empty($user_surname))
 {
+	$user_surname = xss_sql_filter($user_surname);
 	$user_surname_qry = " nom LIKE '".$user_surname."%'";
 	$criteria++;
 }
@@ -135,6 +136,7 @@ if(!empty($user_firstname))
 		$user_firstname_qry = "";
 	}
 	$criteria++;
+	$user_firstname = xss_sql_filter($user_firstname);
 	$user_firstname_qry .= " prenom LIKE '".$user_firstname."%'";
 }
 else
@@ -154,6 +156,7 @@ if(!empty($user_username))
 		$user_username_qry = "";
 	}
 	$criteria++;
+	$user_username = xss_sql_filter($user_username);
 	$user_username_qry .= " username LIKE '".$user_username."%'";
 }
 else
@@ -173,6 +176,7 @@ if(!empty($user_am))
 		$user_am_qry = "";
 	}
 	$criteria++;
+	$user_am = xss_sql_filter($user_am);
 	$user_am_qry .= " am='".$user_am."'";
 }
 else
@@ -192,6 +196,7 @@ if(!empty($user_type))
 		$user_type_qry = "";
 	}
 	$criteria++;
+	$user_type = intval($user_type);
 	$user_type_qry .= " statut=".$user_type;
 }
 else
@@ -212,6 +217,7 @@ if(!empty($user_email))
 		$user_email_qry = "";
 	}
 	$criteria++;
+	$user_email = xss_sql_filter($user_email);
 	$user_email_qry .= " email LIKE '".$user_email."%'";
 }
 else
@@ -240,6 +246,7 @@ if(!empty($user_registered_at_flag))
 	}
 	if(!empty($user_registered_at))
 	{
+		$user_registered_at = intval($user_registered_at);
 		$user_registered_at_qry .= $user_registered_at;
 	}
 	else
@@ -275,6 +282,8 @@ else
 $ord = isset($_GET['ord'])?$_GET['ord']:'';
 $startList = isset($_GET['startList'])?$_GET['startList']:'';
 $numbList = isset($_GET['numbList'])?$_GET['numbList']:'';
+
+$startList = intval($startList);
 
 if(!empty($ord)) {
 	switch ($ord) {
@@ -565,30 +574,37 @@ function keep_var() {
 	$retstring = '';
 	if (isset($_REQUEST['c']) and $_REQUEST['c'] != 'searchlist' and $_REQUEST['c'] != 'inactive') {
 			$c = $_REQUEST['c'];
+			$c = xss_sql_filter($c);
 			$retstring .= "<input type = 'hidden' name='c' value='$c'>";
 	} else  {
 		if (isset($_REQUEST['user_surname'])) {
 			$user_surname = $_REQUEST['user_surname'];
+			$user_surname = xss_sql_filter($user_surname);
 			$retstring .= "<input type = 'hidden' name='user_surname' value='$user_surname'>";
 		} 
 		if (isset($_REQUEST['user_firstname'])) {
 			$user_firstname = $_REQUEST['user_firstname'];
+			$user_firstname = xss_sql_filter($user_firstname);
 			$retstring .= "<input type='hidden' name='user_firstname' value='$user_firstname'>";
 		}
 		if (isset($_REQUEST['user_username'])) {
 			$user_username = $_REQUEST['user_username'];
+			$user_username = xss_sql_filter($user_username);
 			$retstring .= "<input type='hidden' name='user_username' value = '$user_username'>";
 		}
 		if (isset($_REQUEST['user_am'])) {
 			$user_am = $_REQUEST['user_am']; 
+			$user_am = xss_sql_filter($user_am);
 			$retstring .= "<input type='hidden' name='user_am' value = '$user_am'>";
 		}
 		if (isset($_REQUEST['user_type'])) {
 			$user_type = $_REQUEST['user_type'];
+			$user_type = intval($user_type);
 			$retstring .= "<input type='hidden' name='user_type' value='$user_type'>";
 		}
 		if (isset($_REQUEST['user_email'])) {
 			$user_email = $_REQUEST['user_email'];
+			$user_email = xss_sql_filter($user_email);
 			$retstring .= "<input type='hidden' name='user_email' value='$user_email'>";
 		}
 		if (isset($_REQUEST['user_registered_at_flag'])) {

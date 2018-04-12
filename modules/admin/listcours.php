@@ -92,17 +92,25 @@ if (isset($search) && $search=="yes") {
 	}
 	// Search for courses
 	$searchcours=array();
+
+	/*BEGIN */
+	$searchtitle = xss_sql_filter($searchtitle);
+	$searchcode = xss_sql_filter($searchcode);
+	$searchtype = intval($searchtype);
+	$searchfaculte = xss_sql_filter($searchfaculte);
+
+	/* END */
 	if(!empty($searchtitle)) {
-		$searchcours[] = "intitule LIKE '%".mysql_escape_string($searchtitle)."%'";
+		$searchcours[] = "intitule LIKE '%".$searchtitle."%'";
 	}
 	if(!empty($searchcode)) {
-		$searchcours[] = "code LIKE '%".mysql_escape_string($searchcode)."%'";
+		$searchcours[] = "code LIKE '%".$searchcode."%'";
 	}
 	if ($searchtype != "-1") {
-		$searchcours[] = "visible = '".mysql_escape_string($searchtype)."'";
+		$searchcours[] = "visible = '".$searchtype."'";
 	}
 	if($searchfaculte != "0") {
-		$searchcours[] = "faculte = '".mysql_escape_string($searchfaculte)."'";
+		$searchcours[] = "faculte = '".$searchfaculte."'";
 	}
 	$query=join(' AND ',$searchcours);
 	if (!empty($query)) {
