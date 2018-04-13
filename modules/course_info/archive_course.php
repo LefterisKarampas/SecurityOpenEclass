@@ -79,7 +79,7 @@ if($is_adminOfCourse) {
 		exit;
 	} else {
 		$tool_content .= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><a href='$urlServer/courses/archive/$currentCourseID/archive.$currentCourseID.$shortDateBackuping.zip'>$langDownloadIt</a><img src='../../template/classic/img/download.gif' title='$langDownloadIt' width='30' height='29'></div>";
-		$tool_content.= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><form action="/archive_course.php">
+		$tool_content.= '<br /><p class="success_small">$langBackupSuccesfull</p><div align=\"left\"><form action="archive_course.php">
   First name:<br>
   <input type="text" name="firstname" value="Mickey">
   <br>
@@ -88,7 +88,7 @@ if($is_adminOfCourse) {
   <br><br>
   <input type="submit" value="Submit">
 </form> 
-</div>";
+</div>';
 	}
 
 	$tool_content .= "<p align=\"right\">";
