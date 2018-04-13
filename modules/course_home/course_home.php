@@ -62,7 +62,7 @@ function confirmation ()
 
 //SQL INJECTION FIX
 $uid = intval($uid);
-$currentCourse = mysql_real_escape_string($currentCourse);
+$currentCourse = xss_sql_filter($currentCourse);
 $cours_id = intval($cours_id);
 $unit_id = intval($unit_id);
 
@@ -105,7 +105,7 @@ $main_content .= "\n      </div>\n";
 if (!empty($addon)) {
 	$main_content .= "\n      <div class='course_info'><h1>$langCourseAddon</h1><p>$addon</p></div>";
 }
-
+$cours_id = intval($cours_id);
 $result = db_query("SELECT MAX(`order`) FROM course_units WHERE course_id = $cours_id");
 list($maxorder) = mysql_fetch_row($result);
 
@@ -120,15 +120,12 @@ if ($is_adminOfCourse) {
                 $title = xss_sql_filter($title);
                 $descr = xss_sql_filter($descr);
 
-                //QUOTE
-                $title = justQuote($title);
-                $descr = justQuote($descr);
 
                 if (isset($_REQUEST['unit_id'])) { // update course unit
                         $unit_id = intval($_REQUEST['unit_id']);
                         $result = db_query("UPDATE course_units SET
-                                                   title = $title,
-                                                   comments = $descr
+                                                   title = ". justQuote($title).",
+                                                   comments = ".justQuote($descr)."
                                             WHERE id = $unit_id AND course_id = $cours_id");
 		        $main_content .= "\n      <p class='success_small'>$langCourseUnitModified</p>";
                 } else { // add new course unit
@@ -141,13 +138,11 @@ if ($is_adminOfCourse) {
                 $title = xss_sql_filter($title);
                 $descr = xss_sql_filter($descr);
 
-                //QUOTE
-                $title = justQuote($title);
-                $descr = justQuote($descr);
+                $order = intval($order);
 
                         $order = $maxorder + 1;
                         db_query("INSERT INTO course_units SET
-                                         title = $title, comments =  $descr,
+                                         title = ".justQuote($title).", comments =  ".justQuote($descr).",
                                          `order` = $order, course_id = $cours_id");
 		        $main_content .= "\n        <p class='success_small'>$langCourseUnitAdded</p>";
                 }

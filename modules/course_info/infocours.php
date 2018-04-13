@@ -87,21 +87,37 @@ if (isset($_POST['submit'])) {
                 }
 
                 list($facid, $facname) = explode('--', $_POST['facu']);
+                /* BEGIN */
+                $facid = intval($facid);
+                $cours_id = intval($cours_id); 
+                $title = xss_sql_filter($_POST['title']);
+                $facname = xss_sql_filter($facname);
+                $description = xss_sql_filter($_POST['description']);
+                $course_addon = xss_sql_filter($_POST['course_addon']);
+                $course_keywords = xss_sql_filter($_POST['course_keywords']);
+                $formvisible = xss_sql_filter($_POST['formvisible']);
+                $titulary = xss_sql_filter($_POST['titulary']);
+                $type = xss_sql_filter($_POST['type']);
+                $password = xss_sql_filter($_POST['password']);
+                $facname = xss_sql_filter($facname);
+                $currentCourseID = xss_sql_filter($currentCourseID);
+                $newlang = xss_sql_filter($newlang);
+                /* END */
                 db_query("UPDATE `$mysqlMainDb`.cours
-                          SET intitule = " . autoquote($_POST['title']) .",
-                              faculte = " . autoquote($facname) . ",
-                              description = " . autoquote($_POST['description']) . ",
-                              course_addon = " . autoquote($_POST['course_addon']) . ",
-                              course_keywords = ".autoquote($_POST['course_keywords']) . ",
-                              visible = " . intval($_POST['formvisible']) . ",
-                              titulaires = " . autoquote($_POST['titulary']) . ",
+                          SET intitule = " . justQuote($title) .",
+                              faculte = " . justQuote($facname) . ",
+                              description = " . justQuote($description) . ",
+                              course_addon = " . justQuote($course_addon) . ",
+                              course_keywords = ".justQuote($course_keywords) . ",
+                              visible = " . intval($formvisible) . ",
+                              titulaires = " . justQuote($titulary) . ",
                               languageCourse = '$newlang',
-                              type = " . autoquote($_POST['type']) . ",
-                              password = " . autoquote($_POST['password']) . ",
+                              type = " . justQuote($type) . ",
+                              password = " . justQuote($_POST['password']) . ",
                               faculteid = " . intval($facid) . "
                           WHERE cours_id = $cours_id");
                 db_query("UPDATE `$mysqlMainDb`.cours_faculte
-                          SET faculte = " . autoquote($facname) . ",
+                          SET faculte = " . justQuote($facname) . ",
                               facid = " . intval($facid) . "
                           WHERE code='$currentCourseID'");
 
@@ -138,7 +154,7 @@ if (isset($_POST['submit'])) {
 		$tool_content .= "<li><a href='archive_course.php'>$langBackupCourse</a></li>
   		<li><a href='delete_course.php'>$langDelCourse</a></li>
     		<li><a href='refresh_course.php'>$langRefreshCourse</a></li></ul></div>";
-
+    $currentCourseID = xss_sql_filter($currentCourseID);
 		$sql = "SELECT cours_faculte.faculte,
 			cours.intitule, cours.description, cours.course_keywords, cours.course_addon,
 			cours.visible, cours.fake_code, cours.titulaires, cours.languageCourse,

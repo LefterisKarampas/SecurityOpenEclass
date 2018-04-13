@@ -213,16 +213,17 @@ function announcement($text, $date, $order, $title = '') {
 	$order  = xss_sql_filter($order);
 
 	global $action, $new_course_id, $mysqlMainDb;
+	$new_course_id = intval($new_course_id);
 	if (!$action) return;
 	db_query("INSERT into `$mysqlMainDb`.annonces
 		(title, contenu, temps, cours_id, ordre)
 		VALUES (".
 		join(", ", array(
-			quote($title),
-			quote($text),
-			quote($date),
+			justQuote($title),
+			justQuote($text),
+			justQuote($date),
 			$new_course_id,
-			quote($order))).
+			justQuote($order))).
 			")");
 }
 
@@ -233,16 +234,17 @@ function course_units($title, $comments, $visibility, $order, $resource_units) {
 	$comments  = xss_sql_filter($comments);
 
 	global $action, $new_course_id, $mysqlMainDb;
-	
+	$new_course_id = intval($new_course_id);
+	$order = intval($order);
 	if (!$action) return;
 	db_query("INSERT into `$mysqlMainDb`.course_units
 		(title, comments, visibility, `order`, course_id)
 		VALUES (".
 		join(", ", array(
-			quote($title),
-			quote($comments),
-			quote($visibility),
-			quote($order),
+			justQuote($title),
+			justQuote($comments),
+			justQuote($visibility),
+			justQuote($order),
 			$new_course_id)).
 			")");
 	$unit_id = mysql_insert_id();
@@ -286,8 +288,8 @@ function user($userid, $name, $surname, $login, $password, $email, $statut, $pho
 			$login = $new_course_code.'_'.$login;
 		}
 	}
-
-	$u = mysql_query("SELECT * FROM `$mysqlMainDb`.user WHERE BINARY username=".quote($login));
+	$login = xss_sql_filter($login);
+	$u = mysql_query("SELECT * FROM `$mysqlMainDb`.user WHERE BINARY username=".justQuote($login));
 	if (mysql_num_rows($u) > 0) 	{
 		$res = mysql_fetch_array($u);
 		$userid_map[$userid] = $res['user_id'];
@@ -297,28 +299,45 @@ function user($userid, $name, $surname, $login, $password, $email, $statut, $pho
 		if ($version == 1) { // if we come from a archive < 2.x encrypt user password
 			$password = md5($password);
 		}
+
+		/* BEGIN */
+		$name = xss_sql_filter($name);
+		$surname = xss_sql_filter($surname);
+		$login = xss_sql_filter($login);
+		$password = xss_sql_filter($password);
+		$email = xss_sql_filter($email);
+		$statut = intval($statut);
+		$department = intval($department);
+		$registered_at = intval($registered_at);
+		$expires_at = intval($expires_at);
+
+		/* END */
 		db_query("INSERT into `$mysqlMainDb`.user
 			(nom, prenom, username, password, email, statut, phone, department, registered_at, expires_at)
 			VALUES (".
 			join(", ", array(
-				quote($name),
-				quote($surname),
-				quote($login),
-				quote($password),
-				quote($email),
-				quote($statut),
-				quote($phone),
-				quote($department),
-				quote($registered_at),
-				quote($expires_at)
+				justQuote($name),
+				justQuote($surname),
+				justQuote($login),
+				justQuote($password),
+				justQuote($email),
+				justQuote($statut),
+				justQuote($phone),
+				justQuote($department),
+				justQuote($registered_at),
+				justQuote($expires_at)
 				)).
 				")");
 		$userid_map[$userid] = mysql_insert_id();
 	}
 
+	/* BEGIN */
+	$cours_id = intval($cours_id);
+	$statut = intval($statut);
+	/* END */
 	db_query("INSERT into `$mysqlMainDb`.cours_user
 		(cours_id, user_id, statut)
-		VALUES ($new_course_id, $userid_map[$userid], $statut)");
+		VALUES ($new_course_id, ".intval($userid_map[$userid]).", $statut)");
 	echo "<br /> $langUserName=$login, $langPrevId=$userid, $langNewId=$userid_map[$userid]\n";
 }
 
@@ -340,15 +359,22 @@ function group($userid, $team, $status, $role) {
 	if (!$action or !$course_addusers or !isset($userid_map[$userid])) {
 		return;
 	}
+
+	/* BEGIN */
+	$userid_map[$userid] = intval($userid_map[$userid]);
+	$team = intval($team);
+	$status = intval($status);
+	$role = xss_sql_filter($role);
+	/* END */
 	mysql_select_db($new_course_code);
 	db_query("INSERT into user_group
 		(user,team,status,role)
 		VALUES (".
 		join(", ", array(
-			quote($userid_map[$userid]),
-			quote($team),
-			quote($status),
-			quote($role))).
+			justQuote($userid_map[$userid]),
+			justQuote($team),
+			justQuote($status),
+			justQuote($role))).
 			")");
 
 }
@@ -359,18 +385,31 @@ function dropbox_file($userid, $filename, $filesize, $title, $description, $auth
 	if (!$action) return;
 	if (!$course_addusers) return;
 	mysql_select_db($new_course_code);
+
+	/* BEGIN */
+	$userid_map[$userid] = intval($userid_map[$userid]);
+	$filesize = intval($filesize);
+	$status = intval($status);
+	$filename = xss_sql_filter($filename);
+	$title = xss_sql_filter($title);
+	$description = xss_sql_filter($description);
+	$author = xss_sql_filter($author);
+	$uploadDate = xss_sql_filter($uploadDate);
+	$lastUploadDate = xss_sql_filter($lastUploadDate);
+	/* END */
+
 	db_query("INSERT into dropbox_file
 		(uploaderId,filename,filesize,title,description,author,uploadDate,lastUploadDate)
 		VALUES (".
 		join(", ", array(
-			quote($userid_map[$userid]),
-			quote($filename),
-			quote($filesize),
-			quote($title),
-			quote($description),
-			quote($author),
-			quote($uploadDate),
-			quote($lastUploadDate))).
+			justQuote($userid_map[$userid]),
+			justQuote($filename),
+			justQuote($filesize),
+			justQuote($title),
+			justQuote($description),
+			justQuote($author),
+			justQuote($uploadDate),
+			justQuote($lastUploadDate))).
 			")");
 }
 
@@ -379,11 +418,14 @@ function dropbox_person($fileId, $personId) {
 	if (!$action) return;
 	if (!$course_addusers) return;
 	mysql_select_db($course_code);
+
+	$fileId = intval($fileId);
+	$userid_map[$personId]) = intval($$userid_map[$personId]);
 	db_query("INSERT into dropbox_person(fileId, personId)
 		VALUES (".
 		join(", ", array(
-			quote($fileId),
-			quote($userid_map[$personId]))).")");
+			justQuote($fileId),
+			justQuote($userid_map[$personId]))).")");
 
 }
 
@@ -392,6 +434,8 @@ function dropbox_post($fileId, $recipientId) {
 	if (!$action) return;
 	if (!$course_addusers) return;
 	mysql_select_db($new_course_code);
+	$fileId = intval($fileId);
+	$userid_map[$personId]) = intval($$userid_map[$recipientId]);
 	db_query("INSERT into dropbox_post (fileId, recipientId)
 		VALUES (".
 		join(", ", array(
@@ -415,14 +459,14 @@ function assignment_submit($userid, $assignment_id, $submission_date,
 		$submission_ip, $file_path, $file_name, $comments,
 		$grade, $grade_comments, $grade_submission_date,
 		$grade_submission_ip) as $v) {
-		$values[] = quote($v);
+		$values[] = justQuote(xss_sql_filter($v));
 	}
 	db_query("INSERT into assignment_submit
 		(uid, assignment_id, submission_date,
 		 submission_ip, file_path, file_name,
 		 comments, grade, grade_comments, grade_submission_date,
 		 grade_submission_ip) VALUES (".
-		 quote($userid_map[$userid]). ", ".
+		 justQuote(intval($userid_map[$userid])). ", ".
 		 join(", ", $values). ")");
 }
 
@@ -436,24 +480,36 @@ function create_course($code, $lang, $title, $desc, $fac, $vis, $prof, $type) {
 		echo $langCourseExists;
 		exit;
 	}
+	/* BEGIN */
+	$fac = intval($fac);
+	$repertoire = xss_sql_filter($repertoire);
+	$lang = xss_sql_filter($lang);
+	$title = xss_sql_filter($title);
+	$desc = xss_sql_filter($desc);
+	$vis = intval($vis);
+	$prof = xss_sql_filter($prof);
+	$code = xss_sql_filter($code);
+	$type = xss_sql_filter($type);
+	/* END */
 	db_query("INSERT into `$mysqlMainDb`.cours
 		(code, languageCourse, intitule, description, faculte, visible, titulaires, fake_code, type)
 		VALUES (".
 		join(", ", array(
-			quote($repertoire),
-			quote($lang),
-			quote($title),
-			quote($desc),
+			justQuote($repertoire),
+			justQuote($lang),
+			justQuote($title),
+			justQuote($desc),
 			$fac,
-			quote($vis),
-			quote($prof),
-			quote($code),
-			quote($type))).
+			justQuote($vis),
+			justQuote($prof),
+			justQuote($code),
+			justQuote($type))).
 		")");
         $cid = mysql_insert_id();
+        $cid = intval($cid);
 	db_query("INSERT into `$mysqlMainDb`.cours_faculte
 		(faculte,code)
-		VALUES($fac,".quote($repertoire).")");
+		VALUES($fac,".justQuote($repertoire).")");
 
 	if (!db_query("CREATE DATABASE `$repertoire`")) {
 		echo "Database $repertoire creation failure ";

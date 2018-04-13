@@ -89,10 +89,15 @@ if ($is_adminOfCourse) {
                 if (empty($edTitleBloc)) {
                         $edTitleBloc = $titreBloc[$edIdBloc];
                 }
+                /* BEGIN */
+                $new_id = intval($new_id);
+                $edTitleBloc = xss_sql_filter(trim($edTitleBloc));
+                $edContentBloc = xss_sql_filter(trim($edContentBloc));
+                /* END */
                 db_query("INSERT IGNORE INTO course_description SET id = $new_id");
                 db_query("UPDATE course_description
-                                SET title = " . autoquote(trim($edTitleBloc)) . ",
-                                    content = " . autoquote(trim($edContentBloc)) . ",
+                                SET title = " . justQuote($edTitleBloc) . ",
+                                    content = " . justQuote($edContentBloc) . ",
                                     `upDate` = NOW()
                                 WHERE id = $new_id");
                 header('Location: ' . $urlServer . 'modules/course_description/edit.php');
@@ -110,11 +115,11 @@ if ($is_adminOfCourse) {
                 $title = '';
                 if ($res and mysql_num_rows($res) > 0) {
                         $blocs = mysql_fetch_array($res);
-                        $title = q($blocs['title']);
-                        $contentBloc = $blocs["content"];
+                        $title = xss_sql_filter($blocs['title']);
+                        $contentBloc = xss_sql_filter($blocs["content"]);
                 } else {
                         if (isset($titreBloc[$edit_id])) {
-                                $title = q($titreBloc[$edit_id]);
+                                $title = xss_sql_filter($titreBloc[$edit_id]);
                         }
                         if (!isset($titreBlocNotEditable[$edit_id]) or !$titreBlocNotEditable[$numBloc]) {
                                 $numBloc = 'add';
@@ -138,7 +143,7 @@ if ($is_adminOfCourse) {
                         <tr><th class='left'>&nbsp;</th>
                             <td><table class='xinha_editor'>
                             <tr><td><textarea id='xinha' name='edContentBloc'>" . 
-                                q(@$contentBloc) . "</textarea></td></tr></table></td></tr>
+                                @$contentBloc . "</textarea></td></tr></table></td></tr>
                         <tr><th class='left'>&nbsp;</th>
                             <td><input type='submit' name='save' value='$langAdd' />&nbsp;&nbsp;
                                 <input type='submit' name='ignore' value='$langBackAndForget' /></td></tr>

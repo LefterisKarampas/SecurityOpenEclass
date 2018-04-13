@@ -33,6 +33,12 @@ $tool_content = "";
 
 if($is_adminOfCourse) {
 	if(isset($delete)) {
+		/* BEGIN */
+		$currentCourseID = xss_sql_filter($currentCourseID);
+		$cours_id = intval($cours_id);
+		$intitule = xss_sql_filter($intitule);
+		/* END */
+
 		mysql_select_db("$mysqlMainDb",$db);
 		mysql_query("DROP DATABASE `$currentCourseID`");
 		mysql_query("DELETE FROM `$mysqlMainDb`.cours WHERE code='$currentCourseID'");
