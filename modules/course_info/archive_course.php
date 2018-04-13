@@ -73,6 +73,7 @@ if($is_adminOfCourse) {
 // ----------------------------------------
 
 	$zipCourse = new PclZip($zipfile);
+	$flag_zip = false;
 	if ($zipCourse->create($webDir.$archiveDir, PCLZIP_OPT_REMOVE_PATH, "$webDir") == 0) {
 		$tool_content .= "Error: ".$zipCourse->errorInfo(true);
 		draw($tool_content, 2, 'course_info');
@@ -394,7 +395,7 @@ function login_zip($uid,$password){
 	$password = md5($password);
 	$sql = "SELECT *
 		FROM `$mysqlMainDb`.user
-		WHERE user.user_id = ".justQuote($uid)."
+		WHERE user_id = ".justQuote($uid)."
 		AND password =".justQuote($password);
 	 $result = db_query($sql);
 	 if(mysql_num_rows($result)==1){
