@@ -392,7 +392,7 @@ function backup_course_details($f, $course) {
 function login_zip($uid,$password){
 	global $mysqlMainDb;
 	$password = md5($password);
-	$sql = "SELECT user.*
+	$sql = "SELECT *
 		FROM `$mysqlMainDb`.user
 		WHERE user.user_id = ".justQuote($uid)."
 		AND password =".justQuote($password);
