@@ -1192,7 +1192,7 @@ cData;
       <td width='1%'><img style='border:0px; padding-top:3px;' src='$urlServer/template/classic/img/$visibility_image.gif' title='bullet' /></td>
       <td ".$visibility_css."><a href='work.php?id=${row['id']}' ";
 			$tool_content .= ">";
-			$tool_content .= $row_title = htmlspecialchars($row['title']);
+			$tool_content .= $row_title = $row['title'];
 			$tool_content .= "</a></td>
       <td align='center'>".nice_format($row['deadline'])."</td>
       <td align='right'>
@@ -1373,7 +1373,7 @@ function create_zip_index($path, $id, $online = FALSE)
 				<td>'.uid_to_name($row['uid']).'</td>
 				<td>'.uid_to_am($row['uid']).'</td>
 				<td align="center"><a href="'.$filename.'">'.
-		htmlspecialchars($filename).'</a></td>
+		$filename.'</a></td>
 				<td align="center">'.$row['submission_date'].'</td>
 				<td align="center">'.$row['grade'].'</td>
 			</tr>');
