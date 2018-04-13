@@ -130,8 +130,6 @@ hContent;
 // main program
 //-------------------------------------------
 
-$id = intval($id);
-
 if ($is_adminOfCourse) {
 	if (isset($grade_comments)) {
 		$nameTools = $m['WorkView'];
@@ -153,6 +151,7 @@ if ($is_adminOfCourse) {
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 		submit_grades($grades_id, $grades);
 	} elseif (isset($id)) {
+    $id = intval($id);//SQL INJECTION FIX
 		if (isset($choice)) {
 			if ($choice == 'disable') {
 				db_query("UPDATE assignments SET active = '0' WHERE id = '$id'");
@@ -189,6 +188,7 @@ if ($is_adminOfCourse) {
 	}
 } else {
 	if (isset($id)) {
+    $id = intval($id);//SQL INJECTION FIX
 		if (isset($work_submit)) {
 			$nameTools = $m['SubmissionStatusWorkInfo'];
 			$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
