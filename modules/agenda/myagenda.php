@@ -143,6 +143,7 @@ function display_monthcalendar($agendaitems, $month, $year, $weekdaynames, $mont
 	$forewardsURL = "$_SERVER[PHP_SELF]?month=".($month==12 ? 1 : $month+1)."&year=".($month==12 ? $year+1 : $year);
 	$month = htmlspecialchars($month);
 	$year = htmlspecialchars($year);
+	$year = intval($year);
 	$tool_content .=  "\n  <table width=99% class=\"DepTitle\">\n  <thead>";
   	$tool_content .=  "\n  <tr>";
 	$tool_content .=  "\n    <th width=5%><a href=$backwardsURL>&lt;&lt;</a></th>";
