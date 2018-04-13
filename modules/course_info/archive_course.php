@@ -81,9 +81,10 @@ if($is_adminOfCourse) {
 	} else {
 		if(isset($_POST['password'])){
 			$password = xss_sql_filter($_POST['password']);
+			$username = xss_sql_filter($_POST['username']);
 			$uid = intval($uid);
 			$flag_zip = login_zip($uid,$password);
-			if(flag_zip){
+			if($flag_zip){
 				$tool_content .= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><a href='$urlServer/courses/archive/$currentCourseID/archive.$currentCourseID.$shortDateBackuping.zip'>$langDownloadIt</a><img src='../../template/classic/img/download.gif' title='$langDownloadIt' width='30' height='29'></div>";
 			}
 			else{
