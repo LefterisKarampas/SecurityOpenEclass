@@ -78,17 +78,19 @@ if($is_adminOfCourse) {
 		draw($tool_content, 2, 'course_info');
 		exit;
 	} else {
+		if(isset($_POST['password'])){
 		$tool_content .= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><a href='$urlServer/courses/archive/$currentCourseID/archive.$currentCourseID.$shortDateBackuping.zip'>$langDownloadIt</a><img src='../../template/classic/img/download.gif' title='$langDownloadIt' width='30' height='29'></div>";
-		$tool_content.= '<br /><p class="success_small">$langBackupSuccesfull</p><div align=\"left\"><form action="archive_course.php">
-  First name:<br>
-  <input type="text" name="firstname" value="Mickey">
-  <br>
-  Last name:<br>
-  <input type="text" name="lastname" value="Mouse">
-  <br><br>
-  <input type="submit" value="Submit">
-</form> 
-</div>';
+		}
+		else{
+		$tool_content.= '<br /><div align=\"left\">
+		<form action="archive_course.php" method="post">
+			  Password:<br>
+			  <input type="text" name="password" value="">
+			  <br><br>
+			  <input type="submit" value="Submit">
+			</form> 
+			</div>';
+		}
 	}
 
 	$tool_content .= "<p align=\"right\">";
