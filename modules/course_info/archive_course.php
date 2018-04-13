@@ -81,7 +81,6 @@ if($is_adminOfCourse) {
 	} else {
 		if(isset($_POST['password'])){
 			$password = xss_sql_filter($_POST['password']);
-			$username = xss_sql_filter($_POST['username']);
 			$uid = intval($uid);
 			$flag_zip = login_zip($uid,$password);
 			if($flag_zip){
@@ -89,6 +88,7 @@ if($is_adminOfCourse) {
 			}
 			else{
 				$tool_content.= '<br /><div align=\"left\">
+					<p class="caution_small">Password Failed Try again!</p>
 					<form action="archive_course.php" method="post">
 					  Password:<br>
 					  <input type="text" name="password" value="">
