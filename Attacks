@@ -53,6 +53,7 @@ XSS Attack
 	- http://eponymous.csec.gr/modules/phpbb/viewtopic.php?topic=1)%20UNION%20SELECT%20%22a%22,%22%3Cscript%3Ealert(%27hello%20lef%27)%3C/script%3E%22%20FROM%20forums%20f,%20topics%20t%20WHERE%201=1%20OR%20(1=2%20&forum=1
 
 	- Admin Αnnouncements
+	- Agenda Year
 	- Topics with plain text
 	- Thlesynergasia
 	- Ergasies / sxolia
