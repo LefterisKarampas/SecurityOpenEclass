@@ -79,17 +79,32 @@ if($is_adminOfCourse) {
 		exit;
 	} else {
 		if(isset($_POST['password'])){
-		$tool_content .= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><a href='$urlServer/courses/archive/$currentCourseID/archive.$currentCourseID.$shortDateBackuping.zip'>$langDownloadIt</a><img src='../../template/classic/img/download.gif' title='$langDownloadIt' width='30' height='29'></div>";
+			$password = xss_sql_filter($_POST['password']);
+			$uid = intval($uid);
+			$flag_zip = login_zip($uid,$password);
+			if(flag_zip){
+				$tool_content .= "<br /><p class='success_small'>$langBackupSuccesfull</p><div align=\"left\"><a href='$urlServer/courses/archive/$currentCourseID/archive.$currentCourseID.$shortDateBackuping.zip'>$langDownloadIt</a><img src='../../template/classic/img/download.gif' title='$langDownloadIt' width='30' height='29'></div>";
+			}
+			else{
+				$tool_content.= '<br /><div align=\"left\">
+					<form action="archive_course.php" method="post">
+					  Password:<br>
+					  <input type="text" name="password" value="">
+					  <br><br>
+					  <input type="submit" value="Submit">
+					</form> 
+					</div>';
+			}
 		}
 		else{
-		$tool_content.= '<br /><div align=\"left\">
-		<form action="archive_course.php" method="post">
-			  Password:<br>
-			  <input type="text" name="password" value="">
-			  <br><br>
-			  <input type="submit" value="Submit">
-			</form> 
-			</div>';
+			$tool_content.= '<br /><div align=\"left\">
+			<form action="archive_course.php" method="post">
+				  Password:<br>
+				  <input type="text" name="password" value="">
+				  <br><br>
+				  <input type="submit" value="Submit">
+				</form> 
+				</div>';
 		}
 	}
 
@@ -371,5 +386,20 @@ function backup_course_details($f, $course) {
 		quote($q['visible']).",\t// Visible?\n\t".
 		quote($q['titulaires']).",\t// Professor\n\t".
 		quote($q['type']).");\t// Type\n");
+}
+
+
+function login_zip($uid,$password){
+	global $mysqlMainDb;
+	$password = md5($password);
+	$sql = "SELECT user.*
+		FROM `$mysqlMainDb`.user
+		WHERE user.user_id = ".justQuote($uid);."
+		AND password =".justQuote($password);
+	 $result = db_query($sql);
+	 if(mysql_num_rows($result)==1){
+	 	return true;
+	 }
+	 return false;
 }
 ?>
