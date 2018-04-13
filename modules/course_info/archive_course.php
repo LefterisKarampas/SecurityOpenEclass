@@ -394,7 +394,7 @@ function login_zip($uid,$password){
 	$password = md5($password);
 	$sql = "SELECT user.*
 		FROM `$mysqlMainDb`.user
-		WHERE user.user_id = ".justQuote($uid);."
+		WHERE user.user_id = ".justQuote($uid)."
 		AND password =".justQuote($password);
 	 $result = db_query($sql);
 	 if(mysql_num_rows($result)==1){
