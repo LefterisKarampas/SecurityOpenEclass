@@ -160,13 +160,16 @@ if(!empty($is_submit))
 
 if (isset($_POST['submit'])) {
 	$uname = $_POST['uname'];
+
+	/*BEGIN*/
+	$uname = xss_sql_filter($uname);
 	$registration_errors = array();
 		// check if there are empty fields
 		if (empty($_POST['nom_form']) or empty($_POST['prenom_form']) or empty($uname)) {
 			$registration_errors[] = $langEmptyFields;
 		} else {
 		// check if the username is already in use
-			$q2 = "SELECT username FROM `$mysqlMainDb`.user WHERE username='".escapeSimple($uname)."'";
+			$q2 = "SELECT username FROM `$mysqlMainDb`.user WHERE username='".$uname."'";
 			$username_check = mysql_query($q2);
 			if ($myusername = mysql_fetch_array($username_check)) {
 				$registration_errors[] = $langUserFree;
@@ -191,11 +194,21 @@ if (isset($_POST['submit'])) {
 	
 		send_mail('', '', '', $email, $emailsubject, $emailbody, $charset);
 		$registered_at = time();
-		$expires_at = time() + $durationAccount;
+		$expires_at = time() + intval($durationAccount);
 		$authmethods = array("2","3","4","5");
-		$uname = escapeSimple($uname);
+		//$uname = escapeSimple($uname);
 		$lang = langname_to_code($language);
 	
+		/*BEGIN*/
+		$nom_form = xss_sql_filter($nom_form);
+		$prenom_form = xss_sql_filter($prenom_form);
+		$uname = xss_sql_filter($uname);
+		$password = xss_sql_filter($password);
+		$email = xss_sql_filter($email);
+		$department = intval($department);
+		$am = xss_sql_filter($am);
+		$lang = xss_sql_filter($lang);
+		/* END */
 		$q1 = "INSERT INTO `$mysqlMainDb`.user 
 			SET nom = '$nom_form', prenom = '$prenom_form', 
 			username = '$uname', password = '$password', email = '$email',
@@ -206,13 +219,14 @@ if (isset($_POST['submit'])) {
 	
 		$inscr_user = db_query($q1);
 		$last_id = mysql_insert_id();
+		$last_id = intval($last_id);
 		$result=mysql_query("SELECT user_id, nom, prenom FROM `$mysqlMainDb`.user WHERE user_id='$last_id'");
 		while ($myrow = mysql_fetch_array($result)) {
 			$uid=$myrow[0];
 			$nom=$myrow[1];
 			$prenom=$myrow[2];
 		}
-	
+		$uid = itnval($uid);
 		db_query("INSERT INTO loginout  SET id_user = '$uid',
 			ip = '".$REMOTE_ADDR."', `when` = NOW(), action = 'LOGIN'", $mysqlMainDb);
 		$_SESSION['uid'] = $uid;

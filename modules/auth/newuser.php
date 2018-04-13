@@ -137,7 +137,8 @@ if (!isset($submit)) {
 		$registration_errors[] = $langEmptyFields;
 	} else {
 	// check if the username is already in use
-		$q2 = "SELECT username FROM `$mysqlMainDb`.user WHERE username='".escapeSimple($uname)."'";
+		$uname = xss_sql_filter($uname);
+		$q2 = "SELECT username FROM `$mysqlMainDb`.user WHERE username='".$uname."'";
 		$username_check = mysql_query($q2);
 		if ($myusername = mysql_fetch_array($username_check)) {
 			$registration_errors[] = $langUserFree;
@@ -190,25 +191,38 @@ if (!isset($submit)) {
 	
 	// manage the store/encrypt process of password into database
 	$authmethods = array("2","3","4","5");
-	$uname = escapeSimple($uname);  // escape the characters: simple and double quote
+	//$uname = escapeSimple($uname);  // escape the characters: simple and double quote
 	$password = escapeSimpleSelect($password);  // escape the characters: simple and double quote
 	if(!in_array($auth,$authmethods)) {
 		$password_encrypted = md5($password);
 	} else {
 		$password_encrypted = $password;
 	}
+
+	/* BEGIN */
+	$nom_form = xss_sql_filter($nom_form);
+	$prenom_form = xss_sql_filter($prenom_form);
+	$uname = xss_sql_filter($uname);
+	$email = xss_sql_filter($email);
+	$department = intval($department);
+	$am = xss_sql_filter($am);
+	$lang = xss_sql_filter($lang);
+
+	/* END */
 	$q1 = "INSERT INTO `$mysqlMainDb`.user
 	(user_id, nom, prenom, username, password, email, statut, department, am, registered_at, expires_at, lang)
 	VALUES ('NULL', '$nom_form', '$prenom_form', '$uname', '$password_encrypted', '$email','5',
-		'$department','$am',".$registered_at.",".$expires_at.",'$lang')";
+		'$department','$am',".intval($registered_at).",".intval($expires_at).",'$lang')";
 	$inscr_user = mysql_query($q1);
 	$last_id = mysql_insert_id();
+	$last_id = intval($last_id);
 	$result=mysql_query("SELECT user_id, nom, prenom FROM `$mysqlMainDb`.user WHERE user_id='$last_id'");
 	while ($myrow = mysql_fetch_array($result)) {
 		$uid=$myrow[0];
 		$nom=$myrow[1];
 		$prenom=$myrow[2];
 	}
+	$uid = intval($uid);
 	mysql_query("INSERT INTO `$mysqlMainDb`.loginout (loginout.idLog, loginout.id_user, loginout.ip, loginout.when, loginout.action)
 	VALUES ('', '".$uid."', '".$REMOTE_ADDR."', NOW(), 'LOGIN')");
 	$_SESSION['uid'] = $uid;

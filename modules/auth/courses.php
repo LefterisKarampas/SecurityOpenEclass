@@ -60,6 +60,7 @@ if (isset($_POST['selectCourse']) and is_array($_POST['selectCourse'])) {
 if (isset($_POST["submit"])) {
         foreach ($changeCourse as $key => $value) {
                 $cid = intval($value);
+                $uid = intval($uid);
                 if (!in_array($cid, $selectCourse)) {
                         // check if user tries to unregister from restricted course
                         if (is_restricted($cid)) {
@@ -128,7 +129,7 @@ if (isset($_POST["submit"])) {
 				}
 				$tool_content .= "\n<td>&nbsp;<img src='../../images/arrow_blue.gif' />&nbsp;
 					<a href='$_SERVER[PHP_SELF]?fc=$fac[id]'>" . htmlspecialchars($fac['name']) . "</a> <small><font color='#a33033'>($fac[code])</font></small>";
-				$n=db_query("SELECT COUNT(*) FROM cours_faculte WHERE facid='$fac[id]'");
+				$n=db_query("SELECT COUNT(*) FROM cours_faculte WHERE facid='".intval($fac[id])."'");
 				$r=mysql_fetch_array($n);
 				$tool_content .= "&nbsp;<small><font color=#a5a5a5>($r[0]  ". ($r[0] == 1? $langAvCours: $langAvCourses) . ")</font><small></td></tr>";
 				$k++;
@@ -174,7 +175,6 @@ draw($tool_content, 1);
 
 function getfacfromfc( $dep_id) {
 	$dep_id = intval( $dep_id);
-
 	$fac = mysql_fetch_row(db_query("SELECT name FROM faculte WHERE id = '$dep_id'"));
 	if (isset($fac[0]))
 		return $fac[0];
@@ -183,6 +183,7 @@ function getfacfromfc( $dep_id) {
 }
 
 function getfcfromuid($uid) {
+    $uid = intval($uid);
 	$res = mysql_fetch_row(db_query("SELECT department FROM user WHERE user_id = '$uid'"));
 	if (isset($res[0]))
 		return $res[0];
@@ -191,6 +192,7 @@ function getfcfromuid($uid) {
 }
 
 function getdepnumcourses($fac) {
+    $fac = intavl($fac);
 	$res = mysql_fetch_row(db_query(
 	"SELECT count(code)
 	FROM cours_faculte
@@ -204,7 +206,9 @@ function expanded_faculte($fac_name, $facid, $uid) {
 		$langpres, $langposts, $langothers;
 
 	$retString = "";
-
+    $facid = intval($facid);
+    $uid = intval($uid);
+    $fac_name = xss_sql_filter($fac_name);
 	// build a list of course followed by user.
 	$usercourses = db_query("SELECT cours.code code_cours, cours.fake_code fake_code,
                                         cours.cours_id cours_id, statut
@@ -262,7 +266,7 @@ function expanded_faculte($fac_name, $facid, $uid) {
                                         cours.password password
                                   FROM cours_faculte, cours
                                   WHERE cours.code = cours_faculte.code AND
-                                        cours.type = '$type' AND
+                                        cours.type = '".xss_sql_filter($type)."' AND
                                         cours_faculte.facid = '$facid' AND
                                         cours.visible <> '0'
                                   ORDER BY cours.intitule, cours.titulaires");
@@ -377,7 +381,7 @@ function collapsed_facultes_vert($fc) {
 
 	global $langAvCourse, $langAvCourses;
 	$retString = '';
-
+    $fc = intval($fc);
 	$result = db_query(
 		"SELECT DISTINCT cours.faculte f, faculte.id id
 		FROM cours, faculte
@@ -390,7 +394,7 @@ function collapsed_facultes_vert($fc) {
 		$retString .= "<a href='?fc=$fac[id]' class='normal'>$fac[f]</a>";
 
 		$n = db_query("SELECT COUNT(*) FROM cours
-			WHERE cours.faculte='$fac[f]' AND cours.visible <> '0'");
+			WHERE cours.faculte='".xss_sql_filter($fac[f])."' AND cours.visible <> '0'");
                 $r = mysql_fetch_array($n);
                 $retString .= " <span style='font-size: 10pt'>($r[0] "
                         . ($r[0] == 1? $langAvLesson: $langAvCourses) . ")</span><br />\n";
@@ -440,6 +444,7 @@ function dep_selection($fc) {
 // check if a course is restricted
 function is_restricted($cours_id)
 {
+    $cours_id = intval($cours_id);
 	$res = mysql_fetch_row(db_query("SELECT visible FROM cours WHERE cours_id = $cours_id"));
 	if ($res[0] == 0) {
 		return true;

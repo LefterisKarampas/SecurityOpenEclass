@@ -62,8 +62,18 @@ if ($submit)  {
 	}
 
 	// check if user name exists
+
+	/* BEGIN */
+		$pu = xss_sql_filter($pu);
+		$ps = xss_sql_filter($ps);
+		$pn = xss_sql_filter($pn);
+		$pe = xss_sql_filter($pe);
+		$comment = xss_sql_filter($comment);
+		$department = intval($department);
+		$land xss_sql_filter($lang);
+	/* END */	
     	$username_check = db_query("SELECT username FROM `$mysqlMainDb`.user 
-			WHERE username=".autoquote($pu));
+			WHERE username=".justQuote($pu));
 	if (mysql_num_rows($username_check) > 0) {
 		$tool_content .= "<p class='caution_small'>$langUserFree</p><br><br><p align='right'>
 		<a href='../admin/listreq.php'>$langBackRequests</a></p>";
@@ -92,11 +102,11 @@ if ($submit)  {
 			(nom, prenom, username, password, email, statut, department,
 			am, registered_at, expires_at,lang)
 			VALUES (" .
-			autoquote($ps) . ', ' .
-			autoquote($pn) . ', ' .
-			autoquote($pu) . ", '$password', " .
-			autoquote($pe) .
-			", 1, $department, " . autoquote($comment) . ", $registered_at, $expires_at, '$lang')");
+			justQuote($ps) . ', ' .
+			justQuote($pn) . ', ' .
+			justQuote($pu) . ", '$password', " .
+			justQuote($pe) .
+			", 1, $department, " . justQuote($comment) . ", $registered_at, $expires_at, '$lang')");
 
 	//  Update table prof_request 
 	$rid = intval($_POST['rid']);
@@ -129,6 +139,7 @@ if ($submit)  {
 } else { 
 	// if not submit then display the form
 	if (isset($id)) { // if we come from prof request
+		$id = intal($id);
 		$res = mysql_fetch_array(db_query("SELECT profname,profsurname, profuname, profemail, 
 			proftmima, comment, lang FROM prof_request WHERE rid='$id'"));
 		$ps = $res['profsurname'];

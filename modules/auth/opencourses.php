@@ -104,6 +104,8 @@ if ($numoftypes > 1) {
 foreach (array("pre" => $langpres,
         "post" => $langposts,
         "other" => $langothers) as $type => $message) {
+    $fc = intval($fc);
+    $type = xss_sql_filter($type);
     $result = mysql_query("SELECT
 			cours.code k,
 			cours.fake_code c,

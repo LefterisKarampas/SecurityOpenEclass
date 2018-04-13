@@ -139,19 +139,28 @@ $registration_errors = array();
                                       break;
                     }
             }
-
-            db_query('INSERT INTO prof_request SET
-                                profname = ' . autoquote($prenom_form). ',
-                                profsurname = ' . autoquote($nom_form). ',
-                                profuname = ' . autoquote($uname). ',
-                                profemail = ' . autoquote($email_form). ',
-                                proftmima = ' . autoquote($department). ',
-                                profcomm = ' . autoquote($userphone). ',
+            /*BEGIN*/
+            $prenom_form = xss_sql_filter($prenom_form);
+            $nom_form = xss_sql_filter($nom_form);
+            $uname = xss_sql_filter($uname);
+            $email_form = xss_sql_filter($email_form);
+            $department = xss_sql_filter($department);
+            $userphone = xss_sql_filter($userphone);
+            $usercomment = xss_sql_filter($usercomment);
+            $proflang = xss_sql_filter($proflang);
+            /* END */
+            db_query("INSERT INTO prof_request SET
+                                profname = " . justQuote($prenom_form). ",
+                                profsurname = " . justQuote($nom_form). ",
+                                profuname = " . justQuote($uname). ",
+                                profemail = " . justQuote($email_form). ",
+                                proftmima = " . justQuote($department). ",
+                                profcomm = " . justQuote($userphone). ",
                                 status = 1,
                                 statut = 1,
                                 date_open = NOW(),
-                                comment = ' . autoquote($usercomment). ',
-                                lang = ' . autoquote($proflang),
+                                comment = " . justQuote($usercomment). ",
+                                lang = " . justQuote($proflang),
                      $mysqlMainDb);
 
             //----------------------------- Email Message --------------------------

@@ -105,6 +105,7 @@ $start_cal = $jscalendar->make_input_field(
                  'value' => $datetoday));
 }
 
+id = intval($id);
 if ($is_adminOfCourse) {
 	// change visibility
 	if (isset($mkInvisibl) or isset($mkVisibl)) { 
@@ -135,27 +136,38 @@ if ($is_adminOfCourse) {
 		db_query($p_sql, $mysqlMainDb);
 	}
 	if (isset($_POST['submit'])) {
+
 		$date_selection = $date;
 		$hour = $fhour.":".$fminute;
+		/* BEGIN */
+		$id = intval($id);
+		$titre = xss_sql_filter(trim($titre));
+		$titre = xss_sql_filter(trim($contenu));
+		$date_selection = xss_sql_filter($date_selection);
+		$hour = xss_sql_filter($hour);
+		$lasting = xss_sql_filter($lasting);
+		$titre = xss_sql_filter($titre);
+		$currentCourseID = xss_sql_filter($currentCourseID);
+		/* END */
 
 		if(isset($id) && $id) {
 			$sql = "UPDATE agenda
-                	SET titre='".mysql_real_escape_string(trim($titre))."',
-                	contenu='".mysql_real_escape_string(trim($contenu))."',
-                	day='".mysql_real_escape_string($date_selection)."',
-                	hour='".mysql_real_escape_string($hour)."',
-                	lasting='".mysql_real_escape_string($lasting)."'
-                	WHERE id='".mysql_real_escape_string($id)."'";
+                	SET titre='".$titre."',
+                	contenu='".$contenu."',
+                	day='".$date_selection."',
+                	hour='".$hour."',
+                	lasting='".$lasting."'
+                	WHERE id='".$id."'";
 
 			##[BEGIN personalisation modification]############
 			$perso_sql = "UPDATE $mysqlMainDb.agenda
-                  	SET titre='".mysql_real_escape_string(trim($titre))."',
-                        contenu='".mysql_real_escape_string(trim($contenu))."',
-                        day = '".mysql_real_escape_string($date_selection)."',
-                        hour= '".mysql_real_escape_string($hour)."',
-                        lasting='".mysql_real_escape_string($lasting)."'
-                	WHERE lesson_code= '$currentCourseID'
-               		AND lesson_event_id='".mysql_real_escape_string($id)."' ";
+                  	SET titre='".$titre."',
+                        contenu='".$contenu."',
+                        day = '".$date_selection."',
+                        hour= '".$hour."',
+                        lasting='".$lasting."'
+                	WHERE lesson_code= '".$currentCourseID."'
+               		AND lesson_event_id='".$id."' ";
 			##[END personalisation modification]############
 
 			unset($id);
@@ -163,11 +175,11 @@ if ($is_adminOfCourse) {
 			unset($titre);
 		} else {
 			$sql = "INSERT INTO agenda (id, titre, contenu, day, hour, lasting)
-        		VALUES (NULL,'".mysql_real_escape_string(trim($titre))."',
-				'".mysql_real_escape_string(trim($contenu))."', 
-				'".mysql_real_escape_string($date_selection)."',
-				'".mysql_real_escape_string($hour)."',
-				'".mysql_real_escape_string($lasting)."')";
+        		VALUES (NULL,'".$titre."',
+				'".$contenu."', 
+				'".$date_selection."',
+				'".$hour."',
+				'".$lasting."')";
 			unset($id);
 			unset($contenu);
 			unset($titre);
@@ -205,12 +217,14 @@ if ($is_adminOfCourse) {
 		unset($addEvent);
 	}
 	elseif (isset($delete) && $delete) {
+		$id = intval($id);
 		$sql = "DELETE FROM agenda WHERE id=$id";
 		$result = db_query($sql,$currentCourseID);
 
 		##[BEGIN personalisation modification]############
+		$currentCourseID = xss_sql_filter($currentCourseID);
 		$perso_sql= "DELETE FROM $mysqlMainDb.agenda
-                      WHERE lesson_code= '$currentCourseID'
+                      WHERE lesson_code= '".$currentCourseID."'
                       AND lesson_event_id='$id' ";
 
 		db_query($perso_sql, $mysqlMainDb);
@@ -251,6 +265,7 @@ function confirmation (name)
 	$tool_content .= "\n    </ul>\n  </div>\n";
 }
 	if (isset($id) && $id) {
+		$id = intval($id);
 		$sql = "SELECT id, titre, contenu, day, hour, lasting FROM agenda WHERE id=$id";
 		$result= db_query($sql, $currentCourseID);
 		$myrow = mysql_fetch_array($result);

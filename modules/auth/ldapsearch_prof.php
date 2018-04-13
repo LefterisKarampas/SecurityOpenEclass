@@ -208,6 +208,17 @@ if (isset($submit))  {
 	$name = $prenom_form;
 	$depid = intval($department);
 	
+	/* BEGIN */
+	$name = xss_sql_filter($name);
+	$surname = xss_sql_filter($surname);
+	$username = xss_sql_filter($username);
+	//$password = xss_sql_filter($password);
+	$usermail = xss_sql_filter($usermail);
+	$userphone = xss_sql_filter($userphone);
+	$usercomment = xss_sql_filter($usercomment);
+	$lang = xss_sql_filter($lang);
+	/* END */
+	
 	$sql = "INSERT INTO prof_request(profname, profsurname, profuname, profpassword,
 		profemail, proftmima, profcomm, status, date_open, comment, lang, statut) VALUES(
 		'$name','$surname','$username','$password','$usermail','$depid','$userphone',

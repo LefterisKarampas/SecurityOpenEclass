@@ -65,6 +65,14 @@ if (isset($_POST['submit']) and !$all_set) {
 
 }
 
+$name = xss_sql_filter($name);
+$surname = xss_sql_filter($surname);
+$username = xss_sql_filter($username);
+$usermail = xss_sql_filter($usermail);
+$department = xss_sql_filter($department)
+$userphone = xss_sql_filter($userphone);
+$usercomment = xss_sql_filter($usercomment);
+
 if ($all_set) {
 
         // register user request
@@ -73,13 +81,13 @@ if ($all_set) {
                          proftmima, profcomm, status, date_open,
                          comment, lang, statut)
                   VALUES (".
-                  autoquote($name) .', '.
-                  autoquote($surname) .', '.
-                  autoquote($username) .', '.
-                  autoquote($usermail) .', '.
-                  intval($department) .', '.
-                  autoquote($userphone) .', 1, NOW(), '.
-                  autoquote($usercomment) .", '$lang', 5)");
+                  justQuote($name) .', '.
+                  justQuote($surname) .', '.
+                  justQuote($username) .', '.
+                  justQuote($usermail) .', '.
+                  justQuote($department) .', '.
+                  justQuote($userphone) .', 1, NOW(), '.
+                  justQuote($usercomment) .", '$lang', 5)");
 
         //----------------------------- Email Message --------------------------
         $department = find_faculty_by_id($department);

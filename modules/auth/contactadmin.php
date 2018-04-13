@@ -55,6 +55,7 @@ $userid = isset($_GET['userid'])?$_GET['userid']:(isset($_POST['id'])?$_POST['id
 $submit = isset($_POST['submit'])?$_POST['submit']:'';
 if(!empty($userid))
 {
+	$user_id = intval($userid);
 	$sql=mysql_query("SELECT * FROM user WHERE user_id='".$userid."'");
 	while ($m = mysql_fetch_array($sql)) 
 	{
@@ -89,9 +90,9 @@ if(!empty($userid))
 	{
 		$tool_content .= "<form action=\"./contactadmin.php?userid=".$userid."\" method=\"post\">
 	<table width=\"99%\"><caption>$langForm</caption><tbody>";
-		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>$langName:</b></td><td>".$firstname."</td></tr>";	
-		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>$langSurname:</b></td><td>".$sirname."</td></tr>";	
-		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>Email:</b></td><td>".$email."</td></tr>";
+		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>$langName:</b></td><td>".xss_sql_filter($firstname)."</td></tr>";	
+		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>$langSurname:</b></td><td>".xss_sql_filter($sirname)."</td></tr>";	
+		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>Email:</b></td><td>".xss_sql_filter($email)."</td></tr>";
 		$tool_content .= "<tr><td width=\"3%\" nowrap valign=\"top\"><b>$langComments:</b></td><td><textarea rows=\"6\" cols=\"40\" name=\"body\">
 		$langActivateAccount
 		</textarea></td></tr>";

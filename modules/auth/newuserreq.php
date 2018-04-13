@@ -51,6 +51,7 @@ if($submit) {
   $lang = langname_to_code($localize);	
 
       // check if user name exists
+  $uname = xss_sql_filter($uname);
   $username_check=mysql_query("SELECT username FROM `$mysqlMainDb`.user WHERE username='$uname'");
   while ($myusername = mysql_fetch_array($username_check)) {
     $user_exist=$myusername[0];
@@ -101,8 +102,22 @@ send_mail('', '', '', $email_form, $emailsubject, $emailbody, $charset);
     $expires_at = time() + $durationAccount;
 
     $password_encrypted = md5($password);
+    $department = xss_sql_filter($department);
     $s = mysql_query("SELECT id FROM faculte WHERE name='$department'");
     $dep = mysql_fetch_array($s);
+
+    /*BEGIN*/
+
+    $nom_form = xss_sql_filter($nom_form);
+    $prenom_form = xss_sql_filter($prenom_form);
+    $uname = xss_sql_filter($uname);
+    $email_form = xss_sql_filter($email_form);
+    $lang = xss_sql_filter($lang);
+    
+    $dep[id] = intval($dep[id]);
+    $registered_at = intval($registered_at);
+    $expires_at = intval($expires_at);
+    /* END */
     $inscr_user=mysql_query("INSERT INTO `$mysqlMainDb`.user
       (user_id, nom, prenom, username, password, email, statut, department, registered_at, expires_at, lang)
       VALUES ('NULL', '$nom_form', '$prenom_form', '$uname', '$password_encrypted', '$email_form', '5', '$dep[id]', '$registered_at', '$expires_at', '$lang')");

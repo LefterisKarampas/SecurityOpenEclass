@@ -41,6 +41,7 @@ include '../../include/lib/textLib.inc.php';
 include('../../include/phpmathpublisher/mathpublisher.php') ;
 $nameTools = $langMyAnnouncements;
 $tool_content = "";
+$uid = intval($uid);
 $result = db_query("SELECT annonces.id, annonces.title, annonces.contenu,
                         DATE_FORMAT(temps, '%e-%c-%Y') AS temps,
                          cours.fake_code,
@@ -71,7 +72,7 @@ $result = db_query("SELECT annonces.id, annonces.title, annonces.contenu,
                 $content = nl2br($content);
 		$content = mathfilter($content, 12, "../../include/phpmathpublisher/img/");
                 $row = mysql_fetch_array(db_query("SELECT intitule,titulaires FROM cours
-			WHERE code='$myrow[fake_code]'"));
+			WHERE code='".xss_sql_filter($myrow[fake_code])."'"));
                 $tool_content .= "
       <tr>
         <td width='3'><img class=\"displayed\" src=../../template/classic/img/announcements_on.gif border=0 title=\"" . $myrow["title"] . "\"></td>

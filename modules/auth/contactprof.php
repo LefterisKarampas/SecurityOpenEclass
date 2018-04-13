@@ -33,12 +33,12 @@ $tool_content = "";
 
 if (isset($_POST["submit"])) {
 //	$tool_content .= "<table width=\"99%\"><tbody><tr><td>";
-
-	$sql=db_query("SELECT * FROM cours_user WHERE cours_id = (SELECT cours_id FROM cours WHERE code = "  . quote($_POST['cc']) . ")");
+	$code = xss_sql_filter($_POST['cc']);
+	$sql=db_query("SELECT * FROM cours_user WHERE cours_id = (SELECT cours_id FROM cours WHERE code = "  . justQuote($code) . ")");
 
 	while ($m = mysql_fetch_array($sql)) {
 
-		$sql1 = db_query("SELECT email FROM user WHERE user_id='".$m["user_id"]."'");
+		$sql1 = db_query("SELECT email FROM user WHERE user_id='".intval($m["user_id"])."'");
 		$m1 = mysql_fetch_array($sql1);
 		$to = $m1["email"];
 		$emailsubject = "Εγγραφή σε κλειστό μάθημα";
@@ -76,6 +76,7 @@ $errorExists = false;
 }
 else
 {
+	$uid = intval($uid);
 	$sql = "SELECT * FROM user WHERE user_id='".$uid."'";
 	$res = mysql_query($sql);
 	$row = mysql_fetch_array($res);

@@ -46,7 +46,7 @@ $tool_content = "";
 
 $TABLECOURS     = "`$mysqlMainDb`.cours";
 $TABLECOURSUSER = "`$mysqlMainDb`.cours_user";
-
+$uid = intval($uid);
 if (isset($uid))
 {
  	$query = db_query("SELECT cours.code k, cours.fake_code fc,
