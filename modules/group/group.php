@@ -88,6 +88,7 @@ if(isset($_REQUEST['creation']) && $is_adminOfCourse) {
         if ($req and mysql_num_rows($req) > 0) {
                 list($cat_id) = mysql_fetch_row($req);
         } else {
+        	$langCatagoryGroup = xss_sql_filter($langCatagoryGroup);
           	db_query("INSERT INTO catagories (cat_title, cat_order)
                                  VALUES ('$langCatagoryGroup', -1)");
         	$cat_id = mysql_insert_id();
@@ -98,10 +99,13 @@ if(isset($_REQUEST['creation']) && $is_adminOfCourse) {
 		$secretDirectory=uniqid("");
 		mkdir("../../courses/$currentCourse/group/$secretDirectory", 0777);
 		// Write group description in student_group table. Contains path to group document dir.
+		$group_max = xss_sql_filter($group_max);
 		db_query("INSERT INTO student_group (maxStudent, secretDirectory)
-			VALUES ('".mysql_real_escape_string($group_max)."', '$secretDirectory')");
+			VALUES ('".$group_max."', '$secretDirectory')");
 		$lastId=mysql_insert_id();
-
+		$lastId = intval($lastId);
+		$cat_id = intval($cat_id);
+		$langForumGroup = xss_sql_filter($langForumGroup);
 		db_query("INSERT INTO forums
 			(forum_id, forum_name, forum_desc,
 			forum_access, forum_moderator, forum_topics,
@@ -109,6 +113,8 @@ if(isset($_REQUEST['creation']) && $is_adminOfCourse) {
 			VALUES ('','$langForumGroup $lastId','',2,1,0,0,1,$cat_id,0)");
 
 		$forumInsertId=mysql_insert_id();
+		$forumInsertId = intval($forumInsertId);
+		$lastId = intval($lastId);
 		db_query("UPDATE student_group SET name='$langGroup $lastId',
 			forumId='$forumInsertId' WHERE id='$lastId'");
 	}	// for
@@ -121,9 +127,15 @@ if(isset($_REQUEST['creation']) && $is_adminOfCourse) {
 
 if(isset($_REQUEST['properties']) && $is_adminOfCourse)
 {
+	/* BEGIN */
+	$self_registration = xss_sql_filter($self_registration);
+	$private = xss_sql_filter($private);
+	$forum = xss_sql_filter($forum);
+	$document = xss_sql_filter($document);
+	/* END */
 	@db_query("UPDATE group_properties
-		SET self_registration='".mysql_real_escape_string($self_registration)."', private='".mysql_real_escape_string($private)."',
-		forum='".mysql_real_escape_string($forum)."', document='".mysql_real_escape_string($document)."' WHERE id=1", $currentCourse);
+		SET self_registration='".$self_registration."', private='".$private."',
+		forum='".$forum."', document='".$document."' WHERE id=1", $currentCourse);
 	$message = $langGroupPropertiesModified;
 }	// if $submit
 
@@ -151,11 +163,12 @@ elseif (isset($_REQUEST['delete_one']) && $is_adminOfCourse)
 {
 	// Moving group directory to garbage collector
 	$groupGarbage=uniqid(20);
+	$id = intval($id);
 	$sqlDir=db_query("SELECT secretDirectory, forumId FROM student_group WHERE id='$id'", $currentCourse);
 	while ($myDir = mysql_fetch_array($sqlDir)) {
 		rename("../../courses/$currentCourse/group/$myDir[secretDirectory]",
 		"../../courses/garbage/$groupGarbage");
-		db_query("DELETE FROM forums WHERE cat_id='1' AND forum_id='$myDir[forumId]'", $currentCourse);
+		db_query("DELETE FROM forums WHERE cat_id='1' AND forum_id='".xss_sql_filter($myDir[forumId])."'", $currentCourse);
 	}
 
 	// Deleting group record in table
@@ -208,7 +221,7 @@ elseif (isset($_REQUEST['fill']) && $is_adminOfCourse) {
 		reset($userOfGroups);
 		while (list($idGroup,$users) = each($userOfGroups)) {
 			while (list(,$idUser) = each($users)) {
-				$sqlInsert = "INSERT INTO user_group SET user='$idUser', team='$idGroup'";
+				$sqlInsert = "INSERT INTO user_group SET user='".intval($idUser)."', team='".intval($idGroup)."'";
 				db_query($sqlInsert);
 			}
 		}
@@ -223,6 +236,8 @@ elseif (isset($_REQUEST['fill']) && $is_adminOfCourse) {
 *****************************************/
 
 // Determine if uid is tutor for this course
+$cours_id = intval($cours_id);
+$uid = intval($uid);
 $sqlTutor=db_query("SELECT tutor FROM `$mysqlMainDb`.cours_user
 		WHERE user_id = $uid AND cours_id = $cours_id");
 while ($myTutor = mysql_fetch_array($sqlTutor)) {
@@ -331,7 +346,7 @@ if ($is_adminOfCourse) {
 
 	while ($group = mysql_fetch_array($groupSelect)) {
 		// Count students registered in each group
-		$resultRegistered = db_query("SELECT id FROM user_group WHERE team='".$group["id"]."'", $currentCourse);
+		$resultRegistered = db_query("SELECT id FROM user_group WHERE team='".intval($group["id"])."'", $currentCourse);
 		$countRegistered = mysql_num_rows($resultRegistered);
 		if ($myIterator%2 == 0) {
 			$tool_content .= "<tr>";
@@ -359,7 +374,7 @@ if ($is_adminOfCourse) {
 		$totalRegistered = $totalRegistered+$countRegistered;
 		$myIterator++;
 	}	// while loop
-
+	$cours_id = intval($cours_id);
 	$coursUsersSelect=db_query("SELECT user_id FROM cours_user
 		WHERE cours_id = $cours_id AND statut = 5 AND tutor = 0", $mysqlMainDb);
 	$countUsers = mysql_num_rows($coursUsersSelect);
@@ -387,6 +402,7 @@ else {
 		$selfRegProp = 0;
 	}
 	// Check which group student is a member of
+	$uid = intval($uid);
 	$findTeamUser=db_query("SELECT team FROM user_group WHERE user='$uid'", $currentCourse);
 	while ($myTeamUser = mysql_fetch_array($findTeamUser)) {
 		$myTeam=$myTeamUser['team'];
@@ -413,7 +429,7 @@ else {
 	$k = 0;
 	while ($group = mysql_fetch_array($groupSelect)) {
 		// Count students registered in each group
-		$resultRegistered = db_query("SELECT id FROM user_group WHERE team='".$group["id"]."'", $currentCourse);
+		$resultRegistered = db_query("SELECT id FROM user_group WHERE team='".intval($group["id"])."'", $currentCourse);
 		$countRegistered = mysql_num_rows($resultRegistered);
 		if ($k%2 == 0) {
 			$tool_content .= "\n<tr>";

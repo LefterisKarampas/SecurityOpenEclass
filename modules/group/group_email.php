@@ -62,10 +62,10 @@ if ($is_adminOfCourse or $is_tutor)  {
                 $sender_email = $sender['email'];
                 $emailsubject = $intitule." - ".$subject;
                 $emailbody = "$body_mail\n\n$langSender: $sender[nom] $sender[prenom] <$sender[email]>\n$langProfLesson\n";
-
+    $userGroupId = intval($userGroupId);
 		$req = mysql_query("SELECT user FROM `$dbname`.user_group WHERE team = '$userGroupId'");
 		while ($userid = mysql_fetch_array($req)) {
-                        $r = db_query("SELECT email FROM user where user_id='$userid[0]'", $mysqlMainDb);
+                        $r = db_query("SELECT email FROM user where user_id='".intval($userid[0])."'", $mysqlMainDb);
 			list($email) = mysql_fetch_array($r);
 			if (email_seems_valid($email) and
                             !send_mail($sender_name, $sender_email,

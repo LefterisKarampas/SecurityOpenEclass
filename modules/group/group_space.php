@@ -50,7 +50,7 @@ include '../../include/baseTheme.php';
 $nameTools = $langGroupSpace;
 $navigation[] = array ("url"=>"group.php", "name"=> $langGroups);
 $tool_content = "";
-
+$userGroupId = intval($userGroupId);
 $countRegistered = mysql_num_rows(db_query("SELECT id FROM user_group 
 	WHERE team='$userGroupId'", $currentCourse));
 $total = mysql_fetch_array(db_query("SELECT maxStudent FROM student_group 
@@ -62,7 +62,8 @@ if (isset($_REQUEST['userGroupId'])) {
 } else {
 	die("Wrong user group id / User group id not set");
 }
-
+$userGroupId = intval($userGroupId);
+$uid = intval($uid);
 if (isset($registration)) {
 	if (($statut != 10) and ($countRegistered < $totalRegistered)) {
 		$sqlExist=mysql_query("SELECT id FROM `$dbname`.user_group
@@ -84,6 +85,7 @@ if (isset($registration)) {
 $currentCourse=$dbname;
 
 ############### Secret Directory for Documents #################
+$userGroupId = intval($userGroupId);
 $sqlGroup=mysql_query("SELECT secretDirectory FROM `$currentCourse`.student_group WHERE id='$userGroupId'");
 while ($myGroup = mysql_fetch_array($sqlGroup)) {
 	$secretDirectory = $myGroup['secretDirectory'];
@@ -129,7 +131,7 @@ while ($myGroup = mysql_fetch_array($resultGroup))
 	<th class='left'>$langGroupName :</th>
 	<td>$myGroup[name]</td>
 	</tr>";
-
+	$userGroupId = intval($userGroupId);
 	$sqlTutor=mysql_query("SELECT tutor, user_id, nom, prenom, email, forumId
 		FROM `$mysqlMainDb`.user, student_group
 		WHERE user.user_id=student_group.tutor
@@ -172,7 +174,7 @@ $tool_content .= "<tr><th class=\"left\" valign=\"top\">$langGroupMembers :</th>
 </tr>
 </thead>
 <tbody>";
-
+$userGroupId = intval($userGroupId);
 $resultMember=mysql_query("SELECT nom, prenom, email, am
 		FROM `$mysqlMainDb`.user, user_group
 		WHERE user_group.team='$userGroupId'

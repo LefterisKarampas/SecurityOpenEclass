@@ -73,6 +73,7 @@ if (isset($_REQUEST['userGroupId'])) {
         list($tutor_id, $forum_id) = mysql_fetch_row(db_query("SELECT tutor, forumId FROM student_group WHERE id='$userGroupId'", $currentCourseID));
         $is_tutor = ($tutor_id == $uid);
 } else {
+		$uid = intval($uid);
         $req = db_query("SELECT id, forumId FROM student_group WHERE tutor='$uid'", $currentCourseID);
         if ($req and mysql_num_rows($req) > 0) {
                 list($userGroupId, $forum_id) = mysql_fetch_row($req);
@@ -83,7 +84,7 @@ if (isset($_REQUEST['userGroupId'])) {
 }
 $groupset = "userGroupId=$userGroupId";
 $navigation[] = array ("url" => "group_space.php?$groupset", "name" => $langGroupSpace);
-
+$currentCourseID = xss_sql_filter($currentCourseID); 
 $sql_result = db_query("SELECT group_quota FROM cours WHERE code='$currentCourseID'", $mysqlMainDb);
 $d = mysql_fetch_array($sql_result);
 $diskQuotaGroup = $d['group_quota'];
@@ -93,7 +94,7 @@ $diskQuotaGroup = $d['group_quota'];
 **************************************/
 $secretDirectory = group_secret($userGroupId);
 if ($forum_id === false) {
-        list($forum_id) = mysql_fetch_row(db_query("SELECT forumId FROM student_group WHERE id = " . user_group($uid)));
+        list($forum_id) = mysql_fetch_row(db_query("SELECT forumId FROM student_group WHERE id = " . intval(user_group($uid))));
 }
 if (empty($secretDirectory)) {
 	$tool_content .= $langInvalidGroupDir;
@@ -111,8 +112,9 @@ $baseWorkDir = $baseServDir.$courseDir;
 // -------------------------
 if (isset($action2) and $action2 == "download")  {
 	$real_file = $webDir."/courses/".$currentCourseID."/group/".$secretDirectory."/".$id;
+	$id = xss_sql_filter($id);
 	if (strpos($real_file, '/../') === FALSE) {
-		$result = db_query ("SELECT filename FROM group_documents WHERE path =" . quote($id), $currentCourseID);
+		$result = db_query ("SELECT filename FROM group_documents WHERE path =" . justQuote($id), $currentCourseID);
 		$row = mysql_fetch_array($result);
 		if (!empty($row['filename']))
 		{
@@ -161,9 +163,11 @@ if (is_uploaded_file(@$userFile) )
 		@$dialogBox .= "<table width=\"99%\"><tbody>
 			<tr><td class=\"success\"><p><b>$langDownloadEnd</b></p></td></tr>
 			</tbody></table>";
-		db_query('INSERT INTO group_documents SET
-			        path='.quote($path).',
-                                filename='.quote($fileName));
+			$path = xss_sql_filter($path);
+			$fileName = xss_sql_filter($fileName);
+		db_query("INSERT INTO group_documents SET
+			        path=".justQuote($path).",
+                                filename=".justQuote($fileName));
 
 	} // end else
 } // end if is_uploaded_file
@@ -188,6 +192,7 @@ if (isset($moveTo))
 }
 
 if (isset($move)) {
+	$move = xss_sql_filter($move);
 	//h $move periexei to onoma tou arxeiou. anazhthsh onomatos arxeiou sth vash
 	$result = db_query ("SELECT * FROM group_documents WHERE path=\"".$move."\"");
 	$res = mysql_fetch_array($result);
@@ -210,6 +215,8 @@ if (isset($delete))
 	RENAME
 ******************************************/
 if (isset($renameTo)) {
+	$renameTo = xss_sql_filter($renameTo);
+	$sourceFile = xss_sql_filter($sourceFile);
 	$query =  "UPDATE group_documents SET filename=\"".$renameTo."\" WHERE path=\"".$sourceFile."\"";
 	db_query($query);
 	$dialogBox = "<p class=\"success_small\">$langElRen</p><br />";
@@ -217,6 +224,7 @@ if (isset($renameTo)) {
 
 // rename
 if (isset($rename)) {
+	$rename = xss_sql_filter($rename);
 	$result = db_query("SELECT * FROM group_documents WHERE path=\"".$rename."\"");
 	$res = mysql_fetch_array($result);
 	$fileName = $res["filename"];
@@ -234,8 +242,8 @@ if (isset($rename)) {
 CREATE DIRECTORY
 *****************************************/
 if (isset($newDirPath) && isset($newDirName)) {
-        $newDirName = trim($newDirName);
-        $r = db_query('SELECT * FROM group_documents WHERE filename = ' . quote($newDirName));
+        $newDirName = xss_sql_filter(trim($newDirName));
+        $r = db_query("SELECT * FROM group_documents WHERE filename = " . justQuote($newDirName));
         $exists = false;
         $parent = preg_replace('|/[^/]*$|', '', $newDirPath);
         while ($rs = mysql_fetch_array($r)) {
@@ -420,6 +428,7 @@ if (isset($dirNameList))
 {
 	while (list($dirKey, $dirName) = each($dirNameList))
 	{
+		$dirName = xss_sql_filter($dirName);
 		$result = db_query ("SELECT filename FROM group_documents WHERE path LIKE '%$dirName'");
 		$row = mysql_fetch_array($result);
 		$dspDirName = $row['filename'];

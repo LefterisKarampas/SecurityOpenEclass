@@ -164,7 +164,8 @@ $i = 0;
 if ($type == 'duration') {
         $result = user_duration_query($currentCourseID, $cours_id, $u_date_start, $u_date_end, $userGroupId);
 } else {
-        $result = db_query('SELECT user AS user_id FROM user_group WHERE team = ' . $userGroupId);
+        $userGroupId = intval($userGroupId);
+        $result = db_query('SELECT user AS user_id FROM user_group WHERE team = ' . justQuote($userGroupId));
 }
 if ($result) {
         while ($row = mysql_fetch_array($result)) {

@@ -141,6 +141,14 @@ if (isset($modify))
         if (!$is_adminOfCourse) {
                 $tutor = $tutor_id;
         }
+
+        /* BEGIN */
+        $name = xss_sql_filter($name);
+        $description = xss_sql_filter($description);
+        $maxStudent = intval($maxStudent);
+        $tutor = intval($tutor);
+        $userGroupId = intval($userGroupId);
+        /* END */
 	$updateStudentGroup = db_query("UPDATE student_group
 		SET name='$name', description='$description', maxStudent='$maxStudent', tutor='$tutor'
 		WHERE id='$userGroupId'", $currentCourseID);
@@ -163,12 +171,13 @@ if (isset($modify))
 	else
         {
                 // Delete all members of this group
+                $userGroupId = intval($userGroupId);
                 $delGroupUsers = db_query("DELETE FROM user_group WHERE team='$userGroupId'", $currentCourseID);
                 $numberMembers--;
 
                 for ($i = 0; $i <= $numberMembers; $i++) {
                         db_query("INSERT INTO user_group (user, team)
-                                  VALUES ('$ingroup[$i]', '$userGroupId')", $currentCourseID);
+                                  VALUES ('".intval($ingroup[$i])."', '".intval($userGroupId)."')", $currentCourseID);
                 }
 
 		$langGroupEdited=$langGroupSettingsModified;
@@ -180,6 +189,7 @@ if (isset($modify))
 ################# NAME, DESCRIPTION, TUTOR AND MAX STUDENTS ########################
 
 // Select name, description, max members and tutor from student_group DB
+$userGroupId = intval($userGroupId);
 $groupSelect=db_query("SELECT name, tutor, description, maxStudent
 			FROM student_group WHERE id='$userGroupId'", $currentCourseID);
 
@@ -246,7 +256,7 @@ $resultNotMember = db_query($sqll, $currentCourseID);
 while ($myNotMember = mysql_fetch_array($resultNotMember)) {
 	$tool_content_not_Member .= "<option value='$myNotMember[user_id]'>$myNotMember[nom] $myNotMember[prenom]</option>";
 }
-
+$userGroupId = intval($userGroupId);
 $resultMember = db_query("SELECT user_group.id, user.user_id, user.nom, user.prenom, user.email
 	FROM `$mysqlMainDb`.user, user_group
 	WHERE user_group.team='$userGroupId' AND user_group.user=$mysqlMainDb.user.user_id ORDER BY user.nom, user.prenom");

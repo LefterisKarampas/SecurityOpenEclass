@@ -60,7 +60,9 @@ if($is_adminOfCourse)
 		}
 		if($mID<101) $mID = 101;
 		else $mID = $mID+1;
-
+		$mID = intval($mID);
+		$link_name = xss_sql_filter($link_name);
+		$file_name = xss_sql_filter($file_name);
 		db_query("INSERT INTO accueil VALUES (
 					$mID,
 					'$link_name',
