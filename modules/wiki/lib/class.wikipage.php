@@ -504,13 +504,13 @@
             {
                 $this->_setPageId( $page['id'] );
                 $this->setOwnerId( $page['owner_id'] );
-                $this->setTitle( $this->stripSlashesForWiki($page['title'] ) );
+                $this->setTitle( $page['title'] );
                 $this->_setLastVersionId( $page['last_version'] );
                 $this->_setCurrentVersionId( $page['last_version'] );
                 $this->setCreationTime( $page['ctime'] );
                 $this->setLastEditTime( $page['last_mtime'] );
                 $this->setEditorId( $page['editor_id'] );
-                $this->setContent( $this->stripSlashesForWiki($page['content'] ) );
+                $this->setContent( $page['content']  );
                 
                 $this->currentVersionId = ( isset ( $page['current_version'] ) )
                     ? $page['current_version']
