@@ -103,3 +103,6 @@ h na trexume query (px update announcements set ...=(select password from eclass
 
 SQL INJECTION GIA PASS APO MERIA ADMIN me tin forma
 http://eponymous.csec.gr/modules/admin/infocours.php?c=
+
+An kataferume na kanume update ton pinaka cours_user tote an kanume set statut=1
+tha gini o xristis mas admin

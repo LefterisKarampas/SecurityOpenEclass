@@ -51,6 +51,9 @@ function confirmation (name)
 </script>
 ';
 
+$cours_id = intval($cours_id);
+$uid = intval($uid);
+
 $sql = "SELECT user.user_id, cours_user.statut FROM cours_user, user
 	WHERE cours_user.cours_id = $cours_id AND cours_user.user_id = user.user_id";
 $result_numb = db_query($sql, $mysqlMainDb);
@@ -172,6 +175,9 @@ if (isset($numbering) && $numbering) {
 // Numerating the items in the list to show: starts at 1 and not 0
 $i = $startList + 1;
 
+$startList = intval($startList);
+$endList = intval($endList);
+
 // Do not show navigation buttons if less than 50 users
 if ($countUser >= $endList) {
 	$tool_content .= "
@@ -255,6 +261,8 @@ if (isset($status) && ($status[$currentCourseID]==1 OR $status[$currentCourseID]
   </tr>";
 }
 
+$startList = intval($startList);
+$endList = intval($endList);
 $result = db_query("SELECT user.user_id, user.nom, user.prenom, user.email, user.am, cours_user.statut,
 		cours_user.tutor, cours_user.reg_date, user_group.team
 		FROM `$mysqlMainDb`.cours_user, `$mysqlMainDb`.user

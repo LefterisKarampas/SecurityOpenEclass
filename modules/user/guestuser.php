@@ -102,8 +102,13 @@ function createguest($username, $cours_id, $password)
 {
 	global $langGuestName, $langGuestSurname, $mysqlMainDb;
 
+    //SQL XSS FIX
+    $cours_id = intval($cours_id);
+    $username = xss_sql_filter($username);
+    $password = xss_sql_filter($password);
+
 	mysql_select_db($mysqlMainDb);
-        $password = md5($password);
+    $password = md5($password);
 
 	$q = db_query("SELECT user_id from cours_user WHERE statut=10 AND cours_id = $cours_id");
 	if (mysql_num_rows($q) > 0) {
@@ -123,6 +128,7 @@ function createguest($username, $cours_id, $password)
 
 // Check if guest account exists and return account information
 function guestinfo($cours_id) {
+    $cours_id = intval($cours_id);
 	global $mysqlMainDb;
 	mysql_select_db($mysqlMainDb);
 	$q = db_query("SELECT nom, prenom, username FROM user, cours_user

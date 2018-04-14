@@ -68,16 +68,21 @@ if($is_adminOfCourse) {
 
 tCont2;
 
+$cours_id = intval($cours_id);//SQL FIX
+
 mysql_select_db($mysqlMainDb);
 $search=array();
 if(!empty($search_nom)) {
-	$search[] = "u.nom LIKE '".mysql_escape_string($search_nom)."%'";
+	$search_nom = xss_sql_filter($search_nom);
+	$search[] = "u.nom LIKE '".$search_nom."%'";
 }
 if(!empty($search_prenom)) {
-	$search[] = "u.prenom LIKE '".mysql_escape_string($search_prenom)."%'";
+	$search_prenom = xss_sql_filter($search_prenom);
+	$search[] = "u.prenom LIKE '".$search_prenom."%'";
 }
 if(!empty($search_uname)) {
-	$search[] = "u.username LIKE '".mysql_escape_string($search_uname)."%'";
+	$search_uname = xss_sql_filter($search_uname);
+	$search[] = "u.username LIKE '".$search_uname."%'";
 }
 // added by jexi
 if (!empty($users_file)) {
@@ -98,6 +103,7 @@ tCont3;
 			$tool_content .= "<tr><td colspan=\"2\">$langFileNotAllowed</td></tr>\n";
 			break;
 		}
+		$uname = xss_sql_filter($uname);
 		$result = adduser($uname, $cours_id);
 		$tool_content .= "<tr><td align=center>$uname</td><td>";
 		if ($result == -1) {

@@ -42,6 +42,10 @@ if($is_adminOfCourse) {
 
 if (isset($add)) {
 	mysql_select_db($mysqlMainDb);
+  //SQL XSS FIX
+  $add = intval($add);
+  $cours_id = intval($cours_id);
+
 	$result = db_query("INSERT INTO cours_user (user_id, cours_id, statut, reg_date) ".
 		"VALUES ('".mysql_escape_string($add)."', $cours_id, ".
 		"'5', CURDATE())");
@@ -96,17 +100,21 @@ tCont;
 	mysql_select_db($mysqlMainDb);
 	$search=array();
 	if(!empty($search_nom)) {
-		$search[] = "u.nom LIKE '".mysql_escape_string($search_nom)."%'";
+    $search_nom = xss_sql_filter($search_nom);
+		$search[] = "u.nom LIKE '".$search_nom."%'";
 	}
 	if(!empty($search_prenom)) {
-		$search[] = "u.prenom LIKE '".mysql_escape_string($search_prenom)."%'";
+    $search_prenom = xss_sql_filter($search_prenom);
+		$search[] = "u.prenom LIKE '".$search_prenom."%'";
 	}
 	if(!empty($search_uname)) {
-		$search[] = "u.username LIKE '".mysql_escape_string($search_uname)."%'";
+    $search_uname = xss_sql_filter($search_uname);
+		$search[] = "u.username LIKE '".$search_uname."%'";
 	}
 
 	$query = join(' AND ', $search);
 	if (!empty($query)) {
+      $cours_id = intval($cours_id);
 			db_query("CREATE TEMPORARY TABLE lala AS
 			SELECT user_id FROM cours_user WHERE cours_id = $cours_id
 			");

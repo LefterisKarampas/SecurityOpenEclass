@@ -43,6 +43,7 @@ if($is_adminOfCourse) {
 	
 	echo join(';', array_map("csv_escape", array($langSurname, $langName, $langEmail, $langAm, $langUsername, $langGroups))),
 	     $crlf;
+	$cours_id = intval($cours_id);
 	$sql = db_query("SELECT  user.nom, user.prenom, user.email, user.am, user.username, user_group.team
 			FROM cours_user, user LEFT JOIN `$currentCourseID`.user_group ON `user`.user_id = user_group.user
 			WHERE `user`.`user_id` = `cours_user`.`user_id` AND `cours_user`.`cours_id` = $cours_id

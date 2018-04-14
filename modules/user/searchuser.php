@@ -49,37 +49,40 @@ $navigation[] = array ("url"=>"user.php", "name"=> $langAdminUsers);
 
 $tool_content="";
 
+$cours_id = intval($cours_id);
+$uid = intval($uid);
+
 // IF PROF ONLY
 if($is_adminOfCourse) {
 	// give admin status
 	if(isset($giveAdmin) && $giveAdmin && $is_adminOfCourse) {
 		$result = db_query("UPDATE cours_user SET statut = 1
-		WHERE user_id='".mysql_real_escape_string($_GET['user_id'])."' AND cours_id = $cours_id", $mysqlMainDb);
+		WHERE user_id='".intval($_GET['user_id'])."' AND cours_id = $cours_id", $mysqlMainDb);
 	}
 	// give tutor status
 	elseif(isset($giveTutor) && $giveTutor) {
 		$result = db_query("UPDATE cours_user SET tutor = 1
-		WHERE user_id='".mysql_real_escape_string($_GET['user_id'])."' AND cours_id = $cours_id",$mysqlMainDb);
+		WHERE user_id='".intval($_GET['user_id'])."' AND cours_id = $cours_id",$mysqlMainDb);
 		$result2=db_query("DELETE FROM user_group 
-		WHERE user='".mysql_real_escape_string($_GET['user_id'])."'", $currentCourseID);
+		WHERE user='".intval($_GET['user_id'])."'", $currentCourseID);
 	}
         // remove admin status
         elseif(isset($removeAdmin) && $removeAdmin) {
                 $result = db_query("UPDATE cours_user SET statut = 5
-                        WHERE user_id != $uid AND user_id='".mysql_real_escape_string($_GET['user_id'])."'
+                        WHERE user_id != $uid AND user_id='".intval($_GET['user_id'])."'
                               AND cours_id = $cours_id", $mysqlMainDb);
         }
         // remove tutor status
         elseif(isset($removeTutor) && $removeTutor) {
                 $result = db_query("UPDATE cours_user SET tutor = 0
-                        WHERE user_id = '".mysql_real_escape_string($_GET['user_id'])."'
+                        WHERE user_id = '".intval($_GET['user_id'])."'
                               AND cours_id = $cours_id", $mysqlMainDb);
         }
         // unregister user from courses
         elseif(isset($unregister) && $unregister) {
                 // Security: cannot remove myself
                 $result = db_query("DELETE FROM cours_user WHERE user_id!= $uid
-                        AND user_id = '".mysql_real_escape_string($_GET['user_id'])."'
+                        AND user_id = '".intval($_GET['user_id'])."'
                         AND cours_id = $cours_id", $mysqlMainDb);
                 // Except: remove myself if there is another tutor
                 if ($_GET['user_id'] == $uid) {
@@ -94,7 +97,7 @@ if($is_adminOfCourse) {
                         }
                 }
 		$delGroupUser=db_query("DELETE FROM user_group 
-		WHERE user='".mysql_real_escape_string($_GET['user_id'])."'", $currentCourseID);
+		WHERE user='".intval($_GET['user_id'])."'", $currentCourseID);
 	}
 	
 	if(!isset($search_nom)) $search_nom = "";
@@ -130,15 +133,18 @@ if($is_adminOfCourse) {
 	mysql_select_db($mysqlMainDb);
 	$search=array();
 	if(!empty($search_nom)) {
-		$search[] = "user.nom LIKE '".mysql_escape_string($search_nom)."%'";
+		$search_nom = xss_sql_filter($search_nom)''
+		$search[] = "user.nom LIKE '".$search_nom."%'";
 		$s = "search_nom=$search_nom";
 	}
 	if(!empty($search_prenom)) {
-		$search[] = "user.prenom LIKE '".mysql_escape_string($search_prenom)."%'";
+		$search_prenom = xss_sql_filter($search_prenom);
+		$search[] = "user.prenom LIKE '".$search_prenom."%'";
 		$s = "search_prenom=$search_prenom";
 	}
 	if(!empty($search_uname)) {
-		$search[] = "user.username LIKE '".mysql_escape_string($search_uname)."%'";
+		$search_uname = xss_sql_filter($search_uname);
+		$search[] = "user.username LIKE '".$search_uname."%'";
 		$s = "search_uname=$search_uname";
 	}
 
