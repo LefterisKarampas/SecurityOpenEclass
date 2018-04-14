@@ -72,6 +72,7 @@ $diskQuotaVideo = $d['video_quota'];
 
 if (isset($action2) and $action2 == "download")
 {
+  $id = xss_sql_filter($id);//XSS SQL FIX
 	$real_file = $webDir."/video/".$currentCourseID."/".$id;
 	if (strpos($real_file, '/../') === FALSE) {
 		$result = db_query ("SELECT url FROM video WHERE path = '$id'", $currentCourseID);
@@ -133,13 +134,13 @@ hContent;
 $nick=$prenom." ".$nom;
 if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 	if($id) {
-		$sql = "UPDATE $table SET url='".mysql_real_escape_string($url)."', titre='".mysql_real_escape_string($titre)."', description='".mysql_real_escape_string($description)."',creator='".mysql_real_escape_string($creator)."',publisher='".mysql_real_escape_string($publisher)."'
-			WHERE id='".mysql_real_escape_string($id)."'";
+		$sql = "UPDATE $table SET url='".xss_sql_filter($url)."', titre='".xss_sql_filter($titre)."', description='".xss_sql_filter($description)."',creator='".xss_sql_filter($creator)."',publisher='".xss_sql_filter($publisher)."'
+			WHERE id='".xss_sql_filter($id)."'";
 	} else {
 		if(isset($URL)) {
 			if ($titre == "") $titre = $URL;
 			$url = $URL;
-			$sql = "INSERT INTO videolinks (url,titre,description,creator,publisher,date) VALUES ('$url','".mysql_real_escape_string($titre)."','".mysql_real_escape_string($description)."','".mysql_real_escape_string($creator)."','".mysql_real_escape_string($publisher)."','".mysql_real_escape_string($date)."')";
+			$sql = "INSERT INTO videolinks (url,titre,description,creator,publisher,date) VALUES ('".xss_sql_filter($url)."','".xss_sql_filter($titre)."','".xss_sql_filter($description)."','".xss_sql_filter($creator)."','".xss_sql_filter($publisher)."','".xss_sql_filter($date)."')";
 		} else {
 			$updir = "$webDir/video/$currentCourseID"; //path to upload directory
 			if (($file_name != "") && ($file_size <= $diskQuotaVideo )) {
@@ -155,6 +156,10 @@ if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 					$file_name = str_replace(" ", "%20", $file_name);
 					$file_name = str_replace("%20", "", $file_name);
 					$file_name = str_replace("\'", "", $file_name);
+
+          $file_name = sanitize_filename($file_name);
+          $file_name = xss_sql_filter($file_name);
+
 					$safe_filename = date("YmdGis").randomkeys("8").".".get_file_extension($file_name);
 					if ($titre == "") $titre = $file_name;
 					$iscopy=@copy("$file", "$updir/$safe_filename");
@@ -172,7 +177,7 @@ if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 				}
 				$path = "/".$safe_filename;
 				$url="$file_name";
-				$sql = "INSERT INTO video (path, url, titre, description, creator, publisher, date) VALUES ('$path', '$url','".mysql_real_escape_string($titre)."','".mysql_real_escape_string($description)."','".mysql_real_escape_string($creator)."','".mysql_real_escape_string($publisher)."','".mysql_real_escape_string($date)."')";
+				$sql = "INSERT INTO video (path, url, titre, description, creator, publisher, date) VALUES ('$path', '$url','".xss_sql_filter($titre)."','".xss_sql_filter($description)."','".xss_sql_filter($creator)."','".xss_sql_filter($publisher)."','".xss_sql_filter($date)."')";
 			}
 		}	// else
 		$result = db_query($sql,$currentCourseID);
@@ -185,13 +190,13 @@ if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 	}	// if submit
 
 	elseif (isset($delete)) {
-		$sql_select="SELECT * FROM $table WHERE id='".mysql_real_escape_string($id)."'";
+		$sql_select="SELECT * FROM $table WHERE id='".xss_sql_filter($id)."'";
 		$result = db_query($sql_select,$currentCourseID);
 		$myrow = mysql_fetch_array($result);
 		if($table=="video") {
 			unlink("$webDir/video/$currentCourseID/".$myrow['path']);
 		}
-		$sql = "DELETE FROM $table WHERE id='".mysql_real_escape_string($id)."'";
+		$sql = "DELETE FROM $table WHERE id='".xss_sql_filter($id)."'";
 		$result = db_query($sql,$currentCourseID);
 		$tool_content .= "<p class=\"success_small\">$langDelF</p><br />";
 		$id="";
@@ -291,7 +296,7 @@ ini_get('upload_max_filesize') . "</small></p>";
 // ------------------- if no submit -----------------------
 if (isset($id)) {
    if($id != "") {
-	  $sql = "SELECT * FROM $table_edit WHERE id='".mysql_real_escape_string($id)."' ORDER BY titre";
+	  $sql = "SELECT * FROM $table_edit WHERE id='".xss_sql_filter($id)."' ORDER BY titre";
       	  $result = db_query($sql,$currentCourseID);
       	  $myrow = mysql_fetch_array($result);
           $id = $myrow[0];
