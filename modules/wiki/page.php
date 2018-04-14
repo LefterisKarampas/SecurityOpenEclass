@@ -271,8 +271,8 @@
     {
         if ( isset( $_REQUEST['wiki_content'] ) )
         {
-            $content = ( $_REQUEST['wiki_content'] == '' ) ? "__CONTENT__EMPTY__" : $_REQUEST['wiki_content'];
-        	$content = xss_sql_filter($content);//XSS + SQL FIX
+            $content = ( $_REQUEST['wiki_content'] == '' ) ? "__CONTENT__EMPTY__" : $_xss_sql_filter(REQUEST['wiki_content']);
+        	//XSS + SQL FIX
         }
         else
         {
