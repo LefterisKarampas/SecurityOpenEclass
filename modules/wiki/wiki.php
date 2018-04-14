@@ -134,13 +134,15 @@ function confirmation (name)
 
     $wikiId = ( isset( $_REQUEST['wikiId'] ) ) ? (int) $_REQUEST['wikiId'] : 0;
 
+    $uid = intval($uid);//SQL INJECTION FIX
     $creatorId = $uid;
 
     // get request variable for wiki edition
     if ( $action == "exEdit" )
     {
-        $wikiTitle = ( isset( $_POST['title'] ) ) ? strip_tags( $_POST['title'] ) : '';
-        $wikiDesc = ( isset( $_POST['desc'] ) ) ? strip_tags( $_POST['desc'] ) : '';
+        //XSS SQL FIX
+        $wikiTitle = ( isset( $_POST['title'] ) ) ? xss_sql_filter( $_POST['title'] ) : '';
+        $wikiDesc = ( isset( $_POST['desc'] ) ) ? xss_sql_filter( $_POST['desc'] ) : '';
 
         if ( $wikiDesc == $langWikiDefaultDescription )
         {

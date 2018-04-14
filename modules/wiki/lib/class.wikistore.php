@@ -129,7 +129,7 @@
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '".addslashes( $title )."' "
+                . "WHERE BINARY `title` = '".$title."' "
                 . "AND `wiki_id` = " . $wikiId
                 ;
 

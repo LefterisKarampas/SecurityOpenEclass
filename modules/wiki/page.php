@@ -251,12 +251,13 @@
     $action = ( isset( $_CLEAN['action'] ) ) ? $_CLEAN['action'] : 'show';
 
     // get request variables
-
+    $uid = intval($uid);//SQL INJECTION FIX
     $creatorId = $uid;
 
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? (int) $_REQUEST['versionId'] : 0;
 
     $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
+    $title = xss_sql_filter($title);//XSS + SQL INJECTION FIX
 
     if ( $action == "diff" )
     {
@@ -270,12 +271,8 @@
     {
         if ( isset( $_REQUEST['wiki_content'] ) )
         {
-        	if (!get_magic_quotes_gpc()) {
-            	$content = ( $_REQUEST['wiki_content'] == '' ) ? "__CONTENT__EMPTY__" : $_REQUEST['wiki_content'];
-            }
-            else {
-            	$content = ( $_REQUEST['wiki_content'] == '' ) ? "__CONTENT__EMPTY__" : stripslashes($_REQUEST['wiki_content']);
-            }
+            $content = ( $_REQUEST['wiki_content'] == '' ) ? "__CONTENT__EMPTY__" : $_REQUEST['wiki_content'];
+        	$content = xss_sql_filter($content);//XSS + SQL FIX
         }
         else
         {
@@ -284,12 +281,8 @@
     }
     else
     {
-    	if (!get_magic_quotes_gpc()) {
-        	$content = ( isset( $_REQUEST['wiki_content'] ) ) ? $_REQUEST['wiki_content'] : '';
-        }
-        else {
-        	$content = ( isset( $_REQUEST['wiki_content'] ) ) ? stripslashes($_REQUEST['wiki_content']) : '';
-        }
+        $content = ( isset( $_REQUEST['wiki_content'] ) ) ? $_REQUEST['wiki_content'] : '';
+    	$content = xss_sql_filter($content);//XSS + SQL FIX
     }
 
     // use __MainPage__ if empty title
@@ -298,6 +291,7 @@
     {
         // create wiki main page in a localisation compatible way
         $title = '__MainPage__';
+        $title = xss_sql_filter($title);//XSS + SQL FIX
 
         if( $wikiStore->pageExists( $wikiId, $title ) )
         {
