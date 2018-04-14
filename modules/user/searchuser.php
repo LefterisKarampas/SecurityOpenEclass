@@ -133,7 +133,7 @@ if($is_adminOfCourse) {
 	mysql_select_db($mysqlMainDb);
 	$search=array();
 	if(!empty($search_nom)) {
-		$search_nom = xss_sql_filter($search_nom)''
+		$search_nom = xss_sql_filter($search_nom);
 		$search[] = "user.nom LIKE '".$search_nom."%'";
 		$s = "search_nom=$search_nom";
 	}
