@@ -311,9 +311,9 @@ $langldap_bind_dn = "Ορίσματα για LDAP binding";
 $langldap_bind_user = "Όνομα Χρήστη για LDAP binding";
 $langldap_bind_pw = "Συνθηματικό για LDAP binding";
 $langUserAuthentication = "Πιστοποίηση Χρηστών";
-$langChangeUser = 'Σύνδεση με λογαριασμό άλλου χρήστη';
-$langChangeUserNotFound = 'Δε βρέθηκε λογαριασμός με όνομα χρήστη "%s"';
-$langMultiRegUser = 'Μαζική δημιουργία λογαριασμών χρηστών';
+$langChangeUser = \'Σύνδεση με λογαριασμό άλλου χρήστη\';
+$langChangeUserNotFound = \'Δε βρέθηκε λογαριασμός με όνομα χρήστη "%s"\';
+$langMultiRegUser = \'Μαζική δημιουργία λογαριασμών χρηστών\';
 $langMultiRegUserInfo = "<p>Εισαγάγετε στην παρακάτω περιοχή έναν κατάλογο με
 τα στοιχεία των χρηστών, μία γραμμή ανα χρήστη που επιθυμείτε να δημιουργηθεί.
 </p>
@@ -333,12 +333,12 @@ e-mail είναι προαιρετικό - αν θέλετε να το παρα�
 παύλα (-). Οι γραμμές που αρχίζουν από # αγνοούνται. Αν δεν ορίσετε το όνομα
 χρήστη των χρηστών, θα πάρουν αυτόματα ονόματα χρήστη αποτελούμενα από το
 πρόθεμα που μπορείτε να ορίσετε παρακάτω και έναν αύξοντα αριθμό.</p>";
-$langMultiRegCourseInvalid = 'Χρήστης %s: μη έγκυρος κωδικός μαθήματος «%s»';
-$langMultiRegFields = 'Ορισμός πεδίων';
-$langMultiRegFieldError = 'Σφάλμα! Μη επιτρεπτή ετικέτα πεδίου:';
-$langMultiRegType = 'Δημιουργία λογαριασμών';
-$langMultiRegSendMail = 'Αποστολή των στοιχείων των χρηστών μέσω e-mail';
-$langMultiRegPrefix = 'Πρόθεμα username χρηστών';
+$langMultiRegCourseInvalid = \'Χρήστης %s: μη έγκυρος κωδικός μαθήματος «%s»\';
+$langMultiRegFields = \'Ορισμός πεδίων\';
+$langMultiRegFieldError = \'Σφάλμα! Μη επιτρεπτή ετικέτα πεδίου:\';
+$langMultiRegType = \'Δημιουργία λογαριασμών\';
+$langMultiRegSendMail = \'Αποστολή των στοιχείων των χρηστών μέσω e-mail\';
+$langMultiRegPrefix = \'Πρόθεμα username χρηστών\';
 $langSearchCourses = "Αναζήτηση μαθημάτων";
 $langActSuccess = "Μόλις ενεργοποιήσατε την ";
 $langDeactSuccess = "Μόλις απενεργοποιήσατε την ";
@@ -404,12 +404,12 @@ $langAdminAnnBodyEn = "Ανακοίνωση (Αγγλικά)";
 $langAdminAnnCommEn = "Σχόλια (Αγγλικά)";
 
 // cleanup.php
-$langCleanupOldFiles = 'Εκκαθάριση παλαιών αρχείων';
-$langCleaningUp = 'Εκκαθάριση αρχείων παλαιότερων από %s %s στον υποκατάλογο %s';
-$langDaySing = 'ημέρα';
-$langDayPlur = 'ημέρες';
-$langCleanupInfo = 'Η λειτουργία αυτή θα διαγράψει τα παλιά αρχεία από τους υποκαταλόγους "temp", "archive", "garbage", και"tmpUnzipping". Είστε βέβαιοι?';
-$langCleanup = 'Εκκαθάριση';
+$langCleanupOldFiles = \'Εκκαθάριση παλαιών αρχείων\';
+$langCleaningUp = \'Εκκαθάριση αρχείων παλαιότερων από %s %s στον υποκατάλογο %s\';
+$langDaySing = \'ημέρα\';
+$langDayPlur = \'ημέρες\';
+$langCleanupInfo = \'Η λειτουργία αυτή θα διαγράψει τα παλιά αρχεία από τους υποκαταλόγους "temp", "archive", "garbage", και"tmpUnzipping". Είστε βέβαιοι?\';
+$langCleanup = \'Εκκαθάριση\';
 
 /**********************************************************
 * agenda.inc.php
@@ -426,12 +426,12 @@ $langYear="Έτος";
 $langHour="Ώρα";
 $langHours = "Ώρες";
 $langMinute ="Λεπτά";
-$langsecond = 'δευτερόλεπτο';
-$langseconds = 'δευτερόλεπτα';
-$langminute = 'λεπτό';
-$langminutes = 'λεπτά';
-$langhour = 'ώρα';
-$langhours = 'ώρες';
+$langsecond = \'δευτερόλεπτο\';
+$langseconds = \'δευτερόλεπτα\';
+$langminute = \'λεπτό\';
+$langminutes = \'λεπτά\';
+$langhour = \'ώρα\';
+$langhours = \'ώρες\';
 $langLasting="Διάρκεια";
 $langDateNow = "Σημερινή ημερομηνία:";
 $langCalendar = "Ημερολόγιο";
@@ -450,27 +450,27 @@ $langAgendaNoTitle = "Γεγονός χωρίς τίτλο";
 
 // week days
 $langDay_of_weekNames = array();
-$langDay_of_weekNames['init'] = array('Κ', 'Δ', 'Τ', 'Τ', 'Π', 'Π', 'Σ');
-$langDay_of_weekNames['short'] = array('Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ');
-$langDay_of_weekNames['long'] = array('Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο');
+$langDay_of_weekNames[\'init\'] = array(\'Κ\', \'Δ\', \'Τ\', \'Τ\', \'Π\', \'Π\', \'Σ\');
+$langDay_of_weekNames[\'short\'] = array(\'Κυρ\', \'Δευ\', \'Τρι\', \'Τετ\', \'Πεμ\', \'Παρ\', \'Σαβ\');
+$langDay_of_weekNames[\'long\'] = array(\'Κυριακή\', \'Δευτέρα\', \'Τρίτη\', \'Τετάρτη\', \'Πέμπτη\', \'Παρασκευή\', \'Σάββατο\');
 
 // month names
 $langMonthNames = array();
-$langMonthNames['init']  = array('Ι', 'Φ', 'Μ', 'Α', 'Μ', 'Ι', 'Ι', 'Α', 'Σ', 'Ο', 'Ν', 'Δ');
-$langMonthNames['short'] = array('Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μάι', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ');
-$langMonthNames['long'] = array('Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος');
-$langMonthNames['fine'] = array('Ιανουαρίου',
-        'Φεβρουαρίου',
-        'Μαρτίου',
-        'Απριλίου',
-        'Μαΐου',
-        'Ιουνίου',
-        'Ιουλίου',
-        'Αυγούστου',
-        'Σεπτεμβρίου',
-        'Οκτωβρίου',
-        'Νοεμβρίου',
-        'Δεκεμβρίου');
+$langMonthNames[\'init\']  = array(\'Ι\', \'Φ\', \'Μ\', \'Α\', \'Μ\', \'Ι\', \'Ι\', \'Α\', \'Σ\', \'Ο\', \'Ν\', \'Δ\');
+$langMonthNames[\'short\'] = array(\'Ιαν\', \'Φεβ\', \'Μαρ\', \'Απρ\', \'Μάι\', \'Ιουν\', \'Ιουλ\', \'Αυγ\', \'Σεπ\', \'Οκτ\', \'Νοε\', \'Δεκ\');
+$langMonthNames[\'long\'] = array(\'Ιανουάριος\', \'Φεβρουάριος\', \'Μάρτιος\', \'Απρίλιος\', \'Μάιος\', \'Ιούνιος\', \'Ιούλιος\', \'Αύγουστος\', \'Σεπτέμβριος\', \'Οκτώβριος\', \'Νοέμβριος\', \'Δεκέμβριος\');
+$langMonthNames[\'fine\'] = array(\'Ιανουαρίου\',
+        \'Φεβρουαρίου\',
+        \'Μαρτίου\',
+        \'Απριλίου\',
+        \'Μαΐου\',
+        \'Ιουνίου\',
+        \'Ιουλίου\',
+        \'Αυγούστου\',
+        \'Σεπτεμβρίου\',
+        \'Οκτωβρίου\',
+        \'Νοεμβρίου\',
+        \'Δεκεμβρίου\');
 
 /***********************************************************
 * announcements.inc.php
@@ -555,25 +555,25 @@ $langButtonVideo="Μετάδοση";
 $langButtonPresantation="Μετάδοση";
 $langconference="Ενεργοποίηση τηλεδιάσκεψης";
 $langpresantation="Σύνδεσμος παρουσίασης ιστοσελίδας";
-$langVideo_content="<p align='justify'>Εδώ θα παρουσιαστεί το βίντεο αφού το ενεργοποιήσει ο $langsTeacher.</p>";
-$langTeleconference_content1 = "<p align='justify'>Εδώ θα παρουσιαστεί η τηλεδιάσκεψη αφού την ενεργοποιήσει ο $langsTeacher.</p>";
-$langTeleconference_content_noIE="<p align='justify'>Η τηλεδιάσκεψη ενεργοποιείται μόνο αν έχετε IE ως πλοηγό.</p>";
+$langVideo_content="<p align=\'justify\'>Εδώ θα παρουσιαστεί το βίντεο αφού το ενεργοποιήσει ο $langsTeacher.</p>";
+$langTeleconference_content1 = "<p align=\'justify\'>Εδώ θα παρουσιαστεί η τηλεδιάσκεψη αφού την ενεργοποιήσει ο $langsTeacher.</p>";
+$langTeleconference_content_noIE="<p align=\'justify\'>Η τηλεδιάσκεψη ενεργοποιείται μόνο αν έχετε IE ως πλοηγό.</p>";
 $langWashVideo="Παύση μετάδοσης";
-$langPresantation_content="<p align='center'>Εδώ θα παρουσιαστεί μία ιστοσελίδα που θα επιλέξει ο $langsTeacher.</p>";
+$langPresantation_content="<p align=\'center\'>Εδώ θα παρουσιαστεί μία ιστοσελίδα που θα επιλέξει ο $langsTeacher.</p>";
 $langWashPresanation="Παύση μετάδοσης";
 $langSaveChat="Αποθήκευση κουβέντας";
 $langSaveMessage="Η κουβέντα αποθηκεύθηκε στα Έγγραφα";
 $langSaveErrorMessage="Η κουβέντα δεν μπόρεσε να αποθηκευθεί";
-$langNoAliens = "Μόνο οι εγγεγραμμένοι χρήστες στην πλατφόρμα μπορούν να χρησιμοποιούν το υποσύστημα 'Κουβέντα' !";
-$langNoGuest = "Οι χρήστες - επισκέπτες δεν μπορούν να χρησιμοποιήσουν το υποσύστημα 'Κουβέντα' !";
+$langNoAliens = "Μόνο οι εγγεγραμμένοι χρήστες στην πλατφόρμα μπορούν να χρησιμοποιούν το υποσύστημα \'Κουβέντα\' !";
+$langNoGuest = "Οι χρήστες - επισκέπτες δεν μπορούν να χρησιμοποιήσουν το υποσύστημα \'Κουβέντα\' !";
 
 /*****************************************************************
 * copyright.inc.php
 ******************************************************************/
 $langCopyright = "Πληροφορίες Πνευματικών Δικαιωμάτων";
-$langCopyrightNotice = '
+$langCopyrightNotice = \'
 Copyright © 2003 - 2010 <a href="http://www.openeclass.org" target=_blank>Open eClass</a>.<br>&nbsp;<br>
-Η πλατφόρμα '.$siteName.' βασίζεται στην ανοικτή πλατφόρμα <a href="http://www.openeclass.org" target=_blank>Open eClass</a>
+Η πλατφόρμα \'.$siteName.\' βασίζεται στην ανοικτή πλατφόρμα <a href="http://www.openeclass.org" target=_blank>Open eClass</a>
 η οποία είναι ένα ολοκληρωμένο Σύστημα Διαχείρισης Ηλεκτρονικών Μαθημάτων και αποτελεί
 την πρόταση του Ακαδημαϊκού Διαδικτύου GUnet για την υποστήριξη της Υπηρεσίας
 Ασύγχρονης Τηλεκπαίδευσης. Aναπτύχθηκε και υποστηρίζεται ενεργά από την Ομάδα
@@ -581,8 +581,8 @@ Copyright © 2003 - 2010 <a href="http://www.openeclass.org" target=_blank>Open 
 href="http://download.eclass.gunet.gr" target="_blank">διανέμεται ελεύθερα</a>
 ως Λογισμικό Ανοικτού Κώδικα σύμφωνα με τη γενική δημόσια άδεια GNU General
 Public License (GNU GPL).<br><br>
-Το περιεχόμενο των Ηλεκτρονικών Μαθημάτων που φιλοξενεί η πλατφόρμα '.$siteName.', καθώς και τα πνευματικά δικαιώματα του υλικού αυτού, ανήκουν στους συγγραφείς τους και το GUnet δεν διεκδικεί δικαιώματα σε αυτό. Για οποιαδήποτε χρήση ή αναδημοσίευση του περιεχομένου παρακαλούμε επικοινωνήστε με τους υπεύθυνους των αντίστοιχων Mαθημάτων.
-';
+Το περιεχόμενο των Ηλεκτρονικών Μαθημάτων που φιλοξενεί η πλατφόρμα \'.$siteName.\', καθώς και τα πνευματικά δικαιώματα του υλικού αυτού, ανήκουν στους συγγραφείς τους και το GUnet δεν διεκδικεί δικαιώματα σε αυτό. Για οποιαδήποτε χρήση ή αναδημοσίευση του περιεχομένου παρακαλούμε επικοινωνήστε με τους υπεύθυνους των αντίστοιχων Mαθημάτων.
+\';
 
 /*******************************************************
 * course_description.inc.php
@@ -671,7 +671,7 @@ $langContactProf = "Επικοινωνία με τους $langsTeachers";
 $langEmailEmpty = "Η διεύθυνση ηλεκτρονικού ταχυδρομείου σας είναι κενή.
 Για να μπορείτε να επικοινωνήσετε με τον $langsOfTeacher, θα πρέπει να έχετε ορίσει
 τη διεύθυνσή σας, ώστε να μπορείτε να λάβετε απάντηση. Μπορείτε να ορίσετε τη
-διεύθυνσή σας από την επιλογή <a href='%s'>«Αλλαγή του προφίλ μου»</a> στη
+διεύθυνσή σας από την επιλογή <a href=\'%s\'>«Αλλαγή του προφίλ μου»</a> στη
 σελίδα του χαρτοφυλακίου σας.";
 
 $langEmptyMessage = "Αφήσατε το κείμενο του μηνύματος κενό. Το μήνυμα δε στάλθηκε";
@@ -691,7 +691,7 @@ $langContactIntro = "Ο χρήστης της πλατφόρμας $siteName μ�
 
 $langNonUserContact = "Για να επικοινωνήσετε με τους υπεύθυνους $langsTeachers
 του μαθήματος, θα πρέπει να έχετε λογαριασμό στο σύστημα και
-να έχετε συνδεθεί. Παρακαλούμε επισκεφθείτε την <a href='%s'>αρχική σελίδα</a>.";
+να έχετε συνδεθεί. Παρακαλούμε επισκεφθείτε την <a href=\'%s\'>αρχική σελίδα</a>.";
 $langIntroMessage = "Σύνταξη μηνύματος";
 $langHeaderMessage = "Μήνυμα από $langsstudent_acc";
 
@@ -761,7 +761,7 @@ $langCatagoryGroup="Συζήτησεις Ομάδων χρηστών";
 $langNoGroup="Δεν έχουν οριστεί ομάδες χρηστών";
 
 //neos odhgos dhmiourgias mathimaton
-$langEnterMetadata="(Σημ.) μπορείτε να αλλάξετε διάφορες ρυθμίσεις του μαθήματος μέσα από τη λειτουργία 'Διαχείριση Μαθήματος'";
+$langEnterMetadata="(Σημ.) μπορείτε να αλλάξετε διάφορες ρυθμίσεις του μαθήματος μέσα από τη λειτουργία \'Διαχείριση Μαθήματος\'";
 $langCreateCourse="Οδηγός δημιουργίας μαθήματος";
 $langCreateCourseStep="Βήμα";
 $langCreateCourseStep2="από";
@@ -800,7 +800,7 @@ $langOkComment="Επικύρωση αλλαγών";
 $langVisible="Ορατό / Αόρατο";
 $langCopy="Αντιγραφή";
 $langNoSpace="Η αποστολή του αρχείου απέτυχε. Έχετε υπερβεί το μέγιστο επιτρεπτό χώρο. Για περισσότερες πληροφορίες, επικοινωνήστε με το διαχειριστή του συστήματος.";
-$langUnwantedFiletype='Μη αποδεκτός τύπος αρχείου';
+$langUnwantedFiletype=\'Μη αποδεκτός τύπος αρχείου\';
 $langDownloadEnd="Το ανέβασμα ολοκληρώθηκε";
 $langFileExists="Δεν είναι δυνατή η λειτουργία.<br>Υπάρχει ήδη ένα αρχείο με το ίδιο όνομα.";
 $langDocCopied="Tο έγγραφο αντιγράφηκε";
@@ -868,77 +868,77 @@ $langDirectory = "Κατάλογος";
 /*************************************************
 * dropbox.inc.php
 *************************************************/
-$dropbox_lang['dropbox'] = 'Χώρος Ανταλλαγής Αρχείων';
-$dropbox_lang['help'] = 'Βοήθεια';
-$dropbox_lang['aliensNotAllowed'] = "Μόνο οι εγγεγραμμένοι χρήστες στην πλατφόρμα μπορούν να χρησιμοποιούν το dropbox. Δεν είστε εγγεγραμμένος χρήστης στην πλατφόρμα.";
-$dropbox_lang['queryError'] = "Πρόβλημα στην βάση δεδομένων. Παρακαλώ επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
-$dropbox_lang['generalError'] = "Παρουσιάστηκε σφάλμα. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
-$dropbox_lang['badFormData'] = "Η αποστολή του αρχείου απέτυχε: Τα δεδομένα ήταν με λάθος μορφή. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
-$dropbox_lang['noUserSelected'] = "Παρακαλούμε επιλέξτε το χρήστη στον οποίο θέλετε να σταλεί το αρχείο.";
-$dropbox_lang['noFileSpecified'] = "Δεν έχετε επιλέξει κάποιο αρχείο για να ανεβάσετε.";
-$dropbox_lang['tooBig'] = "Δεν έχετε επιλέξει κάποιο αρχείο να ανεβάσετε ή το αρχείο υπερβαίνει το επιτρεπτό όριο σε μέγεθος.";
-$dropbox_lang['uploadError'] = "Παρουσιάστηκε σφάλμα κατά το ανέβασμα του αρχείου. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
-$dropbox_lang['errorCreatingDir'] = "Παρουσιάστηκε σφάλμα κατά τη δημιουργία καταλόγου. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
-$dropbox_lang['quotaError'] = "Έχετε ξεπεράσει το μέγιστο συνολικό επιτρεπτό μέγεθος αρχείων! Το ανέβασμα του αρχείου δεν πραγματοποιήθηκε.";
-$dropbox_lang['uploadFile'] = "Ανέβασμα αρχείου";
-$dropbox_lang['authors'] = "Αποστολέας";
-$dropbox_lang['description'] = "Περιγραφή αρχείου";
-$dropbox_lang['sendTo'] = "Αποστολή στον/στην";
-$dropbox_lang['receivedTitle'] = "Εισερχόμενα Αρχεία";
-$dropbox_lang['sentTitle'] = "Απεσταλμένα Αρχεία";
-$dropbox_lang['confirmDelete1'] = "Σημείωση: Το αρχείο ";
-$dropbox_lang['confirmDelete2'] = " θα διαγραφεί μόνο από τον κατάλογό σας";
-$dropbox_lang['all'] = "Σημείωση: Τα αρχεία θα διαγραφούν μόνο από τον κατάλογό σας";
-$dropbox_lang['workDelete'] = "Διαγραφή από τον κατάλογο";
-$dropbox_lang['sentBy'] = "Στάλθηκε από τον/την";
-$dropbox_lang['sentTo'] = "Στάλθηκε στον/στην";
-$dropbox_lang['sentOn'] = "την";
-$dropbox_lang['anonymous'] = "ανώνυμος";
-$dropbox_lang['ok'] = "Αποστολή";
-$dropbox_lang['lastUpdated'] = "Τελευταία ενημέρωση την";
-$dropbox_lang['lastResent'] = "Τελευταία επαναποστολή στις";
-$dropbox_lang['tableEmpty'] = "Ο κατάλογος είναι κενός.";
-$dropbox_lang['overwriteFile'] = "Θέλετε να αντικαταστήσετε το προηγούμενο αρχείο που στείλατε;";
-$dropbox_lang['orderBy'] = "Ταξινόμηση με βάση";
-$dropbox_lang['lastDate'] = "την τελευταία ημερομηνία αποστολής";
-$dropbox_lang['firstDate'] = "την πρώτη ημερομηνία αποστολής";
-$dropbox_lang['title'] = "τον τίτλο";
-$dropbox_lang['size'] = "το μέγεθος του αρχείου";
-$dropbox_lang['author'] = "τον διδάσκοντα";
-$dropbox_lang['sender'] = "τον αποστολέα";
-$dropbox_lang['file'] = "Αρχείο";
-$dropbox_lang['fileSize'] = "Μέγεθος";
-$dropbox_lang['date'] = "Ημερομηνία";
-$dropbox_lang['col_recipient'] = "Παραλήπτης";
-$dropbox_lang['recipient'] = "τον παραλήπτη";
-$dropbox_lang['docAdd'] = "Το αρχείο στάλθηκε με επιτυχία";
-$dropbox_lang['fileDeleted'] = "Το επιλεγμένο αρχείο έχει διαγραφεί από το Χώρο Ανταλλαγής Αρχείων.";
-$dropbox_lang['backList'] = "Επιστροφή στο Χώρο Ανταλλαγής Αρχείων";
-$dropbox_lang['mailingAsUsername'] = "Mailing ";
-$dropbox_lang['mailingInSelect'] = "---Mailing---";
-$dropbox_lang['mailingSelectNoOther'] = "Η αποστολή μηνύματος δεν μπορεί να συνδιαστεί με αποστολή σε άλλους παραλήπτες";
-$dropbox_lang['mailingNonMailingError'] = "Mailing cannot be overwritten by non-mailing and vice-versa";
-$dropbox_lang['mailingNotYetSent'] = "Mailing content files have not yet been sent out...";
-$dropbox_lang['mailingSend'] = "Send content files";
-$dropbox_lang['mailingConfirmSend'] = "Send content files to individual destinations ?";
-$dropbox_lang['mailingBackToDropbox'] = "(back to Dropbox main window)";
-$dropbox_lang['mailingWrongZipfile'] = "Mailing must be zipfile with STUDENTID or LOGINNAME";
-$dropbox_lang['mailingZipEmptyOrCorrupt'] = "Mailing zipfile is empty or not a valid zipfile";
-$dropbox_lang['mailingZipPhp'] = "Mailing zipfile must not contain php files - it will not be sent";
-$dropbox_lang['mailingZipDups'] = "Mailing zipfile must not contain duplicate files - it will not be sent";
-$dropbox_lang['mailingFileFunny'] = "no name, or extension not 1-4 letters or digits";
-$dropbox_lang['mailingFileNoPrefix'] = "name does not start with ";
-$dropbox_lang['mailingFileNoPostfix'] = "name does not end with ";
-$dropbox_lang['mailingFileNoRecip'] = "name does not contain any recipient-id";
-$dropbox_lang['mailingFileRecipNotFound'] = "no such student with ";
-$dropbox_lang['mailingFileRecipDup'] = "multiple users have ";
-$dropbox_lang['mailingFileIsFor'] = "is for ";
-$dropbox_lang['mailingFileSentTo'] = "sent to ";
-$dropbox_lang['mailingFileNotRegistered'] = " (not registered for this course)";
-$dropbox_lang['mailingNothingFor'] = "Nothing for";
-$dropbox_lang['justUploadInSelect'] = "--- Ανέβασμα αρχείου ---";
-$dropbox_lang['justUploadInList'] = "Ανέβασμα αρχείου από τον/την";
-$dropbox_lang['mailingJustUploadNoOther'] = "Το ανέβασμα αρχείου δεν μπορεί να συνδυαστεί με αποστολή σε άλλους παραλήπτες";
+$dropbox_lang[\'dropbox\'] = \'Χώρος Ανταλλαγής Αρχείων\';
+$dropbox_lang[\'help\'] = \'Βοήθεια\';
+$dropbox_lang[\'aliensNotAllowed\'] = "Μόνο οι εγγεγραμμένοι χρήστες στην πλατφόρμα μπορούν να χρησιμοποιούν το dropbox. Δεν είστε εγγεγραμμένος χρήστης στην πλατφόρμα.";
+$dropbox_lang[\'queryError\'] = "Πρόβλημα στην βάση δεδομένων. Παρακαλώ επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
+$dropbox_lang[\'generalError\'] = "Παρουσιάστηκε σφάλμα. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
+$dropbox_lang[\'badFormData\'] = "Η αποστολή του αρχείου απέτυχε: Τα δεδομένα ήταν με λάθος μορφή. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
+$dropbox_lang[\'noUserSelected\'] = "Παρακαλούμε επιλέξτε το χρήστη στον οποίο θέλετε να σταλεί το αρχείο.";
+$dropbox_lang[\'noFileSpecified\'] = "Δεν έχετε επιλέξει κάποιο αρχείο για να ανεβάσετε.";
+$dropbox_lang[\'tooBig\'] = "Δεν έχετε επιλέξει κάποιο αρχείο να ανεβάσετε ή το αρχείο υπερβαίνει το επιτρεπτό όριο σε μέγεθος.";
+$dropbox_lang[\'uploadError\'] = "Παρουσιάστηκε σφάλμα κατά το ανέβασμα του αρχείου. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
+$dropbox_lang[\'errorCreatingDir\'] = "Παρουσιάστηκε σφάλμα κατά τη δημιουργία καταλόγου. Παρακαλούμε επικοινωνήστε με τον διαχειριστή της πλατφόρμας.";
+$dropbox_lang[\'quotaError\'] = "Έχετε ξεπεράσει το μέγιστο συνολικό επιτρεπτό μέγεθος αρχείων! Το ανέβασμα του αρχείου δεν πραγματοποιήθηκε.";
+$dropbox_lang[\'uploadFile\'] = "Ανέβασμα αρχείου";
+$dropbox_lang[\'authors\'] = "Αποστολέας";
+$dropbox_lang[\'description\'] = "Περιγραφή αρχείου";
+$dropbox_lang[\'sendTo\'] = "Αποστολή στον/στην";
+$dropbox_lang[\'receivedTitle\'] = "Εισερχόμενα Αρχεία";
+$dropbox_lang[\'sentTitle\'] = "Απεσταλμένα Αρχεία";
+$dropbox_lang[\'confirmDelete1\'] = "Σημείωση: Το αρχείο ";
+$dropbox_lang[\'confirmDelete2\'] = " θα διαγραφεί μόνο από τον κατάλογό σας";
+$dropbox_lang[\'all\'] = "Σημείωση: Τα αρχεία θα διαγραφούν μόνο από τον κατάλογό σας";
+$dropbox_lang[\'workDelete\'] = "Διαγραφή από τον κατάλογο";
+$dropbox_lang[\'sentBy\'] = "Στάλθηκε από τον/την";
+$dropbox_lang[\'sentTo\'] = "Στάλθηκε στον/στην";
+$dropbox_lang[\'sentOn\'] = "την";
+$dropbox_lang[\'anonymous\'] = "ανώνυμος";
+$dropbox_lang[\'ok\'] = "Αποστολή";
+$dropbox_lang[\'lastUpdated\'] = "Τελευταία ενημέρωση την";
+$dropbox_lang[\'lastResent\'] = "Τελευταία επαναποστολή στις";
+$dropbox_lang[\'tableEmpty\'] = "Ο κατάλογος είναι κενός.";
+$dropbox_lang[\'overwriteFile\'] = "Θέλετε να αντικαταστήσετε το προηγούμενο αρχείο που στείλατε;";
+$dropbox_lang[\'orderBy\'] = "Ταξινόμηση με βάση";
+$dropbox_lang[\'lastDate\'] = "την τελευταία ημερομηνία αποστολής";
+$dropbox_lang[\'firstDate\'] = "την πρώτη ημερομηνία αποστολής";
+$dropbox_lang[\'title\'] = "τον τίτλο";
+$dropbox_lang[\'size\'] = "το μέγεθος του αρχείου";
+$dropbox_lang[\'author\'] = "τον διδάσκοντα";
+$dropbox_lang[\'sender\'] = "τον αποστολέα";
+$dropbox_lang[\'file\'] = "Αρχείο";
+$dropbox_lang[\'fileSize\'] = "Μέγεθος";
+$dropbox_lang[\'date\'] = "Ημερομηνία";
+$dropbox_lang[\'col_recipient\'] = "Παραλήπτης";
+$dropbox_lang[\'recipient\'] = "τον παραλήπτη";
+$dropbox_lang[\'docAdd\'] = "Το αρχείο στάλθηκε με επιτυχία";
+$dropbox_lang[\'fileDeleted\'] = "Το επιλεγμένο αρχείο έχει διαγραφεί από το Χώρο Ανταλλαγής Αρχείων.";
+$dropbox_lang[\'backList\'] = "Επιστροφή στο Χώρο Ανταλλαγής Αρχείων";
+$dropbox_lang[\'mailingAsUsername\'] = "Mailing ";
+$dropbox_lang[\'mailingInSelect\'] = "---Mailing---";
+$dropbox_lang[\'mailingSelectNoOther\'] = "Η αποστολή μηνύματος δεν μπορεί να συνδιαστεί με αποστολή σε άλλους παραλήπτες";
+$dropbox_lang[\'mailingNonMailingError\'] = "Mailing cannot be overwritten by non-mailing and vice-versa";
+$dropbox_lang[\'mailingNotYetSent\'] = "Mailing content files have not yet been sent out...";
+$dropbox_lang[\'mailingSend\'] = "Send content files";
+$dropbox_lang[\'mailingConfirmSend\'] = "Send content files to individual destinations ?";
+$dropbox_lang[\'mailingBackToDropbox\'] = "(back to Dropbox main window)";
+$dropbox_lang[\'mailingWrongZipfile\'] = "Mailing must be zipfile with STUDENTID or LOGINNAME";
+$dropbox_lang[\'mailingZipEmptyOrCorrupt\'] = "Mailing zipfile is empty or not a valid zipfile";
+$dropbox_lang[\'mailingZipPhp\'] = "Mailing zipfile must not contain php files - it will not be sent";
+$dropbox_lang[\'mailingZipDups\'] = "Mailing zipfile must not contain duplicate files - it will not be sent";
+$dropbox_lang[\'mailingFileFunny\'] = "no name, or extension not 1-4 letters or digits";
+$dropbox_lang[\'mailingFileNoPrefix\'] = "name does not start with ";
+$dropbox_lang[\'mailingFileNoPostfix\'] = "name does not end with ";
+$dropbox_lang[\'mailingFileNoRecip\'] = "name does not contain any recipient-id";
+$dropbox_lang[\'mailingFileRecipNotFound\'] = "no such student with ";
+$dropbox_lang[\'mailingFileRecipDup\'] = "multiple users have ";
+$dropbox_lang[\'mailingFileIsFor\'] = "is for ";
+$dropbox_lang[\'mailingFileSentTo\'] = "sent to ";
+$dropbox_lang[\'mailingFileNotRegistered\'] = " (not registered for this course)";
+$dropbox_lang[\'mailingNothingFor\'] = "Nothing for";
+$dropbox_lang[\'justUploadInSelect\'] = "--- Ανέβασμα αρχείου ---";
+$dropbox_lang[\'justUploadInList\'] = "Ανέβασμα αρχείου από τον/την";
+$dropbox_lang[\'mailingJustUploadNoOther\'] = "Το ανέβασμα αρχείου δεν μπορεί να συνδυαστεί με αποστολή σε άλλους παραλήπτες";
 
 /**********************************************************
 * exercice.inc.php
@@ -1163,7 +1163,7 @@ $langForumClosed = "Κλειστή";
 /***************************************************************
 * grades.inc.php
 ****************************************************************/
-$m['grades'] = "Βαθμολογία";
+$m[\'grades\'] = "Βαθμολογία";
 
 /*************************************************************
 * group.inc.php
@@ -1302,7 +1302,7 @@ $langPageTitleModified="Ο τίτλος της σελίδας άλλαξε";
 $langSendPage="Όνομα αρχείου της σελίδας";
 $langCouldNotSendPage="Το αρχείο δεν είναι σε μορφή HTML και δεν ήταν δυνατόν να σταλεί. Αν θέλετε να στείλετε αρχεία που
 δεν είναι σε μορφή HTML (π.χ. PDF, Word, Power Point, Video, κ.λπ.)
-χρησιμοποιήστε τα <a href='../document/document.php'>Έγγραφα</a>.";
+χρησιμοποιήστε τα <a href=\'../document/document.php\'>Έγγραφα</a>.";
 $langAddPageToSite="Προσθήκη μιας σελίδας σε ένα site";
 $langCouldNot="Το αρχείο δεν ήταν δυνατόν να σταλεί";
 $langOkSent="<p><b>Η σελίδα σας στάλθηκε</b><br/><br/>Δημιουργήθηκε σύνδεσμος προς αυτήν στο αριστερό μενού</p>";
@@ -1310,7 +1310,7 @@ $langTooBig="Δεν επιλέξατε κάποιο αρχείο για να σ�
 $langExplanation_0="Αν έχετε  δημιουργήσει κάποια σελίδα για το μάθημα σας σε μορφή HTML (π.χ. \"my_page.htm\"), τότε μπορείτε να χρησιμοποιήσετε την παρακάτω φόρμα για να κατασκευάσετε έναν σύνδεσμο στο μενού του μαθήματος (αριστερά). Η σελίδα σας με αυτό τον τρόπο  δημοσιεύεται (ανεβαίνει) στην πλατφόρμα και εμφανίζεται μαζί με τα υπόλοιπα εργαλεία του μαθήματος. <br/>Για μεγαλύτερη ευελιξία, ο σύνδεσμος αυτός μπορεί να γίνεται ενεργός/ανενεργός όπως τα υπόλοιπα εργαλεία.";
 $langExplanation_1="Στοιχεία σελίδας";
 $langExplanation_2="Το όνομα που θα εμφανίζεται στο αριστερό μενού.";
-$langExplanation_3="Αν θέλετε να δημιουργήσετε συνδέσμους για αρχεία που <u>δεν</u> είναι σε μορφή HTML (π.χ. PDF, Word, Power Point, Video, κ.λπ.) τότε χρησιμοποιήστε το υποσύστημα <a href='../document/document.php'>Έγγραφα</a>.";
+$langExplanation_3="Αν θέλετε να δημιουργήσετε συνδέσμους για αρχεία που <u>δεν</u> είναι σε μορφή HTML (π.χ. PDF, Word, Power Point, Video, κ.λπ.) τότε χρησιμοποιήστε το υποσύστημα <a href=\'../document/document.php\'>Έγγραφα</a>.";
 $langExplanation_4="Στοιχεία εξωτερικού συνδέσμου";
 $langNoticeExpl = "Σημ: Το μέγιστο επιτρεπτό μέγεθος του αρχείου της σελίδας είναι 20MB.";
 $langPgTitle="Τίτλος σελίδας";
@@ -1320,8 +1320,8 @@ $langPgTitle="Τίτλος σελίδας";
 ***************************************************************/
 $langHomePage = "Αρχική Σελίδα";
 $langInvalidId = "Λάθος στοιχεία.<br>Αν δεν είστε γραμμένος, συμπληρώστε τη
-        <a href='modules/auth/registration.php'>φόρμα εγγραφής</a>.";
-$langInvalidGuestAccount = "Το μάθημα για το οποίο έχει δημιουργηθεί ο λογαριασμός 'χρήστη επισκέπτη' δεν υπάρχει πλέον.";
+        <a href=\'modules/auth/registration.php\'>φόρμα εγγραφής</a>.";
+$langInvalidGuestAccount = "Το μάθημα για το οποίο έχει δημιουργηθεί ο λογαριασμός \'χρήστη επισκέπτη\' δεν υπάρχει πλέον.";
 $langAccountInactive1 = "Μη ενεργός λογαριασμός.";
 $langAccountInactive2 = "Παρακαλώ επικοινωνήστε με τον διαχειριστή για την ενεργοποίηση του λογαριασμού σας";
 $langMyCoursesProf="Τα μαθήματα που υποστηρίζω (".$langTeacher.")";
@@ -1332,9 +1332,9 @@ $langMyAgenda = "Το Ημερολόγιό μου";
 $langMyStats = "Στατιστικά Χρήσης";   #ophelia 1-8-2006
 $langMyAnnouncements = "Οι Ανακοινώσεις μου";
 $langWelcome="τα μαθήματα είναι διαθέσιμα παρακάτω. Άλλα μαθήματα απαιτούν
-όνομα χρήστη και συνθηματικό, τα οποία μπορείτε να τα αποκτήσετε κάνοντας κλίκ στην 'εγγραφή'. Οι καθηγητές
+όνομα χρήστη και συνθηματικό, τα οποία μπορείτε να τα αποκτήσετε κάνοντας κλίκ στην \'εγγραφή\'. Οι καθηγητές
 μπορούν να δημιουργήσουν μαθήματα κάνοντας κλικ στην εγγραφή επίσης, αλλά επιλέγοντας ύστερα
-'Δημιουργία μαθημάτων (καθηγητές)'.";
+\'Δημιουργία μαθημάτων (καθηγητές)\'.";
 $langAdminTool = "Διαχείριση Πλατφόρμας";
 $langPass="Συνθηματικό (password)";
 $langHelp="Βοήθεια";
@@ -1343,8 +1343,8 @@ $langMenu ="Μενού";
 $langLogout="Έξοδος";
 $langSupportForum="Περιοχή Υποστήριξης";
 $langInvalidAuth = "Λάθος τρόπος πιστοποίησης";
-$langContact = 'Επικοινωνία';
-$langInfoPlat = 'Ταυτότητα Πλατφόρμας';
+$langContact = \'Επικοινωνία\';
+$langInfoPlat = \'Ταυτότητα Πλατφόρμας\';
 $lang_forgot_pass = "Ξεχάσατε το συνθηματικό σας;";
 $langNewAnnounce = "Νέα!";
 $langUnregUser = "Διαγραφή λογαριασμού";
@@ -1390,7 +1390,7 @@ $langInstallBullet1 = "Μια βάση δεδομένων MySQL, στην οπο
 $langInstallBullet2 = "Δικαιώματα εγγραφής στον κατάλογο <tt>include/</tt>.";
 $langInstallBullet3 = "Δικαιώματα εγγραφής στον κατάλογο όπου το Open eClass έχει αποσυμπιεστεί.";
 $langCheckReq = "Έλεγχος προαπαιτούμενων προγραμμάτων για τη λειτουργία του Open eClass";
-$langInfoLicence = "Tο Open eClass είναι ελεύθερη εφαρμογή και διανέμεται σύμφωνα με την άδεια GNU General Public Licence (GPL). <br>Παρακαλούμε διαβάστε την άδεια και κάνετε κλίκ στο 'Αποδοχή'";
+$langInfoLicence = "Tο Open eClass είναι ελεύθερη εφαρμογή και διανέμεται σύμφωνα με την άδεια GNU General Public Licence (GPL). <br>Παρακαλούμε διαβάστε την άδεια και κάνετε κλίκ στο \'Αποδοχή\'";
 $langAccept = "Αποδοχή";
 $langEG	= "π.χ.";
 $langDBLogin = "Όνομα Χρήστη για τη Βάση Δεδομένων";
@@ -1412,7 +1412,7 @@ $langInstituteShortName  = "Όνομα Ιδρύματος - Οργανισμού
 $langInstituteName = "Website Ιδρύματος - Οργανισμού";
 $langInstitutePostAddress = "Ταχ. Διεύθυνση Ιδρύματος - Οργανισμού";
 $langWarnHelpDesk = "Προσοχή: στο \"Email Helpdesk\" στέλνονται οι αιτήσεις καθηγητών για λογαριασμό στην πλατφόρμα";
-$langDBSettingIntro = "Το πρόγραμμα εγκατάστασης θα δημιουργήσει την κύρια βάση δεδομένων του Open eClass. Έχετε υπ'όψιν σας ότι κατά τη λειτουργία της πλατφόρμας θα χρειαστεί να δημιουργηθούν νέες βάσεις δεδομένων (μία για κάθε μάθημα) ";
+$langDBSettingIntro = "Το πρόγραμμα εγκατάστασης θα δημιουργήσει την κύρια βάση δεδομένων του Open eClass. Έχετε υπ\'όψιν σας ότι κατά τη λειτουργία της πλατφόρμας θα χρειαστεί να δημιουργηθούν νέες βάσεις δεδομένων (μία για κάθε μάθημα) ";
 $langStep1 = "Βήμα 1 από 6";
 $langStep2 = "Βήμα 2 από 6";
 $langStep3 = "Βήμα 3 από 6";
@@ -1718,15 +1718,15 @@ $langEmptyLinkURL = "Δεν πληκτρολογήσατε το url του συ�
 /*****************************************************************
 * lostpass.inc.php
 *****************************************************************/
-$lang_remind_pass = 'Ορισμός νέου συνθηματικού';
-$lang_pass_intro = '<p>Αν έχετε ξεχάσει τα στοιχεία του λογαριασμού σας, συμπληρώστε το <em>όνομα χρήστη</em>
+$lang_remind_pass = \'Ορισμός νέου συνθηματικού\';
+$lang_pass_intro = \'<p>Αν έχετε ξεχάσει τα στοιχεία του λογαριασμού σας, συμπληρώστε το <em>όνομα χρήστη</em>
 και την διεύθυνση ηλεκτρονικού ταχυδρομείου με την οποία είστε εγγεγραμμένος
 (<em>προσοχή: αυτή που έχετε δηλώσει στην πλατφόρμα</em>).</p> <p>Στη συνέχεια θα παραλάβετε ένα μήνυμα σε αυτή τη
-διεύθυνση με οδηγίες για να αλλάξετε το συνθηματικό σας.</p>';
-$lang_pass_submit = 'Αποστολή';
-$lang_pass_invalid_mail1 = 'H διεύθυνση ηλεκτρονικού ταχυδρομείου που δώσατε,';
-$lang_pass_invalid_mail2 = 'δεν είναι έγκυρη. Αν κάνατε λάθος, δοκιμάστε ξανά. Διαφορετικά και εφόσον είστε βέβαιοι ότι έχετε λογαριασμό στην πλατφόρμα, παρακαλούμε να επικοινωνήσετε με τους διαχειριστές της πλατφόρμας';
-$lang_pass_invalid_mail3 = 'δίνοντας τα στοιχεία σας όπως το ονοματεπώνυμο σας ή/και το όνομα χρήστη';
+διεύθυνση με οδηγίες για να αλλάξετε το συνθηματικό σας.</p>\';
+$lang_pass_submit = \'Αποστολή\';
+$lang_pass_invalid_mail1 = \'H διεύθυνση ηλεκτρονικού ταχυδρομείου που δώσατε,\';
+$lang_pass_invalid_mail2 = \'δεν είναι έγκυρη. Αν κάνατε λάθος, δοκιμάστε ξανά. Διαφορετικά και εφόσον είστε βέβαιοι ότι έχετε λογαριασμό στην πλατφόρμα, παρακαλούμε να επικοινωνήσετε με τους διαχειριστές της πλατφόρμας\';
+$lang_pass_invalid_mail3 = \'δίνοντας τα στοιχεία σας όπως το ονοματεπώνυμο σας ή/και το όνομα χρήστη\';
 $langPassResetIntro ="
 Έχει ζητηθεί να οριστεί νέο συνθηματικό πρόσβασης σας στην
 πλατφόρμα τηλεκπαίδευσης $siteName. Αν δεν ζητήσατε εσείς αυτή την ενέργεια,
@@ -1754,9 +1754,9 @@ $langAccountResetSuccess1="Ο ορισμός νέου συνθηματικού �
 $langAccountResetInvalidLink="Ο σύνδεσμος που ακολουθήσατε δεν ισχύει πλέον. Παρακαλούμε επαναλάβετε από την αρχή την διαδικασία.";
 $langAccountEmailError1 = "Παρουσιάστηκε σφάλμα κατά την αποστολή των στοιχείων σας";
 $langAccountEmailError2 = "Δεν ήταν δυνατή η αποστολή των οδηγιών επανατοποθέτησης του συνθηματικού σας στη διεύθυνση";
-$langAccountEmailError3 = 'Αν χρειαστεί, μπορείτε να επικοινωνήσετε με τους διαχειριστές του συστήματος στη διεύθυνση';
-$lang_pass_email_ok = 'Τα στοιχεία του λογαριασμού σας βρέθηκαν και στάλθηκαν
-	μέσω ηλεκτρονικού ταχυδρομείου στη διεύθυνση';
+$langAccountEmailError3 = \'Αν χρειαστεί, μπορείτε να επικοινωνήσετε με τους διαχειριστές του συστήματος στη διεύθυνση\';
+$lang_pass_email_ok = \'Τα στοιχεία του λογαριασμού σας βρέθηκαν και στάλθηκαν
+	μέσω ηλεκτρονικού ταχυδρομείου στη διεύθυνση\';
 $langAccountNotFound1 = "Δε βρέθηκε λογαριασμός στο σύστημα με τα στοιχεία που δώσατε.";
 $langAccountNotFound2 = "Αν παρόλα αυτά είστε σίγουρος ότι έχετε ήδη λογαριασμό, παρακαλούμε επικοινωνήστε με τους διαχειριστές του συστήματος στη διεύθυνση ";
 $langAccountNotFound3 = "δίνοντας και στοιχεία που μπορούν να βοηθήσουν στο να βρούμε το λογαριασμό σας, όπως ονοματεπώνυμο, $langsFaculty, κ.λπ.";
@@ -1799,28 +1799,28 @@ $langDepartmentsList = "Ακολουθεί ο κατάλογος τμημάτω�
 $langWrongPassCourse = "Λάθος συνθηματικό για το μάθημα";
 $langAvCourses = "διαθέσιμα μαθήματα";
 $langAvCours = "διαθέσιμο μάθημα";
-$m['begin'] = 'αρχή';
-$m['lessoncode'] = 'Όνομα Μαθήματος (κωδικός)';
-$m['tomeis'] = 'Τομείς';
-$m['tomeas'] = 'Τομέας';
-$m['open'] = 'Ανοικτά μαθήματα (Ελεύθερη Πρόσβαση)';
-$m['restricted'] = 'Ανοικτά μαθήματα με εγγραφή (Απαιτείται λογαριασμός χρήστη)';
-$m['closed'] = 'Κλειστά μαθήματα';
-$m['title'] = 'Τίτλος';
-$m['description'] = 'Περιγραφή';
-$m['professor'] = $langTeacher;
-$m['legend'] = 'Υπόμνημα';
-$m['legopen'] = 'Ανοικτό Μάθημα';
-$m['legrestricted'] = 'Απαιτείται εγγραφή';
-$m['legclosed'] = 'Κλειστό μάθημα';
-$m['nolessons'] = 'Δεν υπάρχουν διαθέσιμα μαθήματα!';
-$m['name']="Μάθημα";
-$m['code']="Συνθηματικό μαθήματος";
-$m['prof']=$langTeacher;
-$m['mailprof'] = "Για να εγγραφείτε στο μάθημα θα πρέπει να στείλετε mail στον διδάσκοντα του μαθήματος
+$m[\'begin\'] = \'αρχή\';
+$m[\'lessoncode\'] = \'Όνομα Μαθήματος (κωδικός)\';
+$m[\'tomeis\'] = \'Τομείς\';
+$m[\'tomeas\'] = \'Τομέας\';
+$m[\'open\'] = \'Ανοικτά μαθήματα (Ελεύθερη Πρόσβαση)\';
+$m[\'restricted\'] = \'Ανοικτά μαθήματα με εγγραφή (Απαιτείται λογαριασμός χρήστη)\';
+$m[\'closed\'] = \'Κλειστά μαθήματα\';
+$m[\'title\'] = \'Τίτλος\';
+$m[\'description\'] = \'Περιγραφή\';
+$m[\'professor\'] = $langTeacher;
+$m[\'legend\'] = \'Υπόμνημα\';
+$m[\'legopen\'] = \'Ανοικτό Μάθημα\';
+$m[\'legrestricted\'] = \'Απαιτείται εγγραφή\';
+$m[\'legclosed\'] = \'Κλειστό μάθημα\';
+$m[\'nolessons\'] = \'Δεν υπάρχουν διαθέσιμα μαθήματα!\';
+$m[\'name\']="Μάθημα";
+$m[\'code\']="Συνθηματικό μαθήματος";
+$m[\'prof\']=$langTeacher;
+$m[\'mailprof\'] = "Για να εγγραφείτε στο μάθημα θα πρέπει να στείλετε mail στον διδάσκοντα του μαθήματος
 κάνοντας κλικ";
-$m['here'] = " εδώ.";
-$m['unsub'] = "Το μάθημα είναι κλειστό και δεν μπορείτε να απεγγραφείτε";
+$m[\'here\'] = " εδώ.";
+$m[\'unsub\'] = "Το μάθημα είναι κλειστό και δεν μπορείτε να απεγγραφείτε";
 
 /***************************************************************
 * pedasugggest.inc.php
@@ -1895,7 +1895,7 @@ $langMessages = "Μηνύματα";
 $langAllOfThem = "όλα";
 $langBodyMessage = "Σώμα μηνύματος";
 $langPostTitle = "Θέμα δημοσίευσης";
-$langAnonymousExplain = 'Οι χρήστες που εμφανίζονται με διαφορετικό χρώμα δεν είναι αυτή τη στιγμή εγγεγραμμένοι στο μάθημα, ενώ όσοι έχουν την ένδειξη «Ανώνυμος» έχουν διαγραφεί από το σύστημα.';
+$langAnonymousExplain = \'Οι χρήστες που εμφανίζονται με διαφορετικό χρώμα δεν είναι αυτή τη στιγμή εγγεγραμμένοι στο μάθημα, ενώ όσοι έχουν την ένδειξη «Ανώνυμος» έχουν διαγραφεί από το σύστημα.\';
 $langNoPosts = "Δεν υπάρχουν αποστολές";
 $langNoPost = "Δεν έχετε δικαίωμα αποστολής μηνυμάτων σε αυτή την περιοχή.";
 $langReturnIndex = "Επιστροφή στο ευρετήριο περιοχών συζητήσεων";
@@ -1917,16 +1917,16 @@ $langCancelPost	= "Ακύρωση αποστολής";
 $langTopicReview  = "Ανασκόπηση θέματος";
 $langReply = "Απάντηση";
 $langReplyEdit = "Αλλαγή απάντησης";
-$langQuoteMsg = '[quote]\nΣτις $m[post_time], ο/η $m[username] έγραψε:\n$text\n[/quote]';
+$langQuoteMsg = \'[quote]\nΣτις $m[post_time], ο/η $m[username] έγραψε:\n$text\n[/quote]\';
 $langErrorConnectForumDatabase = "Παρουσιάστηκε πρόβλημα. Αδύνατη η σύνδεση με τη βάση δεδομένων του Forum.";
 $langErrorTopicSelect="Η περιοχή συζητήσεων που επιλέξατε δεν υπάρχει. Παρακαλώ προσπαθήστε ξανά.";
 
 /*****************************************************************
 * questionnaire.inc.php
 ******************************************************************/
-$langCreateSurvey = 'Δημιουργία Έρευνας Μαθησιακού Προφίλ';
-$langCreatePoll = 'Δημιουργία Ερωτηματολογίου';
-$langEditPoll = 'Τροποποίηση Ερωτηματολογίου';
+$langCreateSurvey = \'Δημιουργία Έρευνας Μαθησιακού Προφίλ\';
+$langCreatePoll = \'Δημιουργία Ερωτηματολογίου\';
+$langEditPoll = \'Τροποποίηση Ερωτηματολογίου\';
 $langQuestionnaire = "Ερωτηματολόγια";
 $langSurvey = "Ερωτηματολόγιο";
 $langSurveys = "Ερωτηματολόγια";
@@ -1964,80 +1964,80 @@ $langSurveyInfo ="Επιλέξτε ένα έτοιμο ερώτημα (σύμφ�
 $langQQuestionNotGiven ="Δεν έχετε εισάγει την τελευταία ερώτηση.";
 $langQFillInAllQs ="Παρακαλώ απαντήστε σε όλες τις ερωτήσεις.";
 
-$langQuestion1= array('Σε αυτή την ενότητα, η προσπάθεια μου επικεντρώθηκε σε θέματα που με ενδιέφεραν.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion1= array(\'Σε αυτή την ενότητα, η προσπάθεια μου επικεντρώθηκε σε θέματα που με ενδιέφεραν.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
-$langQuestion2= array('Σε αυτή την ενότητα, αυτά που μαθαίνω έχουν να κάνουν με το επάγγελμά μου.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion2= array(\'Σε αυτή την ενότητα, αυτά που μαθαίνω έχουν να κάνουν με το επάγγελμά μου.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
-$langQuestion3= array('Σε αυτή την ενότητα, ασκώ κριτική σκέψη.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
-					);
-
-$langQuestion4= array('Σε αυτή την ενότητα, συνεργάζομαι με τους συμφοιτητές μου.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion3= array(\'Σε αυτή την ενότητα, ασκώ κριτική σκέψη.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
 
-$langQuestion5= array('Σε αυτή την ενότητα, η διδασκαλία κρίνεται ικανοποιητική.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion4= array(\'Σε αυτή την ενότητα, συνεργάζομαι με τους συμφοιτητές μου.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
 
-$langQuestion6= array('Σε αυτή την ενότητα, υπάρχει σωστή επικοινωνία με τον διδάσκοντα.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
-					);
-$langQuestion7= array('Προσπαθώ να βρίσκω λάθη στο σκεπτικό του συνομιλητή μου.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
-					);
-$langQuestion8= array('Όταν συζητώ μπαίνω στην θέση του συνομιλητή μου.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion5= array(\'Σε αυτή την ενότητα, η διδασκαλία κρίνεται ικανοποιητική.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
 
-$langQuestion9= array('Μένω αντικειμενικός κατά την ανάλυση καταστάσεων.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion6= array(\'Σε αυτή την ενότητα, υπάρχει σωστή επικοινωνία με τον διδάσκοντα.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
+					);
+$langQuestion7= array(\'Προσπαθώ να βρίσκω λάθη στο σκεπτικό του συνομιλητή μου.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
+					);
+$langQuestion8= array(\'Όταν συζητώ μπαίνω στην θέση του συνομιλητή μου.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
 
-$langQuestion10= array('Μου αρέσει να παίρνω τον ρόλο του συνήγορου του διαβόλου.'
-					,'Σχεδόν ποτέ.'
-					,'Σπάνια.'
-					,'Μερικές φορές.'
-					,'Συχνά.'
-					,'Σχεδόν πάντα.'
+$langQuestion9= array(\'Μένω αντικειμενικός κατά την ανάλυση καταστάσεων.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
+					);
+
+$langQuestion10= array(\'Μου αρέσει να παίρνω τον ρόλο του συνήγορου του διαβόλου.\'
+					,\'Σχεδόν ποτέ.\'
+					,\'Σπάνια.\'
+					,\'Μερικές φορές.\'
+					,\'Συχνά.\'
+					,\'Σχεδόν πάντα.\'
 					);
 
 // polls
@@ -2057,28 +2057,28 @@ $langPollContinue = "Συνέχεια";
 $langPollMoreAnswers ="+";
 $langPollAddMultiple = "Νέα ερώτηση πολλαπλής επιλογής";
 $langPollAddFill = "Νέα ερώτηση συμπλήρωσης κενού";
-$langPollCreated ="<p class='success_small'>Το Ερωτηματολόγιο δημιουργήθηκε με επιτυχία.<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
-$langPollEdited ="<p class='success_small'>Το Ερωτηματολόγιο τροποποιήθηκε με επιτυχία.<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
+$langPollCreated ="<p class=\'success_small\'>Το Ερωτηματολόγιο δημιουργήθηκε με επιτυχία.<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
+$langPollEdited ="<p class=\'success_small\'>Το Ερωτηματολόγιο τροποποιήθηκε με επιτυχία.<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
 $langPollCreator = "Δημιουργός";
 $langPollCreation = "Ημ/νία Δημιουργίας";
 $langPollCreateDate = "Το Ερωτηματολόγιο δημιουργήθηκε την";
-$langPollCreationError = "<p class='caution_small'>Σφάλμα κατά την δημιουργία του Ερωτηματολογίου. Παρακαλώ προσπαθήστε ξανά.</p>";
-$langPollDeleted ="<p class='success_small'>Το Ερωτηματολόγιο διαγράφηκε με επιτυχία. <br><a href=\"questionnaire.php\">Επιστροφή</a></p>";
-$langPollDeactivated ="<p class='success_small'>Το Ερωτηματολόγιο απενεργοποιήθηκε με επιτυχία!</p>";
-$langPollActivated ="<p class='success_small'>Το Ερωτηματολόγιο ενεργοποιήθηκε με επιτυχία!</p>";
-$langPollSubmitted ="<p class='success_small'>Ευχαριστούμε για την συμμετοχή σας!<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
+$langPollCreationError = "<p class=\'caution_small\'>Σφάλμα κατά την δημιουργία του Ερωτηματολογίου. Παρακαλώ προσπαθήστε ξανά.</p>";
+$langPollDeleted ="<p class=\'success_small\'>Το Ερωτηματολόγιο διαγράφηκε με επιτυχία. <br><a href=\"questionnaire.php\">Επιστροφή</a></p>";
+$langPollDeactivated ="<p class=\'success_small\'>Το Ερωτηματολόγιο απενεργοποιήθηκε με επιτυχία!</p>";
+$langPollActivated ="<p class=\'success_small\'>Το Ερωτηματολόγιο ενεργοποιήθηκε με επιτυχία!</p>";
+$langPollSubmitted ="<p class=\'success_small\'>Ευχαριστούμε για την συμμετοχή σας!<br /><a href=\"questionnaire.php\">Επιστροφή</a></p>";
 $langPollTotalAnswers = "Συνολικός αριθμός απαντήσεων";
 $langPollNone = "Δεν υπάρχουν αυτή την στιγμή διαθέσιμα Ερωτηματολόγια.";
-$langPollInactive = "<p class='caution_small'>Το Ερωτηματολόγιο έχει λήξει ή δεν έχει ενεργοποιηθεί ακόμα.</p>";
+$langPollInactive = "<p class=\'caution_small\'>Το Ερωτηματολόγιο έχει λήξει ή δεν έχει ενεργοποιηθεί ακόμα.</p>";
 $langPollHasEnded = "Έχει λήξει";
 $langPollCharts = "Αποτελέσματα Ερωτηματολογίου";
 $langPollUnknown = "Δεν ξέρω / Δεν απαντώ";
 $langIndividuals = "Αποτελέσματα ανά χρήστη";
 $langCollectiveCharts = "Συγκεντρωτικά αποτελέσματα";
 $langHasNotParticipated = "Δεν έχετε συμμετάσχει";
-$langThereAreParticipants = "<p class='caution_small'>Στο Ερωτηματολόγιο έχουν ήδη συμμετάσχει χρήστες. <br />Η διόρθωση των στοιχείων δεν είναι δυνατή!</p>";
-$langPollEmpty = "<p class='caution_small'>Παρακαλώ προσθέστε ερωτήσεις στο Ερωτηματολόγιο!</p>";
-$langPollEmptyAnswers = "<p class='caution_small'>Σφάλμα! Δεν υπάρχουν απαντήσεις στην ερώτηση</p>";
+$langThereAreParticipants = "<p class=\'caution_small\'>Στο Ερωτηματολόγιο έχουν ήδη συμμετάσχει χρήστες. <br />Η διόρθωση των στοιχείων δεν είναι δυνατή!</p>";
+$langPollEmpty = "<p class=\'caution_small\'>Παρακαλώ προσθέστε ερωτήσεις στο Ερωτηματολόγιο!</p>";
+$langPollEmptyAnswers = "<p class=\'caution_small\'>Σφάλμα! Δεν υπάρχουν απαντήσεις στην ερώτηση</p>";
 
 /************************************************************
 * registration.inc.php
@@ -2108,7 +2108,7 @@ $langProblem="\nΣτη περίπτωση που αντιμετωπίζετε π
 $langFormula="\n\nΦιλικά,\n";
 $langManager="\nΥπεύθυνος";
 $langPersonalSettings="Οι προσωπικές σας ρυθμίσεις έχουν καταχωρηθεί και σας στάλθηκε ένα e-mail για να θυμάστε το όνομα χρήστη και το συνθηματικό σας.</p>";
-$langPersonalSettingsMore= "Κάντε κλίκ <a href='../../index.php'>εδώ</a> για να εισέλθετε στο προσωπικό σας χαρτοφυλάκιο.<br>Εκεί μπορείτε:<ul><li>να περιηγηθείτε στο περιβάλλον της πλατφόρμας και τις προσωπικές σας επιλογές,</li><li>να επιλέξετε στον \"Κατάλογο Μαθημάτων\" τα μαθήματα που επιθυμείτε να παρακολουθήσετε.</li><ul>";
+$langPersonalSettingsMore= "Κάντε κλίκ <a href=\'../../index.php\'>εδώ</a> για να εισέλθετε στο προσωπικό σας χαρτοφυλάκιο.<br>Εκεί μπορείτε:<ul><li>να περιηγηθείτε στο περιβάλλον της πλατφόρμας και τις προσωπικές σας επιλογές,</li><li>να επιλέξετε στον \"Κατάλογο Μαθημάτων\" τα μαθήματα που επιθυμείτε να παρακολουθήσετε.</li><ul>";
 $langYourRegTo="Ο κατάλογος μαθημάτων σας περιέχει";
 $langIsReg="έχει ενημερωθεί";
 $langCanEnter="Είσοδος στην ψηφιακή αίθουσα.";
@@ -2152,7 +2152,7 @@ $langAddAU="Προσθέστε ένα χρήστη";
 $langAdmR="Δικαιώματα Διαχειριστή";
 $langAddHereSomeCourses = "<p>Για να εγγραφείτε / απεγγραφείτε σε / από ένα μάθημα,
 πρώτα επιλέξτε τη $langsFaculty που βρίσκεστε και στη συνέχεια επιλέξτε / αποεπιλέξτε το μάθημα.<br>
-<p>Για να καταχωρηθούν οι προτιμήσεις σας πατήστε 'Υποβολή αλλαγών'</p><br>";
+<p>Για να καταχωρηθούν οι προτιμήσεις σας πατήστε \'Υποβολή αλλαγών\'</p><br>";
 $langDeleteUser = "Είστε σίγουρος ότι θέλετε να διαγράψετε τον χρήστη";
 $langDeleteUser2 = "από αυτό το μάθημα";
 $langSurnameName ="Ονοματεπώνυμο";
@@ -2247,7 +2247,7 @@ $emailprompt="Δώστε την διεύθυνση e-mail σας:";
 $ldapprompt="Δώστε το συνθηματικό LDAP σας:";
 $univprompt="Επιλέξτε Πανεπιστημιακό Ίδρυμα";
 $ldapnamesur="Ονοματεπώνυμο:";
-$langInstitution='Ίδρυμα:';
+$langInstitution=\'Ίδρυμα:\';
 $ldapuserexists="Στο σύστημα υπάρχει ήδη κάποιος χρήστης με τα στοιχεία που δώσατε.";
 $ldapempty="Αφήσατε κάποιο από τα πεδία κενό!";
 $ldapfound="πιστοποιήθηκε και τα στοιχεία που έδωσε είναι σωστά";
@@ -2267,17 +2267,17 @@ $contactpoint="Επικοινωνία";
 $searchuser="Αναζήτηση Καθηγητών / Χρηστών";
 $typeyourmessage="Πληκτρολογήστε το μήνυμά σας παρακάτω";
 $emailsuccess="Το e-mail στάλθηκε!";
-$langTheTeacher = 'Ο διδάσκων';
-$langTheUser = 'Ο χρήστης';
-$langDestination = 'Παραλήπτης:';
+$langTheTeacher = \'Ο διδάσκων\';
+$langTheUser = \'Ο χρήστης\';
+$langDestination = \'Παραλήπτης:\';
 $langAsProf = "ως $langsOfTeacher";
-$langTel = 'Τηλ.';
-$langPassSameAuth = 'Το συνθηματικό σας είναι αυτό της υπηρεσίας πιστοποίησης του λογαριασμού σας.';
-$langLdapRequest = 'Υπάρχει ήδη μια αίτηση για τον χρήστη';
-$langLDAPUser = 'Χρήστης LDAP';
-$langLogIn = 'Σύνδεση';
-$langAction = 'Ενέργεια';
-$langRequiredFields = 'Τα πεδία με (*) είναι υποχρεωτικά';
+$langTel = \'Τηλ.\';
+$langPassSameAuth = \'Το συνθηματικό σας είναι αυτό της υπηρεσίας πιστοποίησης του λογαριασμού σας.\';
+$langLdapRequest = \'Υπάρχει ήδη μια αίτηση για τον χρήστη\';
+$langLDAPUser = \'Χρήστης LDAP\';
+$langLogIn = \'Σύνδεση\';
+$langAction = \'Ενέργεια\';
+$langRequiredFields = \'Τα πεδία με (*) είναι υποχρεωτικά\';
 $langCourseVisits = "Επισκέψεις ανά μάθημα";
 $langDurationVisitsPerCourse = "Χρονική διάρκεια συμμετοχής ανά μάθημα";
 
@@ -2292,11 +2292,11 @@ $langUserData = "Στοιχεία χρήστη";
 $langUsersData = "Στοιχεία χρηστών";
 $langUserAccount = "Λογαριασμός $langOfStudent";
 $langProfAccount = "Λογαριασμός $langOfTeacher";
-$langUserAccountInfo1 = '(Αίτηση)&nbsp;';
-$langUserAccountInfo2 = '(Δημιουργία)&nbsp;';
-$langUserAccountInfo3 = 'Εναλλακτικά, μπορείτε να επιλέξετε';
-$langNewAccount = 'Νέος Λογαριασμός';
-$langNewAccountActivation = 'Ενεργοποίηση Λογαριασμού';
+$langUserAccountInfo1 = \'(Αίτηση)&nbsp;\';
+$langUserAccountInfo2 = \'(Δημιουργία)&nbsp;\';
+$langUserAccountInfo3 = \'Εναλλακτικά, μπορείτε να επιλέξετε\';
+$langNewAccount = \'Νέος Λογαριασμός\';
+$langNewAccountActivation = \'Ενεργοποίηση Λογαριασμού\';
 $langNewUserAccountActivation = "Ενεργοποίηση Λογαριασμού $langOfStudent";
 $langNewProfAccountActivation = "Ενεργοποίηση Λογαριασμού $langOfTeacher";
 $langNewAccountActivation1 = "την ενεργοποίηση λογαριασμού σας";
@@ -2339,7 +2339,7 @@ $langUpdateNoChange = "Δεν πραγματοποιήθηκε καμμία αλ
 $langError = "Σφάλμα";
 $langRegistrationError = "Λάθος Ενέργεια. Επιστρέψτε στην αρχική σελίδα της πλατφόρμας.";
 $langUserNoRequests = "Δεν Υπάρχουν Ανοικτές Αιτήσεις Φοιτητών !";
-$langCharactersNotAllowed = "Δεν επιτρέπονται στο password και στο username, οι χαρακτήρες: ',\" ή \\";
+$langCharactersNotAllowed = "Δεν επιτρέπονται στο password και στο username, οι χαρακτήρες: \',\" ή \\";
 $langStar2 = "Στα πεδία με (**) ";
 $langEditUser = "Επεξεργασία στοιχείων χρήστη";
 $langUnregForbidden = "Δεν επιτρέπεται να διαγράψετε τον χρήστη:";
@@ -2376,7 +2376,7 @@ $langViaReq = "Εγγραφή χρηστών μέσω αίτησης";
 *************************************************************/
 $langFirstMethod = "1ος τρόπος";
 $langSecondMethod = "2ος τρόπος";
-$langRequest1 = "Κάντε κλικ στο Browse για να αναζητήσετε το αντίγραφο ασφαλείας του μαθήματος που θέλετε να επαναφέρετε. Μετά κάντε κλίκ στο 'Αποστολή'. ";
+$langRequest1 = "Κάντε κλικ στο Browse για να αναζητήσετε το αντίγραφο ασφαλείας του μαθήματος που θέλετε να επαναφέρετε. Μετά κάντε κλίκ στο \'Αποστολή\'. ";
 $langRestore = "Επαναφορά";
 $langRequest2 = "Αν το αντίγραφο ασφαλείας, από το οποίο θα ανακτήσετε το μάθημα, είναι μεγάλο σε μέγεθος και δεν μπορείτε να το ανεβάσετε, τότε μπορείτε να πληκτρολογήσετε τη ακριβή διαδρομή (path) που βρίσκεται το αρχείο στον server.";
 $langRestoreStep1 = "1° Ανάκτηση μαθήματος από αρχείο ή υποκατάλογο.";
@@ -2395,7 +2395,7 @@ $langCopyFiles = "Τα αρχεία του μαθήματος αντιγράφτ
 $langCourseExists = "Υπάρχει ήδη ένα μάθημα με αυτόν τον κωδικό !";
 $langUserExists = "Στη πλατφόρμα υπάρχει ήδη ένας χρήστης με username";
 $langUserExists2 = "Ονομάζεται";
-$langWarning = "<em><font color='red'>ΠΡΟΣΟΧΗ!</font></em> Αν επιλέξετε να μην προστεθούν οι χρήστες του μαθήματος και το αντίγραφο ασφαλείας του μαθήματος, περιέχει υποσυστήματα με πληροφορίες που σχετίζονται με τους χρήστες (π.χ. 'Εργασίες Φοιτητών', 'Χώρος Ανταλλαγής Αρχείων' ή 'Ομάδες Χρηστών') τότε οι πληροφορίες αυτές <b>ΔΕΝ</b> θα ανακτηθούν.";
+$langWarning = "<em><font color=\'red\'>ΠΡΟΣΟΧΗ!</font></em> Αν επιλέξετε να μην προστεθούν οι χρήστες του μαθήματος και το αντίγραφο ασφαλείας του μαθήματος, περιέχει υποσυστήματα με πληροφορίες που σχετίζονται με τους χρήστες (π.χ. \'Εργασίες Φοιτητών\', \'Χώρος Ανταλλαγής Αρχείων\' ή \'Ομάδες Χρηστών\') τότε οι πληροφορίες αυτές <b>ΔΕΝ</b> θα ανακτηθούν.";
 $langUserWith = "Σφάλμα! Ο χρήστης με userid";
 $langAlready = "ήδη προστέθηκε";
 $langWithUsername = "Ο χρήστης με username";
@@ -2471,9 +2471,9 @@ $langUpgRead = "Αν δεν το έχετε κάνει ήδη, παρακαλο�
 $langSuccessOk = "Επιτυχία";
 $langSuccessBad = "Σφάλμα ή δεν χρειάζεται τροποποίηση";
 $langUpgAdminError = "Τα στοιχεία που δώσατε δεν αντιστοιχούν στο διαχειριστή του συστήματος! Παρακαλούμε επιστρέψτε στην προηγούμενη σελίδα και ξαναδοκιμάστε.";
-$langUpgNoVideoDir = "Ο υποκατάλογος 'video' δεν υπάρχει και δεν μπόρεσε να δημιουργηθεί. Ελέγξτε τα δικαιώματα πρόσβασης.";
-$langUpgNoVideoDir2 = "Υπάρχει ένα αρχείο με όνομα 'video' που εμποδίζει! Θα πρέπει να το διαγράψετε.";
-$langUpgNoVideoDir3 = "Δεν υπάρχει δικαίωμα εγγραφής στον υποκατάλογο 'video'!";
+$langUpgNoVideoDir = "Ο υποκατάλογος \'video\' δεν υπάρχει και δεν μπόρεσε να δημιουργηθεί. Ελέγξτε τα δικαιώματα πρόσβασης.";
+$langUpgNoVideoDir2 = "Υπάρχει ένα αρχείο με όνομα \'video\' που εμποδίζει! Θα πρέπει να το διαγράψετε.";
+$langUpgNoVideoDir3 = "Δεν υπάρχει δικαίωμα εγγραφής στον υποκατάλογο \'video\'!";
 $langConfigError4 = "Δεν ήταν δυνατή η πρόσβαση στον κατάλογο του αρχείο ρυθμίσεων config.php! Ελέγξτε τα δικαιώματα πρόσβασης.";
 $langConfigError1 = "Δεν ήταν δυνατή η λειτουργία αντιγράφου ασφαλείας του config.php! Ελέγξτε τα δικαιώματα πρόσβασης.";
 $langConfigError2 = "Το αρχείο ρυθμίσεων config.php δεν μπόρεσε να διαβαστεί! Ελέγξτε τα δικαιώματα πρόσβασης.";
@@ -2481,7 +2481,7 @@ $langConfigError3 = "Δεν πραγματοποιήθηκε η εγγραφή �
 $langUpgradeSuccess = "Η αναβάθμιση των βάσεων δεδομένων του eClass πραγματοποιήθηκε!";
 $langUpgReady = "Είστε πλέον έτοιμοι να χρησιμοποιήσετε την καινούρια έκδοση του Open eClass!";
 $langUpgSucNotice = "Αν παρουσιάστηκε κάποιο σφάλμα, πιθανόν κάποιο μάθημα να μην δουλεύει εντελώς σωστά.<br>
-                Σε αυτή την περίπτωση επικοινωνήστε μαζί μας στο <a href='mailto:eclass@gunet.gr'>eclass@gunet.gr</a><br>
+                Σε αυτή την περίπτωση επικοινωνήστε μαζί μας στο <a href=\'mailto:eclass@gunet.gr\'>eclass@gunet.gr</a><br>
                 περιγράφοντας το πρόβλημα που παρουσιάστηκε<br> και στέλνοντας (αν είναι δυνατόν) όλα τα μηνύματα που εμφανίστηκαν στην οθόνη σας";
 $langUpgCourse = "Αναβάθμιση μαθήματος";
 $langUpgFileNotRead = "To αρχείο δεν μπόρεσε να διαβαστεί. Ελέγξτε τα δικαιώματα πρόσβασης.";
@@ -2513,8 +2513,8 @@ $langNotMovedDir = "Προσοχή: Δεν ήταν δυνατή η μεταφο
 $langToDir = "στο φάκελο";
 $langCorrectTableEntries = "Διόρθωση εγγραφών του πίνακα";
 $langMoveIntroText = "Μεταφορά του εισαγωγικού κειμένου στον πίνακα";
-$langEncodeDocuments = "Κωδικοποίηση των περιεχομένων του υποσυστήματος 'Έγγραφα'";
-$langEncodeGroupDocuments = "Κωδικοποίηση των περιεχομένων του υποσυστήματος Ομάδες Χρηστών - 'Έγγραφα'";
+$langEncodeDocuments = "Κωδικοποίηση των περιεχομένων του υποσυστήματος \'Έγγραφα\'";
+$langEncodeGroupDocuments = "Κωδικοποίηση των περιεχομένων του υποσυστήματος Ομάδες Χρηστών - \'Έγγραφα\'";
 $langEncodeDropBoxDocuments = "Κωδικοποίηση των περιεχομένων του υποσυστήματος Ανταλλαγή Αρχείων";
 $langEncDropboxError = "Πρόβλημα κατά την μετονομασία στο υποσύστημα Ανταλλαγή Αρχείων";
 $langWarnVideoFile = "Προσοχή: το αρχείο video";
@@ -2522,8 +2522,8 @@ $langChangeDBCharset = "Αλλαγή κωδικοποίησης βάσης δε�
 $langToUTF = "σε UTF-8";
 $langEncryptPass = "Κωδικοποίηση των συνθηματικών των χρηστών";
 $langNotEncrypted = "ΠΡΟΣΟΧΗ! Η διαδικασία αναβάθμισης δεν μπόρεσε να κρυπτογραφήσει τα password και η πλατφόρμα δεν μπορεί να λειτουργήσει. Αφαιρέστε τη γραμμή «\$encryptedPasswd = true;» από το αρχείο ρυθμίσεων config.inc.php";
-$langUpgradeStart = 'Έναρξη αναβάθμισης Open eClass';
-$langUpgradeConfig = 'Αναβάθμιση αρχείου ρυθμίσεων (config.php)';
+$langUpgradeStart = \'Έναρξη αναβάθμισης Open eClass\';
+$langUpgradeConfig = \'Αναβάθμιση αρχείου ρυθμίσεων (config.php)\';
 
 /*******************************************************************
 * toolmanagement.inc.php
@@ -2540,30 +2540,30 @@ $langSubmitChanges = "Υποβολή αλλαγών";
 * trad4all.inc.php
 *********************************************************************/
 $iso639_2_code = "el";
-$langNameOfLang['greek']="Ελληνικά";
-$langNameOfLang['english']="Αγγλικά";
-$langNameOfLang['spanish']="Ισπανικά";
-$langNameOfLang['czech'] = "Τσέχικα";
-$langNameOfLang['german'] = "Γερμανικά";
-$langNameOfLang['italian'] = "Ιταλικά";
-$langNameOfLang['french']="Γαλλικά";
-$charset = 'UTF-8';
+$langNameOfLang[\'greek\']="Ελληνικά";
+$langNameOfLang[\'english\']="Αγγλικά";
+$langNameOfLang[\'spanish\']="Ισπανικά";
+$langNameOfLang[\'czech\'] = "Τσέχικα";
+$langNameOfLang[\'german\'] = "Γερμανικά";
+$langNameOfLang[\'italian\'] = "Ιταλικά";
+$langNameOfLang[\'french\']="Γαλλικά";
+$charset = \'UTF-8\';
 $dateFormatShort =  "%b %d, %y";
-$dateFormatLong  = '%A, %d %B %Y';
-$dateTimeFormatLong  = '%d %B %Y / Ώρα: %R';
-$timeNoSecFormat = '%R';
-$langNoAdminAccess = '
+$dateFormatLong  = \'%A, %d %B %Y\';
+$dateTimeFormatLong  = \'%d %B %Y / Ώρα: %R\';
+$timeNoSecFormat = \'%R\';
+$langNoAdminAccess = \'
 		<p><b>Η σελίδα
 		που προσπαθείτε να μπείτε απαιτεί όνομα
 		χρήστη και συνθηματικό.</b> <br/>Η πλατφόρμα σας ανακατεύθυνε αυτόματα στην αρχική σελίδα
 		για να συνδεθείτε πρωτού προχωρήσετε σε άλλες ενέργειες. Πιθανόν να έληξε η σύνοδός σας.</p>
-';
+\';
 
-$langLoginRequired = '
+$langLoginRequired = \'
 		<p><b>Δεν είστε εγγεγραμμένος στο μάθημα και επομένως δεν μπορείτε να χρησιμοποιήσετε το αντίστοιχο υποσύστημα.</b>
 		Η πλατφόρμα σας ανακατεύθυνε αυτόματα στην αρχική σελίδα
 		για να εγγραφείτε στο μάθημα, αν η εγγραφή είναι ελεύθερη. </p>
-';
+\';
 $langSessionIsLost = "
 		<p><b>Η σύνοδος σας έχει λήξει. </b><br/>Η πλατφόρμα σας ανακατεύθυνε αυτόματα στην αρχική σελίδα
 		για να συνδεθείτε προτού προχωρήσετε σε άλλες ενέργειες.</p>
@@ -2669,18 +2669,18 @@ $langConfirmUnregCours = "Θέλετε σίγουρα να απεγγραφεί�
  $langMonths[11] = "Νοε";
  $langMonths[12] = "Δεκ";
  #for monthly report
- $langMonths['01'] = "Ιανουάριος";
- $langMonths['02'] = "Φεβρουάριος";
- $langMonths['03'] = "Μάρτιος";
- $langMonths['04'] = "Απρίλιος";
- $langMonths['05'] = "Μάιος";
- $langMonths['06'] = "Ιούνιος";
- $langMonths['07'] = "Ιούλιος";
- $langMonths['08'] = "Αύγουστος";
- $langMonths['09'] = "Σεπτέμβριος";
- $langMonths['10'] = "Οκτώβριος";
- $langMonths['11'] = "Νοέμβριος";
- $langMonths['12'] = "Δεκέμβριος";
+ $langMonths[\'01\'] = "Ιανουάριος";
+ $langMonths[\'02\'] = "Φεβρουάριος";
+ $langMonths[\'03\'] = "Μάρτιος";
+ $langMonths[\'04\'] = "Απρίλιος";
+ $langMonths[\'05\'] = "Μάιος";
+ $langMonths[\'06\'] = "Ιούνιος";
+ $langMonths[\'07\'] = "Ιούλιος";
+ $langMonths[\'08\'] = "Αύγουστος";
+ $langMonths[\'09\'] = "Σεπτέμβριος";
+ $langMonths[\'10\'] = "Οκτώβριος";
+ $langMonths[\'11\'] = "Νοέμβριος";
+ $langMonths[\'12\'] = "Δεκέμβριος";
  $langHidden = "Κλειστό";
  $langAddress = "Διεύθυνση";
  $langLoginDate = "Ημερ/νία εισόδου";
@@ -2688,7 +2688,7 @@ $langConfirmUnregCours = "Θέλετε σίγουρα να απεγγραφεί�
  $langNoStatistics = "Δεν έχουν γίνει επισκέψεις το συγκεκριμένο χρονικό διάστημα.";
  $langStatAccueil = "Για το χρονικό διάστημα που ζητήθηκε, διατίθεται και η παρακάτω πληροφορία, για το σύνολο των χρηστών του μαθηματος:";
  $langHost = "Υπολογιστής";
- $langGroupUsage = 'Στατιστικά ομάδων χρηστών';
+ $langGroupUsage = \'Στατιστικά ομάδων χρηστών\';
 
  #for platform Statistics
  $langUsersCourse = "Χρήστες ανά μάθημα";
@@ -2757,10 +2757,10 @@ $langWikiAllPages = "Όλες οι σελίδες";
 $langWikiBackToPage = "Πίσω στη σελίδα";
 $langWikiConflictHowTo = "<p><strong>Αλλάξτε τη σύγκρουση</strong> : Η σελίδα που πρσπαθείτε φαίνετε ότι έχει τροποποιηθεί από την τελευταία φορά που την τροποποίησες.<br /><br />
 Τι θέλετε να γίνει;<ul>
-<li>Μπορείτε να αντιγράψετε/επικολλήσετε τις αλλαγές σας σε ένα κειμενογράφο (όπως το notepad) και κάντε κλίκ στο  'edit last version' για να προσπαθήσεις να προσθέσεις τις αλλαγές σου στην καινούργια έκδοση της σελίδας.</li>
+<li>Μπορείτε να αντιγράψετε/επικολλήσετε τις αλλαγές σας σε ένα κειμενογράφο (όπως το notepad) και κάντε κλίκ στο  \'edit last version\' για να προσπαθήσεις να προσθέσεις τις αλλαγές σου στην καινούργια έκδοση της σελίδας.</li>
 <li>Μπορείς επίσης να πατήσεις στο άκυρο για να ακυρώσεις τις αλλαγές σου.</li>
 </ul></p>";
-$langWikiContentEmpty = "Αυτή η σελίδα είναι κενή, κάνε κλικ στο 'Edit this page' για να προσθεσεις περιεχομενο";
+$langWikiContentEmpty = "Αυτή η σελίδα είναι κενή, κάνε κλικ στο \'Edit this page\' για να προσθεσεις περιεχομενο";
 $langWikiCourseMembers = "Μέλη μαθήματος ";
 $langWikiCreateNewWiki = "Δημιουργήστε ένα νέο Wiki";
 $langWikiCreatePrivilege = "Δημιουργήστε σελίδες ";
@@ -2791,7 +2791,7 @@ $langWikiIdenticalContent = " Ίδιο περιεχόμενο <br />καμιά �
 $langWikiInvalidWikiId = "Μη έγκυρο Wiki Id";
 $langWikiList = "Λίστα του Wiki";
 $langWikiMainPage = "Κύρια σελίδα";
-$langWikiMainPageContent = "Αυτη είναι η κύρια σελίδα του Wiki %s. Επιλέξτε '''Αλλαγή της σελίδας''' για να τροποποιήσετε το περιεχόμενο.";
+$langWikiMainPageContent = "Αυτη είναι η κύρια σελίδα του Wiki %s. Επιλέξτε \'\'\'Αλλαγή της σελίδας\'\'\' για να τροποποιήσετε το περιεχόμενο.";
 $langWikiNoWiki = "Δεν υπάρχει Wiki";
 $langWikiNotAllowedToCreate = " Δεν επιτρέπεται να δημιουργήσεις σελίδα";
 $langWikiNotAllowedToEdit = " Δεν επιτρέπεται να αλλάξεις τη σελίδα";
@@ -2802,7 +2802,7 @@ $langWikiOtherUsersText = "(*) ανώνυμοι χρήστες και χρήστ
 $langWikiPageHistory = "Ιστορικό σελίδας";
 $langWikiPageSaved = "Η σελίδα αποθηκεύτηκε";
 $langWikiPreviewTitle = "Προεπισκόπηση : ";
-$langWikiPreviewWarning = " ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτή η σελίδα αποτελεί προεπισκόπηση.  Οι τροποποιήσεις σας στο wiki δεν έχουν αποθηκευτεί ακόμα ! Για να τις αποθηκεύσετε μη ξεχάσετε να κάνετε κλικ στο κουμπί 'save' στο τέλος της σελίδας.";
+$langWikiPreviewWarning = " ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Αυτή η σελίδα αποτελεί προεπισκόπηση.  Οι τροποποιήσεις σας στο wiki δεν έχουν αποθηκευτεί ακόμα ! Για να τις αποθηκεύσετε μη ξεχάσετε να κάνετε κλικ στο κουμπί \'save\' στο τέλος της σελίδας.";
 $langWikiProperties = "Ιδιότητες";
 $langWikiReadPrivilege = "Διάβασε σελίδες";
 $langWikiRecentChanges = "Πρόσφατες αλλαγές";
@@ -2818,80 +2818,80 @@ $lang_footer_p_CourseManager = "Υπεύθυνος για %s";
 $lang_p_platformManager = "Διαχειριστής για το %s";
 $langWikiUrl = "Όνομα συνδέσμου";
 $langWikiUrlLang = "Γλώσσα συνδέσμου";
-$wiki_toolbar['Strongemphasis'] = "Έντονα";
-$wiki_toolbar['Emphasis'] = "Πλαγιαστά";
-$wiki_toolbar['Inserted'] = "Εισαγωγή";
-$wiki_toolbar['Deleted'] = "Διαγραμμένα";
-$wiki_toolbar['Inlinequote'] = "Σχόλιο";
-$wiki_toolbar['Code'] = "Κώδικας";
-$wiki_toolbar['Linebreak'] = "Αλλαγή γραμμής";
-$wiki_toolbar['Blockquote'] = "Παράγραφος";
-$wiki_toolbar['Preformatedtext'] = "Μορφοποιημένο κείμενο";
-$wiki_toolbar['Unorderedlist'] = "Λίστα";
-$wiki_toolbar['Orderedlist'] = "Διατεταγμένη λίστα";
-$wiki_toolbar['Externalimage'] = "Εξωτερική εικόνα";
-$wiki_toolbar['Link'] = "Σύνδεσμος";
+$wiki_toolbar[\'Strongemphasis\'] = "Έντονα";
+$wiki_toolbar[\'Emphasis\'] = "Πλαγιαστά";
+$wiki_toolbar[\'Inserted\'] = "Εισαγωγή";
+$wiki_toolbar[\'Deleted\'] = "Διαγραμμένα";
+$wiki_toolbar[\'Inlinequote\'] = "Σχόλιο";
+$wiki_toolbar[\'Code\'] = "Κώδικας";
+$wiki_toolbar[\'Linebreak\'] = "Αλλαγή γραμμής";
+$wiki_toolbar[\'Blockquote\'] = "Παράγραφος";
+$wiki_toolbar[\'Preformatedtext\'] = "Μορφοποιημένο κείμενο";
+$wiki_toolbar[\'Unorderedlist\'] = "Λίστα";
+$wiki_toolbar[\'Orderedlist\'] = "Διατεταγμένη λίστα";
+$wiki_toolbar[\'Externalimage\'] = "Εξωτερική εικόνα";
+$wiki_toolbar[\'Link\'] = "Σύνδεσμος";
 
 /*************************************************************
 * work.inc.php
 **************************************************************/
 $langBackAssignment = "Επιστροφή στη σελίδα της εργασίας";
-$m['activate'] = "Ενεργοποίηση";
-$m['deactivate'] = "Απενεργοποίηση";
-$m['deadline'] = "Προθεσμία υποβολής";
-$m['username'] = "Όνομα ".$langsOfStudent." ";
-$m['filename'] = "Όνομα αρχείου";
-$m['sub_date'] = "Ημ/νία αποστολής";
-$m['comments'] = "Σχόλια";
-$m['gradecomments'] = "Σχόλια βαθμολογητή";
-$m['addgradecomments'] = "Προσθήκη σχολίων βαθμολογητή";
-$m['delete'] = "Διαγραφή";
-$m['edit'] = "Αλλαγή";
-$m['start_date'] = "Ημερομηνία έναρξης";
-$m['grade'] = "Βαθμός";
-$m['am'] = "Αρ. Mητρώου";
-$m['yes'] = "Ναι";
-$m['no'] = "Όχι";
-$m['in'] = "σε";
-$m['today'] = "σήμερα";
-$m['tomorrow'] = "αύριο";
-$m['expired'] = "έχει&nbsp;λήξει";
-$m['submitted'] = "Έχει&nbsp;αποσταλεί";
-$m['select'] = "Επιλογή";
-$m['groupsubmit'] = "Υποβλήθηκε εκ μέρους της";
-$m['ofgroup'] = "ομάδας";
-$m['deleted_work_by_user'] = "Διαγράφηκε η προηγούμενη υποβληθείσα
+$m[\'activate\'] = "Ενεργοποίηση";
+$m[\'deactivate\'] = "Απενεργοποίηση";
+$m[\'deadline\'] = "Προθεσμία υποβολής";
+$m[\'username\'] = "Όνομα ".$langsOfStudent." ";
+$m[\'filename\'] = "Όνομα αρχείου";
+$m[\'sub_date\'] = "Ημ/νία αποστολής";
+$m[\'comments\'] = "Σχόλια";
+$m[\'gradecomments\'] = "Σχόλια βαθμολογητή";
+$m[\'addgradecomments\'] = "Προσθήκη σχολίων βαθμολογητή";
+$m[\'delete\'] = "Διαγραφή";
+$m[\'edit\'] = "Αλλαγή";
+$m[\'start_date\'] = "Ημερομηνία έναρξης";
+$m[\'grade\'] = "Βαθμός";
+$m[\'am\'] = "Αρ. Mητρώου";
+$m[\'yes\'] = "Ναι";
+$m[\'no\'] = "Όχι";
+$m[\'in\'] = "σε";
+$m[\'today\'] = "σήμερα";
+$m[\'tomorrow\'] = "αύριο";
+$m[\'expired\'] = "έχει&nbsp;λήξει";
+$m[\'submitted\'] = "Έχει&nbsp;αποσταλεί";
+$m[\'select\'] = "Επιλογή";
+$m[\'groupsubmit\'] = "Υποβλήθηκε εκ μέρους της";
+$m[\'ofgroup\'] = "ομάδας";
+$m[\'deleted_work_by_user\'] = "Διαγράφηκε η προηγούμενη υποβληθείσα
 	εργασία που είχατε στείλει με το αρχείο";
-$m['deleted_work_by_group'] = "Διαγράφηκε η προηγούμενη εργασία που
+$m[\'deleted_work_by_group\'] = "Διαγράφηκε η προηγούμενη εργασία που
 	είχε υποβληθεί από κάποιο μέλος της ομάδας σας και βρισκόταν στο αρχείο";
-$m['by_groupmate'] = 'Από άλλο μέλος της ομάδας σας';
-$m['the_file'] = 'Το αρχείο';
-$m['was_submitted'] = 'υποβλήθηκε στην εργασία.';
-$m['group_sub'] = 'Επιλέξτε αν θέλετε να υποβάλετε το αρχείο αυτό
-	εκ μέρους της ομάδας σας';
-$m['group'] = 'ομάδα';
-$m['already_group_sub'] = 'Έχει ήδη υποβληθεί η εργασία αυτή από κάποιο
-	μέλος της ομάδας σας';
-$m['group_or_user'] = 'Τύπος εργασίας';
-$m['group_work'] = 'Ομαδική';
-$m['user_work'] = 'Ατομική';
-$m['submitted_by_other_member'] = 'Το αρχείο αυτό υποβλήθηκε από άλλο μέλος της';
-$m['your_group'] = 'ομάδας σας';
-$m['this_is_group_assignment'] = 'Η εργασία αυτή είναι ομαδική. Για να
-	στείλετε κάποιο αρχείο, πηγαίνετε στο';
-$m['group_documents'] = 'χώρο αρχείων της ομάδας σας';
-$m['select_publish'] = 'και επιλέξτε «Δημοσίευση» για το αρχείο που θέλετε.';
-$m['noguest'] = 'Για να αποστείλετε εργασία πρέπει να συνδεθείτε ως κανονικός χρήστης.';
-$m['one_submission'] = 'Έχει υποβληθεί μία εργασία';
-$m['more_submissions'] = 'Έχουν υποβληθεί %d εργασίες';
-$m['plainview'] = 'Συνοπτική λίστα εργασιών - βαθμολογίας';
-$m['WorkInfo']= 'Στοιχεία εργασίας';
-$m['WorkView']= 'Εργασίες μαθήματος';
-$m['WorkDelete']= 'Διαγραφή εργασίας';
-$m['WorkEdit']= 'Τροποποίηση εργασίας';
-$m['SubmissionWorkInfo']= 'Στοιχεία υποβολής εργασίας';
-$m['SubmissionStatusWorkInfo']= 'Κατάσταση υποβολής εργασίας';
-$langGroupWorkIntro = '
+$m[\'by_groupmate\'] = \'Από άλλο μέλος της ομάδας σας\';
+$m[\'the_file\'] = \'Το αρχείο\';
+$m[\'was_submitted\'] = \'υποβλήθηκε στην εργασία.\';
+$m[\'group_sub\'] = \'Επιλέξτε αν θέλετε να υποβάλετε το αρχείο αυτό
+	εκ μέρους της ομάδας σας\';
+$m[\'group\'] = \'ομάδα\';
+$m[\'already_group_sub\'] = \'Έχει ήδη υποβληθεί η εργασία αυτή από κάποιο
+	μέλος της ομάδας σας\';
+$m[\'group_or_user\'] = \'Τύπος εργασίας\';
+$m[\'group_work\'] = \'Ομαδική\';
+$m[\'user_work\'] = \'Ατομική\';
+$m[\'submitted_by_other_member\'] = \'Το αρχείο αυτό υποβλήθηκε από άλλο μέλος της\';
+$m[\'your_group\'] = \'ομάδας σας\';
+$m[\'this_is_group_assignment\'] = \'Η εργασία αυτή είναι ομαδική. Για να
+	στείλετε κάποιο αρχείο, πηγαίνετε στο\';
+$m[\'group_documents\'] = \'χώρο αρχείων της ομάδας σας\';
+$m[\'select_publish\'] = \'και επιλέξτε «Δημοσίευση» για το αρχείο που θέλετε.\';
+$m[\'noguest\'] = \'Για να αποστείλετε εργασία πρέπει να συνδεθείτε ως κανονικός χρήστης.\';
+$m[\'one_submission\'] = \'Έχει υποβληθεί μία εργασία\';
+$m[\'more_submissions\'] = \'Έχουν υποβληθεί %d εργασίες\';
+$m[\'plainview\'] = \'Συνοπτική λίστα εργασιών - βαθμολογίας\';
+$m[\'WorkInfo\']= \'Στοιχεία εργασίας\';
+$m[\'WorkView\']= \'Εργασίες μαθήματος\';
+$m[\'WorkDelete\']= \'Διαγραφή εργασίας\';
+$m[\'WorkEdit\']= \'Τροποποίηση εργασίας\';
+$m[\'SubmissionWorkInfo\']= \'Στοιχεία υποβολής εργασίας\';
+$m[\'SubmissionStatusWorkInfo\']= \'Κατάσταση υποβολής εργασίας\';
+$langGroupWorkIntro = \'
 	Παρακάτω εμφανίζονται οι διαθέσιμες εργασίες που έχουν ανατεθεί
 	στα πλαίσια αυτού του μαθήματος. Παρακαλούμε επιλέξτε την εργασία όπου θέλετε
 	να αποστείλετε το αρχείο ως εργασία της ομάδας σας, και συμπληρώστε
@@ -2900,7 +2900,7 @@ $langGroupWorkIntro = '
 	ομαδική εργασία, είτε από εσάς είτε από κάποιο άλλο μέλος της ομάδας, το
 	αρχείο αυτό θα χαθεί και θα αντικατασταθεί από το νέο. Τέλος,
 	δεν μπορείτε να στείλετε αρχείο σε εργασία που έχει ήδη βαθμολογηθεί
-	από τον διδάσκοντα.';
+	από τον διδάσκοντα.\';
 
 $langGroupWorkSubmitted = "Έχει&nbsp;αποσταλεί";
 $langGroupWorkSubmitted1 = "ΔΕΝ έχει&nbsp;αποσταλεί";
@@ -2942,7 +2942,7 @@ $langGradeWork = "Σχόλια βαθμολογίας";
 $langUserOnly="Για να υποβάλλετε μια εργασία πρέπει να κάνετε login στη πλατφόρμα.";
 $langNoSubmissions = "Δεν έχουν υποβληθεί εργασίες";
 $langNoAssign = "Δεν υπάρχουν εργασίες";
-$langWorkWrongInput = 'Ο βαθμός πρέπει να είναι νούμερο. Παρακαλώ επιστρέψτε και ξανασυμπληρώστε το πεδίο.';
+$langWorkWrongInput = \'Ο βαθμός πρέπει να είναι νούμερο. Παρακαλώ επιστρέψτε και ξανασυμπληρώστε το πεδίο.\';
 $langWarnForSubmissions = "Αν έχουν υποβληθεί εργασίες, αυτες θα διαγραφούν";
 $langAssignmentActivated = "Η εργασία ενεργοποιήθηκε";
 $langAssignmentDeactivated = "Η εργασία απενεργοποιήθηκε";
@@ -3016,12 +3016,12 @@ $langInsertDoc = "εγγράφου";
 $langInsertExercise = "άσκησης";
 $langInsertVideo = "βίντεο";
 $langInsertForum = "περιοχής συζητήσεων";
-$langInsertWork = 'εργασίας';
-$langInsertWiki = 'wiki';
+$langInsertWork = \'εργασίας\';
+$langInsertWiki = \'wiki\';
 $langUnknownResType = "Πρόβλημα! Άγνωστος πόρος θεματικής ενότητας";
 $langNoExercises = "Δεν υπάρχουν ασκήσεις";
 
-$langVia = 'μέσω';
+$langVia = \'μέσω\';
 $langStudentViewEnable = "Μετάβαση σε περιβάλλον<br /><b>$langsOfStudent</b>";
 $langStudentViewDisable = "Επιστροφή σε περιβάλλον<br /><b>$langsOfTeacher</b>";
 
@@ -3069,4 +3069,4 @@ $langBetaCMSUnitDocumentFiles = "Έγγραφα Ενότητας";
 $langBetaCMSUnitTexts = "Κείμενα Ενότητας";
 $langBetaCMSText = "Κείμενο";
 
-$langNoCookies = 'Προσοχή! Έχετε απενεργοποιημένα τα cookies στο πρόγραμμα πλοήγησης που χρησιμοποιείτε. Η σύνδεση δεν είναι δυνατή.';
+$langNoCookies = \'Προσοχή! Έχετε απενεργοποιημένα τα cookies στο πρόγραμμα πλοήγησης που χρησιμοποιείτε. Η σύνδεση δεν είναι δυνατή.\';
