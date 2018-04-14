@@ -81,11 +81,12 @@ mysql_select_db($currentCourseID);
 $sql="SELECT DISTINCT uid FROM `exercise_user_record`";
 $result = mysql_query($sql);
 while($row=mysql_fetch_array($result)) {
-	$sid = $row['uid'];
+	$sid = intval($row['uid']);
 	$StudentName = db_query("SELECT nom,prenom,am FROM user WHERE user_id='$sid'", $mysqlMainDb);
 	$theStudent = mysql_fetch_array($StudentName);
 	
 	mysql_select_db($currentCourseID);
+	$exerciseId = intval($exerciseId);
 	$sql2="SELECT DATE_FORMAT(RecordStartDate, '%Y-%m-%d / %H:%i') AS RecordStartDate, RecordEndDate, TIME_TO_SEC(TIMEDIFF(RecordEndDate,RecordStartDate)) AS TimeDuration, TotalScore, TotalWeighting 
 	FROM `exercise_user_record` WHERE uid='$sid' AND eid='$exerciseId'";
 	$result2 = db_query($sql2);

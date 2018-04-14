@@ -56,6 +56,7 @@ $helpTopic = 'Doc';
 
 // check for quotas
 mysql_select_db($mysqlMainDb);
+$currentCourseID = xss_sql_filter($currentCourseID);
 $d = mysql_fetch_row(mysql_query("SELECT doc_quota FROM cours WHERE code='$currentCourseID'"));
 $diskQuotaDocument = $d[0];
 mysql_select_db($currentCourseID);
@@ -68,6 +69,7 @@ $basedir = $webDir . 'courses/' . $currentCourseID . '/document';
 if (@$action2=="download")
 {
 	$real_file = $basedir . $id;
+    $id = xss_sql_filter($id);
 	if (strpos($real_file, '/../') === FALSE) {
 		//fortwma tou pragmatikou onomatos tou arxeiou pou vrisketai apothikevmeno sth vash
 		$result = mysql_query ("SELECT filename FROM document WHERE path LIKE '%$id%'");
@@ -129,22 +131,37 @@ function process_extracted_file($p_event, &$p_header) {
         } else {
                 $format = get_file_extension($filename);
                 $path .= '/' . safe_filename($format);
+
+                /* BEGIN */
+                $filename = xss_sql_filter($filename);
+                $file_comment = xss_sql_filter($file_comment);
+                $file_category = xss_sql_filter($file_category);
+                $file_title = xss_sql_filter($file_title);
+                $file_creator = xss_sql_filter($file_creator);
+                $file_date = xss_sql_filter($file_date);
+                $file_subject = xss_sql_filter($file_subject);
+                $file_description = xss_sql_filter($file_description);
+                $file_author = xss_sql_filter($file_author);
+                $file_language = xss_sql_filter($file_language);
+                $file_copyrighted = xss_sql_filter($file_copyrighted);
+                $format = xss_sql_filter($format);
+                /* END */
                 db_query("INSERT INTO document SET
                                  path = '$path',
-                                 filename = " . quote($filename) .",
+                                 filename = " . justQuote($filename) .",
                                  visibility = 'v',
-                                 comment = " . quote($file_comment) . ",
-                                 category = " . quote($file_category) . ",
-                                 title = " . quote($file_title) . ",
-                                 creator = " . quote($file_creator) . ",
-                                 date = " . quote($file_date) . ",
-                                 date_modified = " . quote($file_date) . ",
-                                 subject = " . quote($file_subject) . ",
-                                 description = " . quote($file_description) . ",
-                                 author = " . quote($file_author) . ",
+                                 comment = " . justQuote($file_comment) . ",
+                                 category = " . justQuote($file_category) . ",
+                                 title = " . justQuote($file_title) . ",
+                                 creator = " . justQuote($file_creator) . ",
+                                 date = " . justQuote($file_date) . ",
+                                 date_modified = " . justQuote($file_date) . ",
+                                 subject = " . justQuote($file_subject) . ",
+                                 description = " . justQuote($file_description) . ",
+                                 author = " . justQuote($file_author) . ",
                                  format = '$format',
-                                 language = " . quote($file_language) . ",
-                                 copyrighted = " . quote($file_copyrighted));
+                                 language = " . justQuote($file_language) . ",
+                                 copyrighted = " . justQuote($file_copyrighted));
                 // File will be extracted with new encoded filename
                 $p_header['filename'] = $basedir . $path;
                 return 1;
@@ -162,6 +179,13 @@ function make_path($path, $path_components)
 
         $path_already_exists = true;
         $depth = 1 + substr_count($path, '/');
+        /* BEGIN */
+        $depth = intval($depth);
+        $path = xss_sql_filter($path);
+        $component = xss_sql_filter($component);
+        $nom = xss_sql_filter($nom);
+        $prenom = xss_sql_filter($prenom);
+        /* END */
         foreach ($path_components as $component) {
                 $q = db_query("SELECT path, visibility, format,
                                 (LENGTH(path) - LENGTH(REPLACE(path, '/', ''))) AS depth
@@ -178,9 +202,9 @@ function make_path($path, $path_components)
                         mkdir($basedir . $path, 0775);
                         db_query("INSERT INTO document SET
     				  path='$path',
-                                  filename=" . quote($component) . ",
+                                  filename=" . justQuote($component) . ",
     				  visibility='v',
-                                  creator=" . quote($prenom." ".$nom) . ",
+                                  creator=" . justQuote($prenom." ".$nom) . ",
                                   date=NOW(),
                                   date_modified=NOW(),
                                   format='.dir'");
@@ -263,22 +287,38 @@ if($is_adminOfCourse)
                                         $file_format = get_file_extension($fileName);
                                         //san date you arxeiou xrhsimopoihse thn shmerinh hm/nia
                                         $file_date = date("Y\-m\-d G\:i\:s");
+
+                                        /* BEGIN */
+                                        $fileName = xss_sql_filter($fileName);
+                                        $file_comment = xss_sql_filter($file_comment);
+                                        $file_category = xss_sql_filter($file_category);
+                                        $file_title = xss_sql_filter($file_title);
+                                        $file_creator = xss_sql_filter($file_creator);
+                                        $file_date = xss_sql_filter($file_date);
+                                        $file_subject = xss_sql_filter($file_subject);
+                                        $file_description = xss_sql_filter($file_description);
+                                        $file_author = xss_sql_filter($file_author);
+                                        $file_format = xss_sql_filter($file_format);
+                                        $file_language = xss_sql_filter($file_language);
+                                        $file_copyrighted = xss_sql_filter($file_copyrighted);
+
+                                        /* END */
                                         $query = "INSERT INTO ".$dbTable." SET
-                                        path	=	'".mysql_real_escape_string($uploadPath2)."',
-                                        filename =	'".mysql_real_escape_string($fileName)."',
+                                        path	=	".justQuote($uploadPath2).",
+                                        filename =	".justQuote($fileName).",
                                         visibility =	'v',
-                                        comment	=	'".mysql_real_escape_string($file_comment)."',
-                                        category =	'".mysql_real_escape_string($file_category)."',
-                                        title =	'".mysql_real_escape_string($file_title)."',
-                                        creator	=	'".mysql_real_escape_string($file_creator)."',
-                                        date	= '".mysql_real_escape_string($file_date)."',
-                                        date_modified	=	'".mysql_real_escape_string($file_date)."',
-                                        subject	=	'".mysql_real_escape_string($file_subject)."',
-                                        description =	'".mysql_real_escape_string($file_description)."',
-                                        author	=	'".mysql_real_escape_string($file_author)."',
-                                        format	=	'".mysql_real_escape_string($file_format)."',
-                                        language =	'".mysql_real_escape_string($file_language)."',
-                                        copyrighted	=	'".mysql_real_escape_string($file_copyrighted)."'";
+                                        comment	=	".justQuote($file_comment).",
+                                        category =	".justQuote($file_category).",
+                                        title =	".justQuote($file_title).",
+                                        creator	=	".justQuote($file_creator).",
+                                        date	= ".justQuote($file_date).",
+                                        date_modified	=	".justQuote($file_date).",
+                                        subject	=	".justQuote($file_subject).",
+                                        description =	".justQuote($file_description).",
+                                        author	=	".justQuote($file_author).",
+                                        format	=	".justQuote($file_format).",
+                                        language =	".justQuote($file_language).",
+                                        copyrighted	=	".justQuote($file_copyrighted);
 
                                         db_query($query, $currentCourseID);
 
@@ -320,8 +360,9 @@ if($is_adminOfCourse)
 	--------------------------------------*/
 	if (isset($move))
 	{
+        $move = xss_sql_filter($move);
 		//h $move periexei to onoma tou arxeiou. anazhthsh onomatos arxeiou sth vash
-		$result = mysql_query("SELECT * FROM $dbTable WHERE path=" . autoquote($move));
+		$result = mysql_query("SELECT * FROM $dbTable WHERE path=" . justQuote($move));
 		$res = mysql_fetch_array($result);
 		$moveFileNameAlias = $res['filename'];
 		@$dialogBox .= form_dir_list_exclude($dbTable, "source", $move, "moveTo", $basedir, $move);
@@ -343,8 +384,9 @@ if($is_adminOfCourse)
 	// step 2
 	//nea methodos metonomasias arxeiwn kanontas update sthn eggrafh pou yparxei sth vash
 	if (isset($renameTo2)) {
+        $renameTo2 = xss_sql_filter(canonicalize_whitespace($renameTo2));
 		$query =  "UPDATE $dbTable SET filename=" .
-                        quote(canonicalize_whitespace($renameTo2)) .
+                        justQuote($renameTo2) .
                         " WHERE path='$sourceFile'";
 		db_query($query);
 		$dialogBox = "<p class='caution_small'>$langElRen</p><br />";
@@ -353,6 +395,7 @@ if($is_adminOfCourse)
 	//	rename
 	if (isset($rename))
 	{
+        $rename = xss_sql_filter($rename);
 		//elegxos gia to ean yparxei hdh eggrafh sth vash
 		$result = mysql_query("SELECT * FROM $dbTable WHERE path='$rename'");
 		$res = mysql_fetch_array($result);
@@ -398,24 +441,25 @@ if($is_adminOfCourse)
 	//	h $commentPath periexei to path tou arxeiou gia to opoio tha epikyrothoun ta metadata
 	if (isset($edit_metadata))
 	{
+        $commentPath = xss_sql_filter($commentPath);
 		//elegxos ean yparxei eggrafh sth vash gia to arxeio
-		$result = mysql_query ("SELECT * FROM $dbTable WHERE path=" . autoquote($commentPath));
+		$result = mysql_query ("SELECT * FROM $dbTable WHERE path=" . justQuote($commentPath));
 		$res = mysql_fetch_array($result);
 		if(!empty($res))
 		{
 			//elegxos ean o xrhsths epelekse diaforetikh glwssa h' tipota (option -> "")
 			if (empty($file_language)) $file_language = $file_oldLanguage;
 			$query =  "UPDATE ".$dbTable." SET
-    				comment=\"".mysql_real_escape_string($file_comment)."\",
-				category=\"".mysql_real_escape_string($file_category)."\",
-  	 			title=\"".mysql_real_escape_string($file_title)."\",
+    				comment=\"".xss_sql_filter($file_comment)."\",
+				category=\"".xss_sql_filter($file_category)."\",
+  	 			title=\"".xss_sql_filter($file_title)."\",
 				date_modified=\"".date("Y\-m\-d G\:i\:s")."\",
-    				subject=\"".mysql_real_escape_string($file_subject)."\",
-    				description=\"".mysql_real_escape_string($file_description)."\",
-    				author=\"".mysql_real_escape_string($file_author)."\",
-    				language=\"".mysql_real_escape_string($file_language)."\",
-    				copyrighted=\"".mysql_real_escape_string($file_copyrighted)."\"
-    				  WHERE path=\"".$commentPath."\"";
+    				subject=\"".xss_sql_filter($file_subject)."\",
+    				description=\"".xss_sql_filter($file_description)."\",
+    				author=\"".xss_sql_filter($file_author)."\",
+    				language=\"".xss_sql_filter($file_language)."\",
+    				copyrighted=\"".xss_sql_filter($file_copyrighted)."\"
+    				  WHERE path=\"".xss_sql_filter($commentPath)."\"";
 		} else
 		//den yparxei eggrafh sth vash gia to sygkekrimeno arxeio opote dhmiourghse thn eggrafh
 		{
@@ -426,18 +470,18 @@ if($is_adminOfCourse)
     			path=\"".$commentPath."\",
     			filename=\"".$file_filename."\",
     			visibility=\"v\",
-				comment=\"".mysql_real_escape_string($file_comment)."\",
-				category=\"".mysql_real_escape_string($file_category)."\",
-				title=\"".mysql_real_escape_string($file_title)."\",
-				creator=\"".$prenom." ".$nom."\",
+				comment=\"".xss_sql_filter($file_comment)."\",
+				category=\"".xss_sql_filter($file_category)."\",
+				title=\"".xss_sql_filter($file_title)."\",
+				creator=\"".xss_sql_filter($prenom)." ".xss_sql_filter($nom)."\",
 				date=\"".date("Y\-m\-d G\:i\:s")."\",
 				date_modified=\"".date("Y\-m\-d G\:i\:s")."\",
-				subject=\"".mysql_real_escape_string($file_subject)."\",
-				description=\"".mysql_real_escape_string($file_description)."\",
-				author=\"".mysql_real_escape_string($file_author)."\",
-				format=\"".mysql_real_escape_string($file_format)."\",
-				language=\"".mysql_real_escape_string($file_language)."\",
-				copyrighted=\"".mysql_real_escape_string($file_copyrighted)."\"";
+				subject=\"".xss_sql_filter($file_subject)."\",
+				description=\"".xss_sql_filter($file_description)."\",
+				author=\"".xss_sql_filter($file_author)."\",
+				format=\"".xss_sql_filter($file_format)."\",
+				language=\"".xss_sql_filter($file_language)."\",
+				copyrighted=\"".xss_sql_filter($file_copyrighted)."\"";
 		}
 		mysql_query($query);
 	}
@@ -447,6 +491,7 @@ if($is_adminOfCourse)
 	if (isset($comment))
 	{
 		$oldComment='';
+        $comment = xss_sql_filter($comment);
 		/*** Retrieve the old comment and metadata ***/
 		$query = "SELECT * FROM $dbTable WHERE path LIKE '%".$comment."%'";
 		$result = mysql_query ($query);
@@ -537,6 +582,7 @@ if($is_adminOfCourse)
 			$newVisibilityStatus = "v";
 		else
 			$newVisibilityStatus = "i";
+        $visibilityPath = xss_sql_filter($visibilityPath);
 		// enallagh ths timhs sto pedio visibility tou pinaka document
 		mysql_query ("UPDATE $dbTable SET visibility='".$newVisibilityStatus."' WHERE path = '$visibilityPath'");
 		$dialogBox = "<p class='success_small'>$langViMod</p><br />";

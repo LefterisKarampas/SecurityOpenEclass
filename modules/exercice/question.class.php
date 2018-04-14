@@ -69,7 +69,7 @@ class Question
 	function read($id)
 	{
 		global $TBL_QUESTIONS, $TBL_EXERCICE_QUESTION, $currentCourseID;
-		
+		$id = intval($id);
 		mysql_select_db($currentCourseID);
 		$sql="SELECT question,description,ponderation,q_position,type FROM `$TBL_QUESTIONS` WHERE id='$id'";
 		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
@@ -83,7 +83,7 @@ class Question
 			$this->weighting=$object->ponderation;
 			$this->position=$object->q_position;
 			$this->type=$object->type;
-
+			$id = intval($id);
 			$sql="SELECT exercice_id FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
 			$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
 			// fills the array with the exercises which this question is in
@@ -252,7 +252,7 @@ class Question
 			{
 				// removes old answers
 				mysql_select_db($currentCourseID);
-				$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='".$this->id."'";
+				$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='".intval($this->id)."'";
 				mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);
 			}
 
@@ -402,6 +402,14 @@ class Question
 		$type=$this->type;
 
 		// question already exists
+
+		/* BEGIN */
+		$question = xss_sql_filter($question);
+		$description = xss_sql_filter($description);
+		$weighting = xss_sql_filter($weighting);
+		$type = xss_sql_filter($type);
+		$id = intval($id);
+		/* END */
 		if($id)
 		{
 			$sql="UPDATE `$TBL_QUESTIONS` SET question='$question',description='$description',ponderation='$weighting',q_position='$position',type='$type' WHERE id='$id'";
@@ -441,6 +449,8 @@ class Question
 		{
 			$this->exerciseList[]=$exerciseId;
 			//echo "<br>-".$TBL_EXERCICE_QUESTION."<br>-".$id."<br>-".$exerciseId."<br>";
+			$id = intval($id);
+			$exerciseId = intval($exerciseId);
 			$sql="INSERT INTO `$TBL_EXERCICE_QUESTION`(question_id,exercice_id) VALUES('$id','$exerciseId')";
 			mysql_query($sql) or die("Error : INSERT in file ".__FILE__." at line ".__LINE__);
 		}
@@ -471,7 +481,8 @@ class Question
 		{
 			// deletes the position in the array containing the wanted exercise ID
 			unset($this->exerciseList[$pos]);
-
+			$id = intval($id);
+			$exerciseId = intval($exerciseId);
 			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id' AND exercice_id='$exerciseId'";
 			db_query($sql); 
 			return true;
@@ -496,6 +507,7 @@ class Question
 		//if($deleteFromEx === 0)
 		if(!$deleteFromEx)
 		{
+			$id = intval($id);
 			$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE question_id='$id'";
 			db_query($sql); 
 
@@ -533,6 +545,14 @@ class Question
 		$position=$this->position;
 		$type=$this->type;
 
+
+		/* BEGIN */
+		$question = xss_sql_filter($question);
+		$description = xss_sql_filter($description);
+		$weighting = xss_sql_filter($weighting);
+		$position = xss_sql_filter($position);
+		$type = xss_sql_filter($type);
+		/* END */
 		$sql="INSERT INTO `$TBL_QUESTIONS`(question,description,ponderation,q_position,type) 
 						VALUES('$question','$description','$weighting','$position','$type')";
 		db_query($sql,$currentCourseID);

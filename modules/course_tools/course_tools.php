@@ -143,10 +143,10 @@ if ($is_adminOfCourse){
 		$tool_id = null;
 		while ($i< $loopCount) {
 			if (!isset($tool_id)) {
-				$tool_id = " (`id` = " . $tool_stat_active[$i] .")" ;
+				$tool_id = " (`id` = " . intval($tool_stat_active[$i]) .")" ;
 			}
 			else {
-				$tool_id .= " OR (`id` = " . $tool_stat_active[$i] .")" ;
+				$tool_id .= " OR (`id` = " . intval($tool_stat_active[$i]) .")" ;
 			}
 			$i++;
 		}
@@ -192,24 +192,27 @@ if ($is_adminOfCourse){
 						$event_counter++;
 					}
 
+
+					/* BEGIN */
 					for ($j=0; $j <$event_counter; $j++) {
 						db_query("INSERT INTO agenda (lesson_event_id, titre, contenu, day, hour, lasting, lesson_code)
-          						VALUES ('".$lesson_agenda[$j]['id']."',
-                  				'".$lesson_agenda[$j]['title']."',
-                  				'".$lesson_agenda[$j]['content']."',
-                  				'".$lesson_agenda[$j]['date']."',
-                  				'".$lesson_agenda[$j]['time']."',
-                  				'".$lesson_agenda[$j]['duree']."',
-                  				'".$lesson_agenda[$j]['lesson_code']."'
+          						VALUES ('".intval($lesson_agenda[$j]['id'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['title'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['content'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['date'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['time'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['duree'])."',
+                  				'".xss_sql_filter($lesson_agenda[$j]['lesson_code'])."'
                   			)", $mysqlMainDb);
 					}
+					/* END */
 				}
 			} else {
 				//if the agenda module is set to inactive
 				if ($prevAgendaStateRow[0] != 0) {
 					//and the agenda module was active before, we need to delete this lesson's events
 					//from the main agenda table (main database)
-
+					$currentCourseID = xss_sql_filter($currentCourseID);
 					$perso_sql= "DELETE FROM $mysqlMainDb.agenda 
 						WHERE lesson_code= '$currentCourseID'";
 					db_query($perso_sql, $mysqlMainDb);
@@ -219,6 +222,7 @@ if ($is_adminOfCourse){
 	}
 
 	if (isset($delete)) {
+		$delete = intval($delete);
 		$sql = "SELECT lien, define_var FROM accueil WHERE `id` = ". $delete ." ";
 		$result = db_query($sql, $dbname);
 		while ($res = mysql_fetch_row($result)){
@@ -229,6 +233,7 @@ if ($is_adminOfCourse){
 				@unlink($file2Delete);
 			}
 		}
+		$delete = intval($delete);
 		$sql = "DELETE FROM `accueil` WHERE `id` = " . $delete ." ";
 		db_query($sql, $dbname);
 		unset($sql);
@@ -254,15 +259,16 @@ if ($is_adminOfCourse){
 
 		if($mID<101) $mID = 101;
 		else $mID = $mID+1;
-		$link = quote($link);
-		$name_link = quote($name_link);
+		$mID = intval($mID);
+		$link = xss_sql_filter($link);
+		$name_link = xss_sql_filter($name_link);
 		mysql_query("INSERT INTO accueil VALUES ($mID,
-					$name_link,
-					$link,
+					".justQuote($name_link).",
+					".justQuote($link).",
 					'external_link',
 					'1',
 					'0',
-					$link,
+					".justQuote($link).",
 					''
 					)");
 
@@ -289,12 +295,13 @@ if ($is_adminOfCourse){
 
 			if($mID<101) $mID = 101;
 			else $mID = $mID+1;
-
-			$link_name = quote($link_name);
+			$mID = intval($mID);
+			$link_name = xss_sql_filter($link_name);
+			$file_name = xss_sql_filter($file_name);
 			$lien = quote("../../courses/$currentCourse/page/$file_name");
 			db_query("INSERT INTO accueil VALUES (
 					$mID,
-					$link_name,
+					".justQuote($link_name).",
 					$lien,
 					'external_link',
 					'1',

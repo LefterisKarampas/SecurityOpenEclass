@@ -59,9 +59,10 @@ $depth = 1;
 $path = '';
 foreach ($path_components as $component) {
         $component = urldecode(str_replace(chr(1), '/', $component));
+        $component = xss_sql_filter($component);
         $q = db_query("SELECT path, visibility, format,
                               (LENGTH(path) - LENGTH(REPLACE(path, '/', ''))) AS depth
-                       FROM document WHERE filename = " . quote($component) .
+                       FROM document WHERE filename = " . justQuote($component) .
                        " AND path LIKE '$path%' HAVING depth = $depth");
         if (!$q or mysql_num_rows($q) == 0) {
                 restore_saved_course();

@@ -109,6 +109,7 @@ class Answer
 		
 		$questionId=$this->questionId;
 		mysql_select_db($currentCourseID);
+		$questionId = intval($questionId);
 		$sql="SELECT reponse,correct,comment,ponderation,r_position 
 			FROM `$TBL_REPONSES` WHERE question_id='$questionId' ORDER BY r_position;";
 		$result=mysql_query($sql) or die("Error : SELECT in file ".__FILE__." at line ".__LINE__);
@@ -241,7 +242,7 @@ class Answer
 	{
 		global $TBL_REPONSES, $currentCourseID;
 
-		$questionId=$this->questionId;
+		$questionId=intval($this->questionId);
 
 		// removes old answers before inserting of new ones
 		$sql="DELETE FROM `$TBL_REPONSES` WHERE question_id='$questionId'";
@@ -253,12 +254,13 @@ class Answer
 
 		for($i=1;$i <= $this->new_nbrAnswers;$i++)
 		{
-			$answer=addslashes($this->new_answer[$i]);
-			$correct=$this->new_correct[$i];
-			$comment=addslashes($this->new_comment[$i]);
-			$weighting=$this->new_weighting[$i];
-			$position=$this->new_position[$i];
-
+			/* BEGIN */
+			$answer=addslashes(xss_sql_filter($this->new_answer[$i]));
+			$correct=xss_sql_filter($this->new_correct[$i]);
+			$comment=addslashes(xss_sql_filter($this->new_comment[$i]));
+			$weighting=xss_sql_filter($this->new_weighting[$i]);
+			$position=xss_sql_filter($this->new_position[$i]);
+			/* END */
 			$sql.="('$i','$questionId','$answer','$correct','$comment','$weighting','$position'),";
 		}
 
@@ -294,11 +296,13 @@ class Answer
 			$sql="INSERT INTO `$TBL_REPONSES`(id,question_id,reponse,correct,comment,ponderation,r_position) VALUES";
 
 			for($i=1;$i <= $this->nbrAnswers;$i++) {
-				$answer=addslashes($this->answer[$i]);
-				$correct=$this->correct[$i];
-				$comment=addslashes($this->comment[$i]);
-				$weighting=$this->weighting[$i];
-				$position=$this->position[$i];
+				/* BEGIN */
+				$answer=addslashes(xss_sql_filter($this->answer[$i]));
+				$correct=xss_sql_filter($this->correct[$i]);
+				$comment=addslashes(xss_sql_filter($this->comment[$i]));
+				$weighting=xss_sql_filter($this->weighting[$i]);
+				$position=xss_sql_filter($this->position[$i]);
+				/* END */
 				$sql.="('$i','$newQuestionId','$answer','$correct','$comment','$weighting','$position'),";
 			}
 

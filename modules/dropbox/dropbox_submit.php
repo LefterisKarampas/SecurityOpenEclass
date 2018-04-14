@@ -384,7 +384,7 @@ if (isset($_GET['mailingIndex']))  // examine or send
 			$sql = "SELECT u.nom, u.prenom
 					FROM `".$mysqlMainDb."`.`cours_user` cu
 					LEFT JOIN  `".$mysqlMainDb."`.`user` u
-					ON cu.user_id = u.user_id AND cu.cours_id = $cours_id
+					ON cu.user_id = u.user_id AND cu.cours_id = ".intval($cours_id)."
 					WHERE cu.statut = 5
 					AND u.user_id NOT IN ('" . implode("', '" , $students) . "')";
 			$result = db_query($sql);
@@ -424,8 +424,8 @@ if (isset($_GET['mailingIndex']))  // examine or send
 				// set filesize to zero on send, to avoid 2nd send (see index.php)
 				$sql = "UPDATE `".$dropbox_cnf["fileTbl"]."`
 						SET filesize = '0'
-						, uploadDate = '".$sendDT."', lastUploadDate = '".$sendDT."'
-						WHERE id='".addslashes($mailing_item->id)."'";
+						, uploadDate = '".xss_sql_filter($sendDT)."', lastUploadDate = '".xss_sql_filter($sendDT)."'
+						WHERE id='".addslashes(intval($mailing_item->id))."'";
 				$result = mysql_query($sql) or die($dropbox_lang["queryError"]);
 			}
 			elseif ( $mailing_item->filesize != 0)

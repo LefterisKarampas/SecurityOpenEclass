@@ -168,8 +168,8 @@ tCont2;
 		// select all users except yourself
 		$sql = "SELECT DISTINCT u.user_id , CONCAT(u.nom,' ', u.prenom) AS name
         	FROM `" . $dropbox_cnf["userTbl"] . "` u, `" . $dropbox_cnf["courseUserTbl"] . "` cu
-        	WHERE cu.cours_id = $dropbox_cnf[cid]
-        	AND cu.user_id = u.user_id AND u.user_id != $uid
+        	WHERE cu.cours_id = ".intval($dropbox_cnf[cid])."
+        	AND cu.user_id = u.user_id AND u.user_id != ".intval($uid)."
         	ORDER BY UPPER(u.nom), UPPER(u.prenom)";
 	}
 	/*
@@ -181,7 +181,7 @@ tCont2;
 		$sql = "SELECT DISTINCT u.user_id , CONCAT(u.nom,' ', u.prenom) AS name
         	FROM `" . $dropbox_cnf["userTbl"] . "` u, `" . $dropbox_cnf["courseUserTbl"] . "` cu
         	WHERE cu.cours_id = $dropbox_cnf[cid]
-        	AND cu.user_id = u.user_id AND (cu.statut <> 5 OR cu.tutor = 1) AND u.user_id != $uid
+        	AND cu.user_id = u.user_id AND (cu.statut <> 5 OR cu.tutor = 1) AND u.user_id != ".intval($uid)."
         	ORDER BY UPPER(u.nom), UPPER(u.prenom)";
 	}
 	$result = db_query($sql);

@@ -199,7 +199,7 @@ while($row = mysql_fetch_array($result)) {
 			<a href=\"exercice_submit.php?exerciseId=${row['id']}\">".$row['titre']."</a>$descr</td>";
 		}
 
-		$eid = $row['id'];
+		$eid = intval($row['id']);
 		$NumOfResults = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record 
 			WHERE eid='$eid'", $currentCourseID));
 
@@ -258,7 +258,7 @@ else {
         <td align='center'><small>".nice_format($row['EndDate'])."</small></td>";
 	// how many attempts we have.
 	$CurrentAttempt = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record
-		WHERE eid='$row[id]' AND uid='$uid'", $currentCourseID));
+		WHERE eid='".intval($row[id])."' AND uid='".intval($uid)."'", $currentCourseID));
 	 if ($row['TimeConstrain'] > 0) {
 		  $tool_content .= "<td align='center'>
 		<small>$row[TimeConstrain] $langExerciseConstrainUnit</small></td>";

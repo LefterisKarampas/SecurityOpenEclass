@@ -78,6 +78,7 @@ class Exercise
 	{
 		global $TBL_EXERCICES, $TBL_EXERCICE_QUESTION, $TBL_QUESTIONS, $currentCourseID;
 		mysql_select_db($currentCourseID);
+		$id = intval($id);
 		$sql="SELECT titre, description, type, StartDate, EndDate, TimeConstrain, 
 			AttemptsAllowed, random, active, results, score 
 			FROM `$TBL_EXERCICES` WHERE id='$id'";
@@ -98,7 +99,8 @@ class Exercise
 			$this->active=$object->active;
 			$this->results=$object->results;
 			$this->score=$object->score;
-
+			$question_id = intval($question_id);
+			$id = intval($id);
 			$sql="SELECT question_id,q_position FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS` 
 				WHERE question_id=id AND exercice_id='$id' ORDER BY q_position";
 			$result=db_query($sql);
@@ -396,20 +398,20 @@ class Exercise
 	function save()
 	{
 		global $TBL_EXERCICES, $TBL_QUESTIONS, $currentCourseID;
-
-		$id=$this->id;
-		$exercise=addslashes($this->exercise);
-		$description=addslashes($this->description);
-		$type=$this->type;
-		$StartDate=$this->StartDate;
-		$EndDate=$this->EndDate;
-		$TimeConstrain=$this->TimeConstrain;
-		$AttemptsAllowed=$this->AttemptsAllowed;
-		$random=$this->random;
-		$active=$this->active;
-		$results=$this->results;
-		$score=$this->score;
-
+		/* BEGIN */
+		$id=intval($this->id);
+		$exercise=addslashes(xss_sql_filter($this->exercise));
+		$description=addslashes(xss_sql_filter($this->description));
+		$type=xss_sql_filter($this->type);
+		$StartDate=xss_sql_filter($this->StartDate);
+		$EndDate=xss_sql_filter($this->EndDate);
+		$TimeConstrain=xss_sql_filter($this->TimeConstrain);
+		$AttemptsAllowed=xss_sql_filter($this->AttemptsAllowed);
+		$random=xss_sql_filter($this->random);
+		$active=xss_sql_filter($this->active);
+		$results=xss_sql_filter($this->results);
+		$score=xss_sql_filter($this->score);
+		/* END */
 		// exercise already exists
 		if($id)
 		{
@@ -434,6 +436,8 @@ class Exercise
 		// updates the question position
 		foreach($this->questionList as $position=>$questionId)
 		{
+			$questionId = intval($questionId);
+			$position = xss_sql_filter($position);
 			$sql="UPDATE `$TBL_QUESTIONS` SET q_position='$position' WHERE id='$questionId'";
 			db_query($sql);
 		}
@@ -448,7 +452,7 @@ class Exercise
 	function moveUp($id)
 	{
 		global $currentCourseID;
-		
+		$id = intval($id);
 		list($pos) = mysql_fetch_array(db_query("SELECT q_position FROM questions 
 							WHERE id='$id'", $currentCourseID));
 	
@@ -469,7 +473,7 @@ class Exercise
 	function moveDown($id)
 	{
 		global $currentCourseID;
-		
+		$id = intval($id);
 		list($pos) = mysql_fetch_array(db_query("SELECT q_position FROM questions 
 							WHERE id='$id'", $currentCourseID));
 		
@@ -547,7 +551,7 @@ class Exercise
 	{
 		global $TBL_EXERCICE_QUESTION, $TBL_EXERCICES;
 
-		$id=$this->id;
+		$id=intval($this->id);
 
 		$sql="DELETE FROM `$TBL_EXERCICE_QUESTION` WHERE exercice_id='$id'";
 		mysql_query($sql) or die("Error : DELETE in file ".__FILE__." at line ".__LINE__);

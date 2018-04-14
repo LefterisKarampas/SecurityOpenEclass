@@ -42,19 +42,19 @@ if($is_adminOfCourse) {
 	$output .=  "$crlf";
 	
 	mysql_select_db($currentCourseID);
-	$sql="SELECT DISTINCT uid FROM `exercise_user_record` WHERE eid='".mysql_real_escape_string($_GET['exerciseId'])."'";
+	$sql="SELECT DISTINCT uid FROM `exercise_user_record` WHERE eid='".xss_sql_filter($_GET['exerciseId'])."'";
 	$result = mysql_query($sql);
 	while($row=mysql_fetch_array($result)) {
-		$sid = $row['uid'];
+		$sid = intval($row['uid']);
 		$StudentName = db_query("select nom, prenom from user where user_id='$sid'", $mysqlMainDb);
 		$theStudent = mysql_fetch_array($StudentName);	
-		$nom = $theStudent["nom"];
-		$prenom = $theStudent["prenom"];	
+		$nom = xss_sql_filter($theStudent["nom"]);
+		$prenom = xss_sql_filter($theStudent["prenom"]);	
 		mysql_select_db($currentCourseID);
 		$sql2="SELECT DATE_FORMAT(RecordStartDate, '%Y-%m-%d / %H:%i') AS RecordStartDate, 
 			RecordEndDate, TIME_TO_SEC(TIMEDIFF(RecordEndDate,RecordStartDate)) AS TimeDuration, 
 			TotalScore, TotalWeighting 
-			FROM `exercise_user_record` WHERE uid='$sid' AND eid='".mysql_real_escape_string($_GET['exerciseId'])."'";
+			FROM `exercise_user_record` WHERE uid='$sid' AND eid='".xss_sql_filter($_GET['exerciseId'])."'";
 		$result2 = mysql_query($sql2);
 		while($row2=mysql_fetch_array($result2)) {
 			$output .= csv_escape($prenom) ."\t";

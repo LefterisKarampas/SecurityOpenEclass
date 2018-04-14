@@ -95,6 +95,16 @@ class Dropbox_Work {
 		/*
 		* Fill in the properties
 		*/
+
+		/* BEGIN */
+		$uploaderId = intval($uploaderId);
+		$filename = xss_sql_filter($filename);
+		$filesize = intval($filesize);
+		$title = xss_sql_filter($title);
+		$description = xss_sql_filter($description);
+		$author = xss_sql_filter($author);
+		/* END */
+
 		$this->uploaderId = $uploaderId; 
 		$this->uploaderName = getUserNameFromId($this->uploaderId);
 		$this->filename = $filename;
@@ -180,6 +190,7 @@ class Dropbox_Work {
 		/*
 		* get the data from DB
 		*/
+		$id = intval($id);
 	if ($GLOBALS['language'] == 'greek') {
 		$sql="SELECT uploaderId, filename, filesize, title, description, author,
 			DATE_FORMAT(uploadDate, '%d-%m-%Y / %H:%i') AS uploadDate, 
@@ -282,12 +293,12 @@ class Dropbox_SentWork extends Dropbox_Work {
 		foreach ($this->recipients as $rec) {	
 			$sql="INSERT INTO `".$dropbox_cnf["postTbl"]."` 
 				(fileId, recipientId)
-				VALUES ('".addslashes($this->id)."', '".addslashes($rec["id"])."')";
+				VALUES ('".addslashes(intval($this->id))."', '".addslashes(intval($rec["id"]))."')";
 	        $result = db_query($sql,$currentCourseID);	//if work already exists no error is generated
 						
 			//insert entries into person table
 			$sql="INSERT INTO `".$dropbox_cnf["personTbl"]."` (fileId, personId)
-				VALUES ('".addslashes($this->id)."', '".addslashes($rec["id"])."')";
+				VALUES ('".addslashes(intva($this->id))."', '".addslashes(intval($rec["id"]))."')";
         	// RH: do not add recipient in person table if mailing zip or just upload
 			if (!$justSubmit) $result = db_query($sql);	//if work already exists no error is generated
 		}
@@ -313,6 +324,7 @@ class Dropbox_SentWork extends Dropbox_Work {
 		/*
 		* Fill in recipients array
 		*/
+		$id = intval($id);
 		$this->recipients = array();
 		$sql="SELECT recipientId
 				FROM `".$dropbox_cnf["postTbl"]."`
@@ -351,7 +363,7 @@ class Dropbox_Person {
 		/*
 		* Fill in properties
 		*/
-		$this->userId = $userId;
+		$this->userId = intval($userId);
 		$this->isCourseAdmin = $isCourseAdmin;
 		$this->isCourseTutor = $isCourseTutor;	
 		$this->receivedWork = array();
@@ -362,6 +374,7 @@ class Dropbox_Person {
 		/*
 		* find all entries where this person is the recipient 
 		*/
+
 		$sql = "SELECT r.fileId FROM 
 				`".$dropbox_cnf["postTbl"]."` r
 				, `".$dropbox_cnf["personTbl"]."` p
@@ -480,9 +493,10 @@ class Dropbox_Person {
 		global $dropbox_cnf, $dropbox_lang, $currentCourseID;
 	
 		//delete entries in person table concerning received works
+
 		foreach ($this->receivedWork as $w) {
 			db_query("DELETE FROM `".$dropbox_cnf["personTbl"]."` 
-				WHERE personId='".$this->userId."' AND fileId='".$w->id."'", $currentCourseID);
+				WHERE personId='".intval($this->userId)."' AND fileId='".intval($w->id)."'", $currentCourseID);
 		}
 		removeUnusedFiles();	//check for unused files
 
@@ -505,7 +519,7 @@ class Dropbox_Person {
 		
 		//delete entries in person table concerning received works
 		db_query("DELETE FROM `".$dropbox_cnf["personTbl"]."` 
-			WHERE personId='".$this->userId."' AND fileId='".$id."'", $currentCourseID);
+			WHERE personId='".intval($this->userId)."' AND fileId='".intval($id)."'", $currentCourseID);
 		
 		removeUnusedFiles();	//check for unused files
 	}
@@ -519,8 +533,8 @@ class Dropbox_Person {
 		//delete entries in person table concerning sent works
 		foreach ($this->sentWork as $w) {
 			db_query("DELETE FROM `".$dropbox_cnf["personTbl"]."` 
-				WHERE personId='".$this->userId."' AND fileId='".$w->id."'", $currentCourseID);
-			removeMoreIfMailing($w->id);  // RH: Mailing: see init1
+				WHERE personId='".intval($this->userId)."' AND fileId='".intval($w->id)."'", $currentCourseID);
+			removeMoreIfMailing(intval($w->id));  // RH: Mailing: see init1
 		}		
 		removeUnusedFiles();	//check for unused files
 
@@ -543,7 +557,7 @@ class Dropbox_Person {
 		
 		//delete entries in person table concerning sent works
 		db_query("DELETE FROM `".$dropbox_cnf["personTbl"]."` 
-				WHERE personId='".$this->userId."' AND fileId='".$id."'", $currentCourseID);
+				WHERE personId='".intval($this->userId)."' AND fileId='".intval($id)."'", $currentCourseID);
 		
 		removeMoreIfMailing($id);  // RH: Mailing: see init1
 		removeUnusedFiles();	//check for unused files

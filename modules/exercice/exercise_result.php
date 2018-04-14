@@ -305,7 +305,8 @@ foreach($questionList as $questionId) {
 // update db with results
 $eid=$objExercise->selectId();
 mysql_select_db($currentCourseID);
-
+$uid = intval($uid);
+$eid = intval($eid);
 $sql="SELECT RecordStartDate FROM `exercise_user_record` WHERE eid='$eid' AND uid='$uid'";
 $result=db_query($sql);
 $attempt = count($result);
@@ -316,6 +317,13 @@ $row= mysql_fetch_row($result);
 $eurid = $row[0];
 
 // record results of exercise
+
+/* BEGIN */
+$totalScore = xss_sql_filter($totalScore);
+$totalWeighting = xss_sql_filter($totalWeighting);
+$attempt = xss_sql_filter($attempt);
+$eurid = intval($eurid);
+/* END */
 $sql="UPDATE exercise_user_record SET TotalScore='$totalScore', TotalWeighting='$totalWeighting',
 	attempt='$attempt' WHERE eurid='$eurid'";
 db_query($sql, $currentCourseID);

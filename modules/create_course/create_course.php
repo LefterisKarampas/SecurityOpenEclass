@@ -383,31 +383,31 @@ if (isset($_POST['create_course'])) {
 
         /* BEGIN */
 
-        $language = mysql_real_escape_string($language);
-        $intitule = mysql_real_escape_string($intitule);
-        $description = mysql_real_escape_string($description);
-        $course_addon = mysql_real_escape_string($course_addon);
-        $course_keywords = mysql_real_escape_string($course_keywords);
-        $facname = mysql_real_escape_string($facname);
-        $formvisible = mysql_real_escape_string($formvisible);
-        $code = mysql_real_escape_string($code);
-        $type = mysql_real_escape_string($type);
+        $language = xss_sql_filter($language);
+        $intitule = xss_sql_filter($intitule);
+        $description = xss_sql_filter($description);
+        $course_addon = xss_sql_filter($course_addon);
+        $course_keywords = xss_sql_filter($course_keywords);
+        $facname = xss_sql_filter($facname);
+        $formvisible = xss_sql_filter($formvisible);
+        $code = xss_sql_filter($code);
+        $type = xss_sql_filter($type);
 
         /* END */
 
 
         db_query("INSERT INTO cours SET
-                        code = ".quote($code).",
-                        languageCourse =" . quote($language) . ",
-                        intitule = " . quote($intitule) . ",
-                        description = " . quote($description) . ",
-                        course_addon = " . quote($course_addon) . ",
-                        course_keywords = " . quote($course_keywords) . ",
-                        faculte = " . quote($facname) . ",
-                        visible = " . quote($formvisible) . ",
-                        titulaires = " . quote($titulaires) . ",
-                        fake_code = " . quote($code) . ",
-                        type = " . quote($type) . ",
+                        code = ".justQuote($code).",
+                        languageCourse =" . justQuote($language) . ",
+                        intitule = " . justQuote($intitule) . ",
+                        description = " . justQuote($description) . ",
+                        course_addon = " . justQuote($course_addon) . ",
+                        course_keywords = " . justQuote($course_keywords) . ",
+                        faculte = " . justQuote($facname) . ",
+                        visible = " . intval($formvisible) . ",
+                        titulaires = " . justQuote($titulaires) . ",
+                        fake_code = " . justQuote($code) . ",
+                        type = " . justQuote($type) . ",
                         faculteid = '".intval($facid)."',
                         first_create = NOW()");
         $new_cours_id = mysql_insert_id();
@@ -423,8 +423,8 @@ if (isset($_POST['create_course'])) {
                         reg_date = CURDATE()");
 
         mysql_query("INSERT INTO cours_faculte SET
-                        faculte =".quote($faculte)."',
-                        code = ".quote($repertoire)."',
+                        faculte =".justQuote($faculte)."',
+                        code = ".justQuote($repertoire)."',
                         facid = '".intval($facid)."'");
 
         $titou='$dbname';

@@ -57,7 +57,7 @@ $TBL_REPONSES='reponses';
 if (isset($exerciseId)) {
 	// security check 
 	$active = mysql_fetch_array(db_query("SELECT active FROM `$TBL_EXERCICES` 
-		WHERE id='$exerciseId'", $currentCourseID));
+		WHERE id='."intval($exerciseId)."'", $currentCourseID));
 	if (($active['active'] == 0) and (!$is_allowedToEdit)) {
 		header('Location: exercice.php');
 		exit();
@@ -78,7 +78,7 @@ if(isset($buttonCancel)) {
 // if the user has submitted the form
 if (isset($formSent)) {
 	$CurrentAttempt = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record 
-		WHERE eid='$eid_temp' AND uid='$uid'", $currentCourseID));
+		WHERE eid='."intval($eid_temp)."' AND uid='".intval($uid)."'", $currentCourseID));
 	++$CurrentAttempt[0];
 	if (($exerciseAllowedAttemtps == 0) or ($CurrentAttempt[0] <= $exerciseAllowedAttemtps)) { // if it is allowed
 		if (isset($exerciseTimeConstrain) and $exerciseTimeConstrain != 0) { 
@@ -95,6 +95,14 @@ if (isset($formSent)) {
 		$RecordEndDate = date("Y-m-d H:i:s", time());
 		if (($exerciseType == 1) or (($exerciseType == 2) and ($nbrQuestions == $questionNum))) { // record
 			mysql_select_db($currentCourseID); 
+			
+			/* BEGIN */
+			$eid_temp = intval($eid_temp);
+			$uid = intval($uid);
+			$RecordStartDate = xss_sql_filter($RecordStartDate);
+			$RecordEndDate = xss_sql_filter($RecordEndDate);
+			/* END */
+
 			$sql="INSERT INTO exercise_user_record(eid, uid, RecordStartDate, RecordEndDate, attempt)
 				VALUES ('$eid_temp','$uid','$RecordStartDate','$RecordEndDate', 1)";
 			$result=db_query($sql);

@@ -81,11 +81,14 @@ function checkrequired(which, entry) {
 </script>
 hContent;
 	// forum go
+
+$cat_id = intval($cat_id);
+$forum_id = intval($forum_id);
 if(isset($forumgo)) {
 	$nameTools = $langAdd;
 	$navigation[]= array ("url"=>"../forum_admin/forum_admin.php", "name"=> $langOrganisation);
 	$result = db_query("SELECT forum_id, forum_name, forum_desc, forum_access, forum_moderator, forum_type 
-			FROM forums where cat_id='$cat_id'", $currentCourseID);
+			FROM forums where cat_id='".intval($cat_id)."'", $currentCourseID);
 	if ($result and mysql_num_rows($result) > 0) {
 		$tool_content .= "<form action=\"$_SERVER[PHP_SELF]?forumgoadd=yes&ctg=$ctg&cat_id=$cat_id\" method=post>
 		<table width=99% class=\"ForumAdmSum\">
@@ -233,10 +236,22 @@ if(isset($forumgo)) {
 	// forum go save
 	elseif(isset($forumgosave)) {
 		$nameTools = $langDelete;
+		/* BEGIN */
+		$forum_moderator = xss_sql_filter($forum_moderator);
+		/* END */
 		$navigation[]= array ("url"=>"../forum_admin/forum_admin.php", "name"=> $langOrganisation);
 		$result = @db_query("SELECT user_id FROM users WHERE username='$forum_moderator'", $currentCourseID);
 		list($forum_moderator) = mysql_fetch_row($result);
+		$forum_moderator = intval($forum_moderator);
 		@db_query("UPDATE users SET user_level='2' WHERE user_id='$forum_moderator'", $currrentCourseID);
+
+		/* BEGIN */
+		$forum_name = xss_sql_filter($forum_name);
+		$forum_desc = xss_sql_filter($forum_desc);
+		$cat_id = intval($cat_id);
+		$forum_type = intval($forum_type);
+		$forum_id = intval($forum_id);
+		/* END */
 		@db_query("UPDATE forums SET forum_name='$forum_name', forum_desc='$forum_desc',
             	forum_access='2', forum_moderator='1', cat_id='$cat_id',
             	forum_type='$forum_type' WHERE forum_id='$forum_id'", $currentCourseID);
@@ -246,6 +261,7 @@ if(isset($forumgo)) {
 
 	// forum add category
 	elseif(isset($forumcatadd)) {
+		$catagories = xss_sql_filter($catagories);
 		db_query("INSERT INTO catagories VALUES (NULL, '$catagories', NULL)", $currentCourseID);
 		$tool_content .= "\n<p class='success_small'>$langCatAdded<br />
 		<a href='$_SERVER[PHP_SELF]?forumadmin=yes'>$langBack</a></p>";
@@ -255,9 +271,19 @@ if(isset($forumgo)) {
 	elseif(isset($forumgoadd)) {
 		$nameTools = $langAdd;
 		$navigation[]= array ("url"=>"../forum_admin/forum_admin.php", "name"=> $langOrganisation);
+		/* BEGIN */
+		$forum_moderator = xss_sql_filter($forum_moderator);
+		/* END */
 		$result = @db_query("SELECT user_id FROM users WHERE username='$forum_moderator'", $currentCourseID);
 		list($forum_moderator) = mysql_fetch_row($result);
+		$forum_moderator = intval($forum_moderator);
 		db_query("UPDATE users SET user_level='2' WHERE user_id='$forum_moderator'", $currentCourseID);
+		/* BEGIN */
+		$forum_name = xss_sql_filter($forum_name);
+		$forum_desc = xss_sql_filter($forum_desc);
+		$cat_id = intval($cat_id);
+		$forum_type = intval($forum_type);
+		/* END */
 		@db_query("INSERT INTO forums (forum_id, forum_name, forum_desc, forum_access, forum_moderator, cat_id, forum_type)
         	VALUES (NULL, '$forum_name', '$forum_desc', '2', '1', '$cat_id', '$forum_type')", $currentCourseID);
 		$idforum=db_query("SELECT forum_id FROM forums WHERE forum_name='$forum_name'", $currentCourseID);
@@ -268,6 +294,7 @@ if(isset($forumgo)) {
 		// notify users 
 		// --------------------------------
 		$subject_notify = "$logo - $langCatNotify";
+		$cours_id = intval($cours_id);
 		$sql = db_query("SELECT DISTINCT user_id FROM forum_notify 
 				WHERE (cat_id = $cat_id) 
 				AND notify_sent = 1 AND course_id = $cours_id", $mysqlMainDb);
@@ -284,8 +311,10 @@ if(isset($forumgo)) {
 
 	// forum delete category
 	elseif(isset($forumcatdel)) {
+		$cat_id = intval($cat_id);
 		$result = db_query("SELECT forum_id FROM forums WHERE cat_id='$cat_id'", $currentCourseID);
 		while(list($forum_id) = mysql_fetch_row($result)) {
+			$forum_id = intval($forum_id);
 			db_query("DELETE from topics where forum_id=$forum_id", $currentCourseID);
 		}
 		db_query("DELETE FROM forums where cat_id=$cat_id", $currentCourseID);
@@ -298,6 +327,7 @@ if(isset($forumgo)) {
 	elseif(isset($forumgodel)) {
 		$nameTools = $langDelete;
 		$navigation[]= array ("url"=>"../forum_admin/forum_admin.php", "name"=> $langOrganisation);
+		$forum_id = intval($forum_id);
 		db_query("DELETE FROM topics WHERE forum_id=$forum_id", $currentCourseID);
 		db_query("DELETE FROM forums WHERE forum_id=$forum_id", $currentCourseID);
 		db_query("UPDATE student_group SET forumId=0 WHERE forumId=$forum_id", $currentCourseID);
@@ -305,9 +335,13 @@ if(isset($forumgo)) {
 			<a href=\"$_SERVER[PHP_SELF]?forumgo=yes&ctg=$ctg&cat_id=$cat_id\">$langBack</a></p>";
 	} else {
 		if(isset($forumcatnotify)) { // modify forum category notification
+			$cours_id = intval($cours_id);
+			$uid = intval($uid);
+			$cat_id = intval($cat_id);
 			$rows = mysql_num_rows(db_query("SELECT * FROM forum_notify 
 				WHERE user_id = $uid AND cat_id = $cat_id AND course_id = $cours_id"));
 			if ($rows > 0) {
+				$forumcatnotify = intval($forumcatnotify);
 				db_query("UPDATE forum_notify SET notify_sent = '$forumcatnotify' 
 					WHERE user_id = $uid AND cat_id = $cat_id AND course_id = $cours_id");
 			} else {
@@ -326,6 +360,10 @@ if(isset($forumgo)) {
 		$result = db_query("SELECT cat_id, cat_title FROM catagories ORDER BY cat_id", $currentCourseID);
 		$i=1;
 		while(list($cat_id, $cat_title) = mysql_fetch_row($result)) {
+			$cat_title = xss_sql_filter($cat_title);
+			$cours_id = intval($cours_id);
+			$uid = intval($uid);
+			$cat_id = intval($cat_id);
 			$gets = db_query("SELECT COUNT(*) AS total FROM forums WHERE cat_id=$cat_id", $currentCourseID);
 			$numbers = mysql_fetch_array($gets);
 			list($forum_cat_action_notify) = mysql_fetch_row(db_query("SELECT notify_sent FROM forum_notify 

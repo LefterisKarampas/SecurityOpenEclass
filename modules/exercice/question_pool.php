@@ -86,6 +86,7 @@ if($is_adminOfCourse) {
 	// get the number of available question (used for pagination)
 	if (isset($exerciseId) and $exerciseId != 0) {
 		if ($exerciseId > 0) {
+			$exerciseId = intval($exerciseId);
 			$sql="SELECT * FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS` 
 				WHERE question_id=id AND exercice_id='$exerciseId'";
 		} elseif($exerciseId == -1) {
@@ -125,6 +126,7 @@ if($is_adminOfCourse) {
 	
 	mysql_select_db($currentCourseID);
 	if (isset($fromExercise)) {
+		$fromExercise = xss_sql_filter($fromExercise);
 		$sql="SELECT id,titre FROM `$TBL_EXERCICES` WHERE id <> '$fromExercise' ORDER BY id";
 	} else {
 		$sql="SELECT id,titre FROM `$TBL_EXERCICES` ORDER BY id";
@@ -145,6 +147,7 @@ if($is_adminOfCourse) {
 	// if we have selected an exercise in the list-box 'Filter'
 	if(isset($exerciseId) && $exerciseId > 0)
 	{
+			$exerciseId = intval($exerciseId);
 		$sql="SELECT id,question,type FROM `$TBL_EXERCICE_QUESTION`,`$TBL_QUESTIONS` 
 			WHERE question_id=id AND exercice_id='$exerciseId' 
 			ORDER BY q_position LIMIT $from,".($limitQuestPage+1);
@@ -161,6 +164,7 @@ if($is_adminOfCourse) {
 	// if we have not selected any option in the list-box 'Filter'
 	else
 	{		
+		$fromExercise = xss_sql_filter($fromExercise);
 		@$sql="SELECT id,question,type FROM `$TBL_QUESTIONS` LEFT JOIN `$TBL_EXERCICE_QUESTION` 
 			ON question_id=id WHERE exercice_id IS NULL OR exercice_id<>'$fromExercise' 
 			GROUP BY id ORDER BY question LIMIT $from,".($limitQuestPage+1);

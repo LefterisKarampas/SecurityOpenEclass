@@ -105,7 +105,7 @@ $start_cal = $jscalendar->make_input_field(
                  'value' => $datetoday));
 }
 
-id = intval($id);
+$id = intval($id);
 if ($is_adminOfCourse) {
 	// change visibility
 	if (isset($mkInvisibl) or isset($mkVisibl)) { 
