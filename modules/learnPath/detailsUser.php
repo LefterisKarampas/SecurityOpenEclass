@@ -79,6 +79,7 @@ if( empty($_REQUEST['uInfo']) )
 
 
 // check if user is in this course
+$cours_id = intval($cours_id);
 $sql = "SELECT `u`.`nom` AS `lastname`,`u`.`prenom` AS `firstname`, `u`.`email`
 			FROM `".$TABLECOURSUSER."` as `cu` , `".$TABLEUSER."` as `u`
 			WHERE `cu`.`user_id` = `u`.`user_id`

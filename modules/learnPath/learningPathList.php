@@ -258,7 +258,7 @@ if ($is_adminOfCourse) {
 				if( isset($_POST["newPathName"]) && $_POST["newPathName"] != "") {
 					// check if name already exists
 					$sql = "SELECT `name` FROM `".$TABLELEARNPATH."`
-						WHERE `name` = '". mysql_real_escape_string($_POST['newPathName']) ."'";
+						WHERE `name` = '". xss_sql_filter($_POST['newPathName']) ."'";
 					$query = db_query($sql);
 					$num = mysql_num_rows($query);
 					if($num == 0) { // "name" doesn't already exist
@@ -267,8 +267,12 @@ if ($is_adminOfCourse) {
 						list($orderMax) = mysql_fetch_row($result);
 						$order = $orderMax + 1;
 						// create new learning path
+            /* BEGIN */
+            $_POST['newPathName'] = xss_sql_filter($_POST['newPathName']);
+            $_POST['newComment'] = xss_sql_filter(trim($_POST['newComment']));  
+            /* END */
 						$sql = "INSERT INTO `".$TABLELEARNPATH."` (`name`, `comment`, `rank`)
-							VALUES ('". mysql_real_escape_string($_POST['newPathName']) ."','" . mysql_real_escape_string(trim($_POST['newComment']))."',".(int)$order.")";
+							VALUES ('". $_POST['newPathName'] ."','" . $_POST['newComment']."',".(int)$order.")";
 						$lp_id = db_query($sql);
 					} else {
 						// display error message

@@ -75,11 +75,17 @@ while ($iterator <= $_POST['maxLinkForm']) {
 		$row = db_query_get_single_row($sql);
 
 		// check if this link is already a module
+
+		/* BEGIN */
+		$row['titre'] = xss_sql_filter($row['titre']);
+		$row['description'] = xss_sql_filter($row['description']);
+		$row['url'] = xss_sql_filter($row['url']);
+		/* END */
 		$sql = "SELECT * FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
         		WHERE A.`module_id` = M.`module_id`
-        		AND M.`name` LIKE \"" .addslashes($row['titre']) ."\"
-        		AND M.`comment` LIKE \"" .addslashes($row['description']) ."\"
-        		AND A.`path` LIKE \"" .addslashes($row['url']) ."\"
+        		AND M.`name` LIKE \"" .$row['titre'] ."\"
+        		AND M.`comment` LIKE \"" .$row['description'] ."\"
+        		AND A.`path` LIKE \"" .$row['url'] ."\"
         		AND M.`contentType` = \"".CTLINK_."\"";
 		$query0 = db_query($sql);
         $num = mysql_numrows($query0);
@@ -88,8 +94,8 @@ while ($iterator <= $_POST['maxLinkForm']) {
 			// create new module
 			$sql = "INSERT INTO `".$TABLEMODULE."`
 					(`name` , `comment`, `contentType`, `launch_data`)
-					VALUES ('". addslashes($row['titre']) ."' , '"
-					.addslashes($row['description']) . "', '".CTLINK_."','')";
+					VALUES ('". $row['titre'] ."' , '"
+					.$row['description'] . "', '".CTLINK_."','')";
 			$query = db_query($sql);
 
 			$insertedModule_id = mysql_insert_id();
@@ -97,7 +103,7 @@ while ($iterator <= $_POST['maxLinkForm']) {
 			// create new asset
 			$sql = "INSERT INTO `".$TABLEASSET."`
 					(`path` , `module_id` , `comment`)
-					VALUES ('". addslashes($row['url'])."', "
+					VALUES ('". $row['url']."', "
 					. (int)$insertedModule_id . ", '')";
 			$query = db_query($sql);
 
@@ -132,7 +138,7 @@ while ($iterator <= $_POST['maxLinkForm']) {
 				`".$TABLEASSET."` AS A
 				WHERE M.`module_id` =  LPM.`module_id`
 				AND M.`startAsset_id` = A.`asset_id`
-				AND A.`path` = '". addslashes($row['url'])."'
+				AND A.`path` = '". $row['url']."'
 				AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
 			$query2 = db_query($sql);
 			$num = mysql_numrows($query2);

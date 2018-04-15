@@ -75,6 +75,7 @@ if ($num == 0)
 {
 	// create new module
 	// TODO: name goes from langWhatever
+	$langCourseDescription = xss_sql_filter($langCourseDescription);
 	$sql = "INSERT INTO `".$TABLEMODULE."`
 		(`name`, `contentType`)
 		VALUES ('".$langCourseDescription."', '".CTCOURSE_DESCRIPTION_."' )";

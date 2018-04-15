@@ -163,10 +163,11 @@ switch( $cmd )
         	&& $_POST["newName"] != "" && isset($_POST['module_id'])
         	&& is_numeric($_POST['module_id']) )
         {
+            $_POST['newName'] = xss_sql_filter($_POST['newName']);
             //check if newname is not already used in another module of the same course
             $sql="SELECT `name`
                   FROM `".$TABLEMODULE."`
-                  WHERE `name` = '". mysql_real_escape_string($_POST['newName'])."'
+                  WHERE `name` = '". $_POST['newName']."'
                     AND `module_id` != '". (int)$_POST['module_id']."'";
 
             $query = db_query($sql);
@@ -175,7 +176,7 @@ switch( $cmd )
             {
                 // if no error occurred, update module's name in the database
                 $query="UPDATE `".$TABLEMODULE."`
-                        SET `name`= '". mysql_real_escape_string($_POST['newName'])."'
+                        SET `name`= '". $_POST['newName']."'
                         WHERE `module_id` = '". (int)$_POST['module_id']."'";
 
                 $result = db_query($query);
@@ -243,8 +244,9 @@ switch( $cmd )
         if( isset($_POST['comment']) && is_string($_POST['comment'])
         	&& isset($_POST['module_id']) && is_numeric($_POST['module_id']) )
         {
+            $_POST['comment'] = xss_sql_filter($_POST['comment']);
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = \"". mysql_real_escape_string($_POST['comment']) ."\"
+                    SET `comment` = \"". $_POST['comment'] ."\"
                     WHERE `module_id` = '". (int)$_POST['module_id']."'";
             db_query($sql);
         }

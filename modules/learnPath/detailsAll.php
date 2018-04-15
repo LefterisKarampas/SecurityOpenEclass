@@ -67,6 +67,7 @@ $navigation[] = array("url"=>"learningPathList.php", "name"=> $langLearningPaths
 $nameTools = $langTrackAllPathExplanation;
 
 // display a list of user and their respective progress
+$cours_id = intval($cours_id);
 $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
 	FROM `$TABLEUSER` AS U, `$TABLECOURSUSER` AS CU
 	WHERE U.`user_id`= CU.`user_id`

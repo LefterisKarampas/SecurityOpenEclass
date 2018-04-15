@@ -128,7 +128,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
             $sql = "SELECT *
                     FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
                     WHERE A.`module_id` = M.`module_id`
-                      AND A.`path` LIKE \"". addslashes($insertDocument)."\"
+                      AND A.`path` LIKE \"". xss_sql_filter($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = db_query($sql);
             $num = mysql_numrows($query);
@@ -139,14 +139,14 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // create new module
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`, `launch_data`)
-                        VALUES ('". addslashes($filenameDocument) ."' , '". addslashes($langDefaultModuleComment) . "', '".CTDOCUMENT_."','')";
+                        VALUES ('". xss_sql_filter($filenameDocument) ."' , '". xss_sql_filter($langDefaultModuleComment) . "', '".CTDOCUMENT_."','')";
                 $query = db_query($sql);
                 $insertedModule_id = mysql_insert_id();
 
                 // create new asset
                 $sql = "INSERT INTO `".$TABLEASSET."`
                         (`path` , `module_id` , `comment`)
-                        VALUES ('". addslashes($insertDocument)."', " . (int)$insertedModule_id . ", '')";
+                        VALUES ('". xss_sql_filter($insertDocument)."', " . (int)$insertedModule_id . ", '')";
                 $query = db_query($sql);
                 $insertedAsset_id = mysql_insert_id();
 
@@ -165,7 +165,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes($langDefaultModuleAddedComment)."', ".(int)$order.", 'OPEN')";
+                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".xss_sql_filter($langDefaultModuleAddedComment)."', ".(int)$order.", 'OPEN')";
                 $query = db_query($sql);
                 $addedDoc = $filenameDocument;
                 $InfoBox = $addedDoc ." ".$langDocInsertedAsModule."<br>";
@@ -183,7 +183,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                              `".$TABLEASSET."` AS A
                         WHERE M.`module_id` =  LPM.`module_id`
                           AND M.`startAsset_id` = A.`asset_id`
-                          AND A.`path` = '". addslashes($insertDocument)."'
+                          AND A.`path` = '". xss_sql_filter($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = db_query($sql);
                 $num = mysql_numrows($query2);
@@ -200,7 +200,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                     // finally : insert in learning path
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
-                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes($langDefaultModuleAddedComment)."', ".(int)$order.",'OPEN')";
+                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".xss_sql_filter($langDefaultModuleAddedComment)."', ".(int)$order.",'OPEN')";
                     $query = db_query($sql);
                     $addedDoc =  $filenameDocument;
                     $InfoBox = $addedDoc ." ".$langDocInsertedAsModule."<br>";
@@ -241,6 +241,7 @@ if ($curDirPath == "/" || $curDirPath == "\\" || strstr($curDirPath, ".."))
 {
     $curDirPath =""; // manage the root directory problem
 }
+$curDirPath = xss_sql_filter($curDirPath);
 
 $d = mysql_fetch_array(db_query("SELECT filename FROM $TABLEDOCUMENT WHERE path='$curDirPath'"));
 $curDirName = $d['filename'];
@@ -263,8 +264,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 /* Search infos in the DB about the current directory the user is in */
 $sql = "SELECT *
         FROM `".$TABLEDOCUMENT."`
-        WHERE `path` LIKE \"". addslashes($curDirPath) ."/%\"
-        AND `path` NOT LIKE \"". addslashes($curDirPath) ."/%/%\"";
+        WHERE `path` LIKE \"". $curDirPath ."/%\"
+        AND `path` NOT LIKE \"". $curDirPath ."/%/%\"";
 $result = db_query($sql);
 $attribute = array();
 

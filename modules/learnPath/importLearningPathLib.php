@@ -575,9 +575,14 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
 
     list($rankMax) = mysql_fetch_row($result);
 
+    /* BEGIN */
+    $lpName = xss_sql_filter($lpName);
+
+    /* END */
+
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
             (`name`,`visibility`,`rank`,`comment`)
-            VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).",'')";
+            VALUES ('". $lpName ."','HIDE',".($rankMax+1).",'')";
     db_query($sql);
 
 
@@ -916,11 +921,11 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
                 if( (!isset($item['identifierref']) || $item['identifierref'] == '') && isset($item['title']) && $item['title'] !='')
                 {
                     // add title as a module
-                    $chapterTitle = $item['title'];
+                    $chapterTitle = xss_sql_filter($item['title']);
 
                     $sql = "INSERT INTO `".$TABLEMODULE."`
                             (`name` , `comment`, `contentType`, `launch_data`)
-                            VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."','')";
+                            VALUES ('".$chapterTitle."' , '', '".CTLABEL_."','')";
 
                     $query = db_query($sql);
 
@@ -944,6 +949,14 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
 
                     // add title module in the learning path
                     // finally : insert in learning path
+
+                    /* BEGIN */
+                    $tempPathId = intval($tempPathId);
+                    $insertedModule_id[$i] = intval($insertedModule_id[$i]);
+                    $rank = intval($rank);
+                    $visibility = xss_sql_filter($visibility);
+                    $parent = intval($parent);
+                    /* END */
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                             (`learnPath_id`, `module_id`,`rank`, `visibility`, `parent`)
                             VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."', ".$rank.", '".$visibility."', ".$parent.")";
@@ -1010,9 +1023,17 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
                 else
                 	$contentType = CTSCORM_;
 
+
+                /* BEGIN */
+                $moduleName = xss_sql_filter($moduleName);
+                $description = xss_sql_filter($description);
+                $contentType = xss_sql_filter($contentType);
+                $item['datafromlms'] = xss_sql_filter($item['datafromlms']);
+                /* END */
+
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`, `launch_data`)
-                        VALUES ('".addslashes($moduleName)."' , '".addslashes($description)."', '".$contentType."', '".addslashes($item['datafromlms'])."')";
+                        VALUES ('".$moduleName."' , '".$description."', '".$contentType."', '".$item['datafromlms']."')";
                 $query = db_query($sql);
 
                 if ( mysql_error() )
@@ -1052,9 +1073,11 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
                              .$manifestData['assets'][$item['identifierref']]['parameters'];
 
                 // create new asset
+
+
                 $sql = "INSERT INTO `".$TABLEASSET."`
                         (`path` , `module_id` , `comment`)
-                        VALUES ('". addslashes($assetPath) ."', ".$insertedModule_id[$i]." , '')";
+                        VALUES ('". xss_sql_filter($assetPath) ."', ".intval($insertedModule_id[$i])." , '')";
 
                 $query = db_query($sql);
                 if ( mysql_error() )
@@ -1090,9 +1113,19 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
                 }
 
                 // finally : insert in learning path
+
+                /* BEGIN */
+                $tempPathId = intval($tempPathId);
+                $insertedModule_id[$i] = intval($insertedModule_id[$i]);
+                $langDefaultModuleAddedComment = xss_sql_filter($langDefaultModuleAddedComment);
+                $rank = intval($rank);
+                $visibility = xss_sql_filter($visibility);
+                $parent = intval($parent);
+
+                /* END */
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `visibility`, `lock`, `parent`)
-                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes($langDefaultModuleAddedComment)."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
+                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".$langDefaultModuleAddedComment."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
                 $query = db_query($sql);
 
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
@@ -1200,10 +1233,15 @@ function doImport($currentCourseID, $mysqlMainDb, $webDir, $scoFileSize, $scoFil
             array_push($okMsgs, $langOkDefaultCommentUsed );
         }
 
+
+        /* BEGIN */
+        $lpName = xss_sql_filter($lpName);
+        $lpComment = xss_sql_filter($lpComment);
+        /* END */
         $sql = "UPDATE `".$TABLELEARNPATH."`
                 SET `rank` = ".($rankMax+1).",
-                    `name` = '".addslashes($lpName)."',
-                    `comment` = '".addslashes($lpComment)."',
+                    `name` = '".$lpName."',
+                    `comment` = '".$lpComment."',
                     `visibility` = 'SHOW'
                 WHERE `learnPath_id` = ". (int)$tempPathId;
         db_query($sql);

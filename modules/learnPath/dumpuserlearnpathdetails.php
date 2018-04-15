@@ -46,6 +46,7 @@ if($is_adminOfCourse) {
 	     $crlf;
 	
 	// display a list of user and their respective progress
+	$cours_id = intval($cours_id);     
 	$sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
 		FROM `user` AS U, `cours_user` AS CU
 		WHERE U.`user_id`= CU.`user_id`

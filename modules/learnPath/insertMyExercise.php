@@ -119,9 +119,14 @@ while ($listex = mysql_fetch_array($resultex) )
             }
 
             // create new module
+            /* BEGIN */
+            $exercise['titre'] = xss_sql_filter($exercise['titre']);
+            $comment = xss_sql_filter($comment);
+
+            /* END */
             $sql = "INSERT INTO `".$TABLEMODULE."`
                     (`name` , `comment`, `contentType`, `launch_data`)
-                    VALUES ('".addslashes($exercise['titre'])."' , '".addslashes($comment)."', '".CTEXERCISE_."','')";
+                    VALUES ('".$exercise['titre']."' , '".$comment."', '".CTEXERCISE_."','')";
             $query = db_query($sql);
             $insertedExercice_id = mysql_insert_id();
 
@@ -141,9 +146,10 @@ while ($listex = mysql_fetch_array($resultex) )
             list($orderMax) = mysql_fetch_row($result);
             $order = $orderMax + 1;
             // finally : insert in learning path
+            $langDefaultModuleAddedComment = xss_sql_filter($langDefaultModuleAddedComment);
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                     (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedExercice_id."','".addslashes($langDefaultModuleAddedComment)."', ".$order.",'OPEN')";
+                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedExercice_id."','".$langDefaultModuleAddedComment."', ".$order.",'OPEN')";
             $query = db_query($sql);
 
             $MessBox .= $exercise['titre'] ." :  ".$langExInsertedAsModule."<br>";
@@ -178,9 +184,10 @@ while ($listex = mysql_fetch_array($resultex) )
                 list($orderMax) = mysql_fetch_row($result);
                 $order = $orderMax + 1;
                 // finally : insert in learning path
+                $langDefaultModuleAddedComment = xss_sql_filter($langDefaultModuleAddedComment);
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$thisExerciseModule['module_id'].",'".addslashes($langDefaultModuleAddedComment)."', ".$order.", 'OPEN')";
+                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$thisExerciseModule['module_id'].",'".$langDefaultModuleAddedComment."', ".$order.", 'OPEN')";
                 $query = db_query($sql);
 
                 // select infos about added exercise
