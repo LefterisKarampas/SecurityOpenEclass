@@ -67,7 +67,7 @@ function printPollForm() {
 	//		Get poll data
 	//******************************************************************************/
 
-	$poll = db_query("SELECT * FROM poll WHERE pid='".mysql_real_escape_string($pid)."' "
+	$poll = db_query("SELECT * FROM poll WHERE pid='".xss_sql_filter($pid)."' "
 		."ORDER BY pid", $currentCourse);
 	$thePoll = mysql_fetch_array($poll);
 	$temp_CurrentDate = date("Y-m-d");
@@ -99,7 +99,7 @@ cData;
 				"<input type='hidden' name='question[$pqid]' value='$qtype'>";
 			if ($qtype == 'multiple') {
 				$answers = db_query("SELECT * FROM poll_question_answer 
-					WHERE pqid=$pqid ORDER BY pqaid", $currentCourse);
+					WHERE pqid=".intval($pqid)." ORDER BY pqaid", $currentCourse);
 				while ($theAnswer = mysql_fetch_array($answers)) {
 					$tool_content .= "\n<label><input type='radio' name='answer[$pqid]' value='$theAnswer[pqaid]'>$theAnswer[answer_text]</label><br>\n";
 				}
@@ -134,8 +134,15 @@ function submitPoll() {
 			$answer_text = quote($answer[$pqid]);
 			$aid = 0;
 		}
+		/* BEGIN */
+		$pid = intval($pid);
+		$pqid = intval($pqid);
+		$answer_text = xss_sql_filter($answer_text);
+		$user_id = intval($user_id);
+		$CreationDate = xss_sql_filter($CreationDate);
+		/* END */
 		db_query("INSERT INTO poll_answer_record (pid, qid, aid, answer_text, user_id, submit_date)
-			VALUES ($pid, $pqid, $aid, $answer_text, $user_id , '$CreationDate')");
+			VALUES (".justQuote($pid).", ".justQuote($pqid).",". justQuote($aid).", ".justQuote($answer_text)."," justQuote($user_id)." , '$CreationDate')");
 	}
 	$GLOBALS["tool_content"] .= "<p class='alert1'>".$GLOBALS["langPollSubmitted"]."</p>";
 }

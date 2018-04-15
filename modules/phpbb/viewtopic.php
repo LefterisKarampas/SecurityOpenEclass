@@ -249,7 +249,7 @@ do {
 
 	//-------------------------------------
 	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
-	$message = undo_redo_hsc($message);
+	$message = xss_sql_filter($message);
 	//-------------------------------------
 
 	if ($count == 0) {

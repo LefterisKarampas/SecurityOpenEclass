@@ -42,7 +42,7 @@ if (isset($submit) && (!isset($ldap_submit)) && !isset($changePass)) {
                 $username_form = $uname;
         }
 	// check if username exists
-	$username_check=mysql_query("SELECT username FROM user WHERE username='".escapeSimple($username_form)."'");
+	$username_check=mysql_query("SELECT username FROM user WHERE username='".xss_sql_filter($username_form)."'");
 	while ($myusername = mysql_fetch_array($username_check))
 	{
 		$user_exist=$myusername[0];
@@ -82,12 +82,21 @@ if (isset($submit) && (!isset($ldap_submit)) && !isset($changePass)) {
 		$_SESSION['langswitch'] = $language = langcode_to_name($_REQUEST['userLanguage']);
 		$langcode = langname_to_code($language);
 
-		$username_form = escapeSimple($username_form);
+		$username_form = xss_sql_filter($username_form);
+		/* BEGIN */
+		$nom_form = xss_sql_filter($nom_form);
+		$prenom_form = xss_sql_filter($prenom_form);
+		//$username_form = xss_sql_filter($username_form);
+		$email_form = xss_sql_filter($email_form);
+		$am_form = xss_sql_filter($am_form);
+		$persoStatus = xss_sql_filter($persoStatus);
+		$langcode = xss_sql_filter($langcode);
+		/* END */
 		if(mysql_query("UPDATE user
 	        SET nom='$nom_form', prenom='$prenom_form',
 	        username='$username_form', email='$email_form', am='$am_form',
 	            perso='$persoStatus', lang='$langcode'
-	        WHERE user_id='".$_SESSION["uid"]."'")) {
+	        WHERE user_id='".intval($_SESSION["uid"])."'")) {
 			if (isset($_SESSION['user_perso_active']) and $persoStatus == "no") {
                 		unset($_SESSION['user_perso_active']);
 			}
@@ -101,9 +110,10 @@ if (isset($submit) && (!isset($ldap_submit)) && !isset($changePass)) {
 if (isset($submit) && isset($ldap_submit) && ($ldap_submit == "ON")) {
 	$_SESSION['langswitch'] = $language = langcode_to_name($_REQUEST['userLanguage']);
 	$langcode = langname_to_code($language);
-
+	$persoStatus = xss_sql_filter($persoStatus);
+	$langCode = xss_sql_filter($langCode);
 	mysql_query("UPDATE user SET perso = '$persoStatus',
-		lang = '$langcode' WHERE user_id='".$_SESSION["uid"]."' ");
+		lang = '$langcode' WHERE user_id='".intval($_SESSION["uid"])."' ");
 	
 	if (isset($_SESSION['user_perso_active']) and $persoStatus == "no") {
 		unset($_SESSION['user_perso_active']);
@@ -160,7 +170,7 @@ if(isset($msg))
 	$tool_content .=  "<p class=\"$type\">$message<br><a href=\"../../index.php\">$urlText</a></p><br/>";
 
 }
-
+$uid = intval($uid);
 $sqlGetInfoUser ="SELECT nom, prenom, username, password, email, am, perso, lang
     FROM user WHERE user_id='".$uid."'";
 $result=mysql_query($sqlGetInfoUser);

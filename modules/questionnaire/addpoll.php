@@ -92,6 +92,7 @@ Fill the appropriate $_POST values from the database as if poll $pid was submitt
 ******************************************************************************/
 function fill_questions($pid)
 {
+	$pid = intval($pid);
 	$poll = mysql_fetch_array(db_query("SELECT * FROM poll WHERE pid=$pid"));
 	$_POST['PollName'] = $poll['name'];
 	$_POST['PollStart'] = $poll['start_date'];
@@ -102,7 +103,7 @@ function fill_questions($pid)
 	while ($theQuestion = mysql_fetch_array($questions)) {
 		$_POST['question'][$qnumber] = $theQuestion['question_text'];
 		$qtype = ($theQuestion['qtype'] == 'multiple')? 1: 2;
-		$pqid = $theQuestion['pqid'];
+		$pqid = intval($theQuestion['pqid']);
 		$_POST['question_type'][$qnumber] = $qtype;
 		if ($qtype == 1) {
 			$answers = db_query("SELECT * FROM poll_question_answer
@@ -268,8 +269,8 @@ function insertPollQuestions($pid, $questions, $question_types)
 		if (!empty($QuestionText)) {
 			$qtype = ($question_types[$i] == 1)? 'multiple': 'fill';
 			db_query("INSERT INTO poll_question (pid, question_text, qtype) VALUES ('".
-				mysql_real_escape_string($pid) . "','".
-				mysql_real_escape_string($QuestionText) . "', '$qtype')");
+				intval($pid) . "','".
+				xss_sql_filter($QuestionText) . "', '$qtype')");
 			$pqid = mysql_insert_id();
 			if ($question_types[$i] == 1) {
 				if (isset($_POST['answer'.$i])) {
@@ -281,7 +282,7 @@ function insertPollQuestions($pid, $questions, $question_types)
 					$AnswerText = trim($AnswerText);
 					if (!empty($AnswerText)) {
 						db_query("INSERT INTO poll_question_answer (pqid, answer_text)
-							VALUES ($pqid, '".mysql_real_escape_string($AnswerText) ."')");
+							VALUES (".intval($pqid).", '".xss_sql_filter($AnswerText) ."')");
 					}
 				}
 			}
@@ -307,13 +308,13 @@ function createPoll($questions, $question_types) {
 	$result = db_query("INSERT INTO poll
 		(creator_id, course_id, name, creation_date, start_date, end_date, active)
 		VALUES ('".
-		$GLOBALS['uid']. "','".
-		$GLOBALS['currentCourseID'] . "','".
-		mysql_real_escape_string($PollName) . "','".
-		mysql_real_escape_string($CreationDate) . "','".
-		mysql_real_escape_string($StartDate) . "','".
-		mysql_real_escape_string($EndDate) . "','".
-		mysql_real_escape_string($PollActive) ."')");
+		intval($GLOBALS['uid']). "','".
+		xss_sql_filter($GLOBALS['currentCourseID']) . "','".
+		xss_sql_filter($PollName) . "','".
+		xss_sql_filter($CreationDate) . "','".
+		xss_sql_filter($StartDate) . "','".
+		xss_sql_filter($EndDate) . "','".
+		xss_sql_filter($PollActive) ."')");
 	$pid = mysql_insert_id();
 	insertPollQuestions($pid, $questions, $question_types);
 	$GLOBALS["tool_content"] .= $GLOBALS["langPollCreated"];
@@ -326,10 +327,10 @@ function createPoll($questions, $question_types) {
 function editPoll($pid, $questions, $question_types) {
 	global $pid;
 
-	$PollName = $_POST['PollName'];
-	$StartDate = $_POST['PollStart'];
-	$EndDate = $_POST['PollEnd'];
-
+	$PollName = xss_sql_filter($_POST['PollName']);
+	$StartDate = xss_sql_filter($_POST['PollStart']);
+	$EndDate = xss_sql_filter($_POST['PollEnd']);
+	$pid = intval($pid);
 	mysql_select_db($GLOBALS['currentCourseID']);
 	$result = db_query("UPDATE poll SET name = '$PollName',
 		start_date = '$StartDate', end_date = '$EndDate' WHERE pid='$pid'");
@@ -417,7 +418,7 @@ function add_fill_text_question($i, $text)
 function check_poll_participants($pid)
 {
 	global $currentCourseID;
-
+	$pid = intval($pid);
 	$sql = db_query("SELECT * FROM poll_answer_record WHERE pid='$pid'", $currentCourseID);
 	if (mysql_num_rows($sql) > 0)
 		return true;

@@ -114,6 +114,7 @@ function getUserAnnouncements($param = null, $type) {
 		$announceGroup = array();
 		array_push($announceGroup, $announceSubGroup);
 		$sqlNowDate = eregi_replace(" ", "-",$usr_lst_login);
+		$uid = intval($uid);
 		$sql = "UPDATE `user` SET `announce_flag` = '$sqlNowDate' WHERE `user_id` = $uid ";
 		db_query($sql, $mysqlMainDb);
 
@@ -218,7 +219,7 @@ function createQueries($queryParam){
 
 	global $mysqlMainDb, $maxValue;
 
-	$lesson_id = $queryParam['lesson_id'];
+	$lesson_id = intval($queryParam['lesson_id']);
 	$lesson_code = $queryParam['lesson_code'];
 	$max_repeat_val = $queryParam['max_repeat_val'];
 	$date = $queryParam['date'];
@@ -229,7 +230,6 @@ function createQueries($queryParam){
 		} else {
 			$dateVar = $date;
 		}
-
 		$announce_query[$i] = "SELECT title, contenu, temps
                         FROM `$mysqlMainDb`.annonces, `$lesson_code[$i]`.accueil
                         WHERE cours_id = $lesson_id[$i]

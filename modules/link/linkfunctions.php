@@ -74,7 +74,14 @@ function addlinkcategory($type)
 			list($orderMax)=mysql_fetch_row($result);
 
 			$ordre=$orderMax+1;
+			/* BEGIN */
 
+			$urllink = xss_sql_filter($urllink);
+			$title = xss_sql_filter($title);
+			$description = xss_sql_filter($description);
+			$selectcategory = intval($selectcategory);
+			$ordre = intval($ordre);
+			/* END */
 			$sql="INSERT INTO `".$tbl_link."` (url, titre, description, category,ordre) VALUES ('$urllink','$title','$description','$selectcategory','$ordre')";
 			$catlinkstatus=$langLinkAdded;
 
@@ -104,7 +111,11 @@ function addlinkcategory($type)
 			list($orderMax) = mysql_fetch_row($result);
 
 			$ordre=$orderMax+1;
-
+			/* BEGIN */
+			$categoryname = xss_sql_filter($categoryname);
+			$description = xss_sql_filter($description);
+			$ordre = xss_sql_filter($ordre);
+			/* END*/
 			$sql="INSERT INTO `".$tbl_categories."` (categoryname, description, ordre) VALUES ('$categoryname','$description', '$ordre')";
 
 			$catlinkstatus=$langCategoryAdded;
@@ -130,6 +141,7 @@ function deletelinkcategory($type)
 	{
 		global $id;
 		global $langLinkDeleted;
+		$id = intval($id);
 		$sql="DELETE FROM `".$tbl_link."` WHERE id='".$id."'";
 		$catlinkstatus=$langLinkDeleted;
 		unset($id);
@@ -138,6 +150,7 @@ function deletelinkcategory($type)
 	{
 		global $id;
 		global $langCategoryDeleted;
+		$id = intval($id);
 		// first we delete the category itself and afterwards all the links of this category.
 		$sql="DELETE FROM `".$tbl_categories."` WHERE id='".$id."'";
 		db_query($sql, $dbname);
@@ -170,6 +183,7 @@ function editlinkcategory($type)
 		// this is used to populate the link-form with the info found in the database
 		if (!$submitLink)
 		{
+			$id = intval($id);
 			$sql="SELECT * FROM `".$tbl_link."` WHERE id='".$id."'";
 			$result=db_query($sql, $dbname);
 			if ($myrow=mysql_fetch_array($result))
@@ -185,7 +199,13 @@ function editlinkcategory($type)
 		{
 			global $langLinkModded;
 			global $selectcategory;
-
+			/*BEGIN */
+			$urllink = xss_sql_filter($urllink);
+			$title = xss_sql_filter($title);
+			$description = xss_sql_filter($description);
+			$selectcategory = intval($selectcategory);
+			$id = intval($id);
+			/* END */
 			$sql="UPDATE `".$tbl_link."` set url='$urllink', titre='$title', description='$description', category='$selectcategory' WHERE id='".$id."'";
 			db_query($sql, $dbname);
 			$catlinkstatus=$langLinkMod;
@@ -200,6 +220,7 @@ function editlinkcategory($type)
 		// this is used to populate the category-form with the info found in the database
 		if (!$submitCategory)
 		{
+			$id = intval($id);
 			$sql="SELECT * FROM `".$tbl_categories."` WHERE id='".$id."'";
 			$result=db_query($sql, $dbname);
 			if ($myrow=mysql_fetch_array($result))
@@ -212,6 +233,11 @@ function editlinkcategory($type)
 		if ($submitCategory)
 		{
 			global $langCategoryModded;
+			/*BEGIN */
+			$description = xss_sql_filter($description);
+			$categoryname = xss_sql_filter($categoryname);
+			$id = intval($id);
+			/* END */
 			$sql="UPDATE `".$tbl_categories."` set categoryname='$categoryname', description='$description' WHERE id='".$id."'";
 			db_query($sql, $dbname);
 			$catlinkstatus=$langCategoryModded;
@@ -241,6 +267,7 @@ function makedefaultviewcode($locatie)
  */
 function getNumberOfLinks($catid){
 	global $tbl_link, $dbname;
+	$catid = intval($catid);
 	$sqlLinks = "SELECT * FROM `".$tbl_link."` WHERE category='".$catid."' ORDER BY ordre DESC";
 	$result = db_query($sqlLinks, $dbname);
 	$numberoflinks=mysql_num_rows($result);
@@ -258,7 +285,7 @@ function showlinksofcategory($catid)
 	global $langDelete, $langUp, $langDown, $langModify, $langLinks, $langCategoryDelconfirm, $urlServer;
 	global $tool_content;
 	global $dbname;
-
+	$catid = intval($catid);
 	$sqlLinks = "SELECT * FROM `".$tbl_link."` WHERE category='".$catid."' ORDER BY ordre DESC";
 	$result = db_query($sqlLinks, $dbname);
 	$numberoflinks=mysql_num_rows($result);
@@ -378,6 +405,7 @@ function movecatlink($catlinkid)
 	{
 		$movetable=$tbl_link;
 		//getting the category of the link
+		$thiscatlinkId = intval($thiscatlinkId);
 		$sql="SELECT category from `".$movetable."` WHERE id='$thiscatlinkId'";
 		$result=db_query($sql, $dbname);
 		$catid=mysql_fetch_array($result);
@@ -394,7 +422,7 @@ function movecatlink($catlinkid)
 		}
 		else
 		{
-			$sqlcatlinks="SELECT id, ordre FROM `".$movetable."` WHERE category='".$catid[0]."' ORDER BY `ordre` $sortDirection";
+			$sqlcatlinks="SELECT id, ordre FROM `".$movetable."` WHERE category='".intval($catid[0])."' ORDER BY `ordre` $sortDirection";
 		}
 		$linkresult = db_query($sqlcatlinks, $dbname);
 		while ($sortrow=mysql_fetch_array($linkresult))
@@ -402,8 +430,9 @@ function movecatlink($catlinkid)
 			// found the next announcement id and order
 			if (isset($thislinkFound) && $thislinkFound == true)
 			{
-				$nextlinkId=$sortrow["id"];
-				$nextlinkOrdre=$sortrow["ordre"];
+				$nextlinkId=intval($sortrow["id"]);
+				$nextlinkOrdre=intval($sortrow["ordre"]);
+
 
 				db_query("UPDATE `".$movetable."`
 			             SET ordre = '$nextlinkOrdre'

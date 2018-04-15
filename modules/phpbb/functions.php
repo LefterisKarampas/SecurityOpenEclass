@@ -77,6 +77,7 @@ function get_total_topics($forum_id, $thedb) {
  * Also can return the number of users on the system.
  */ 
 function get_total_posts($id, $thedb, $type) {
+	$id = intval($id);
    switch($type) {
     case 'users':
       $sql = "SELECT count(*) AS total FROM users WHERE (user_id != -1) AND (user_level != -1)";
@@ -107,6 +108,7 @@ function get_total_posts($id, $thedb, $type) {
  * Returns the most recent post in a forum, or a topic
  */
 function get_last_post($id, $thedb, $type) {
+	$id = intval($id);
    global $langError, $langNoPosts, $langFrom2;
    switch($type) {
     case 'time_fix':
@@ -139,6 +141,7 @@ function get_last_post($id, $thedb, $type) {
  * users from simply editing the URL to post to a non-existant forum or topic
  */
 function does_exists($id, $thedb, $type) {
+	$id = intval($id);
 	switch($type) {
 		case 'forum':
 			$sql = "SELECT forum_id FROM forums WHERE forum_id = '$id'";
@@ -752,6 +755,8 @@ function undo_make_clickable($text) {
  * Check if this is the first post in a topic. Used in editpost.php
  */
 function is_first_post($topic_id, $post_id, $thedb) {
+	$topic_id = intval($topic_id);
+	$post_id = intval($post_id);
    $sql = "SELECT post_id FROM posts WHERE topic_id = '$topic_id' ORDER BY post_id LIMIT 1";
    if(!$r = db_query($sql, $thedb))
      return(0);
@@ -769,6 +774,8 @@ function is_first_post($topic_id, $post_id, $thedb) {
  */
 function check_priv_forum_auth($userid, $forumid, $is_posting, $db)
 {
+	$user_id = intval($user_id);
+	$forumid = intval($forumid);
 	$sql = "SELECT count(*) AS user_count FROM forum_access WHERE (user_id = $userid) AND (forum_id = $forumid) ";
 	
 	if ($is_posting)
@@ -831,6 +838,7 @@ function get_syslang_string($sys_lang, $string) {
 }
 
 function sync($thedb, $id, $type) {
+	$id = intval($id);
    switch($type) {
    	case 'forum':
    		$sql = "SELECT max(post_id) AS last_post FROM posts WHERE forum_id = $id";
@@ -862,7 +870,12 @@ function sync($thedb, $id, $type) {
    		{
    			$total_topics = $row["total"];
    		}
-   		
+   			
+   		/* BEGIN */
+   		$last_post = intval($last_post);
+   		$total_posts = intval($total_posts);
+   		$total_topics = intval($total_topics);
+   		/* END */
    		$sql = "UPDATE forums
 			SET forum_last_post_id = '$last_post', forum_posts = $total_posts, forum_topics = $total_topics
 			WHERE forum_id = $id";
@@ -893,6 +906,10 @@ function sync($thedb, $id, $type) {
    			$total_posts = $row["total"];
    		}
    		$total_posts -= 1;
+   		/* BEGIN */
+   		$last_post = intval($last_post);
+   		$total_posts = intval($total_posts);
+   		/* END */
    		$sql = "UPDATE topics SET topic_replies = $total_posts, topic_last_post_id = $last_post WHERE topic_id = $id";
    		if(!$result = db_query($sql, $thedb))
    		{
@@ -973,7 +990,7 @@ function toggle_icon($notify) {
 function forum_category($id) {
 	
 	global $currentCourseID;
-	
+	$id = intval($id);
 	if ($r = mysql_fetch_row(db_query("SELECT cat_id FROM forums WHERE forum_id=$id", $currentCourseID))) {
 		return $r[0];
 	} else {
@@ -985,7 +1002,7 @@ function forum_category($id) {
 function category_name($id) {
 	
 	global $currentCourseID;
-	
+	$id = intval($id);
 	if ($r = mysql_fetch_row(db_query("SELECT cat_title FROM catagories WHERE cat_id=$id", $currentCourseID))) {
 		return $r[0];
 	} else {

@@ -71,8 +71,8 @@ if(!isset($_GET['sid']) || !is_numeric($_GET['sid'])) die();
 
 	$tool_content = "\n<!-- BEGIN SURVEY -->\n";
 	$current_survey = db_query("
-		select * from survey 
-		where sid=".mysql_real_escape_string($_GET['sid'])." "
+		SELECT * from survey 
+		where sid=".xss_sql_filter($_GET['sid'])." "
 		."ORDER BY sid", $currentCourse);
 	$theSurvey = mysql_fetch_array($current_survey);
 	$tool_content .= "<b>" . $theSurvey["name"] . "</b></b><br><br>";
@@ -85,8 +85,8 @@ if(!isset($_GET['type']) || !is_numeric($_GET['type'])) $_GET['type'] = 0;
 if ($_GET['type'] == 2) { //TF
 
 	$answers = db_query("
-	select * from survey_answer 
-	where sid=".mysql_real_escape_string($_GET['sid'])." "
+	SELECT * from survey_answer 
+	where sid=".xss_sql_filter($_GET['sid'])." "
 	."ORDER BY sid", $currentCourse);
 	
 	while ($theAnswer = mysql_fetch_array($answers)) {
@@ -94,14 +94,14 @@ if ($_GET['type'] == 2) { //TF
 		$creator_id = $theAnswer["creator_id"];
 		$aid = $theAnswer["aid"];
 		$answer_creator = db_query("
-			select nom,prenom from user 
-			where user_id='$creator_id'", $mysqlMainDb);
+			SELECT nom,prenom from user 
+			where user_id='".intval($creator_id)."'", $mysqlMainDb);
 		$theCreator = mysql_fetch_array($answer_creator);
 		$tool_content .= "<table border=\"1\" width=\"100%\"><tr><td>";
 		$tool_content .= "<br><b>" . $theCreator["nom"]. " " . $theCreator["prenom"] . "</b><br>";
 		$qas = db_query("
-			select * from survey_answer_record 
-			where aid=$aid 
+			SELECT * from survey_answer_record 
+			where aid=".intval($aid)." 
 			ORDER BY aid", $currentCourse);
 			while ($theQAs = mysql_fetch_array($qas)) {	
 			$tool_content .= "<br>" . $theQAs["question_text"]. ": <br>" . $theQAs["question_answer"] . "<br>";
@@ -123,8 +123,8 @@ if ($_GET['type'] == 2) { //TF
 	//$chart->setTitle("������������ ������������");
 	
 	$answers = db_query("
-		select * from survey_answer 
-		where sid=".mysql_real_escape_string($_GET['sid'])." "
+		SELECT * from survey_answer 
+		where sid=".xss_sql_filter($_GET['sid'])." "
 		."ORDER BY sid", $currentCourse);
 		
 	while ($theAnswer = mysql_fetch_array($answers)) {
@@ -133,8 +133,8 @@ if ($_GET['type'] == 2) { //TF
 		$aid = $theAnswer["aid"];
 		
 		$arids = db_query("
-			select arid from survey_answer_record 
-			where aid=$aid 
+			SELECT arid from survey_answer_record 
+			where aid=".intval($aid)." 
 			ORDER BY aid", $currentCourse);
 		
 		while ($theArid = mysql_fetch_array($arids)) {
@@ -143,8 +143,8 @@ if ($_GET['type'] == 2) { //TF
 			
 			// Get the text of questions
 			$q_ts = db_query("
-				select question_text from survey_answer_record 
-				where aid=$aid 
+				SELECT question_text from survey_answer_record 
+				where aid=".intval($aid)." 
 				ORDER BY arid", $currentCourse);
 			
 			$q_t_GD = array(); // the array to hold the text of questions
@@ -176,10 +176,10 @@ if ($_GET['type'] == 2) { //TF
    		
    			$chart = new PieChart(600, 300);
    			
-   		 $current_q_t = $q_t_GD[$i];
+   		 $current_q_t = xss_sql_filter($q_t_GD[$i]);
    		
    		$q_as = db_query("
-			select question_answer from survey_answer_record 
+			SELECT question_answer from survey_answer_record 
 			where question_text='$current_q_t' 
 			ORDER BY arid", $currentCourse);
 			
@@ -223,21 +223,21 @@ if ($_GET['type'] == 2) { //TF
   $tool_content .= "<br><br><b>" . $langIndividuals . "</b><br><br>";
 
 	$answers = db_query("
-	select * from survey_answer 
-	where sid=".mysql_real_escape_string($_GET['sid'])." "
+	SELECT * from survey_answer 
+	where sid=".xss_sql_filter($_GET['sid'])." "
 	."ORDER BY sid", $currentCourse);
 	while ($theAnswer = mysql_fetch_array($answers)) {
 		++$total_answers;	
-		$creator_id = $theAnswer["creator_id"];
-		$aid = $theAnswer["aid"];
+		$creator_id = intval($theAnswer["creator_id"]);
+		$aid = intval($theAnswer["aid"]);
 		$answer_creator = db_query("
-			select nom,prenom from user 
+			SELECT nom,prenom from user 
 			where user_id='$creator_id'", $mysqlMainDb);
 		$theCreator = mysql_fetch_array($answer_creator);
 		$tool_content .= "<table border=\"1\" width=\"100%\"><tr><td>";
 		$tool_content .= "<br><b>" . $theCreator["nom"]. " " . $theCreator["prenom"] . "</b><br>";
 		$qas = db_query("
-			select * from survey_answer_record 
+			SELECT * from survey_answer_record 
 			where aid=$aid 
 			ORDER BY aid", $currentCourse);
 			while ($theQAs = mysql_fetch_array($qas)) {	

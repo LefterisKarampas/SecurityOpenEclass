@@ -113,6 +113,7 @@ function getUserDocuments($param = null, $type)
 		$docsGroup = array();
 		array_push($docsGroup, $docsSubGroup);
 		$sqlNowDate = eregi_replace(" ", "-",$usr_lst_login);
+		$uid = intval($uid);
 		$sql = "UPDATE `user` SET `doc_flag` = '$sqlNowDate' WHERE `user_id` = $uid ";
 		db_query($sql, $mysqlMainDb);
 	} elseif (!$getNewDocs) {
@@ -210,7 +211,7 @@ function createDocsQueries($queryParam)
 		} else {
 			$dateVar = $date;
 		}
-
+		$dateVar = xss_sql_filter($dateVar);
 		$docs_query[$i] = "SELECT path, filename, title, date_modified
 			FROM document, accueil WHERE visibility = 'v'
 			AND DATE_FORMAT(date_modified,'%Y %m %d') >='" .$dateVar."'

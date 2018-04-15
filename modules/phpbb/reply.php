@@ -168,7 +168,7 @@ if (isset($submit) && $submit) {
 
 	//-------------------------------------
 	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
-	$message = undo_redo_hsc($message); //I made this function as a shortcut
+	$message = xss_sql_filter($message); //I made this function as a shortcut
 	//-------------------------------------
 
 	//to prevent [addsig] from getting in the way, let's put the sig insert down here.
@@ -181,7 +181,7 @@ if (isset($submit) && $submit) {
 	$this_post = mysql_insert_id();
 	if ($this_post) {
 		$sql = "INSERT INTO posts_text (post_id, post_text) VALUES ($this_post, " .
-                        autoquote($message) . ")";
+                        justQuote($message) . ")";
 		$result = db_query($sql, $currentCourseID); 
 	}
 	$sql = "UPDATE topics SET topic_replies = topic_replies+1, topic_last_post_id = $this_post, topic_time = '$time' 
@@ -200,7 +200,7 @@ if (isset($submit) && $submit) {
 	// notify users 
 	// --------------------------------
 	$subject_notify = "$logo - $langSubjectNotify";
-	$category_id = forum_category($forum);
+	$category_id = intval(forum_category($forum));
 	$cat_name = category_name($category_id);
 	$sql = db_query("SELECT DISTINCT user_id FROM forum_notify 
 			WHERE (topic_id = $topic OR forum_id = $forum OR cat_id = $category_id) 

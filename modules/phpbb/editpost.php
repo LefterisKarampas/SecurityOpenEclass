@@ -132,7 +132,9 @@ if ($is_adminOfCourse) { // course admin
 			$forward = 1;
 			$topic = $topic_id;
 			$forum = $forum_id;
-			$sql = "UPDATE posts_text SET post_text = " . autoquote($message) . " WHERE (post_id = '$post_id')";
+			$post_id = intval($post_id);
+			$message = xss_sql_filter($message);
+			$sql = "UPDATE posts_text SET post_text = " . justQuote($message) . " WHERE (post_id = '$post_id')";
 			if (!$result = db_query($sql, $currentCourseID)) {
 				$tool_content .= $langUnableUpadatePost;
 				draw($tool_content, 2, 'phpbb', $head_content);
@@ -147,7 +149,7 @@ if ($is_adminOfCourse) { // course admin
 				} else {
 					$notify = 1;
 				}
-				$subject = addslashes($subject);
+				$subject = xss_sql_filter($subject);
 				$sql = "UPDATE topics
 					SET topic_title = '$subject', topic_notify = '$notify'
 					WHERE topic_id = '$topic_id'";
@@ -171,6 +173,7 @@ if ($is_adminOfCourse) { // course admin
 			$now_min = date("i");
 			list($hour, $min) = split(":", $time);
 			$last_post_in_thread = get_last_post($topic_id, $currentCourseID, "time_fix");
+			$post_id = intval($post_id);
 			$sql = "DELETE FROM posts
 				WHERE post_id = '$post_id'";
 			if (!$r = db_query($sql, $currentCourseID)){
@@ -178,6 +181,7 @@ if ($is_adminOfCourse) { // course admin
 				draw($tool_content, 2, 'phpbb', $head_content);
 				exit();
 			}
+			$post_id = intval($post_id);
 			$sql = "DELETE FROM posts_text
 				WHERE post_id = '$post_id'";
 			if (!$r = db_query($sql, $currentCourseID)) {
@@ -186,6 +190,7 @@ if ($is_adminOfCourse) { // course admin
 				exit();
 			} else if ($last_post_in_thread == $this_post_time) {
 				$topic_time_fixed = get_last_post($topic_id, $currentCourseID, "time_fix");
+				$topic_id = intval($topic_id);
 				$sql = "UPDATE topics
 					SET topic_time = '$topic_time_fixed'
 					WHERE topic_id = '$topic_id'";
@@ -196,6 +201,7 @@ if ($is_adminOfCourse) { // course admin
 				}
 			}
 			if (get_total_posts($topic_id, $currentCourseID, "topic") == 0) {
+				$topic_id = intval($topic_id);
 				$sql = "DELETE FROM topics
 					WHERE topic_id = '$topic_id'";
 				if (!$r = db_query($sql, $currentCourseID)) {
@@ -280,7 +286,7 @@ if ($is_adminOfCourse) { // course admin
 				// Ok, looks like we're good.
 			}
 		}	
-		
+		$post_id = intval($post_id);
 		$sql = "SELECT p.*, pt.post_text, t.topic_title, t.topic_notify, 
 			       t.topic_title, t.topic_notify 
 			FROM posts p, topics t, posts_text pt 

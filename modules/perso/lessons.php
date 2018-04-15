@@ -55,7 +55,7 @@ function getUserLessonInfo($uid, $type)
 	global $mysqlMainDb;
 
 	//	TODO: add the new fields for memory in the db
-
+	$uid = intval($uid);
 	$user_courses = "SELECT cours.cours_id cours_id,
                                 cours.code code,
                                 cours.fake_code fake_code,

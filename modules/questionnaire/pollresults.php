@@ -84,7 +84,7 @@ if(!isset($_GET['pid']) || !is_numeric($_GET['pid'])) die();
       <th class='left' width=\"220\">&nbsp;</th>
       <td><b>$langAnswers</b></td>
     </tr>";
-
+    $pid = intval($pid);
 	$questions = db_query("SELECT * FROM poll_question WHERE pid=$pid");
 	while ($theQuestion = mysql_fetch_array($questions)) {
 	$tool_content .= "
@@ -100,7 +100,7 @@ if(!isset($_GET['pid']) || !is_numeric($_GET['pid'])) die();
 			$answers = db_query("SELECT COUNT(aid) AS count, aid, poll_question_answer.answer_text AS answer
 				FROM poll_answer_record LEFT JOIN poll_question_answer
 				ON poll_answer_record.aid = poll_question_answer.pqaid
-				WHERE qid = $theQuestion[pqid] GROUP BY aid", $currentCourseID);
+				WHERE qid = ".intval($theQuestion[pqid])." GROUP BY aid", $currentCourseID);
 			$answer_counts = array();
 			$answer_text = array();
 			$answer_total = 0;
@@ -127,7 +127,7 @@ if(!isset($_GET['pid']) || !is_numeric($_GET['pid'])) die();
 			$tool_content .= '<img src="'.$urlServer.$chart_path.'" /><br>';
 		} else {
 			$answers = db_query("SELECT answer_text, user_id FROM poll_answer_record
-					WHERE qid = $theQuestion[pqid]", $currentCourseID);
+					WHERE qid =".intval($theQuestion[pqid]).", $currentCourseID);
 			$tool_content .= '<dl>';
 			while ($theAnswer = mysql_fetch_array($answers)) {
 				$tool_content .= "<dt><u>$langUser</u>: <dd>" . uid_to_name($theAnswer['user_id']) . "</dd></dt> <dt><u>$langAnswer</u>: <dd>$theAnswer[answer_text]</dd></dt>";

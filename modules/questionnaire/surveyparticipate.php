@@ -152,8 +152,8 @@ function printSurveyForm() {
 $CurrentQuestion = 0;
 $CurrentAnswer = 0;
 $survey = db_query("
-	select * from survey 
-	where sid='".mysql_real_escape_string($sid)."' "
+	SELECT * from survey 
+	where sid='".xss_sql_filter($sid)."' "
 	."ORDER BY sid", $currentCourse);
 $theSurvey = mysql_fetch_array($survey);
 
@@ -183,8 +183,8 @@ cData;
 	if ($theSurvey["type"] == 1) { //MC
 		$tool_content .= "\n<br><input type=\"hidden\" value=\"1\" name=\"SurveyType\"><br>\n";
 		$questions = db_query("
-		select * from survey_question 
-		where sid='".mysql_real_escape_string($sid)."' "
+		SELECT * from survey_question 
+		where sid='".xss_sql_filter($sid)."' "
 		."ORDER BY sqid", $currentCourse);
 		while ($theQuestion = mysql_fetch_array($questions)) {	
 			++$CurrentQuestion;
@@ -194,8 +194,8 @@ cData;
 				"\" name=\"question" . $CurrentQuestion . "\">";
 			$sqid=$theQuestion["sqid"];
 			$answers = db_query("
-				select * from survey_question_answer 
-				where sqid=$sqid 
+				SELECT * from survey_question_answer 
+				where sqid=".intval($sqid)." 
 				ORDER BY sqaid", $currentCourse);
 				while ($theAnswer = mysql_fetch_array($answers)) {
 					$tool_content .= "<br>";
@@ -241,10 +241,10 @@ function submitSurvey() {
 	$aid = date("YmdHms"); 
 	mysql_select_db($GLOBALS['currentCourseID']);
 	$result = db_query("INSERT INTO survey_answer VALUES ('".
-	mysql_real_escape_string($aid) . "','".
-	mysql_real_escape_string($creator_id) . "','".
-	mysql_real_escape_string($sid) . "','".
-	mysql_real_escape_string($CreationDate) ."')");
+	xss_sql_filter($aid) . "','".
+	xss_sql_filter($creator_id) . "','".
+	xss_sql_filter($sid) . "','".
+	xss_sql_filter($CreationDate) ."')");
 	if ($_POST["SurveyType"] == 1) { // MC
 		$counter_foreach = 0;
 		$counter_qas = 0;
@@ -261,9 +261,9 @@ function submitSurvey() {
 				$QuestionAnswer = $_POST[$QuestionAnswer];
 				mysql_select_db($GLOBALS['currentCourseID']);
 				$result2 = db_query("INSERT INTO survey_answer_record VALUES ('0','".
-					mysql_real_escape_string($aid). "','".
-					mysql_real_escape_string($QuestionText). "','".
-					mysql_real_escape_string($QuestionAnswer) ."')");
+					xss_sql_filter($aid). "','".
+					xss_sql_filter($QuestionText). "','".
+					xss_sql_filter($QuestionAnswer) ."')");
 				}
 			}  
 		
@@ -284,9 +284,9 @@ function submitSurvey() {
 				//$tool_content .= "\$QuestionText = " . $QuestionText . " \$QuestionAnswer = " . $QuestionAnswer . "<br>\n";;
 				mysql_select_db($GLOBALS['currentCourseID']);
 				$result2 = db_query("INSERT INTO survey_answer_record VALUES ('0','".
-					mysql_real_escape_string($aid). "','".
-					mysql_real_escape_string($QuestionText). "','".
-					mysql_real_escape_string($QuestionAnswer) ."')");
+					xss_sql_filter($aid). "','".
+					xss_sql_filter($QuestionText). "','".
+					xss_sql_filter($QuestionAnswer) ."')");
 				}
 			}  
 		}

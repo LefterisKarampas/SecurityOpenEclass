@@ -78,12 +78,12 @@ if (isset($visibility)) {
 */
 // activate / dectivate polls
 		case 'activate':
-			$sql = "UPDATE poll SET active='1' WHERE pid='".mysql_real_escape_string($_GET['pid'])."'";
+			$sql = "UPDATE poll SET active='1' WHERE pid='".xss_sql_filter($_GET['pid'])."'";
 			$result = db_query($sql,$currentCourseID);
 			$GLOBALS["tool_content"] .= "".$GLOBALS["langPollActivated"]."<br>";
 			break;
 		case 'deactivate':
-			$sql = "UPDATE poll SET active='0' WHERE pid='".mysql_real_escape_string($_GET['pid'])."'";
+			$sql = "UPDATE poll SET active='0' WHERE pid='".xss_sql_filter($_GET['pid'])."'";
 			$result = db_query($sql, $currentCourseID);
 			$GLOBALS["tool_content"] .= "".$GLOBALS["langPollDeactivated"]."<br>";
 			break;
@@ -341,13 +341,13 @@ cData;
 
 			$creator_id = $thepoll["creator_id"];
 			$theCreator = uid_to_name($creator_id);
-			$pid = $thepoll["pid"];
+			$pid = intval($thepoll["pid"]);
 			$answers = db_query("SELECT * FROM poll_answer_record WHERE pid='$pid'", $currentCourse);
 			$countAnswers = mysql_num_rows($answers);
 			$thepid = $thepoll["pid"];
 			// check if user has participated
 			$has_participated = mysql_fetch_array(mysql_query("SELECT COUNT(*) FROM poll_answer_record
-					WHERE user_id='$uid' AND pid='$thepid'"));
+					WHERE user_id='".intval($uid)."' AND pid='".intval($thepid)."'"));
 			// check if poll has ended
 			if (($temp_CurrentDate >= $temp_StartDate) && ($temp_CurrentDate < $temp_EndDate)) {
 				$poll_ended = 0;

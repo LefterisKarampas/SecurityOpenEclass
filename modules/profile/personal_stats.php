@@ -37,7 +37,7 @@ check_uid();
 $nameTools = $langPersonalStats;
 
 check_guest();
-
+$uid = intval($uid);
 // Chart display added - haniotak
 if (!extension_loaded('gd')) {
 	$tool_content .= "$langGDRequired";
@@ -141,7 +141,7 @@ if (!extension_loaded('gd')) {
 
 
 $sql = "SELECT * FROM loginout
-    WHERE id_user = '".$_SESSION["uid"]."' ORDER by idLog DESC LIMIT 10";
+    WHERE id_user = '".intval($_SESSION["uid"])."' ORDER by idLog DESC LIMIT 10";
 
 $leResultat = db_query($sql, $mysqlMainDb);
 

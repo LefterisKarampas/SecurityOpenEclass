@@ -560,15 +560,15 @@ function createTFSurvey() {
 			$sid = date("YmdHms"); 
 			mysql_select_db($GLOBALS['currentCourseID']);
 			$result1 = db_query("INSERT INTO survey VALUES ('".
-				mysql_real_escape_string($sid). "','".
-				$GLOBALS['uid']. "','".
-				$GLOBALS['currentCourseID']. "','".
-				mysql_real_escape_string($SurveyName) 	. "','".
-				mysql_real_escape_string($CreationDate) . "','".
-				mysql_real_escape_string($StartDate) 		. "','".
-				mysql_real_escape_string($EndDate) 			. "','".
-				mysql_real_escape_string($SurveyType) 	. "','".
-				mysql_real_escape_string($SurveyActive) ."')");
+				xss_sql_filter($sid). "','".
+				intval($GLOBALS['uid']). "','".
+				xss_sql_filter($GLOBALS['currentCourseID']). "','".
+				xss_sql_filter($SurveyName) 	. "','".
+				xss_sql_filter($CreationDate) . "','".
+				xss_sql_filter($StartDate) 		. "','".
+				xss_sql_filter($EndDate) 			. "','".
+				xss_sql_filter($SurveyType) 	. "','".
+				xss_sql_filter($SurveyActive) ."')");
 		} elseif (($counter > 4)&&($counter <= count($_POST)-2)) {
 			$QuestionText = $$key;
 			$sqid = "";
@@ -577,9 +577,9 @@ function createTFSurvey() {
 				$sqid .= $pattern{rand(0,9)};
 			mysql_select_db($GLOBALS['currentCourseID']);
 			$result2 = db_query("INSERT INTO survey_question VALUES ('".
-				$sqid. "','".
-				mysql_real_escape_string($sid). "','".
-				mysql_real_escape_string($QuestionText) ."')");
+				intval($sqid). "','".
+				xss_sql_filter($sid). "','".
+				xss_sql_filter($QuestionText) ."')");
 		}
 	}	  
     
@@ -611,15 +611,15 @@ function createMCSurvey() {
 				$sid = date("YmdHms"); 
 				mysql_select_db($GLOBALS['currentCourseID']);
 				$result3 = db_query("INSERT INTO survey VALUES ('".
-					mysql_real_escape_string($sid). "','".
-					$GLOBALS['uid']. "','".
-					$GLOBALS['currentCourseID']. "','".
-					mysql_real_escape_string($SurveyName) 	. "','".
-					mysql_real_escape_string($CreationDate) . "','".
-					mysql_real_escape_string($StartDate) 		. "','".
-					mysql_real_escape_string($EndDate) 			. "','".
-					mysql_real_escape_string($SurveyType) 	. "','".
-					mysql_real_escape_string($SurveyActive) ."')");
+					xss_sql_filter($sid). "','".
+					intval($GLOBALS['uid']). "','".
+					xss_sql_filter($GLOBALS['currentCourseID']). "','".
+					xss_sql_filter($SurveyName) 	. "','".
+					xss_sql_filter($CreationDate) . "','".
+					xss_sql_filter($StartDate) 		. "','".
+					xss_sql_filter($EndDate) 			. "','".
+					xss_sql_filter($SurveyType) 	. "','".
+					xss_sql_filter($SurveyActive) ."')");
 			}	
 			if (($counter >= 5) && ($counter <= (count($_POST)-2) )) { // question or anwser
 				if (substr($key, 0, 8) == "question") { //question
@@ -630,17 +630,17 @@ function createMCSurvey() {
 						$sqid .= $pattern{rand(0,9)};
 					mysql_select_db($GLOBALS['currentCourseID']);
 					$result4 = db_query("INSERT INTO survey_question VALUES ('".
-					$sqid . "','".
-					mysql_real_escape_string($sid) . "','".
-					mysql_real_escape_string($QuestionText) ."')");
+					intval($sqid) . "','".
+					xss_sql_filter($sid) . "','".
+					xss_sql_filter($QuestionText) ."')");
 
 				} else { //answer
 					if ($$key != '') {
 						$AnwserText = $$key;	
 						mysql_select_db($GLOBALS['currentCourseID']);
 						$result5 = db_query("INSERT INTO survey_question_answer VALUES ('0','".
-							$sqid. "','".
-							mysql_real_escape_string($AnwserText) ."')");
+							intval($sqid). "','".
+							xss_sql_filter($AnwserText) ."')");
 					}
 				}
 			}

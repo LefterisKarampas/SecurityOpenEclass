@@ -100,6 +100,7 @@ function getUserForumPosts($param, $type)
 
 	if ($getNewPosts) {
 		$sqlNowDate = eregi_replace(" ", "-",$usr_lst_login);
+		$uid = intval($uid);
 		$sql = "UPDATE `user` SET `forum_flag` = '$sqlNowDate' WHERE `user_id` = $uid ";
 		db_query($sql, $mysqlMainDb);
 	} elseif (!$getNewPosts) {
@@ -184,7 +185,7 @@ fCont;
  * @return string SQL query
  */
 function createForumQueries($dateVar){
-
+		$dateVar = xss_sql_filter($dateVar);
         $forum_query = 'SELECT forums.forum_id,
                                forums.forum_name,
                                topics.topic_id,

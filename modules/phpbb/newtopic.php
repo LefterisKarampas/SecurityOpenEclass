@@ -145,8 +145,8 @@ if (isset($submit) && $submit) {
 	
 	$poster_ip = $REMOTE_ADDR;
 	$time = date("Y-m-d H:i");
-	$nom = addslashes($nom);
-	$prenom = addslashes($prenom);
+	$nom = xss_sql_filter($nom);
+	$prenom = xss_sql_filter($prenom);
 
 	//-------------------------------------
 	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
@@ -157,7 +157,7 @@ if (isset($submit) && $submit) {
 		$message .= "\n[addsig]";
 	}
 	$sql = "INSERT INTO topics (topic_title, topic_poster, forum_id, topic_time, topic_notify, nom, prenom)
-			VALUES (" . autoquote($subject) . ", '$uid', '$forum', '$time', 1, '$nom', '$prenom')";
+			VALUES (" . justQuote($subject) . ", '$uid', '$forum', '$time', 1, '$nom', '$prenom')";
 	$result = db_query($sql, $currentCourseID);
 
 	$topic_id = mysql_insert_id();
@@ -171,7 +171,7 @@ if (isset($submit) && $submit) {
 		$post_id = mysql_insert_id();
 		if ($post_id) {
 			$sql = "INSERT INTO posts_text (post_id, post_text)
-					VALUES ($post_id, " . autoquote($message) . ")";
+					VALUES ($post_id, " . justQuote($message) . ")";
 			$result = db_query($sql, $currentCourseID);
 			$sql = "UPDATE topics
 				SET topic_last_post_id = $post_id
@@ -194,7 +194,7 @@ if (isset($submit) && $submit) {
 	// notify users 
 	// --------------------------------
 	$subject_notify = "$logo - $langNewForumNotify";
-	$category_id = forum_category($forum);
+	$category_id = intval(forum_category($forum));
 	$cat_name = category_name($category_id);
 	$sql = db_query("SELECT DISTINCT user_id FROM forum_notify 
 			WHERE (forum_id = $forum OR cat_id = $category_id) 
