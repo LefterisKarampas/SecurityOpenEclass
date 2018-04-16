@@ -76,17 +76,13 @@ $nameTools = $langAdminUsers;
 $tool_content = "";
 
 // IF PROF ONLY
-
-if(isset($_POST['password'])){
+if(($_SESSION['userauth'] == false) && isset($_POST['password'])){
     $password = xss_sql_filter($_POST['password']);
     $uid = intval($uid);
-    $flag_zip = login_zip($uid,$password);
-}
-else{
-    $flag_zip = false;
+    $_SESSION['userauth'] = login_zip($uid,$password);
 }
 
-if ($is_adminOfCourse && ($flag_zip == true)) {
+if ($is_adminOfCourse && ($_SESSION['userauth'] == true)) {
 
         // Handle user removal / status change
         if (isset($_GET['giveAdmin'])) {
@@ -271,7 +267,7 @@ if (isset($status) && ($status[$currentCourseID]==1 OR $status[$currentCourseID]
   </tr>";
 }
 
-if($flag_zip == false){
+if($_SESSION['userauth'] == false){
 $tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
                     <form action="user.php" method="post">
                       Password:<br>
