@@ -435,12 +435,12 @@ function dropbox_post($fileId, $recipientId) {
 	if (!$course_addusers) return;
 	mysql_select_db($new_course_code);
 	$fileId = intval($fileId);
-	$userid_map[$personId]) = intval($$userid_map[$recipientId]);
+	$userid_map[$personId] = intval($$userid_map[$recipientId]);
 	db_query("INSERT into dropbox_post (fileId, recipientId)
 		VALUES (".
 		join(", ", array(
-			quote($fileId),
-			quote($userid_map[$recipientId]))).")");
+			justQuote($fileId),
+			justQuote($userid_map[$recipientId]))).")");
 }
 
 
