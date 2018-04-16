@@ -23,6 +23,9 @@
 *  			Panepistimiopolis Ilissia, 15784, Athens, Greece
 *  			eMail: info@openeclass.org
 * =========================================================================*/
+$require_current_course = TRUE;
+$require_prof = TRUE;
+include '../../include/baseTheme.php';
 
 if (isset($c) && ($c!="")) {
 	session_start();
@@ -30,9 +33,6 @@ if (isset($c) && ($c!="")) {
 	$_SESSION['dbname'] = xss_sql_filter($c);
 }
 
-$require_current_course = TRUE;
-$require_prof = TRUE;
-include '../../include/baseTheme.php';
 
 $nameTools = $langArchiveCourse;
 $navigation[] = array("url" => "infocours.php", "name" => $langModifInfo);
