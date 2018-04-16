@@ -50,6 +50,16 @@ $all_set = register_posted_variables(array(
 $submit = isset($_POST['submit'])?$_POST['submit']:'';
 
 if($submit) {
+  //CSRF FIX
+    if (invalid_token()) {
+        $tool_content .= "<table width='99%'><tbody><tr>
+        <td class='caution' height='60'><p>$langEmptyFields</p>
+  <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+      draw($tool_content, 3, ' ', $head_content);
+      exit();
+  }
+
+
 	// register user
 	$depid = intval(isset($_POST['department'])?$_POST['department']: 0);
 	$proflanguage = isset($_POST['language'])?$_POST['language']:'';
@@ -224,6 +234,7 @@ $langEmail : $emailhelpdesk
 	<input type='hidden' name='rid' value='".@$id."'>
 	<input type='hidden' name='pstatut' value='$pstatut'>
         <input type='hidden' name='auth' value='1' >
+  <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	</form>";
 	$tool_content .= "
 	<br />
