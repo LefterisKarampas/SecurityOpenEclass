@@ -155,8 +155,11 @@ if (isset($_SESSION['shib_uname'])) { // authenticate via shibboleth
 
 			//CSRF FIX
 			$randomtoken = md5(uniqid(rand(), true));
-			$_SESSION['csrfToken']=$randomtoken;
-			
+			$_SESSION['csrfToken'] = $randomtoken;
+
+			//FIX giveAdmin
+			$_SESSION['userauth'] = false;
+
 			mysql_query("INSERT INTO loginout (loginout.idLog, loginout.id_user, loginout.ip, loginout.when, loginout.action)
 			VALUES ('', '$uid', '$_SERVER[REMOTE_ADDR]', NOW(), 'LOGIN')");
 		}
