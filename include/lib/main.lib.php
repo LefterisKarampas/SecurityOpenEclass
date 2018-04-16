@@ -896,6 +896,7 @@ function make_clickable_path($dbTable, $path)
 		if (empty($component)) {
 			$out = "<a href='{$base}openDir=/'>$langRoot</a>";
 		} else {
+			$component = xss_sql_filter($component);
 			$cur .= rawurlencode("/$component");
 			$row = mysql_fetch_array(db_query ("SELECT filename FROM $dbTable
 					WHERE path LIKE '%$component'"));
