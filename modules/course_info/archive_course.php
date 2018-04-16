@@ -27,7 +27,7 @@
 if (isset($c) && ($c!="")) {
 	session_start();
 	$require_admin = TRUE;
-	$_SESSION['dbname'] = $c;
+	$_SESSION['dbname'] = xss_sql_filter($c);
 }
 
 $require_current_course = TRUE;
@@ -109,7 +109,7 @@ if($is_adminOfCourse) {
 				</div>';
 		}
 	}
-
+	$c = xss_sql_filter($c);
 	$tool_content .= "<p align=\"right\">";
 	if (isset($c) && ($c!="")) {
 		if (isset($search) && ($search=="yes")) $searchurl = "&search=yes";

