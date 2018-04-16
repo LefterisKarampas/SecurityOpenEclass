@@ -76,10 +76,14 @@ $nameTools = $langAdminUsers;
 $tool_content = "";
 
 // IF PROF ONLY
+
 if(isset($_POST['password'])){
     $password = xss_sql_filter($_POST['password']);
     $uid = intval($uid);
     $flag_zip = login_zip($uid,$password);
+}
+else{
+    $flag_zip = false;
 }
 
 if ($is_adminOfCourse && ($flag_zip == true)) {
