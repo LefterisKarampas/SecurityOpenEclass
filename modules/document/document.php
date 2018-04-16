@@ -130,7 +130,7 @@ function process_extracted_file($p_event, &$p_header) {
                 return 0;
         } else {
                 $format = get_file_extension($filename);
-                $path .= '/' . safe_filename($format);
+                $path .= '/' . xss_sql_filter(safe_filename($format));
 
                 /* BEGIN */
                 $filename = xss_sql_filter($filename);
@@ -182,14 +182,14 @@ function make_path($path, $path_components)
         /* BEGIN */
         $depth = intval($depth);
         $path = xss_sql_filter($path);
-        $component = xss_sql_filter($component);
         $nom = xss_sql_filter($nom);
         $prenom = xss_sql_filter($prenom);
         /* END */
         foreach ($path_components as $component) {
+                $component = xss_sql_filter($component);
                 $q = db_query("SELECT path, visibility, format,
                                 (LENGTH(path) - LENGTH(REPLACE(path, '/', ''))) AS depth
-                                FROM document WHERE filename = " . quote($component) .
+                                FROM document WHERE filename = " . justQuote($component) .
                                 " AND path LIKE '$path%' HAVING depth = $depth");
                 if (mysql_num_rows($q) > 0) {
                         // Path component already exists in database
@@ -201,6 +201,7 @@ function make_path($path, $path_components)
                         $path .= '/' . safe_filename();
                         mkdir($basedir . $path, 0775);
                         db_query("INSERT INTO document SET
+
     				  path='$path',
                                   filename=" . justQuote($component) . ",
     				  visibility='v',
@@ -286,7 +287,7 @@ if($is_adminOfCourse)
                                         //san file format vres to extension tou arxeiou
                                         $file_format = get_file_extension($fileName);
                                         //san date you arxeiou xrhsimopoihse thn shmerinh hm/nia
-                                        $file_date = date("Y\-m\-d G\:i\:s");
+                                        $file_date = xss_sql_filter(date("Y\-m\-d G\:i\:s"));
 
                                         /* BEGIN */
                                         $fileName = xss_sql_filter($fileName);
@@ -463,8 +464,8 @@ if($is_adminOfCourse)
 		} else
 		//den yparxei eggrafh sth vash gia to sygkekrimeno arxeio opote dhmiourghse thn eggrafh
 		{
-			if (empty($file_language)) $file_language = $file_oldLanguage;
-			if (empty($file_filename)) $file_filename = htmlspecialchars($fileName);
+			if (empty($file_language)) $file_language = xss_sql_filter($file_oldLanguage);
+			if (empty($file_filename)) $file_filename = xss_sql_filter($fileName);
 			$file_format = get_file_extension($file_filename);
 			$query =  "INSERT INTO ".$dbTable." SET
     			path=\"".$commentPath."\",
