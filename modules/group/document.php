@@ -428,6 +428,7 @@ if (isset($dirNameList))
 {
 	while (list($dirKey, $dirName) = each($dirNameList))
 	{
+		
 		$dirName = xss_sql_filter($dirName);
 		$result = db_query ("SELECT filename FROM group_documents WHERE path LIKE '%$dirName'");
 		$row = mysql_fetch_array($result);
