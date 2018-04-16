@@ -141,18 +141,21 @@ if (isset($submit) && $submit) {
 	// makotora
 	//use htmlspecialchars as well for subject 
 	//in case strip_tags doesnt do the trick
-	$subject = undo_redo_hsc(strip_tags($subject));
+	$subject = xss_sql_filter(strip_tags($subject));
 	
 	$poster_ip = $REMOTE_ADDR;
-	$time = date("Y-m-d H:i");
+	$time = xss_sql_filter(date("Y-m-d H:i"));
 	$nom = xss_sql_filter($nom);
 	$prenom = xss_sql_filter($prenom);
 
 	//-------------------------------------
 	//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
-	$message = undo_redo_hsc($message);
+	$message = xss_sql_filter($message);
+	$uid = intval($uid);
+	$forum = intval($uid);
+	$time = xss_sql_filter($time);
+	
 	//-------------------------------------
-
 	if (isset($sig) && $sig) {
 		$message .= "\n[addsig]";
 	}

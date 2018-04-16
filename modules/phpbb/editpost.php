@@ -125,7 +125,7 @@ if ($is_adminOfCourse) { // course admin
 
 		//-------------------------------------
 		//ALWAYS UNDO AND REDO HTMLSPECIALCHARS
-		$message = undo_redo_hsc($message);
+		$message = xss_sql_filter($message);
 		//-------------------------------------
 
 		if (!isset($delete) || !$delete) {
@@ -323,7 +323,7 @@ if ($is_adminOfCourse) { // course admin
 
 		//This used to only undo html special chars
 		//Which could cause XSS upon editing a message
-		$message = undo_redo_hsc($message);
+		$message = xss_sql_filter($message);
 		
 
 		// Special handling for </textarea> tags in the message, which can break the editing form..
