@@ -51,7 +51,7 @@ $submit = isset($_POST['submit'])?$_POST['submit']:'';
 
 if($submit) {
   //CSRF FIX
-    if (invalid_token()) {
+  if (invalid_token()) {
         $tool_content .= "<table width='99%'><tbody><tr>
         <td class='caution' height='60'><p>$langEmptyFields</p>
   <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
