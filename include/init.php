@@ -169,7 +169,7 @@ if (isset($require_current_course) and $require_current_course) {
 		$toolContent_ErrorExists = $langSessionIsLost;
 		$errorMessagePath = "../../";
 	} else {
-		$currentCourse = $dbname = $_SESSION['dbname'];
+		$currentCourse = $dbname = xss_sql_filter($_SESSION['dbname']);
 		$result = db_query("SELECT cours_id, code, fake_code, intitule, faculte,
                                            titulaires, languageCourse,
                                            departmentUrlName, departmentUrl, visible
