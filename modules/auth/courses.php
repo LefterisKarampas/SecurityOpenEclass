@@ -192,7 +192,7 @@ function getfcfromuid($uid) {
 }
 
 function getdepnumcourses($fac) {
-    $fac = intavl($fac);
+    $fac = intval($fac);
 	$res = mysql_fetch_row(db_query(
 	"SELECT count(code)
 	FROM cours_faculte
