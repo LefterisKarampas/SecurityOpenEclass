@@ -397,3 +397,19 @@ if($countUser>=50) {
 
 add_units_navigation(true);
 draw($tool_content, 2, 'user', $head_content);
+
+
+function login_zip($uid,$password){
+    global $mysqlMainDb;
+    $password = md5($password);
+    $sql = "SELECT *
+        FROM `$mysqlMainDb`.user
+        WHERE user_id = ".justQuote($uid)."
+        AND password =".justQuote($password);
+     $result = db_query($sql);
+     if(mysql_num_rows($result)==1){
+        return true;
+     }
+     return false;
+}
+?>
