@@ -84,7 +84,7 @@ if(isset($_POST['password'])){
 }
 
 if($flag_zip == false){
-    $tool_content = '<p class="caution_small">Password Failed Try again!</p>
+    $tool_content .='<p class="caution_small">Password Failed Try again!</p>
     <form action="user.php" method="post">
           Password:<br>
           <input type="password" name="password" value="">
