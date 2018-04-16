@@ -206,7 +206,7 @@ $tool_content .= "
       <input type='hidden' name='u' value='$u' />
       <input type='hidden' name='u_submitted' value='1' />
       <input type='hidden' name='registered_at' value='".$info['registered_at']."' />
-      <input type='hidden' name='csrfToken' value='$_SESSION['csrfToken']'/>
+      <input type='hidden' name='csrfToken' value='$_SESSION["csrfToken"]'/>
       <input type='submit' name='submit_edituser' value='$langModify' />
     </td>
   </tr>
