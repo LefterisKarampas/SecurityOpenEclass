@@ -104,7 +104,7 @@ if($is_adminOfCourse) {
 			$tool_content.= '<br /><div align=\"left\">
 			<form action="archive_course.php" method="post">
 				  Password:<br>
-				  <input type="text" name="password" value="">
+				  <input type="password" name="password" value="">
 				  <br><br>
 				  <input type="submit" value="Submit">
 				</form> 
