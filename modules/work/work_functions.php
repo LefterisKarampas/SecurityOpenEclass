@@ -85,7 +85,7 @@ function work_secret($id)
 		if (!empty($secret[0])) {
 			$s = $secret[0];
 		} else {
-			$s = $id;
+			die("Error: Directory for assignment doesn't exist");
 		}
 		if (!is_dir("$workPath/$s")) {
 			if (!file_exists($coursePath)) {
