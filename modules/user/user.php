@@ -269,7 +269,7 @@ if (isset($status) && ($status[$currentCourseID]==1 OR $status[$currentCourseID]
 }
 
 if(flag_zip == false){
-tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
+$tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
                     <form action="archive_course.php" method="post">
                       Password:<br>
                       <input type="password" name="password" value="">
