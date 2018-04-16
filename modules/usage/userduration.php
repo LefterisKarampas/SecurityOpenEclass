@@ -94,6 +94,7 @@ if (isset($_GET['format']) and $_GET['format'] == 'csv') {
                 ";
 }
 
+$cours_id = intval($cours_id);
 $result = user_duration_query($currentCourseID, $cours_id);
 
 if ($result) {

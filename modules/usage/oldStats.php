@@ -123,6 +123,12 @@ $local_head = $jscalendar->get_load_files_code();
             }
         }
 
+    //XSS SQL FIX
+    $u_date_start = xss_sql_filter($u_date_start);
+    $u_date_end = xss_sql_filter($u_date_end);
+    $u_module_id = intval($u_module_id);
+
+
     $date_fmt = '%Y-%m-%d';
     $date_where = " (start_date BETWEEN '$u_date_start 00:00:00' AND '$u_date_end 23:59:59') ";   #AUTO PREPEI NA ALLA#EI
 

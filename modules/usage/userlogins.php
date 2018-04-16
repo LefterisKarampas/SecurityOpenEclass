@@ -91,6 +91,13 @@ foreach ($usage_defaults as $key => $val) {
 
 
 $date_fmt = '%Y-%m-%d';
+
+//XSS SQL FIX
+$u_date_start = xss_sql_filter($u_date_start);
+$u_date_end = xss_sql_filter($u_date_end);
+$u_user_id = intval($u_user_id);
+$cours_id = intval($cours_id);
+
 $date_where = " (date_time BETWEEN '$u_date_start 00:00:00' AND '$u_date_end 23:59:59') ";
 $date_what  = "DATE_FORMAT(MIN(date_time), '$date_fmt') AS date_start, DATE_FORMAT(MAX(date_time), '$date_fmt') AS date_end ";
 
@@ -275,7 +282,7 @@ if (!($table_cont || $table2_cont)) {
     }
 
     if (isset($_GET['first'])) {
-        $firstletter = mysql_real_escape_string($_GET['first']);
+        $firstletter = xss_sql_filter($_GET['first']);
         $qry = "SELECT a.user_id, a.nom, a.prenom, a.username, a.email, b.statut
             FROM user AS a LEFT JOIN cours_user AS b ON a.user_id = b.user_id
             WHERE b.cours_id = $cours_id AND LEFT(a.nom,1) = '$firstletter'";
