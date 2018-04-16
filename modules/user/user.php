@@ -82,6 +82,8 @@ if(($_SESSION['userauth'] == false) && isset($_POST['password'])){
     $_SESSION['userauth'] = login_zip($uid,$password);
 }
 
+$action = false;
+
 if ($is_adminOfCourse && ($_SESSION['userauth'] == true)) {
 
         // Handle user removal / status change
@@ -89,22 +91,26 @@ if ($is_adminOfCourse && ($_SESSION['userauth'] == true)) {
                 $new_admin_gid = intval($_GET['giveAdmin']);
                 db_query("UPDATE cours_user SET statut = 1
                                 WHERE user_id = $new_admin_gid AND cours_id = $cours_id", $mysqlMainDb);
+                $action = true;
         } elseif (isset($_GET['giveTutor'])) {
                 $new_tutor_gid = intval($_GET['giveTutor']);
                 db_query("UPDATE cours_user SET tutor = 1
                                 WHERE user_id = $new_tutor_gid AND cours_id = $cours_id", $mysqlMainDb);
                 db_query("DELETE FROM user_group WHERE user = $new_tutor_gid", $currentCourseID);
+                $action = true;
         } elseif (isset($_GET['removeAdmin'])) {
                 $removed_admin_gid = intval($_GET['removeAdmin']);
                 db_query("UPDATE cours_user SET statut = 5
                                 WHERE user_id <> $uid AND
                                       user_id = $removed_admin_gid AND
                                       cours_id = $cours_id", $mysqlMainDb);
+                $action = true;
         } elseif (isset($_GET['removeTutor'])) {
                 $removed_tutor_gid = intval($_GET['removeTutor']);
                 db_query("UPDATE cours_user SET tutor = 0
                                 WHERE user_id = $removed_tutor_gid AND
                                       cours_id = $cours_id", $mysqlMainDb);
+                $action = true;
         } elseif (isset($_GET['unregister'])) {
                 $unregister_gid = intval($_GET['unregister']);
                 $unregister_ok = true;
@@ -119,6 +125,7 @@ if ($is_adminOfCourse && ($_SESSION['userauth'] == true)) {
                                 $unregister_ok = false;
                         }
                 }
+                $action = true;
                 if ($unregister_ok) {
                         db_query("DELETE FROM cours_user
                                         WHERE user_id = $unregister_gid AND
@@ -394,6 +401,9 @@ if($countUser>=50) {
 	</td></tr></table>";
 }	// navigation buttons
 
+if($action == true){
+    $_SESSION['userauth'] = false;
+}
 add_units_navigation(true);
 draw($tool_content, 2, 'user', $head_content);
 
