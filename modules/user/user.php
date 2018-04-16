@@ -76,7 +76,6 @@ $nameTools = $langAdminUsers;
 $tool_content = "";
 
 // IF PROF ONLY
-$flag_zip = false;
 if(isset($_POST['password'])){
     $password = xss_sql_filter($_POST['password']);
     $uid = intval($uid);
