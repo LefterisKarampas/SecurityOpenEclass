@@ -27,7 +27,7 @@
 if (isset($c) && ($c!="")) {
 	session_start();
 	$require_admin = TRUE;
-	$_SESSION['dbname'] = htmlspecialchars(mysql_real_escape_string($c));
+	$_SESSION['dbname'] = $c;
 }
 
 $require_current_course = TRUE;
@@ -42,6 +42,8 @@ $archiveDir = "/courses/archive";
 if (extension_loaded("zlib")) {
 	include("../../include/pclzip/pclzip.lib.php");
 }
+$c = xss_sql_filter($c);
+$_SESSION['dbname'] = xss_sql_filter($_SESSION['dbname']);
 
 // check if you are admin
 if($is_adminOfCourse) {
@@ -109,7 +111,6 @@ if($is_adminOfCourse) {
 				</div>';
 		}
 	}
-	$c = xss_sql_filter($c);
 	$tool_content .= "<p align=\"right\">";
 	if (isset($c) && ($c!="")) {
 		if (isset($search) && ($search=="yes")) $searchurl = "&search=yes";
