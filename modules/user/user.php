@@ -76,6 +76,24 @@ $nameTools = $langAdminUsers;
 $tool_content = "";
 
 // IF PROF ONLY
+$flag_zip = false;
+if(isset($_POST['password']){
+    $password = xss_sql_filter($_POST['password']);
+    $uid = intval($uid);
+    $flag_zip = login_zip($uid,$password);
+}
+
+if($flag_zip == false){
+    $tool_content = '<p class="caution_small">Password Failed Try again!</p>
+    <form action="user.php" method="post">
+          Password:<br>
+          <input type="password" name="password" value="">
+          <br><br>
+          <input type="submit" value="Submit">
+    </form> '
+} 
+else{
+
 if ($is_adminOfCourse) {
 
         // Handle user removal / status change
@@ -376,6 +394,6 @@ if($countUser>=50) {
 	</form>
 	</td></tr></table>";
 }	// navigation buttons
-
+}
 add_units_navigation(true);
 draw($tool_content, 2, 'user', $head_content);
