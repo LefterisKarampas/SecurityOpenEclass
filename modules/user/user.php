@@ -83,18 +83,7 @@ if(isset($_POST['password'])){
     $flag_zip = login_zip($uid,$password);
 }
 
-if($flag_zip == false){
-    $tool_content .='<p class="caution_small">Password Failed Try again!</p>
-    <form action="user.php" method="post">
-          Password:<br>
-          <input type="password" name="password" value="">
-          <br><br>
-          <input type="submit" value="Submit">
-    </form> '
-} 
-else{
-
-if ($is_adminOfCourse) {
+if ($is_adminOfCourse && (flag_zip == true)) {
 
         // Handle user removal / status change
         if (isset($_GET['giveAdmin'])) {
@@ -279,6 +268,17 @@ if (isset($status) && ($status[$currentCourseID]==1 OR $status[$currentCourseID]
   </tr>";
 }
 
+if(flag_zip == false){
+tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
+                    <form action="archive_course.php" method="post">
+                      Password:<br>
+                      <input type="password" name="password" value="">
+                      <br><br>
+                      <input type="submit" value="Submit">
+                    </form> 
+                    </div></tr>'
+}
+else{
 $startList = intval($startList);
 $endList = intval($endList);
 $result = db_query("SELECT user.user_id, user.nom, user.prenom, user.email, user.am, cours_user.statut,
@@ -352,7 +352,7 @@ while ($myrow = mysql_fetch_array($result)) {
         }	// admin only
         $tool_content .= "</td></tr>";$i++;
 } 	// end of while
-
+}
 $tool_content .= "
    </table>";
 
@@ -394,6 +394,6 @@ if($countUser>=50) {
 	</form>
 	</td></tr></table>";
 }	// navigation buttons
-}
+
 add_units_navigation(true);
 draw($tool_content, 2, 'user', $head_content);
