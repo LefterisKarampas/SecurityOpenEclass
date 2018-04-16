@@ -54,7 +54,7 @@ function display_forum()
 			$tool_content .= "<td width='60%'><div align='left'>$entry[comment]</div></td>";
 			$tool_content .= "<td align='center'><input type='checkbox' name='forum[]'  value='$entry[id]'></td>";
 			$tool_content .= "</tr>";
-			$r = db_query("SELECT * FROM topics WHERE forum_id = '$entry[id]'", $currentCourseID);
+			$r = db_query("SELECT * FROM topics WHERE forum_id = '".intval($entry[id])."'", $currentCourseID);
 			if (mysql_num_rows($r) > 0) { // if forum topics found 
 				$topicinfo = array();
 				while($topicrow = mysql_fetch_array($r, MYSQL_ASSOC)) {

@@ -75,12 +75,12 @@ _editor_lang = '$lang_editor';
 }  elseif(isset($_REQUEST['edit_res_submit'])) { // edit resource
 	$res_id = intval($_REQUEST['resource_id']);	
 	if ($id = check_admin_unit_resource($res_id)) {
-		@$restitle = autoquote(trim($_REQUEST['restitle']));
-                $rescomments = autoquote(trim($_REQUEST['rescomments']));
+		@$restitle = xss_sql_filter(trim($_REQUEST['restitle']));
+                $rescomments = xss_sql_filter(trim($_REQUEST['rescomments']));
 		$result = db_query("UPDATE unit_resources SET
-				title = $restitle,
-				comments = $rescomments
-				WHERE unit_id = $id AND id = $res_id");
+				title = ".justQuote($restitle).",
+				comments = ".justQuote($rescomments)."
+				WHERE unit_id = ".intval($id)." AND id = ".intval($res_id));
 	}
 	$tool_content .= "<p class='success_small'>$langResourceUnitModified</p>";
 } elseif(isset($_REQUEST['del'])) { // delete resource from course unit
@@ -116,6 +116,8 @@ if ($is_adminOfCourse) {
 } else {
         $visibility_check = "AND visibility='v'";
 }
+$cours_id = intval($cours_id);
+$id = intval($id);
 $q = db_query("SELECT * FROM course_units
                WHERE id = $id AND course_id=$cours_id " . $visibility_check);
 if (!$q or mysql_num_rows($q) == 0) {
@@ -140,6 +142,9 @@ foreach (array('previous', 'next') as $i) {
                 $arrow1 = '';
                 $arrow2 = ' »';
         }
+        $cours_id = intval($cours_id);
+        $id = intval($id);
+        $info[order] = intval($info[order]);
         $q = db_query("SELECT id, title FROM course_units
                        WHERE course_id = $cours_id
                              AND id <> $id
@@ -193,6 +198,7 @@ $tool_content .= '<form class="unit-select" name="unitselect" action="' .
                  $urlServer . 'modules/units/" method="get">' .
                  '<table align="left"><tbody><tr><th class="left">'.$langCourseUnits.':&nbsp;</th><td>'.
                  '<select class="auth_input" name="id" onChange="document.unitselect.submit();">';
+$cours_id = intval($cours_id);
 $q = db_query("SELECT id, title FROM course_units
                WHERE course_id = $cours_id
                      $visibility_check
@@ -218,7 +224,8 @@ draw($tool_content, 2, 'units', $head_content);
 function check_admin_unit_resource($resource_id)
 {
 	global $cours_id, $is_adminOfCourse;
-	
+	$cours_id = intval($cours_id);
+    $resource_id = intval($resource_id);
 	if ($is_adminOfCourse) {
 		$q = db_query("SELECT course_units.id FROM course_units,unit_resources WHERE
 			course_units.course_id = $cours_id AND course_units.id = unit_resources.unit_id
@@ -235,6 +242,7 @@ function check_admin_unit_resource($resource_id)
 function show_resources($unit_id)
 {
 	global $tool_content, $max_resource_id;
+    $unit_id = intval($unit_id);
 	$req = db_query("SELECT * FROM unit_resources WHERE unit_id = $unit_id ORDER BY `order`");
 	if (mysql_num_rows($req) > 0) {
 		list($max_resource_id) = mysql_fetch_row(db_query("SELECT id FROM unit_resources
@@ -348,6 +356,7 @@ function show_lp($title, $comments, $resource_id, $lp_id)
 
 	$comment_box = $class_vis = $imagelink = $link = '';
         $title = htmlspecialchars($title);
+        $lp_id = intval($lp_id);
 	$r = db_query("SELECT * FROM lp_learnPath WHERE learnPath_id = $lp_id",
                       $currentCourseID);
 	if (mysql_num_rows($r) == 0) { // check if lp was deleted
@@ -383,7 +392,7 @@ function show_lp($title, $comments, $resource_id, $lp_id)
 function show_video($table, $title, $comments, $resource_id, $video_id, $visibility)
 {
         global $is_adminOfCourse, $currentCourseID, $tool_content;
-
+        $video_id = intval($video_id);
         $result = db_query("SELECT * FROM $table WHERE id=$video_id",
                            $currentCourseID);
         if ($result and mysql_num_rows($result) > 0) {
@@ -423,6 +432,7 @@ function show_work($title, $comments, $resource_id, $work_id, $visibility)
 
 	$comment_box = $class_vis = $imagelink = $link = '';
         $title = htmlspecialchars($title);
+    $work_id = intval($work_id);
 	$r = db_query("SELECT * FROM assignments WHERE id = $work_id",
                       $currentCourseID);
 	if (mysql_num_rows($r) == 0) { // check if it was deleted
@@ -460,6 +470,7 @@ function show_exercise($title, $comments, $resource_id, $exercise_id, $visibilit
 
 	$comment_box = $class_vis = $imagelink = $link = '';
         $title = htmlspecialchars($title);
+    $exercise_id = intval($exercise_id);
 	$r = db_query("SELECT * FROM exercices WHERE id = $exercise_id",
                       $currentCourseID);
 	if (mysql_num_rows($r) == 0) { // check if it was deleted
@@ -500,6 +511,7 @@ function show_forum($type, $title, $comments, $resource_id, $ft_id, $visibility)
 		$link = "<a href='${urlServer}modules/phpbb/viewforum.php?forum=$ft_id&amp;unit=$id'>";
                 $forumlink = $link . "$title</a>";
 	} else {
+        $ft_id = intval($ft_id);
 		$r = db_query("SELECT forum_id FROM topics WHERE topic_id = $ft_id", $currentCourseID);
 		list($forum_id) = mysql_fetch_array($r);
 		$link = "<a href='${urlServer}modules/phpbb/viewtopic.php?topic=$ft_id&amp;forum=$forum_id&amp;unit=$id'>";
@@ -526,6 +538,7 @@ function show_wiki($title, $comments, $resource_id, $wiki_id, $visibility)
 	$comment_box = $imagelink = $link = $class_vis = '';
 	$class_vis = ($visibility == 'i')? ' class="invisible"': '';
         $title = htmlspecialchars($title);
+    $wiki_id = intval($wiki_id);
 	$r = db_query("SELECT * FROM wiki_properties WHERE id = $wiki_id",
                       $currentCourseID);
 	if (mysql_num_rows($r) == 0) { // check if it was deleted
@@ -610,7 +623,7 @@ function actions($res_type, $resource_id, $status)
 function edit_res($resource_id) 
 {
 	global $tool_content, $id, $urlServer, $langTitle, $langDescr, $langContents, $langModify;
-	 
+	   $resource_id = intval($resource_id);
         $sql = db_query("SELECT id, title, comments, type FROM unit_resources WHERE id='$resource_id'");
         $ru = mysql_fetch_array($sql);
         $restitle = " value='" . htmlspecialchars($ru['title'], ENT_QUOTES) . "'";

@@ -47,6 +47,7 @@ _editor_lang = '$lang_editor';
 $id = intval($_REQUEST['id']);
 
 // Check that the current unit id belongs to the current course
+$cours_id = intval($cours_id);
 $q = db_query("SELECT * FROM course_units
                WHERE id=$id AND course_id=$cours_id");
 if (!$q or mysql_num_rows($q) == 0) {
@@ -135,7 +136,7 @@ function insert_docs($id)
 
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='doc', title=" .
 			 justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
-			 ", visibility='$file[visibility]', `order`=$order, `date`=NOW(), res_id=$file[id]",
+			 ", visibility='$file[visibility]', `order`=$order, `date`=NOW(), res_id=".intval($file[id]),
 			 $GLOBALS['mysqlMainDb']); 
 	}
 	header('Location: index.php?id=' . $id);
@@ -184,10 +185,10 @@ function insert_lp($id)
       //XSS + SQL INJECTION FIX
       $nameEscaped = xss_sql_filter($lp['name']);
       $commentEscaped = xss_sql_filter($lp['comment']);
-
+      $id = intval($id);
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='lp', title=" .
 			justQuote($nameEscaped) . ", comments=" . justQuote($commentEscaped) .
-			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$lp[learnPath_id]",
+			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=".intval($lp[learnPath_id]),
 			$GLOBALS['mysqlMainDb']);
 	}
 	header('Location: index.php?id=' . $id);
@@ -212,7 +213,8 @@ function insert_video($id)
       //XSS + SQL INJECTION FIX
       $titleEscaped = xss_sql_filter($row['titre']);
       $commentEscaped = xss_sql_filter($row['description']);
-
+      $order = intval($order);
+      $res_id = intval($res_id);
       db_query("INSERT INTO unit_resources SET unit_id=$id, type='$table', title=" . justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) . ", visibility='v', `order`=$order, `date`=NOW(), res_id=$res_id", $GLOBALS['mysqlMainDb']);
 	}
 	header('Location: index.php?id=' . $id);
@@ -239,7 +241,8 @@ function insert_work($id)
     //XSS + SQL INJECTION FIX
     $titleEscaped = xss_sql_filter($work['title']);
     $commentEscaped = xss_sql_filter($work['description']);
-
+    $order = intval($order);
+    $work[id] = intval($work[id]);
 		db_query("INSERT INTO unit_resources SET
                                 unit_id = $id,
                                 type = 'work',
@@ -276,7 +279,8 @@ function insert_exercise($id)
     //XSS + SQL INJECTION FIX
     $titleEscaped = xss_sql_filter($exercise['titre']);
     $commentEscaped = xss_sql_filter($exercise['description']);
-
+    $order = intval($order);
+    $exercise[id] = intval($exercise[id]);
 		db_query("INSERT INTO unit_resources SET unit_id=$id, type='exercise', title=" .
 			justQuote($titleEscaped) . ", comments=" . justQuote($commentEscaped) .
 			", visibility='$visibility', `order`=$order, `date`=NOW(), res_id=$exercise[id]",
@@ -302,7 +306,8 @@ function insert_forum($id)
 
       //XSS + SQL INJECTION FIX
       $titleEscaped = xss_sql_filter($topic['topic_title']);
-
+      $topic[topic_id] = intval($topic[topic_id]);
+      $order = intval($order);
 			db_query("INSERT INTO unit_resources SET unit_id=$id, type='topic', title=" .
 				justQuote($titleEscaped) .", visibility='v', `order`=$order, `date`=NOW(), res_id=$topic[topic_id]",
 			$GLOBALS['mysqlMainDb']);		
