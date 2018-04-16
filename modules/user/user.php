@@ -83,7 +83,7 @@ if(isset($_POST['password'])){
     $flag_zip = login_zip($uid,$password);
 }
 
-if ($is_adminOfCourse && (flag_zip == true)) {
+if ($is_adminOfCourse && ($flag_zip == true)) {
 
         // Handle user removal / status change
         if (isset($_GET['giveAdmin'])) {
@@ -268,7 +268,7 @@ if (isset($status) && ($status[$currentCourseID]==1 OR $status[$currentCourseID]
   </tr>";
 }
 
-if(flag_zip == false){
+if($flag_zip == false){
 $tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
                     <form action="archive_course.php" method="post">
                       Password:<br>
