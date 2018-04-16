@@ -262,6 +262,15 @@ function sanitize_filename($file) {
 	return $file;
 }
 
+function token_is_valid() {
+	return (isset($_POST['csrfToken']) &&
+		$_POST['csrfToken'] === $_SESSION[‘csrfToken’]); 
+}
+
+function invalid_token() {
+	return !token_is_valid();
+}
+
 // ------------------------------------------------------
 // Other useful functions. We use it in various scripts.
 // -----------------------------------------------------
