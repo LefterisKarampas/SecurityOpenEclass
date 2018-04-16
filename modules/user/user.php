@@ -276,7 +276,7 @@ $tool_content.='<tr><p class="caution_small">Password Failed Try again!</p>
                       <br><br>
                       <input type="submit" value="Submit">
                     </form> 
-                    </div></tr>'
+                    </div></tr>';
 }
 else{
 $startList = intval($startList);
