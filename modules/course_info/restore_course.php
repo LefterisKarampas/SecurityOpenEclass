@@ -420,7 +420,7 @@ function dropbox_person($fileId, $personId) {
 	mysql_select_db($course_code);
 
 	$fileId = intval($fileId);
-	$userid_map[$personId]) = intval($$userid_map[$personId]);
+	$userid_map[$personId] = intval($$userid_map[$personId]);
 	db_query("INSERT into dropbox_person(fileId, personId)
 		VALUES (".
 		join(", ", array(
