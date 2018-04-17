@@ -212,7 +212,7 @@ function create_user($statut, $uname, $nom, $prenom, $email, $depid, $am, $phone
 				justQuote($uname) . ", '$password_encrypted', " .
 				justQuote($email) .
 				", $statut, $depid, " .
-                                "$registered_at, $expires_at, '$lang', " .
+                                "$registered_at, $expires_at, $lang, " .
                                 justQuote($am) . ', ' .
                                 justQuote($phone) . ')');
         $id = mysql_insert_id();

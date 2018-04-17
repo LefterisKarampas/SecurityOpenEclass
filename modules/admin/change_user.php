@@ -87,5 +87,5 @@ if (isset($_POST['username'])) {
         }
 } 
 
-$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>$langUsername: <input type='text' name='username' /></form><input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>";
+$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>$langUsername: <input type='text' name='username' /><input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/></form>";
 draw($tool_content,3,'admin');

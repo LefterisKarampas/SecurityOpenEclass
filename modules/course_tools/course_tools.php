@@ -255,6 +255,15 @@ if ($is_adminOfCourse){
 	//--add external link
 
 	if(isset($submit) &&  @$action == 2) {
+		//CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+
 		if (($link == "http://") or ($link == "ftp://") or empty($link) or empty($name_link))  {
 			$tool_content .= "<p class=\"caution_small\">$langInvalidLink<br /><a href=\"$_SERVER[PHP_SELF]?action=2\">$langHome</a></p><br />";
 			draw($tool_content, 2, 'course_tools');
@@ -290,6 +299,16 @@ if ($is_adminOfCourse){
 // -------------------------
 
 	if(isset($submit) &&  @$action == 1){
+
+		//CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+    
 		$updir = "$webDir/courses/$currentCourseID/page/"; //path to upload directory
 		$size = "20971520"; //file size is 20M (1024x1024x20)
 		if (isset($file_name) and ($file_name != "") && ($file_size <= "$size") and ($link_name != "")) {
@@ -397,6 +416,7 @@ if ($is_adminOfCourse && @$action == 2) {//add external link
 	</tr>
 	<tr>
 	<th class='left'>&nbsp;</th>
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<td><input type=\"Submit\" name=\"submit\" value=\"$langAdd\"></td>
 	<td>&nbsp;</td>
 	</tr>
@@ -482,6 +502,7 @@ if ($is_adminOfCourse) {
   <tr>
     <td>&nbsp;</td>
     <td><div align="center">
+    		<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
         <input type=submit value="$langSubmitChanges"  name="toolStatus" onClick="selectAll(this.form.elements[3],true)">
         </div>
         </td>
