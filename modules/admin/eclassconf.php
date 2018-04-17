@@ -74,7 +74,7 @@ if ((isset($submit)) && (isset($_POST['password'])))  {
   $flag = login_zip($uid,$password);
 }
 
-if((isset($submit) && ($flag == 2)){
+if((isset($submit)) && ($flag == 2)){
 	// Make config directory writable
 	@chmod( "../../config",777 );
 	@chmod( "../../config", 0777 );
