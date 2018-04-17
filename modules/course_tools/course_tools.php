@@ -474,6 +474,8 @@ if ($is_adminOfCourse) {
 	  </ul>
 	</div>";
 
+	$mytoken = $_SESSION['csrfToken'];//workaround for csrf
+
 	$tool_content .= <<<tForm
 <form name="courseTools" action="$_SERVER[PHP_SELF]" method="post" enctype="multipart/form-data">
   <br/>
@@ -502,7 +504,7 @@ if ($is_adminOfCourse) {
   <tr>
     <td>&nbsp;</td>
     <td><div align="center">
-    		<input type='hidden' name='csrfToken' value="$_SESSION['csrfToken']"/>
+    		<input type='hidden' name='csrfToken' value="$mytoken"/>
         <input type=submit value="$langSubmitChanges"  name="toolStatus" onClick="selectAll(this.form.elements[3],true)">
         </div>
         </td>
