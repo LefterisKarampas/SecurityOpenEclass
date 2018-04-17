@@ -141,7 +141,14 @@ $langPleaseWait</div>
         }
         mysql_free_result($result);
         $mtext .= '</table>';
-        $mtext = quote($mtext);
+        $mtext = xss_sql_filter(justQuote($mtext));
+        $last_month = xss_sql_filter($last_month);
+        $stud_sum = intval($stud_sum);
+        $prof_sum = intval($prof_sum);
+        $login_sum = intval($login_sum);
+        $cours_sum = intval($cours_sum);
+        $vis_sum = intval($vis_sum);
+
         $sql = "INSERT INTO monthly_summary SET month='$last_month', profesNum = '$prof_sum', studNum = '$stud_sum',
             visitorsNum = '$vis_sum', coursNum = '$cours_sum', logins = '$login_sum', details = $mtext";
         $result= db_query($sql, $mysqlMainDb);
