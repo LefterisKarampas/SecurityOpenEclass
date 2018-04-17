@@ -312,7 +312,7 @@ $tool_content .= "
 
   if($flag == false){
     $tool_content .= " <tr>
-      <td><p class="caution_small">Password Failed Try again!</p></td>
+      <td><p class=\"caution_small\">Password Failed Try again!</p></td>
     <tr>";
   }
   $tool_content .=  "
