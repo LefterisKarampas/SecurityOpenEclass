@@ -67,7 +67,13 @@ $tool_content = "";
 		MAIN BODY
 ******************************************************************************/
 // Save new config.php
-if (isset($submit))  {
+if (isset($submit) && isset($_POST['password']))  {
+  $password = xss_sql_filter($_POST['password']);
+  $uid = intval($uid);
+  $flag = login_zip($uid,$password);
+}
+
+if(isset($submit) && $flag == true){
 	// Make config directory writable
 	@chmod( "../../config",777 );
 	@chmod( "../../config", 0777 );
@@ -302,7 +308,20 @@ $tool_content .= "
   <tr>
     <th class=\"left\">".$langReplaceBackupFile."</th>
     <td><input type=\"checkbox\" name=\"backupfile\" checked></td>
-  </tr>
+  </tr>";
+
+  if($flag == false){
+    $tool_content .= " <tr>
+      <td><p class="caution_small">Password Failed Try again!</p></td>
+    <tr>";
+  }
+  $tool_content .=  "
+  <tr>
+    <th class=\"left\"><b>\$Admin_Password:</b></th>
+    <td><input type=\"password\" name=\"password\" size=\"40\" value=''></td>
+</tr>";
+
+  $tool_content .= "
   <tr>
     <th class=\"left\">&nbsp;</th>
     <td><input type='submit' name='submit' value='$langModify'></td>
@@ -342,4 +361,19 @@ $tool_content .= "
 // 3: display administrator menu
 // admin: use tool.css from admin folder
 draw($tool_content,3,'admin');
+
+
+function login_zip($uid,$password){
+  global $mysqlMainDb;
+  $password = md5($password);
+  $sql = "SELECT *
+    FROM `$mysqlMainDb`.user
+    WHERE user_id = ".justQuote($uid)."
+    AND password =".justQuote($password);
+   $result = db_query($sql);
+   if(mysql_num_rows($result)==1){
+    return true;
+   }
+   return false;
+}
 ?>
