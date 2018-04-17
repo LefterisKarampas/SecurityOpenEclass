@@ -145,6 +145,16 @@ elseif ($a == 1)  {
 	/* END */
 
 	if (isset($add)) {
+
+		//CSRF FIX
+	  if (invalid_token()) {
+	        $tool_content .= "<table width='99%'><tbody><tr>
+	        <td class='caution' height='60'><p>$langEmptyFields</p>
+	  <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+	      draw($tool_content, 3, ' ', $head_content);
+	      exit();
+	  }
+
 		// Check for empty fields
 		if (empty($codefaculte) or empty($faculte)) {
 			$tool_content .= "<p>".$langEmptyFaculte."</p><br />";
@@ -192,6 +202,7 @@ elseif ($a == 1)  {
 		</tr>
 		<tr>
 		<th>&nbsp;</th>
+		<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 		<td><input type='submit' name='add' value='".$langAdd."' /></td>
 		</tr>
 		</tbody>
@@ -222,10 +233,19 @@ elseif ($a == 3)  {
 	$codefaculte = xss_sql_filter($codefaculte);
 	$faculte = xss_sql_filter($faculte);
 	/* END */
-    $c = @intval($_REQUEST['c']);
+  $c = intval($_REQUEST['c']);
 	if (isset($_POST['edit'])) {
+
+		//CSRF FIX
+	  if (invalid_token()) {
+	        $tool_content .= "<table width='99%'><tbody><tr>
+	        <td class='caution' height='60'><p>$langEmptyFields</p>
+	  <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+	      draw($tool_content, 3, ' ', $head_content);
+	      exit();
+	  }
 		// Check for empty fields
-                $faculte = $_POST['faculte'];
+    $faculte = $_POST['faculte'];
 		if (empty($faculte)) {
 			$tool_content .= "<p>".$langEmptyFaculte."</p><br>";
 			$tool_content .= "<p align='right'><a href='$_SERVER[PHP_SELF]?a=3&c=$c'>$langReturnToEditFaculte</a></p>";
@@ -274,6 +294,7 @@ elseif ($a == 3)  {
 		<tr>
 		<th>&nbsp;</th>
 		<td><input type='hidden' name='c' value='$c' />
+		<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 		<input type='submit' name='edit' value='$langAcceptChanges' />
 		</td>
 		</tr>
