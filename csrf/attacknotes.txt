@@ -1,0 +1,19 @@
+﻿extra attack notes
+
+http://eponymous.csec.gr/modules/admin/addfaculte.php?a=1%c=1
+
+to c einai to id tu tmimatos
+to a einai to action (1:ADD 2:DELETE 3:EDIT)
+
+
+ΚΑΛΟ CSRF TO:
+http://eponymous.csec.gr/modules/admin/adminannouncements.php?addAnnouce=1&localize=el
+(θα εχω και φορμα) για να φτιαξουμε ανακοινωση διαχειριστη
+Πιθανα να μπορουμε να παρουμε cookie ευκολα ΚΑΙ να κανουμε deface αν εχει xss εκει
+
+FTIAXE CSRF : search advanced_search search_user?
+
+XSS left? Bamies?
+http://eponymous.csec.gr/modules/admin/monthlyReport.php
+
+FTIAXE FORMES GIA add_external_link + upload_html (course_tools.php prepi na eftiaxa to csrf)
