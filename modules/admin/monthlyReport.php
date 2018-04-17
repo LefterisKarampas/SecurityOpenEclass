@@ -94,12 +94,12 @@ if (isset($_POST["selectedMonth"])) {
     $result = db_query($sql, $mysqlMainDb);
     $coursNum='';
     while ($row = mysql_fetch_assoc($result)) {
-            $profesNum = $row['profesNum'];
-            $studNum = $row['studNum'];
-            $visitorsNum = $row['visitorsNum'];
-            $coursNum = $row['coursNum'];
-            $logins = $row['logins'];
-            $details = $row['details'];
+            $profesNum = htmlspecialchars($row['profesNum']);
+            $studNum = htmlspecialchars($row['studNum']);
+            $visitorsNum = htmlspecialchars($row['visitorsNum']);
+            $coursNum = htmlspecialchars($row['coursNum']);
+            $logins = htmlspecialchars($row['logins']);
+            $details = htmlspecialchars($row['details']);
     }
     mysql_free_result($result);
 
