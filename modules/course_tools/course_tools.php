@@ -308,7 +308,7 @@ if ($is_adminOfCourse){
           draw($tool_content, 3, ' ', $head_content);
           exit();
     }
-    
+
 		$updir = "$webDir/courses/$currentCourseID/page/"; //path to upload directory
 		$size = "20971520"; //file size is 20M (1024x1024x20)
 		if (isset($file_name) and ($file_name != "") && ($file_size <= "$size") and ($link_name != "")) {
@@ -502,7 +502,7 @@ if ($is_adminOfCourse) {
   <tr>
     <td>&nbsp;</td>
     <td><div align="center">
-    		<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
+    		<input type='hidden' name='csrfToken' value='$_SESSION['csrfToken']'/>
         <input type=submit value="$langSubmitChanges"  name="toolStatus" onClick="selectAll(this.form.elements[3],true)">
         </div>
         </td>
