@@ -39,6 +39,15 @@ $navigation[] = array("url" => "index.php", "name" => $langAdmin);
 $tool_content = '';
 
 if (isset($_POST['username'])) {
+    
+    //CSRF FIX
+    if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+    }
     /* BEGIN */
     $username = xss_sql_filter($_POST['username']);
 	/* END */
@@ -78,5 +87,5 @@ if (isset($_POST['username'])) {
         }
 } 
 
-$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>$langUsername: <input type='text' name='username' /></form>";
+$tool_content .= "<form action='$_SERVER[PHP_SELF]' method='post'>$langUsername: <input type='text' name='username' /></form><input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>";
 draw($tool_content,3,'admin');

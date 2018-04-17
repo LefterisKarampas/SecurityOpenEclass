@@ -45,6 +45,16 @@ $version = 1;
 $encoding = 'ISO-8859-7';
 
 if (isset($send_archive) and $_FILES['archiveZipped']['size'] > 0) {
+
+	//CSRF FIX
+  if (invalid_token()) {
+              $tool_content .= "<table width='99%'><tbody><tr>
+              <td class='caution' height='60'><p>$langEmptyFields</p>
+        <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+            draw($tool_content, 3, ' ', $head_content);
+            exit();
+  }
+
 	$tool_content .= "<table width='99%'><caption>".$langFileSent."</caption><tbody>
 	<tr><td width='3%'>$langFileSentName</td><td>".$_FILES['archiveZipped']['name']."</td></tr>
 	<tr><td width='3%'>$langFileSentSize</td><td>".$_FILES['archiveZipped']['size']."</td></tr>
@@ -55,7 +65,17 @@ if (isset($send_archive) and $_FILES['archiveZipped']['size'] > 0) {
 	$tool_content .= "<tr><td>".unpack_zip_show_files($archiveZipped)."</td></tr>";
 	$tool_content .= "<tbody></table><br />";
 } elseif (isset($_POST['send_path']) and isset($_POST['pathToArchive'])) {
-        $pathToArchive = $_POST['pathToArchive'];
+		
+		//CSRF FIX
+    if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+    }
+
+  	$pathToArchive = $_POST['pathToArchive'];
 	if (file_exists($pathToArchive)) {
 		$tool_content .= "<table width='99%'><caption>".$langFileUnzipping."</caption><tbody>";
 		$tool_content .= "<tr><td>".unpack_zip_show_files($pathToArchive)."</td></tr>";
@@ -120,6 +140,7 @@ elseif (isset($_POST['pathOf4path'])) {
 	<br /><br />
 	<form action='".$_SERVER['PHP_SELF']."' method='post' name='sendZip' enctype='multipart/form-data'>
 	<input type='file' name='archiveZipped' />
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<input type='submit' name='send_archive' value='".$langSend."' />
 	</form>
 	</td>
@@ -134,6 +155,7 @@ elseif (isset($_POST['pathOf4path'])) {
 	<br /><br />
 	<form action='".$_SERVER['PHP_SELF']."' method='post'>
 	<input type='text' name='pathToArchive' />
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<input type='submit' name='send_path' value='".$langSend."' />
 	</form>
 	</td></tr>

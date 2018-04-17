@@ -21,6 +21,16 @@ $error = '';
 $acceptable_fields = array('first', 'last', 'email', 'id', 'phone', 'username');
 
 if (isset($_POST['submit'])) {
+        
+        //CSRF FIX
+        if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+        }
+
         $send_mail = isset($_POST['send_mail']) && $_POST['send_mail'];
         $unparsed_lines = '';
         $new_users_info = array();
@@ -141,6 +151,7 @@ if (isset($_POST['submit'])) {
         $langMultiRegSendMail</td>
 </tr>
 <tr><th>&nbsp;</th>
+    <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
     <td><input type='submit' name='submit' value='$langSubmit' /></td>
 </tr>
 </table>

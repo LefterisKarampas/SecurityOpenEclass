@@ -131,6 +131,7 @@ $tool_content .= "<tr>
 <th>&nbsp;</th>
 <td colspan=\"2\">
 <input type=\"hidden\" name=\"c\" value=\"searchlist\">
+<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 <input type=\"submit\" name=\"search_submit\" value=\"$langSearch\">
 </td>
 </tr>";

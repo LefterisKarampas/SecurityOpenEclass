@@ -129,6 +129,16 @@ hCont;
 if ($is_adminOfCourse){
 	global $dbname;
 	if  (isset($_REQUEST['toolStatus']) ){
+
+		//CSRF FIX
+     if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+
 		if(isset($_POST['toolStatActive'])) $tool_stat_active = $_POST['toolStatActive'];
 
 		
@@ -349,6 +359,7 @@ if ($is_adminOfCourse && @$action == 1) {//upload html file
 	</tr>
 	<tr>
 	<th class='left'>&nbsp;</th>
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<td><input type=\"Submit\" name=\"submit\" value=\"$langAdd\"></td>
 	<td>&nbsp;</td>
 	</tr>

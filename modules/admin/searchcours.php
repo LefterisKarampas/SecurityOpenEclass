@@ -130,6 +130,7 @@ $resultFac=mysql_query("SELECT name FROM faculte ORDER BY number");
 $tool_content .= "</select></td></tr>";
 
 $tool_content .= "<tr><th>&nbsp;</th><td>
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<input type='submit' name='search_submit' value='$langSearch'></td></tr>";
 $tool_content .= "</tbody></table></form>";
 

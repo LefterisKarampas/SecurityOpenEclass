@@ -94,6 +94,16 @@ if (isset($_GET['delete'])) {
                 $displayAnnouncementList = true;
         }
 } elseif (isset($_POST['submitAnnouncement'])) {
+
+        //CSRF FIX
+        if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+        }
+        
         $title = xss_sql_filter($title);
         $newContent = xss_sql_filter($newContent);
         $comment = xss_sql_filter($comment);
@@ -176,6 +186,7 @@ if ($displayForm && (@$addAnnouce==1 || isset($modify))) {
                    <td><textarea name='comment_en' rows='2' cols='50' class='FormData_InputText'>$commentToModifyEn</textarea>
                        </td></tr>
               <tr><th class='left'>&nbsp;</th>
+                  <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
                   <td><input type='submit' name='submitAnnouncement' value='$langSubmit' /></td></tr>
               <tr><td colspan='2'>&nbsp;</td></tr>
           </tbody>

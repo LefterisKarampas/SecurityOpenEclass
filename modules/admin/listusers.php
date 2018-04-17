@@ -70,6 +70,15 @@ if($view == 2)	// coming from search_user.php(search with criteria)
 {
 	if((!empty($search)) && ($search="yes"))
 	{
+		//CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+    
 		// get the incoming values
 		$user_surname = isset($_POST['user_surname'])?$_POST['user_surname']:'';
 		$user_firstname = isset($_POST['user_firstname'])?$_POST['user_firstname']:'';

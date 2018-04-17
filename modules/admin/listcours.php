@@ -78,6 +78,16 @@ if (isset($search) && $search=="yes") {
 	$searchurl = "&search=yes";
 	// Search from post form
 	if (isset($search_submit)) {
+		
+		//CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+
 		$searchtitle = $_SESSION['searchtitle'] = $formsearchtitle;
 		$searchcode = $_SESSION['searchcode'] = $formsearchcode;
 		$searchtype = $_SESSION['searchtype'] = $formsearchtype;
