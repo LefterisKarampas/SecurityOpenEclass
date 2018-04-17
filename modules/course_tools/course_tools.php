@@ -502,7 +502,7 @@ if ($is_adminOfCourse) {
   <tr>
     <td>&nbsp;</td>
     <td><div align="center">
-    		<input type='hidden' name='csrfToken' value='$_SESSION['csrfToken']'/>
+    		<input type='hidden' name='csrfToken' value="$_SESSION['csrfToken']"/>
         <input type=submit value="$langSubmitChanges"  name="toolStatus" onClick="selectAll(this.form.elements[3],true)">
         </div>
         </td>
