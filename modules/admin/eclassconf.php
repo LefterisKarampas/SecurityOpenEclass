@@ -67,13 +67,14 @@ $tool_content = "";
 		MAIN BODY
 ******************************************************************************/
 // Save new config.php
-if (isset($submit) && isset($_POST['password']))  {
+$flag = 0;
+if ((isset($submit)) && (isset($_POST['password']))  {
   $password = xss_sql_filter($_POST['password']);
   $uid = intval($uid);
   $flag = login_zip($uid,$password);
 }
 
-if(isset($submit) && $flag == true){
+if((isset($submit) && ($flag == 2)){
 	// Make config directory writable
 	@chmod( "../../config",777 );
 	@chmod( "../../config", 0777 );
@@ -310,14 +311,14 @@ $tool_content .= "
     <td><input type=\"checkbox\" name=\"backupfile\" checked></td>
   </tr>";
 
-  if($flag == false){
+  if($flag == 1){
     $tool_content .= " <tr>
       <td><p class=\"caution_small\">Password Failed Try again!</p></td>
     <tr>";
   }
   $tool_content .=  "
   <tr>
-    <th class=\"left\"><b>\$Admin_Password:</b></th>
+    <th class=\"left\"><b>Admin_Password:</b></th>
     <td><input type=\"password\" name=\"password\" size=\"40\" value=''></td>
 </tr>";
 
@@ -372,8 +373,8 @@ function login_zip($uid,$password){
     AND password =".justQuote($password);
    $result = db_query($sql);
    if(mysql_num_rows($result)==1){
-    return true;
+    return 2;
    }
-   return false;
+   return 1;
 }
 ?>
