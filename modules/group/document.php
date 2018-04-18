@@ -269,7 +269,7 @@ STEP 1
 --------------------------------------*/
 if (isset($createDir))
 {
-	$createDir = sanitize_filename($createDir);
+	//$createDir = sanitize_filename($createDir);
 	//$dialogBox ="";
 	$dialogBox .= "<form>\n" .
 	              "<input type='hidden' name='userGroupId' value='$userGroupId' />\n" .
@@ -283,7 +283,7 @@ if (isset($createDir))
 /**************************************
 DEFINE CURRENT DIRECTORY
 **************************************/
-$openDir = sanitize_filename($openDir);
+//$openDir = sanitize_filename($openDir);
 if (isset($openDir)  || isset($moveTo) || isset($createDir) || isset($newDirPath) || isset($uploadPath)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
 {
 	@$curDirPath = $openDir . $createDir . $moveTo . $newDirPath . $uploadPath;
