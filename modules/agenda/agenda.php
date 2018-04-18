@@ -127,9 +127,9 @@ if ($is_adminOfCourse) {
 			$perso_matrix['lasting'] = $perso_query_result[5];
 			// Add all data to the main table.
 			$p_sql = "INSERT INTO agenda (lesson_event_id, titre, contenu, day, hour, lasting, lesson_code)
-				VALUES('".$perso_query_result[0]."','".$perso_query_result[1]."',
-				'".$perso_query_result[2]."','".$perso_query_result[3]."',
-				'".$perso_query_result[4]."','".$perso_query_result[5]."',
+				VALUES('".xss_sql_filter($perso_query_result[0])."','".xss_sql_filter($perso_query_result[1])."',
+				'".xss_sql_filter($perso_query_result[2])."','".xss_sql_filter($perso_query_result[3])."',
+				'".xss_sql_filter($perso_query_result[4])."','".xss_sql_filter($perso_query_result[5])."',
 				'".$currentCourseID."')";
 		}
 		db_query($sql);
@@ -142,7 +142,7 @@ if ($is_adminOfCourse) {
 		/* BEGIN */
 		$id = intval($id);
 		$titre = xss_sql_filter(trim($titre));
-		$titre = xss_sql_filter(trim($contenu));
+		$contenu = xss_sql_filter(trim($contenu));
 		$date_selection = xss_sql_filter($date_selection);
 		$hour = xss_sql_filter($hour);
 		$lasting = xss_sql_filter($lasting);
@@ -201,9 +201,9 @@ if ($is_adminOfCourse) {
 				// Add all data to the main table.
 				$perso_sql = "INSERT INTO $mysqlMainDb.agenda
 				(lesson_event_id, titre, contenu, day, hour, lasting, lesson_code)
-				VALUES('".$perso_query_result[0]."','".$perso_query_result[1]."',
-				'".$perso_query_result[2]."','".$perso_query_result[3]."',
-				'".$perso_query_result[4]."','".$perso_query_result[5]."',
+				VALUES('".xss_sql_filter($perso_query_result[0])."','".xss_sql_filter($perso_query_result[1])."',
+				'".xss_sql_filter($perso_query_result[2])."','".xss_sql_filter($perso_query_result[3])."',
+				'".xss_sql_filter($perso_query_result[4])."','".xss_sql_filter($perso_query_result[5])."',
 				'".$currentCourseID."')";
 			}
 	
