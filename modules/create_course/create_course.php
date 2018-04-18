@@ -365,7 +365,7 @@ if (isset($_POST['create_course'])) {
         }
 
         $nameTools = $langCourseCreate;
-        $facid = intval($facid);
+        $facid = intval($faculte);
         $facname = find_faculty_by_id($facid);
 
         // create new course code: uppercase, no spaces allowed
@@ -452,8 +452,8 @@ if (isset($_POST['create_course'])) {
                         reg_date = CURDATE()");
 
         mysql_query("INSERT INTO cours_faculte SET
-                        faculte =".justQuote($faculte)."',
-                        code = ".justQuote($repertoire)."',
+                        faculte =".justQuote($faculte).",
+                        code = ".justQuote($repertoire).",
                         facid = '".intval($facid)."'");
 
         $titou='$dbname';
