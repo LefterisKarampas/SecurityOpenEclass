@@ -242,7 +242,7 @@ foreach($questionList as $questionId) {
 				$questionName=$objQuestionTmp->selectTitle();
 				// destruction of the Question object
 				unset($objQuestionTmp);
-				$tool_content .= '<div class\"alert1\" '.$langAlreadyAnswered.' &quot;'.$questionName.'&quot;</div>';
+				$tool_content .= '<div class\"alert1\" '.$langAlreadyAnswered.' &quot;'.htmlspecialchars($questionName).'&quot;</div>';
 				break;
 			}
 		}
