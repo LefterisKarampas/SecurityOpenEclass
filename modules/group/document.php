@@ -314,14 +314,19 @@ if ($parentDir == "/" || $parentDir == "\\")
 /**************************************
 READ CURRENT DIRECTORY CONTENT
 **************************************/
+
 if (is_dir($baseWorkDir.$curDirPath)) {
   chdir($baseWorkDir.$curDirPath);
+  $handle = opendir(".");
+}
+else if (is_dir($baseWorkDir)) {
+  chdir($baseWorkDir);
+  $handle = opendir(".");
 }
 else {
-  chdir($baseWorkDir); 
+  exit();
 }
 
-$handle = opendir(".");
 
 while ($file = readdir($handle))
 {
