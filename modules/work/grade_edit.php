@@ -68,6 +68,7 @@ function show_edit_form($id, $sid, $assign)
   //SQL INJECTION FIX
   $id = intval($id);
   $sid = intval($sid);
+  $mytoken = $_SESSION['csrfToken'];
 
 	global $m, $langGradeOk, $tool_content, $langGradeWork;
 
@@ -115,7 +116,7 @@ cData;
     </tr>
     <tr>
       <th class="left">&nbsp;</th>
-      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
+      <input type='hidden' name='csrfToken' value='$mytoken'/>
       <td><input type="submit" name="grade_comments" value="${langGradeOk}"></td>
     </tr>
     </tbody>
