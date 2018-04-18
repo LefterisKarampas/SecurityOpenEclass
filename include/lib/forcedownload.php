@@ -86,6 +86,8 @@ function send_file_to_client($real_filename, $filename, $send_inline = false, $s
         }
 
         header('Content-length: ' . filesize($real_filename));
+        header('Content-Type: application/octet-stream');
+        header("Content-Disposition: attachment; filename=\"$real_filename\"");
         $fp = fopen($real_filename, 'r');
         fpassthru($fp);
         return true;
