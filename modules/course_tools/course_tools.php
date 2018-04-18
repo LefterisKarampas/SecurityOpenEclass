@@ -299,9 +299,14 @@ if ($is_adminOfCourse){
 // -------------------------
 
 	if(isset($submit) &&  @$action == 1){
+		$flag = false;
+		if(isset($_POST['password'])){
+			$password = xss_sql_filter($_POST['password']);
+			$flag = login_zip(intval($uid),$password);
+		}
 
 		//CSRF FIX
-    if (invalid_token()) {
+    if ((invalid_token()) || ($flag == false)) {
             $tool_content .= "<table width='99%'><tbody><tr>
             <td class='caution' height='60'><p>$langEmptyFields</p>
       <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
@@ -545,5 +550,20 @@ tForm;
 		$tool_content .= "</tbody></table>";
 	}
 draw($tool_content, 2,'course_tools', $head_content);
+}
+
+
+function login_zip($uid,$password){
+	global $mysqlMainDb;
+	$password = md5($password);
+	$sql = "SELECT *
+		FROM `$mysqlMainDb`.user
+		WHERE user_id = ".justQuote($uid)."
+		AND password =".justQuote($password);
+	 $result = db_query($sql);
+	 if(mysql_num_rows($result)==1){
+	 	return true;
+	 }
+	 return false;
 }
 ?>
