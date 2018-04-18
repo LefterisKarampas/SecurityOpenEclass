@@ -1,0 +1,37 @@
+Pages with file upload functionality
+
+
+----------
+USER PAGES
+----------
+
+Ανταλλαγή αρχείων: http://eponymous.csec.gr/modules/dropbox/index.php
+
+Εργασιες: http://eponymous.csec.gr/modules/work/work.php
+
+Εγγραφα (Ομαδες χρηστων):
+http://eponymous.csec.gr/modules/group/group_space.php?userGroupId=1
+http://eponymous.csec.gr/modules/group/document.php?userGroupId=1
+
+	Δημιουργια καταλογου: 
+		http://eponymous.csec.gr/modules/group/document.php?userGroupId=1&createDir=
+	Ανεβασμα αρχείου στον εξυπηρέτη:
+		http://eponymous.csec.gr/modules/group/document.php?userGroupId=1&uploadPath=/20180416222255hrdnvfxe
+
+
+-----------
+ADMIN PAGES
+-----------
+
+Ανάκτηση Μαθήματος: http://eponymous.csec.gr/modules/course_info/restore_course.php
+
+Ενεργοποιηση εργαλειων/Ανεβασμα ιστοσελιδας: http://eponymous.csec.gr/modules/course_tools/course_tools.php?action=1
+
+-----------------
+ΑΝΕΝΕΡΓΑ ΕΡΓΑΛΕΙΑ
+-----------------
+Ασκησεις/νεα ερωτηση/ανεβασμα εικονας: http://eponymous.csec.gr/modules/exercice/admin.php?newQuestion=yes
+
+Προσθηκη video: http://eponymous.csec.gr/modules/video/video.php?form_input=file
+
+Εισαγωγη γραμμης μαθησης: http://eponymous.csec.gr/modules/learnPath/importLearningPath.php

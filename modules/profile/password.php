@@ -46,6 +46,15 @@ $tool_content = "";
 $passurl = $urlSecure.'modules/profile/password.php';
 
 if (isset($submit) && isset($changePass) && ($changePass == "do")) {
+  
+  //CSRF FIX
+  if (invalid_token()) {
+          $tool_content .= "<table width='99%'><tbody><tr>
+          <td class='caution' height='60'><p>$langEmptyFields</p>
+    <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+        draw($tool_content, 3, ' ', $head_content);
+        exit();
+  }
 
 	if (empty($_REQUEST['password_form']) || empty($_REQUEST['password_form1']) || empty($_REQUEST['old_pass'])) {
 		header("location:". $passurl."?msg=3");
@@ -167,6 +176,7 @@ if (!isset($changePass)) {
     </tr>
 	<tr>
       <th>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type=\"Submit\" name=\"submit\" value=\"$langModify\"></td>
     </tr>
 	</tbody>

