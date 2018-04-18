@@ -314,6 +314,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 READ CURRENT DIRECTORY CONTENT
 **************************************/
 if(!chdir ($baseWorkDir.$curDirPath)){
+	$tool_content = "<a href='$_SERVER[PHP_SELF]> Return to Group</a>";
+	draw($tool_content, 2, 'group', $local_head);
 	exit();
 }
 $handle = opendir(".");
