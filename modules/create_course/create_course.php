@@ -389,15 +389,15 @@ if (isset($_POST['create_course'])) {
         // create directories
         umask(0);
         if (! (mkdir("../../courses/$repertoire", 0777) and
-                                mkdir("../../courses/$repertoire/image", 0666) and
-                                mkdir("../../courses/$repertoire/document", 0666) and
-                                mkdir("../../courses/$repertoire/dropbox", 0666) and
+                                mkdir("../../courses/$repertoire/image", 0777) and
+                                mkdir("../../courses/$repertoire/document", 0777) and
+                                mkdir("../../courses/$repertoire/dropbox", 0777) and
                                 mkdir("../../courses/$repertoire/page", 0777) and
-                                mkdir("../../courses/$repertoire/work", 0666) and
-                                mkdir("../../courses/$repertoire/group", 0666) and
-                                mkdir("../../courses/$repertoire/temp", 0666) and
-                                mkdir("../../courses/$repertoire/scormPackages", 0666) and
-                                mkdir("../../video/$repertoire", 0666))) {
+                                mkdir("../../courses/$repertoire/work", 0777) and
+                                mkdir("../../courses/$repertoire/group", 0777) and
+                                mkdir("../../courses/$repertoire/temp", 0777) and
+                                mkdir("../../courses/$repertoire/scormPackages", 0777) and
+                                mkdir("../../video/$repertoire", 0777))) {
                 $tool_content .= "<div class='caution'>$langErrorDir</div>";
                 draw($tool_content, '1', 'create_course', $head_content);
                 exit;

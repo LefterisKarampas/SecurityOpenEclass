@@ -302,7 +302,7 @@ function add_assignment($title, $comments, $desc, $deadline, $group_submissions)
 			group_submissions) VALUES
 		(".justQuote($title).", ".justQuote($desc).", ".justQuote($comments).", ".justQuote($deadline).", NOW(), '$secret',
 			".justQuote($group_submissions).")");
-	mkdir("$workPath/$secret",0777);
+	mkdir("$workPath/$secret",0666);
 }
 
 
