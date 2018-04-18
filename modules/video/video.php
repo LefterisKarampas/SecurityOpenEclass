@@ -298,7 +298,7 @@ ini_get('upload_max_filesize') . "</small></p>";
 // ------------------- if no submit -----------------------
 if (isset($id)) {
    if($id != "") {
-	  $sql = "SELECT * FROM $table_edit WHERE id='".xss_sql_filter($id)."' ORDER BY titre";
+	  $sql = "SELECT * FROM $table_edit WHERE id='".intval($id)."' ORDER BY titre";
       	  $result = db_query($sql,$currentCourseID);
       	  $myrow = mysql_fetch_array($result);
           $id = $myrow[0];
