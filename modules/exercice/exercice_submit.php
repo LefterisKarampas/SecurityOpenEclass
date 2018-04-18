@@ -78,7 +78,7 @@ if(isset($buttonCancel)) {
 // if the user has submitted the form
 if (isset($formSent)) {
 	$CurrentAttempt = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record 
-		WHERE eid='."intval($eid_temp)."' AND uid='".intval($uid)."'", $currentCourseID));
+		WHERE eid='".intval($eid_temp)."' AND uid='".intval($uid)."'", $currentCourseID));
 	++$CurrentAttempt[0];
 	if (($exerciseAllowedAttemtps == 0) or ($CurrentAttempt[0] <= $exerciseAllowedAttemtps)) { // if it is allowed
 		if (isset($exerciseTimeConstrain) and $exerciseTimeConstrain != 0) { 
