@@ -268,6 +268,7 @@ STEP 1
 --------------------------------------*/
 if (isset($createDir))
 {
+	$createDir = sanitize_filename($createDir);
 	//$dialogBox ="";
 	$dialogBox .= "<form>\n" .
 	              "<input type='hidden' name='userGroupId' value='$userGroupId' />\n" .
@@ -347,7 +348,7 @@ if (isset($fileNameList))
 /**************************************
 DISPLAY
 **************************************/
-$dspCurDirName = htmlspecialchars($curDirName);
+$dspCurDirName = htmlspecialchars(sanitize_filename($curDirName));
 $tool_content .= "
     <div id='operations_container'>
       <ul id='opslist'><li><a href='group_space.php?$groupset'>$langGroupSpaceLink</a></li>
@@ -470,6 +471,7 @@ if (isset($fileNameList))
 {
 	while (list($fileKey, $fileName) = each ($fileNameList))
 	{
+		$fileName = xss_sql_filter($fileName);
 		$image = choose_image($fileName);
 		$size = format_file_size($fileSizeList[$fileKey]);
 		$date = format_date($fileDateList[$fileKey]);
