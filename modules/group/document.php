@@ -315,10 +315,10 @@ if ($parentDir == "/" || $parentDir == "\\")
 READ CURRENT DIRECTORY CONTENT
 **************************************/
 if (is_dir($baseWorkDir.$curDirPath)) {
-  chdir ($baseWorkDir.$curDirPath);
+  chdir($baseWorkDir.$curDirPath);
 }
 else {
-  chdir ($baseWorkDir); 
+  chdir($baseWorkDir); 
 }
 
 $handle = opendir(".");
@@ -527,7 +527,7 @@ if (isset($fileNameList))
 }
 $tool_content .= "\n    </tbody>\n    </table>\n";
 $tool_content .= "</div>\n";
-chdir($baseServDir."/modules/group/");
+//chdir($baseServDir."/modules/group/");
 
 draw($tool_content, 2, 'group', $local_head);
 ?>
