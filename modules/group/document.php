@@ -316,6 +316,9 @@ READ CURRENT DIRECTORY CONTENT
 if (is_dir($baseWorkDir.$curDirPath)) {
   chdir ($baseWorkDir.$curDirPath);
 }
+else {
+  chdir ($baseWorkDir); 
+}
 
 $handle = opendir(".");
 
