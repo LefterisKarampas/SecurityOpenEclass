@@ -312,7 +312,9 @@ if ($parentDir == "/" || $parentDir == "\\")
 /**************************************
 READ CURRENT DIRECTORY CONTENT
 **************************************/
-chdir ($baseWorkDir.$curDirPath);
+if(!chdir ($baseWorkDir.$curDirPath)){
+	exit();
+}
 $handle = opendir(".");
 
 while ($file = readdir($handle))
