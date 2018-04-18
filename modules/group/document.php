@@ -242,7 +242,8 @@ if (isset($rename)) {
 CREATE DIRECTORY
 *****************************************/
 if (isset($newDirPath) && isset($newDirName)) {
-        $newDirName = xss_sql_filter(trim($newDirName));
+
+        $newDirName = xss_sql_filter(sanitize_filename(trim($newDirName)));
         $r = db_query("SELECT * FROM group_documents WHERE filename = " . justQuote($newDirName));
         $exists = false;
         $parent = preg_replace('|/[^/]*$|', '', $newDirPath);
@@ -257,8 +258,8 @@ if (isset($newDirPath) && isset($newDirName)) {
                 $safe_dirName = date("YmdGis").randomkeys("8");
                 mkdir("$baseWorkDir$newDirPath/$safe_dirName", 0775);
                 db_query('INSERT INTO group_documents SET
-                                path='.quote($newDirPath.'/'.$safe_dirName).',
-                                filename='.quote($newDirName));
+                                path='.justQuote($newDirPath.'/'.$safe_dirName).',
+                                filename='.justQuote($newDirName));
                 $dialogBox = "<p class=\"success_small\">$langDirCr</p><br />";
         }
 }
@@ -471,7 +472,7 @@ if (isset($fileNameList))
 {
 	while (list($fileKey, $fileName) = each ($fileNameList))
 	{
-		$fileName = xss_sql_filter($fileName);
+		$fileName = xss_sql_filter(sanitize_filename($fileName));
 		$image = choose_image($fileName);
 		$size = format_file_size($fileSizeList[$fileKey]);
 		$date = format_date($fileDateList[$fileKey]);
