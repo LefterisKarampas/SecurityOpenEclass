@@ -111,6 +111,9 @@ header("Content-Description: " . trim(htmlentities($file)) . "\n");
 header("Content-Transfer-Encoding: binary\n");
 header("Content-Length: " . filesize( $path)."\n" );
 
+
+header('Content-Type: application/octet-stream');
+header("Content-Disposition: attachment; filename=\"$file\"");
 /**
  * ========================================
  * SEND FILE
