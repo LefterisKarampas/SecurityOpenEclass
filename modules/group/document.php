@@ -269,7 +269,7 @@ STEP 1
 --------------------------------------*/
 if (isset($createDir))
 {
-	//$createDir = sanitize_filename($createDir);
+	$createDir = sanitize_filename($createDir);
 	//$dialogBox ="";
 	$dialogBox .= "<form>\n" .
 	              "<input type='hidden' name='userGroupId' value='$userGroupId' />\n" .
