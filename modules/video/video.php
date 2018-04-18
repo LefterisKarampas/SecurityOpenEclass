@@ -149,7 +149,7 @@ if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 					// convert php file in phps to protect the platform against malicious codes
 					$file_name = preg_replace("/\.php$/", ".phps", $file_name);
 					// check for dangerous file extensions
-					if (preg_match('/\.(ade|adp|bas|bat|chm|cmd|com|cpl|crt|exe|hlp|hta|' .'inf|ins|isp|jse|lnk|mdb|mde|msc|msi|msp|mst|pcd|pif|reg|scr|sct|shs|' .'shb|url|vbe|vbs|wsc|wsf|wsh)$/', $file_name)) {
+					if (!preg_match('/\.(ogv|avi|mov|wmv|mp4|flv|webm)$/', $file_name)) {
 						$tool_content .= "<p class=\"caution_small\">$langUnwantedFiletype:  $file_name<br />";
 						$tool_content .= "<a href=\"$_SERVER[PHP_SELF]\">$langBack</a></p><br />";
 						draw($tool_content, 2, 'video', $head_content);
