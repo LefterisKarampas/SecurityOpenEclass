@@ -105,6 +105,15 @@ if (!does_exists($forum, $currentCourseID, "forum")) {
 }
 
 if (isset($submit) && $submit) {
+	//CSRF FIX
+  if (invalid_token()) {
+          $tool_content .= "<table width='99%'><tbody><tr>
+          <td class='caution' height='60'><p>$langEmptyFields</p>
+    <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+        draw($tool_content, 3, ' ', $head_content);
+        exit();
+  }
+        
 	$subject = strip_tags($subject);
 	if (trim($message) == '' || trim($subject) == '') {
 		$tool_content .= $langEmptyMsg;
@@ -252,6 +261,7 @@ if (isset($submit) && $submit) {
 	<tr>
 	<th>&nbsp;</th>
 	<td><input type='hidden' name='forum' value='$forum' />
+	<input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<input type='submit' name='submit' value='$langSubmit' />&nbsp;
 	<input type='submit' name='cancel' value='$langCancelPost' />
 	</td></tr>
