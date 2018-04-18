@@ -235,7 +235,7 @@ if ($is_adminOfCourse) {
             draw($tool_content, 3, ' ', $head_content);
             exit();
       }
-      
+
 			$nameTools = $m['SubmissionStatusWorkInfo'];
 			$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 			$navigation[] = array("url"=>"work.php?id=$id", "name"=>$m['WorkView']);
@@ -701,6 +701,8 @@ function show_submission_form($id)
   $id = intval($id);
   $uid = intval($uid);
 
+  $mytoken = $_SESSION['csrfToken'];
+
 	if (is_group_assignment($id) and ($gid = user_group($uid))) {
 		$tool_content .= "<p>$m[this_is_group_assignment] ".
 		"<a href='../group/document.php?userGroupId=$gid'>".
@@ -727,7 +729,7 @@ function show_submission_form($id)
     </tr>
     <tr>
       <th>&nbsp;</th>
-      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
+      <input type='hidden' name='csrfToken' value='$mytoken'/>
       <td><input type="submit" value="${langSubmit}" name="work_submit" /><br />$langNotice3</td>
     </tr>
     </tbody>
