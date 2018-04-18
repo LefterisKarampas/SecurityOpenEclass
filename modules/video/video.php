@@ -134,10 +134,12 @@ hContent;
 $nick=$prenom." ".$nom;
 if (isset($_POST['submit']) or isset($_POST['edit_submit'])) {
 	if($id) {
+		$url = sanitize_filename($url);
 		$sql = "UPDATE $table SET url='".xss_sql_filter($url)."', titre='".xss_sql_filter($titre)."', description='".xss_sql_filter($description)."',creator='".xss_sql_filter($creator)."',publisher='".xss_sql_filter($publisher)."'
 			WHERE id='".xss_sql_filter($id)."'";
 	} else {
 		if(isset($URL)) {
+			$URL = sanitize_filename($URL);
 			if ($titre == "") $titre = $URL;
 			$url = $URL;
 			$sql = "INSERT INTO videolinks (url,titre,description,creator,publisher,date) VALUES ('".xss_sql_filter($url)."','".xss_sql_filter($titre)."','".xss_sql_filter($description)."','".xss_sql_filter($creator)."','".xss_sql_filter($publisher)."','".xss_sql_filter($date)."')";
