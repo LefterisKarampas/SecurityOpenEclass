@@ -306,7 +306,7 @@ if ($is_adminOfCourse){
 		}
 
 		//CSRF FIX
-    if ((invalid_token()) || ($flag == false)) {
+    if (invalid_token() || ($flag == false)) {
             $tool_content .= "<table width='99%'><tbody><tr>
             <td class='caution' height='60'><p>$langEmptyFields</p>
       <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
@@ -380,6 +380,10 @@ if ($is_adminOfCourse && @$action == 1) {//upload html file
 	<th class='left'>$langPgTitle</th>
 	<td><input type=\"Text\" name=\"link_name\" size=\"40\" class='FormData_InputText'></td>
 	<td><p align='right'><small>$langExplanation_2</small></p></td>
+	</tr>
+	<tr>
+	<th class='left'>Admin Password</th>
+	<td><input type=\"password\" name=\"password\" size=\"40\" class='FormData_InputText'></td>
 	</tr>
 	<tr>
 	<th class='left'>&nbsp;</th>
