@@ -283,7 +283,7 @@ if (isset($createDir))
 /**************************************
 DEFINE CURRENT DIRECTORY
 **************************************/
-//$openDir = sanitize_filename($openDir);
+$openDir = sanitize_filename($openDir);
 if (isset($openDir)  || isset($moveTo) || isset($createDir) || isset($newDirPath) || isset($uploadPath)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
 {
 	@$curDirPath = $openDir . $createDir . $moveTo . $newDirPath . $uploadPath;
@@ -313,7 +313,9 @@ if ($parentDir == "/" || $parentDir == "\\")
 /**************************************
 READ CURRENT DIRECTORY CONTENT
 **************************************/
-chdir ($baseWorkDir.$curDirPath);
+if (is_dir($baseWorkDir.$curDirPath)) {
+  chdir ($baseWorkDir.$curDirPath);
+}
 
 $handle = opendir(".");
 
