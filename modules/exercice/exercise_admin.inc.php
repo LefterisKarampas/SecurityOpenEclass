@@ -190,6 +190,7 @@ if(isset($modifyExercise))
 	} else {
 		$disp_score_message = $langScoreNotDisp;
 	}
+	$exerciseTitle = htmlspecialchars($exerciseTitle);
 	$tool_content .= "<table width='99%' class='FormData'><tbody>
 	<tr>
 	<th width='220' class='left'>&nbsp;</th>
@@ -205,7 +206,7 @@ if(isset($modifyExercise))
 	<td>";
 	
 	$exerciseDescription = mathfilter($exerciseDescription, 12, "../../courses/mathimg/");
-	$tool_content .= $exerciseDescription;
+	$tool_content .= htmlspecialchars($exerciseDescription);
 	$exerciseStartDate = nice_format($exerciseStartDate);
 	$exerciseEndDate = nice_format($exerciseEndDate);
 	$tool_content .= "</td>

@@ -195,6 +195,7 @@ if(isset($cancelAnswers)) {
 }
 
 // modifies the query string that is used in the link of tool name
+$exerciseId = intval($exerciseId);
 if(isset($editQuestion) || isset($modifyQuestion) || isset($modifyAnswers)) {
 	$nameTools=$langQuestionManagement;
 	$navigation[]= array ("url" => "admin.php?exerciseId=$exerciseId", "name" => $langExerciseManagement);
