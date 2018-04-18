@@ -115,6 +115,7 @@ cData;
     </tr>
     <tr>
       <th class="left">&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type="submit" name="grade_comments" value="${langGradeOk}"></td>
     </tr>
     </tbody>

@@ -132,6 +132,15 @@ hContent;
 
 if ($is_adminOfCourse) {
 	if (isset($grade_comments)) {
+    //CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+
 		$nameTools = $m['WorkView'];
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
     //SQL + XSS FIX INSIDE THE FUNCTION
@@ -144,9 +153,28 @@ if ($is_adminOfCourse) {
     $sid = intval($sid);//SQL INJECTION FIX
 		show_submission($sid);
 	} elseif (isset($_POST['new_assign'])) {
+    //CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+
 		add_assignment($title, $comments, $desc, "$WorkEnd", $group_submissions);
 		show_assignments();
 	} elseif (isset($grades)) {
+
+    //CSRF FIX
+    if (invalid_token()) {
+            $tool_content .= "<table width='99%'><tbody><tr>
+            <td class='caution' height='60'><p>$langEmptyFields</p>
+      <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+          draw($tool_content, 3, ' ', $head_content);
+          exit();
+    }
+    
 		$nameTools = $m['WorkView'];
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 		submit_grades($grades_id, $grades);
@@ -170,6 +198,15 @@ if ($is_adminOfCourse) {
 				$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 				show_edit_assignment($id);
 			} elseif ($choice == 'do_edit') {
+        //CSRF FIX
+        if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+        }
+
 				$nameTools = $m['WorkView'];
 				$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 				edit_assignment($id);
@@ -421,6 +458,7 @@ function new_assignment()
     </tr>
     <tr>
       <th>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type='submit' name='new_assign' value='$langAdd' /></td>
     </tr>
     </tbody>
@@ -536,6 +574,7 @@ cData;
     </tr>
     <tr>
       <th class='left'>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type='submit' name='do_edit' value='$langEdit' /></td>
     </tr>
     </tbody>
@@ -1001,6 +1040,7 @@ cData;
     <tbody>
     <tr>
       <th class='left' width='220'>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type='submit' name='submit_grades' value='${langGradeOk}'></td>
     </tr>
     </tbody>
