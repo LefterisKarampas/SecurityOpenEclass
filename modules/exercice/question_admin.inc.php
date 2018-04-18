@@ -111,8 +111,8 @@ cData;
 
 } else {
 	// selects question informations
-	$questionName=$objQuestion->selectTitle();
-	$questionDescription=$objQuestion->selectDescription();
+	$questionName=xss_sql_filter($objQuestion->selectTitle());
+	$questionDescription=xss_sql_filter($objQuestion->selectDescription());
 	// is picture set ?
 	$okPicture=file_exists($picturePath.'/quiz-'.$questionId)?true:false;
 	$tool_content .= "<table width='99%' class='Question'><thead>
@@ -133,6 +133,7 @@ cData;
 	}
 
 	$tool_content .= "</th></tr>";	
+	$langQuestionAnswers = htmlspecialchars($langQuestionAnswers);
 	$tool_content .= "<tr><td colspan='2'><b><u>$langQuestionAnswers</u>:</b>";
 
 	// doesn't show the edit link if we come from the question pool to pick a question for an exercise
@@ -142,6 +143,7 @@ cData;
 	}
         $tool_content .= "<br/></td></tr>";
 	$tool_content .= "</td></tr></thead></table><br/>";
+	$exerciseId = xss_sql_filter($exerciseId);
 	$tool_content .= "<div class='center'><a href='admin.php?exerciseId=$exerciseId'>$langBackExerciseManagement</a></div>";
 }
 ?>
