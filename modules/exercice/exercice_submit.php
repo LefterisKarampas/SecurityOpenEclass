@@ -57,7 +57,7 @@ $TBL_REPONSES='reponses';
 if (isset($exerciseId)) {
 	// security check 
 	$active = mysql_fetch_array(db_query("SELECT active FROM `$TBL_EXERCICES` 
-		WHERE id='."intval($exerciseId)."'", $currentCourseID));
+		WHERE id='".intval($exerciseId)."'", $currentCourseID));
 	if (($active['active'] == 0) and (!$is_allowedToEdit)) {
 		header('Location: exercice.php');
 		exit();

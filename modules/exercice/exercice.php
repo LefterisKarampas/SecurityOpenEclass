@@ -213,7 +213,7 @@ while($row = mysql_fetch_array($result)) {
 	$langModify_temp = htmlspecialchars($langModify);
 	$langConfirmYourChoice_temp = addslashes(htmlspecialchars($langConfirmYourChoice));
 	$langDelete_temp = htmlspecialchars($langDelete);
-	${row['id']} = intval(${row['id']});
+	//${row['id']} = intval(${row['id']});
 	$tool_content .= <<<cData
         <td align="right">
           <a href="admin.php?exerciseId=${row['id']}"><img src="../../template/classic/img/edit.gif" alt="${langModify_temp}" title="${langModify_temp}" /></a>
