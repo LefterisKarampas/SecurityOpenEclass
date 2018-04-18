@@ -174,7 +174,7 @@ if ($is_adminOfCourse) {
           draw($tool_content, 3, ' ', $head_content);
           exit();
     }
-    
+
 		$nameTools = $m['WorkView'];
 		$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 		submit_grades($grades_id, $grades);
@@ -227,6 +227,15 @@ if ($is_adminOfCourse) {
 	if (isset($id)) {
     $id = intval($id);//SQL INJECTION FIX
 		if (isset($work_submit)) {
+      //CSRF FIX
+      if (invalid_token()) {
+              $tool_content .= "<table width='99%'><tbody><tr>
+              <td class='caution' height='60'><p>$langEmptyFields</p>
+        <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+            draw($tool_content, 3, ' ', $head_content);
+            exit();
+      }
+      
 			$nameTools = $m['SubmissionStatusWorkInfo'];
 			$navigation[] = array("url"=>"work.php", "name"=> $langWorks);
 			$navigation[] = array("url"=>"work.php?id=$id", "name"=>$m['WorkView']);
@@ -718,6 +727,7 @@ function show_submission_form($id)
     </tr>
     <tr>
       <th>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type="submit" value="${langSubmit}" name="work_submit" /><br />$langNotice3</td>
     </tr>
     </tbody>
