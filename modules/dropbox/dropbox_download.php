@@ -119,7 +119,7 @@ header("Content-Disposition: attachment; filename=\"$file\"");
  * SEND FILE
  * ========================================
  */
-//$fp = fopen($path, "rb");
-//fpassthru($fp);
+$fp = fopen($path, "rb");
+fpassthru($fp);
 exit( );
 ?>
