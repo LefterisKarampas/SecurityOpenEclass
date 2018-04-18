@@ -155,6 +155,7 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 	$tool_content .= lang_select_options('languageCourse');
 	$tool_content .= "</td><td>&nbsp;</td></tr>
 	<tr><th>&nbsp;</th>
+  <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<td><input type='submit' name='create2' value='$langNextStep >' /><input type='hidden' name='visit' value='true' /></td>
 	<td><p align='right'><small>(*) &nbsp;$langFieldsRequ</small></p></td>
 </tbody>
@@ -166,6 +167,15 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 // --------------------------------
 
  elseif (isset($_POST['create2']) or isset($_POST['back2']))  {
+  //CSRF FIX
+  if (invalid_token()) {
+          $tool_content .= "<table width='99%'><tbody><tr>
+          <td class='caution' height='60'><p>$langEmptyFields</p>
+    <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+        draw($tool_content, 3, ' ', $head_content);
+        exit();
+  }
+  
 	$nameTools = $langCreateCourse . " (" . $langCreateCourseStep." 2 " .$langCreateCourseStep2 . " 3 )";
 	$tool_content .= "<table width=\"99%\" align='left' class='FormData'>
 	<tbody>
@@ -193,6 +203,7 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 	</tr>
 	<tr>
 	<th>&nbsp;</th>
+  <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<td><input type='submit' name='back1' value='< $langPreviousStep ' />&nbsp;<input type='submit' name='create3' value='$langNextStep >' /></td>
 	</tbody>
 	</table>
@@ -200,6 +211,15 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 	<br />";
 
 }  elseif (isset($_POST['create3']) or isset($_POST['back2'])) {
+  //CSRF FIX
+  if (invalid_token()) {
+          $tool_content .= "<table width='99%'><tbody><tr>
+          <td class='caution' height='60'><p>$langEmptyFields</p>
+    <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+        draw($tool_content, 3, ' ', $head_content);
+        exit();
+  }
+
 	$nameTools = $langCreateCourse . " (" . $langCreateCourseStep." 3 " .$langCreateCourseStep2 . " 3 )" ;
 	@$tool_content .= "
 	<table width=\"99%\" align='left' class='FormData'>
@@ -325,6 +345,7 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 	<tr>
 	<th>&nbsp;</th>
 	<td width='400'><input type='submit' name='back2' value='< $langPreviousStep '>&nbsp;
+  <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
 	<input type='submit' name='create_course' value=\"$langFinalize\"></td>
 	<td><p align='right'><small>$langFieldsOptionalNote</small></p></td>
 	</tr>
@@ -334,6 +355,14 @@ if (isset($_POST['back1']) or !isset($_POST['visit'])) {
 
 // create the course and the course database
 if (isset($_POST['create_course'])) {
+        //CSRF FIX
+        if (invalid_token()) {
+                $tool_content .= "<table width='99%'><tbody><tr>
+                <td class='caution' height='60'><p>$langEmptyFields</p>
+          <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+              draw($tool_content, 3, ' ', $head_content);
+              exit();
+        }
 
         $nameTools = $langCourseCreate;
         $facid = intval($faculte);

