@@ -283,6 +283,7 @@ if (isset($createDir))
 /**************************************
 DEFINE CURRENT DIRECTORY
 **************************************/
+$openDir = sanitize_filename($openDir);
 if (isset($openDir)  || isset($moveTo) || isset($createDir) || isset($newDirPath) || isset($uploadPath)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
 {
 	@$curDirPath = $openDir . $createDir . $moveTo . $newDirPath . $uploadPath;
