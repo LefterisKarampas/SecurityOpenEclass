@@ -177,6 +177,7 @@ MOVE FILE OR DIRECTORY
 **************************************/
 if (isset($moveTo))
 {
+  $moveTo = sanitize_filename($moveTo);
 	//elegxos ean source kai destintation einai to idio
 	if($baseWorkDir."/".$source != $baseWorkDir.$moveTo || $baseWorkDir.$source != $baseWorkDir.$moveTo) {
 		if (move($baseWorkDir.$source,$baseWorkDir.$moveTo) ) {
