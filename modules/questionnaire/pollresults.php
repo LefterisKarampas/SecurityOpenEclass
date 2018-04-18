@@ -127,7 +127,7 @@ if(!isset($_GET['pid']) || !is_numeric($_GET['pid'])) die();
 			$tool_content .= '<img src="'.$urlServer.$chart_path.'" /><br>';
 		} else {
 			$answers = db_query("SELECT answer_text, user_id FROM poll_answer_record
-					WHERE qid =".intval($theQuestion[pqid]).", $currentCourseID);
+					WHERE qid =".intval($theQuestion[pqid]), $currentCourseID);
 			$tool_content .= '<dl>';
 			while ($theAnswer = mysql_fetch_array($answers)) {
 				$tool_content .= "<dt><u>$langUser</u>: <dd>" . uid_to_name($theAnswer['user_id']) . "</dd></dt> <dt><u>$langAnswer</u>: <dd>$theAnswer[answer_text]</dd></dt>";

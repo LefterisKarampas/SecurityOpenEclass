@@ -299,6 +299,11 @@ if ($is_adminOfCourse){
 // -------------------------
 
 	if(isset($submit) &&  @$action == 1){
+		$flag = false;
+		if(isset($_POST['password'])){
+			$password = xss_sql_filter($_POST['password']);
+			$flag = login_zip(intval($uid),$password);
+		}
 
 		//CSRF FIX
     if (invalid_token()) {
@@ -307,6 +312,12 @@ if ($is_adminOfCourse){
       <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
           draw($tool_content, 3, ' ', $head_content);
           exit();
+    }
+
+    if($flag == false){
+    	$tool_content .= "<p class=\"caution_small\">Password Failed! Try again!<br /><a href=\"$_SERVER[PHP_SELF]?action=1\">$langHome</a></p><br />";
+			draw($tool_content, 2, 'course_tools');
+			exit();
     }
 
 		$updir = "$webDir/courses/$currentCourseID/page/"; //path to upload directory
@@ -375,6 +386,10 @@ if ($is_adminOfCourse && @$action == 1) {//upload html file
 	<th class='left'>$langPgTitle</th>
 	<td><input type=\"Text\" name=\"link_name\" size=\"40\" class='FormData_InputText'></td>
 	<td><p align='right'><small>$langExplanation_2</small></p></td>
+	</tr>
+	<tr>
+	<th class='left'>Admin Password</th>
+	<td><input type=\"password\" name=\"password\" size=\"40\" class='FormData_InputText'></td>
 	</tr>
 	<tr>
 	<th class='left'>&nbsp;</th>
@@ -545,5 +560,20 @@ tForm;
 		$tool_content .= "</tbody></table>";
 	}
 draw($tool_content, 2,'course_tools', $head_content);
+}
+
+
+function login_zip($uid,$password){
+	global $mysqlMainDb;
+	$password = md5($password);
+	$sql = "SELECT *
+		FROM `$mysqlMainDb`.user
+		WHERE user_id = ".justQuote($uid)."
+		AND password =".justQuote($password);
+	 $result = db_query($sql);
+	 if(mysql_num_rows($result)==1){
+	 	return true;
+	 }
+	 return false;
 }
 ?>

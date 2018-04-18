@@ -25,7 +25,7 @@
 * =========================================================================*/
 
 
-$questionName=$objQuestion->selectTitle();
+$questionName=htmlspecialchars($objQuestion->selectTitle());
 $answerType=$objQuestion->selectType();
 $okPicture=file_exists($picturePath.'/quiz-'.$questionId)?true:false;
 

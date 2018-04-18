@@ -57,7 +57,7 @@ $TBL_REPONSES='reponses';
 if (isset($exerciseId)) {
 	// security check 
 	$active = mysql_fetch_array(db_query("SELECT active FROM `$TBL_EXERCICES` 
-		WHERE id='."intval($exerciseId)."'", $currentCourseID));
+		WHERE id='".intval($exerciseId)."'", $currentCourseID));
 	if (($active['active'] == 0) and (!$is_allowedToEdit)) {
 		header('Location: exercice.php');
 		exit();
@@ -78,7 +78,7 @@ if(isset($buttonCancel)) {
 // if the user has submitted the form
 if (isset($formSent)) {
 	$CurrentAttempt = mysql_fetch_array(db_query("SELECT COUNT(*) FROM exercise_user_record 
-		WHERE eid='."intval($eid_temp)."' AND uid='".intval($uid)."'", $currentCourseID));
+		WHERE eid='".intval($eid_temp)."' AND uid='".intval($uid)."'", $currentCourseID));
 	++$CurrentAttempt[0];
 	if (($exerciseAllowedAttemtps == 0) or ($CurrentAttempt[0] <= $exerciseAllowedAttemtps)) { // if it is allowed
 		if (isset($exerciseTimeConstrain) and $exerciseTimeConstrain != 0) { 
@@ -242,7 +242,7 @@ foreach($questionList as $questionId) {
 				$questionName=$objQuestionTmp->selectTitle();
 				// destruction of the Question object
 				unset($objQuestionTmp);
-				$tool_content .= '<div class\"alert1\" '.$langAlreadyAnswered.' &quot;'.$questionName.'&quot;</div>';
+				$tool_content .= '<div class\"alert1\" '.$langAlreadyAnswered.' &quot;'.htmlspecialchars($questionName).'&quot;</div>';
 				break;
 			}
 		}
