@@ -85,6 +85,15 @@ require_once("dropbox_class.inc.php");
  */
 if (isset($_POST["submitWork"]))
 {
+	//CSRF FIX
+  if (invalid_token()) {
+          $tool_content .= "<table width='99%'><tbody><tr>
+          <td class='caution' height='60'><p>$langEmptyFields</p>
+    <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
+        draw($tool_content, 3, ' ', $head_content);
+        exit();
+  }
+
 	require("../../include/lib/fileUploadLib.inc.php");
 
 	$error = FALSE;

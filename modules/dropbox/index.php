@@ -210,6 +210,7 @@ tCont2;
     </tr>
     <tr>
       <th>&nbsp;</th>
+      <input type='hidden' name='csrfToken' value='".$_SESSION['csrfToken']."'/>
       <td><input type='Submit' name='submitWork' value='".$dropbox_lang["ok"]."' /></td>
     </tr>
     </tbody>
