@@ -69,6 +69,7 @@ function addlinkcategory($type)
 			}
 
 			// looking for the largest ordre number for this category
+			$selectcategory = xss_sql_filter($selectcategory);
 			$result=db_query("SELECT MAX(ordre) FROM  `".$tbl_link."` WHERE category='$selectcategory'", $dbname);
 
 			list($orderMax)=mysql_fetch_row($result);
