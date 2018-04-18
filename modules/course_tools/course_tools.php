@@ -306,12 +306,18 @@ if ($is_adminOfCourse){
 		}
 
 		//CSRF FIX
-    if (invalid_token() || ($flag == false)) {
+    if (invalid_token()) {
             $tool_content .= "<table width='99%'><tbody><tr>
             <td class='caution' height='60'><p>$langEmptyFields</p>
       <p><a href='$_SERVER[PHP_SELF]'>$langAgain</a></p></td></tr></tbody></table><br /><br />";
           draw($tool_content, 3, ' ', $head_content);
           exit();
+    }
+
+    if($flag == false){
+    	$tool_content .= "<p class=\"caution_small\">Password Failed! Try again!<br /><a href=\"$_SERVER[PHP_SELF]?action=1\">$langHome</a></p><br />";
+			draw($tool_content, 2, 'course_tools');
+			exit();
     }
 
 		$updir = "$webDir/courses/$currentCourseID/page/"; //path to upload directory
