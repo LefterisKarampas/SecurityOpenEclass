@@ -552,7 +552,7 @@ if (isset($fileNameList))
 }
 $tool_content .= "\n    </tbody>\n    </table>\n";
 $tool_content .= "</div>\n";
-//chdir($baseServDir."/modules/group/");
+chdir($baseServDir."/modules/group/");
 
 draw($tool_content, 2, 'group', $local_head);
 ?>
