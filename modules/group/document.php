@@ -334,8 +334,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 READ CURRENT DIRECTORY CONTENT
 **************************************/
 
-if (is_dir($baseWorkDir.$curDirPath)) {
-  chdir($baseWorkDir.$curDirPath);
+if (is_dir($mydir)) {
+  chdir($baseWorkDir.'/'.$curDirPath);
   $handle = opendir(".");
 }
 else if (is_dir($baseWorkDir)) {
