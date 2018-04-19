@@ -304,7 +304,7 @@ DEFINE CURRENT DIRECTORY
 **************************************/
 $openDir = sanitize_filename($openDir);
 if (isset($opendir)) {
-  $mydir = $curDirPath.$opendir;
+  $mydir = $curDirPath."/".$opendir;
 }
 
 if (isset($mydir)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
