@@ -175,9 +175,13 @@ if (is_uploaded_file(@$userFile) )
 /**************************************
 MOVE FILE OR DIRECTORY
 **************************************/
+
+$mydir = "";
+
 if (isset($moveTo))
 {
   $moveTo = sanitize_filename($moveTo);
+  $mydir = $moveTo;
 	//elegxos ean source kai destintation einai to idio
 	if($baseWorkDir."/".$source != $baseWorkDir.$moveTo || $baseWorkDir.$source != $baseWorkDir.$moveTo) {
 		if (move($baseWorkDir.$source,$baseWorkDir.$moveTo) ) {
@@ -194,6 +198,8 @@ if (isset($moveTo))
 
 if (isset($move)) {
 	$move = xss_sql_filter($move);
+  $move = sanitize_filename($move);
+  $mydir = $move;
 	//h $move periexei to onoma tou arxeiou. anazhthsh onomatos arxeiou sth vash
 	$result = db_query ("SELECT * FROM group_documents WHERE path=\"".$move."\"");
 	$res = mysql_fetch_array($result);
@@ -206,6 +212,7 @@ DELETE FILE OR DIRECTORY
 **************************************/
 if (isset($delete))
 {
+  $mydir = $delete;
 	if (my_delete($baseWorkDir.$delete)) {
 		update_db_info("group_documents", "delete", $delete);
 		$dialogBox = "<p class=\"success_small\">$langDocDeleted</p><br />";
@@ -217,6 +224,10 @@ if (isset($delete))
 ******************************************/
 if (isset($renameTo)) {
 	$renameTo = xss_sql_filter($renameTo);
+  $renameTo = sanitize_filename($renameTo);
+
+  $mydir = $renameTo;
+
 	$sourceFile = xss_sql_filter($sourceFile);
 	$query =  "UPDATE group_documents SET filename=\"".$renameTo."\" WHERE path=\"".$sourceFile."\"";
 	db_query($query);
@@ -226,6 +237,10 @@ if (isset($renameTo)) {
 // rename
 if (isset($rename)) {
 	$rename = xss_sql_filter($rename);
+  $rename = sanitize_filename($rename);
+
+  $mydir = $rename;
+
 	$result = db_query("SELECT * FROM group_documents WHERE path=\"".$rename."\"");
 	$res = mysql_fetch_array($result);
 	$fileName = $res["filename"];
@@ -245,6 +260,8 @@ CREATE DIRECTORY
 if (isset($newDirPath) && isset($newDirName)) {
 
         $newDirName = xss_sql_filter(sanitize_filename(trim($newDirName)));
+        $mydir = $newDirName;
+
         $r = db_query("SELECT * FROM group_documents WHERE filename = " . justQuote($newDirName));
         $exists = false;
         $parent = preg_replace('|/[^/]*$|', '', $newDirPath);
@@ -271,6 +288,7 @@ STEP 1
 if (isset($createDir))
 {
 	$createDir = sanitize_filename($createDir);
+  $mydir = $createDir;
 	//$dialogBox ="";
 	$dialogBox .= "<form>\n" .
 	              "<input type='hidden' name='userGroupId' value='$userGroupId' />\n" .
@@ -285,13 +303,14 @@ if (isset($createDir))
 DEFINE CURRENT DIRECTORY
 **************************************/
 $openDir = sanitize_filename($openDir);
-if (isset($openDir)  || isset($moveTo) || isset($createDir) || isset($newDirPath) || isset($uploadPath)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
-{
-	@$curDirPath = $openDir . $createDir . $moveTo . $newDirPath . $uploadPath;
+if (isset($opendir)) {
+  $mydir = $opendir;
 }
-elseif (isset($delete) || isset($move) || isset($rename) || isset($sourceFile)) //$sourceFile is from rename command (step 2)
+
+if (isset($mydir)) // $newDirPath is from createDir command (step 2) and $uploadPath from upload command
 {
-	@$curDirPath = dirname($delete . $move . $rename . $sourceFile);
+	@$curDirPath = $mydir;
+
 }
 else
 {
@@ -392,6 +411,7 @@ UPLOAD SECTION
 --------------------------------------*/
 
 if(isset($uploadPath)) {
+  $mydir = $uploadPath;
 	$tool_content .= <<<cData
 	<form action='$_SERVER[PHP_SELF]' method='post' enctype='multipart/form-data'>
 	<input type='hidden' name='userGroupId' value='$userGroupId' />
